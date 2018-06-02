@@ -28,6 +28,7 @@ Suggests:
     testthat,
     covr
 Remotes:
+    tidyverse/ggplot2,
     tidyverts/tsibble,
     tidyverts/tsibbledata
 ByteCompile: true
