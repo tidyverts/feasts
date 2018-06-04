@@ -155,3 +155,65 @@ print.lag <- function(x, ...){
 is_vector_s3.lag <- function(x) {
   TRUE
 }
+
+#' @importFrom ggplot2 ggplot geom_hline xlab ylab ggtitle
+#' @export
+autoplot.tbl_cf <- function(object, ...){
+  cf_type <- colnames(object)[colnames(object) %in% c("acf", "pacf", "ccf")]
+  plot_aes <- eval_tidy(expr(ggplot2::aes(x = !!sym("lag"), y = !!sym(cf_type))))
+  interval <- attr(object[["lag"]], "interval")
+
+  ggplot(object, plot_aes) +
+    geom_linecol() +
+    geom_hline(yintercept = 0) +
+    xlab(paste0("lag [", format(interval), ifelse(any(as.numeric(interval)==1), "", "S"), "]"))
+}
+
+
+#' @importFrom ggplot2 scale_type
+#' @export
+scale_type.lag <- function(x) c("lag", "continuous")
+
+#' lagged datetime scales
+#' This set of scales defines new scales for lagged time structures.
+#'
+#' @param ... Further arguments to be passed on to scale_x_continuous()
+#'
+#' @return A ggproto object inheriting from `Scale`
+#'
+#' @name scale_lag
+#' @rdname scale_lag
+#' @export
+scale_x_lag <- function(...) {
+  scale <- ggplot2::ggproto("ScaleContinuousLag", ggplot2::scale_x_continuous(...),
+                   train = function (self, x){
+                     if (length(x) == 0)
+                       return()
+                     self$range$train(x)
+                     if(!is.null(gap <- attr(x, "interval"))){
+                       self$interval <- gap
+                       freq <- get_frequencies("all", gap)
+                       self$frequency <- min(freq[freq>3])
+                     }
+                   },
+                   get_breaks = function(self, limits = self$get_limits()) {
+                     if(inherits(self$breaks, "waiver")){
+                       freq <- self$frequency
+                       lags <- ceiling(limits[1]):floor(limits[2])
+                       # nlags <- length(lags)
+                       # np <- nlags / freq
+                       self$breaks <- lags[lags%%(freq/2)==0]
+                     }
+                     ggplot2::ggproto_parent(ggplot2::ScaleContinuous, self)$get_breaks()
+                   },
+                   get_labels = function(self, breaks = self$get_breaks()){
+                     # if(inherits(self$labels, "waiver")){
+                     #   interval_type <- map_lgl(self$interval, ~.x!=0)
+                     #   self$labels <- breaks
+                     #   #suffix <- toupper(names(self$interval)[interval_type])
+                     #   #self$labels <- paste(breaks*as.numeric(self$interval[interval_type]), paste0(suffix, ifelse(breaks!=0, "S", "")))
+                     # }
+                     ggplot2::ggproto_parent(ggplot2::ScaleContinuous, self)$get_labels()
+                   })
+  scale
+}

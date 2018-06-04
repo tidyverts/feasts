@@ -23,19 +23,15 @@ Example
 ``` r
 library(tsibblestats)
 library(tsibbledata)
-elecdemand %>% ACF(Temperature)
-#> # A tibble: 341 x 2
-#>          lag   acf
-#>        <lag> <dbl>
-#>  1  30MINUTE 0.985
-#>  2  60MINUTE 0.947
-#>  3  90MINUTE 0.894
-#>  4 120MINUTE 0.832
-#>  5 150MINUTE 0.765
-#>  6 180MINUTE 0.695
-#>  7 210MINUTE 0.625
-#>  8 240MINUTE 0.557
-#>  9 270MINUTE 0.492
-#> 10 300MINUTE 0.432
-#> # ... with 331 more rows
+#> Loading required package: tsibble
+#> 
+#> Attaching package: 'tsibble'
+#> The following object is masked from 'package:stats':
+#> 
+#>     filter
+elecdemand %>% 
+  ACF(Temperature, lag.max=48) %>%
+  autoplot
 ```
+
+<img src="man/figures/README-acf-1.png" width="100%" />

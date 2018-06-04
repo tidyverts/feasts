@@ -31,6 +31,8 @@ devtools::install_github("tidyverts/tsibblestats)
 ```{r acf}
 library(tsibblestats)
 library(tsibbledata)
-elecdemand %>% ACF(Temperature)
+elecdemand %>% 
+  ACF(Temperature, lag.max=48) %>%
+  autoplot
 ```
 
