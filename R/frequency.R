@@ -6,6 +6,8 @@
 #'
 #' @references <https://robjhyndman.com/hyndsight/seasonal-periods/>
 #'
+#' @rdname freq_tools
+#'
 #' @examples
 #' common_periods(tsibble::pedestrian)
 #'
@@ -43,6 +45,8 @@ common_periods.interval <- function(x){
   )
 }
 
+#' @rdname freq_tools
+#' @param period Specification of the time-series period
 #' @export
 get_frequencies <- function(period, ...){
   UseMethod("get_frequencies")

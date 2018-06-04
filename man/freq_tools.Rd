@@ -2,12 +2,17 @@
 % Please edit documentation in R/frequency.R
 \name{common_periods}
 \alias{common_periods}
+\alias{get_frequencies}
 \title{Extract frequencies for common seasonal periods}
 \usage{
 common_periods(x)
+
+get_frequencies(period, ...)
 }
 \arguments{
 \item{x}{An object containing temporal data (such as a \code{tsibble}, \code{interval}, \code{datetime} and others.)}
+
+\item{period}{Specification of the time-series period}
 }
 \value{
 A named vector of frequencies appropriate for the provided data.
