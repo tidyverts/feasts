@@ -47,6 +47,7 @@ common_periods.interval <- function(x){
 
 #' @rdname freq_tools
 #' @param period Specification of the time-series period
+#' @param ... Other arguments to be passed on to methods
 #' @export
 get_frequencies <- function(period, ...){
   UseMethod("get_frequencies")

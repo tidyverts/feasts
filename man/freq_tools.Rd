@@ -13,6 +13,8 @@ get_frequencies(period, ...)
 \item{x}{An object containing temporal data (such as a \code{tsibble}, \code{interval}, \code{datetime} and others.)}
 
 \item{period}{Specification of the time-series period}
+
+\item{...}{Other arguments to be passed on to methods}
 }
 \value{
 A named vector of frequencies appropriate for the provided data.
