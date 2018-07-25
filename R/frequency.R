@@ -28,15 +28,17 @@ common_periods.tbl_ts <- function(x){
 
 #' @export
 common_periods.interval <- function(x){
-  freq_sec <- c(year = 31557600, week = 604800, day = 86400, hour = 3600, minute = 60, second = 1)
-  switch(paste(names(x), collapse = ""),
+  freq_sec <- c(year = 31557600, week = 604800, day = 86400, hour = 3600, minute = 60, second = 1,
+                millisecond = 1e-3, microsecond = 1e-6, nanosecond = 1e-9)
+  nm <- names(x)[x!=0]
+  switch(paste(nm, collapse = ""),
          "unit" = c("none" = 1),
          "year" = c("year" = 1),
          "quarter" = c("year" = 4/x[["quarter"]]),
          "month" = c("year" = 12/x[["month"]]),
          "week" = c("year" = 52/x[["week"]]),
          "day" = c("year" = 365.25, "week" = 7)/x[["day"]],
-         with(list(secs = freq_sec/sum(as.numeric(x)*freq_sec[names(x)])), {
+         with(list(secs = freq_sec/sum(as.numeric(x)*freq_sec[nm])), {
            if(any(is.na(secs))){
              abort("Irregular time series provided")
            }
