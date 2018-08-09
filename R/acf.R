@@ -119,6 +119,7 @@ obj_sum.lag <- function(x){
   rep("lag", length(x))
 }
 
+#' @importFrom pillar pillar_shaft
 #' @export
 pillar_shaft.lag <- function(x, ...) {
   pillar::new_pillar_shaft_simple(format(x), align = "right", min_width = 10)
@@ -166,7 +167,7 @@ autoplot.tbl_cf <- function(object, ...){
   ggplot(object, plot_aes) +
     geom_linecol() +
     geom_hline(yintercept = 0) +
-    xlab(paste0("lag [", format(interval), ifelse(any(as.numeric(interval)==1), "", "S"), "]"))
+    xlab(paste0("lag [", format(interval),"]"))
 }
 
 
