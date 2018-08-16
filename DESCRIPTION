@@ -20,7 +20,8 @@ Imports:
     tidyselect,
     magrittr,
     digest,
-    scales
+    scales,
+    fablelite
 Suggests:
     tsibbledata,
     knitr,
@@ -29,7 +30,8 @@ Suggests:
     covr
 Remotes:
     tidyverts/tsibble,
-    tidyverts/tsibbledata
+    tidyverts/tsibbledata,
+    tidyverts/fablelite
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL-3

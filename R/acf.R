@@ -42,6 +42,7 @@
 #' @importFrom tibble tibble
 #' @importFrom stats as.ts frequency
 #' @importFrom utils tail
+#' @importFrom fablelite get_frequencies
 #'
 #' @rdname ACF
 #' @export
