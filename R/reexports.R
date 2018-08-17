@@ -20,3 +20,7 @@ ggplot2::autoplot
 #' @importFrom ggplot2 autolayer
 #' @export
 ggplot2::autolayer
+
+#' @importFrom fablelite components
+#' @export
+fablelite::components
