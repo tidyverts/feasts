@@ -14,6 +14,8 @@
 \alias{autoplot}
 \alias{reexports}
 \alias{autolayer}
+\alias{reexports}
+\alias{components}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -21,6 +23,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{fablelite}{\code{\link[fablelite]{components}}}
+
   \item{ggplot2}{\code{\link[ggplot2]{autoplot}}, \code{\link[ggplot2]{autolayer}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}

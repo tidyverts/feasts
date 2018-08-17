@@ -15,3 +15,7 @@ enclass <- function(x, subclass = NULL, ...){
 add_class <- function(x, new_class){
   `class<-`(x, union(new_class, class(x)))
 }
+
+`%||%` <- function(x, y) {
+  if (is.null(x)) y else x
+}
