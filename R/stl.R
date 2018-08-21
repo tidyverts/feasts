@@ -8,7 +8,7 @@
 #' @param ... Other arguments passed to \code{\link[forecast]{mstl}}.
 #'
 #' @examples
-#' USAccDeaths %>% STL(value ~ season(window = 10))
+#' USAccDeaths %>% STL(value ~ season("all") + trend(window = 10))
 #'
 #' @importFrom fablelite validate_model multi_univariate new_specials_env parse_model model_lhs dable
 #' @export
@@ -58,8 +58,8 @@ STL <- function(data, formula, iterations = 2, ...){
 
   y <- eval_tidy(model_lhs(model_inputs$model), data = data)
 
-  trend.args <- model_inputs$args$trend[[1]]
-  season.args <- unlist(model_inputs$args$season, recursive = FALSE)
+  trend.args <- model_inputs$specials$trend[[1]]
+  season.args <- unlist(model_inputs$specials$season, recursive = FALSE)
 
   deseas <- y
   seas <- set_names(as.list(rep(0, length(season.args))), paste0("Seasonal_", names(season.args)%||%map(season.args, "period")))
