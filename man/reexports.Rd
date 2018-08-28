@@ -23,13 +23,11 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{fablelite}{\code{\link[fablelite]{components}}}
+  \item{fablelite}{\code{\link[fablelite]{type_sum}}, \code{\link[fablelite]{obj_sum}}, \code{\link[fablelite]{components}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{autoplot}}, \code{\link[ggplot2]{autolayer}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
-
-  \item{pillar}{\code{\link[pillar]{type_sum}}, \code{\link[pillar]{obj_sum}}}
 
   \item{tsibble}{\code{\link[tsibble]{as_tsibble}}}
 }}

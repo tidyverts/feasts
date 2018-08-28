@@ -120,8 +120,6 @@ obj_sum.lag <- function(x){
   rep("lag", length(x))
 }
 
-#' @importFrom pillar pillar_shaft
-#' @export
 pillar_shaft.lag <- function(x, ...) {
   pillar::new_pillar_shaft_simple(format(x), align = "right", min_width = 10)
 }
@@ -153,6 +151,7 @@ print.lag <- function(x, ...){
   invisible(x)
 }
 
+#' @importFrom tibble is_vector_s3
 #' @export
 is_vector_s3.lag <- function(x) {
   TRUE

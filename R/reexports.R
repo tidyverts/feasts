@@ -5,13 +5,13 @@ magrittr::`%>%`
 #' @export
 tsibble::as_tsibble
 
-#' @importFrom pillar type_sum
+#' @importFrom fablelite type_sum
 #' @export
-pillar::type_sum
+fablelite::type_sum
 
-#' @importFrom pillar obj_sum
+#' @importFrom fablelite obj_sum
 #' @export
-pillar::obj_sum
+fablelite::obj_sum
 
 #' @importFrom ggplot2 autoplot
 #' @export
