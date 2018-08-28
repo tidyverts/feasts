@@ -19,7 +19,7 @@ STL(data, formula, iterations = 2, ...)
 Multiple seasonal decomposition by Loess
 }
 \examples{
-USAccDeaths \%>\% STL(value ~ season(window = 10))
+USAccDeaths \%>\% STL(value ~ season("all") + trend(window = 10))
 
 }
 \seealso{
