@@ -16,10 +16,16 @@ STL(data, formula, iterations = 2, ...)
 \item{...}{Other arguments passed to \code{\link[forecast]{mstl}}.}
 }
 \description{
-Multiple seasonal decomposition by Loess
+Decompose a time series into seasonal, trend and remainder components.
+Seasonal components are estimated iteratively using STL. Multiple seasonal periods are
+allowed. The trend component is computed for the last iteration of STL.
+Non-seasonal time series are decomposed into trend and remainder only.
+In this case, \code{\link[stats]{supsmu}} is used to estimate the trend.
+Optionally, the time series may be Box-Cox transformed before decomposition.
+Unlike \code{\link[stats]{stl}}, \code{mstl} is completely automated.
 }
 \examples{
-USAccDeaths \%>\% STL(value ~ season("all") + trend(window = 10))
+USAccDeaths \%>\% as_tsibble \%>\% STL(value ~ season("all") + trend(window = 10))
 
 }
 \seealso{

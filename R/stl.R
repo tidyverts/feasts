@@ -8,16 +8,16 @@
 #' @param ... Other arguments passed to \code{\link[forecast]{mstl}}.
 #'
 #' @examples
-#' USAccDeaths %>% STL(value ~ season("all") + trend(window = 10))
+#' USAccDeaths %>% as_tsibble %>% STL(value ~ season("all") + trend(window = 10))
 #'
-#' @importFrom fablelite validate_model multi_univariate new_specials_env parse_model model_lhs dable
+#' @importFrom fablelite validate_model multi_univariate new_specials_env parse_model model_lhs as_dable
 #' @export
 STL <- function(data, formula, iterations = 2, ...){
   # Capture user call
   cl <- call_standardise(match.call())
 
   # Coerce data
-  data <- as_tsibble(data)
+  stopifnot(is_tsibble(data))
 
   formula <- validate_model(formula, data)
 
@@ -81,15 +81,17 @@ STL <- function(data, formula, iterations = 2, ...){
   }
 
   decomposition <- data %>%
-    select(!!index(.)) %>%
+    select(!!!key(data), !!index(.)) %>%
     mutate(
       Trend = as.numeric(trend),
       !!!seas,
       Remainder = as.numeric(deseas - trend)
-    ) %>%
-    add_class("STL")
+    )
 
-  dable(data, decomposition, model_inputs)
+  as_dable(decomposition,
+           model_inputs$response,
+           Reduce(function(x,y) call2("+", x, y), syms(measured_vars(decomposition)))
+  )
 }
 
 #' @export
