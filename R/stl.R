@@ -89,8 +89,8 @@ STL <- function(data, formula, iterations = 2, ...){
     )
 
   as_dable(decomposition,
-           model_inputs$response,
-           Reduce(function(x,y) call2("+", x, y), syms(measured_vars(decomposition)))
+           !!(model_inputs$response),
+           !!(Reduce(function(x,y) call2("+", x, y), syms(measured_vars(decomposition))))
   )
 }
 
