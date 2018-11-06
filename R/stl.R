@@ -62,7 +62,7 @@ STL <- function(data, formula, iterations = 2, ...){
   season.args <- unlist(model_inputs$specials$season, recursive = FALSE)
 
   deseas <- y
-  seas <- set_names(as.list(rep(0, length(season.args))), paste0("Seasonal_", names(season.args)%||%map(season.args, "period")))
+  seas <- set_names(as.list(rep(0, length(season.args))), paste0("season_", names(season.args)%||%map(season.args, "period")))
   if(length(season.args) > 0){
     for (j in seq_len(iterations))
     {
@@ -83,9 +83,9 @@ STL <- function(data, formula, iterations = 2, ...){
   decomposition <- data %>%
     select(!!!key(data), !!index(.)) %>%
     mutate(
-      Trend = as.numeric(trend),
+      trend = as.numeric(trend),
       !!!seas,
-      Remainder = as.numeric(deseas - trend)
+      remainder = as.numeric(deseas - trend)
     )
 
   as_dable(decomposition,
