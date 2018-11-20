@@ -43,6 +43,7 @@ STL <- function(data, formula, iterations = 2, ...){
       args <- set_names(args, paste0("s.", names(args)))
 
       period <- get_frequencies(period, .data)
+      period <- period[NROW(.data)/period >= 2]
       if(!is.null(period)){
         map(period, ~ c(period = .x, args))
       }
