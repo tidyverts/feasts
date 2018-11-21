@@ -94,8 +94,3 @@ STL <- function(data, formula, iterations = 2, ...){
            !!(Reduce(function(x,y) call2("+", x, y), syms(measured_vars(decomposition))))
   )
 }
-
-#' @export
-components.STL <- function(object, ...){
-  object
-}
