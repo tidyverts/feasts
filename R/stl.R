@@ -79,7 +79,7 @@ STL <- function(data, formula, iterations = 2, ...){
     trend <- fit$time.series[, "trend"]
   }
   else{
-    trend <- stats::supsmu(seq_len(n), y)$y
+    trend <- stats::supsmu(seq_len(length(y)), y)$y
   }
 
   decomposition <- data %>%
