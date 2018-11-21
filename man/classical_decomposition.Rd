@@ -12,6 +12,8 @@ classical_decomposition(data, formula, type = c("additive",
 
 \item{formula}{Decomposition specification.}
 
+\item{type}{The type of seasonal component. Can be abbreviated.}
+
 \item{...}{Other arguments passed to \code{\link[stats]{decompose}}.}
 }
 \description{

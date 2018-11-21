@@ -11,6 +11,7 @@
 #' USAccDeaths %>% as_tsibble %>% STL(value ~ season("all") + trend(window = 10))
 #'
 #' @importFrom fablelite validate_model multi_univariate new_specials_env parse_model model_lhs as_dable
+#' @importFrom stats ts stl
 #' @export
 STL <- function(data, formula, iterations = 2, ...){
   # Capture user call

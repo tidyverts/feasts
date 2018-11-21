@@ -5,6 +5,7 @@
 #' @param data A tsibble.
 #' @param formula Decomposition specification.
 #' @param ... Other arguments passed to `\link[stats]{decompose}`.
+#' @inheritParams stats::decompose
 #'
 #' @examples
 #' USAccDeaths %>%
@@ -16,6 +17,7 @@
 #'   classical_decomposition(value ~ season(12), type = "mult")
 #'
 #' @importFrom fablelite validate_model multi_univariate new_specials_env parse_model model_lhs as_dable
+#' @importFrom stats ts decompose
 #' @export
 classical_decomposition <- function(data, formula, type = c("additive", "multiplicative"), ...){
   # Capture user call
