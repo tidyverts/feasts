@@ -14,9 +14,6 @@
 #' @importFrom stats ts stl
 #' @export
 STL <- function(data, formula, iterations = 2, ...){
-  # Capture user call
-  cl <- call_standardise(match.call())
-
   # Coerce data
   stopifnot(is_tsibble(data))
 
@@ -24,6 +21,8 @@ STL <- function(data, formula, iterations = 2, ...){
 
   # Handle multivariate inputs
   if(n_keys(data) > 1){
+    # Capture user call
+    cl <- call_standardise(match.call())
     return(multi_univariate(data, cl))
   }
 
