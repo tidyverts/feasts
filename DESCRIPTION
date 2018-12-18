@@ -1,5 +1,5 @@
 Package: tsibblestats
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Title: Analysis of tidy time series
 Description: A collection of tsibble analysis tools.
 Authors@R: c(
