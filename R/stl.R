@@ -20,7 +20,7 @@ STL <- function(data, formula, iterations = 2, ...){
   # Coerce data
   stopifnot(is_tsibble(data))
 
-  formula <- validate_model(formula, data)
+  formula <- validate_model(enquo(formula), data)
 
   # Handle multivariate inputs
   if(n_keys(data) > 1){
