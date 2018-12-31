@@ -26,7 +26,6 @@ specials_stl <- fablelite::new_specials(
 )
 
 train_stl <- function(.data, formula, specials, iterations = 2, ...){
-  # Coerce data
   stopifnot(is_tsibble(.data))
 
   y <- .data[[measured_vars(.data)]]
@@ -62,7 +61,7 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
     )
 
   as_dable(decomposition,
-           !!sym("response"),
+           !!sym(measured_vars(.data)),
            !!(Reduce(function(x,y) call2("+", x, y), syms(measured_vars(decomposition))))
   )
 }
@@ -93,7 +92,7 @@ stl_decomposition <- R6::R6Class(NULL,
 #' @export
 STL <- function(data, formula, iterations = 2, ...){
   keys <- key(data)
-  dcmp <- stl_decomposition$new(!!enquo(formula), iterations = 2, ...)
+  dcmp <- stl_decomposition$new(!!enquo(formula), iterations = iterations, ...)
   fablelite::validate_formula(dcmp, data)
   data <- nest(group_by(data, !!!keys), .key = "lst_data")
 
@@ -122,6 +121,9 @@ STL <- function(data, formula, iterations = 2, ...){
     warn("Batch decompositions contain different components. Using decomposition with most variables.")
     vars <- map(dcmp, all.vars)
     dcmp <- dcmp[[which.max(map_dbl(vars, length))]]
+  }
+  else{
+    dcmp <- dcmp[[1]]
   }
 
   out <- unnest(out, !!sym("dcmp"), key = keys)
