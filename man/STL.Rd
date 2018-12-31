@@ -4,10 +4,10 @@
 \alias{STL}
 \title{Multiple seasonal decomposition by Loess}
 \usage{
-STL(data, formula, iterations = 2, ...)
+STL(.data, formula, iterations = 2, ...)
 }
 \arguments{
-\item{data}{A tsibble.}
+\item{.data}{A tsibble.}
 
 \item{formula}{Decomposition specification.}
 
