@@ -8,13 +8,13 @@ classical_decomposition(.data, formula, type = c("additive",
   "multiplicative"), ...)
 }
 \arguments{
+\item{.data}{A tsibble.}
+
 \item{formula}{Decomposition specification.}
 
 \item{type}{The type of seasonal component. Can be abbreviated.}
 
 \item{...}{Other arguments passed to \code{\link[stats]{decompose}}.}
-
-\item{data}{A tsibble.}
 }
 \description{
 Decompose a time series into seasonal, trend and irregular components

@@ -31,7 +31,7 @@ train_classical <- function(.data, formula, specials,
                     additive = "+",
                     multiplicative = "*")
 
-  fablelite:::as_dable(dcmp,
+  fablelite::as_dable(dcmp,
            !!sym(measured_vars(.data)),
            !!(Reduce(function(x,y) call2(dcmp_op, x, y), syms(measured_vars(dcmp))))
   )
@@ -50,7 +50,7 @@ classical_decomposition_def <- R6::R6Class(NULL,
 #'
 #' @inherit stats::decompose description details
 #'
-#' @param data A tsibble.
+#' @param .data A tsibble.
 #' @param formula Decomposition specification.
 #' @param ... Other arguments passed to `\link[stats]{decompose}`.
 #' @inheritParams stats::decompose
