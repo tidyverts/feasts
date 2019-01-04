@@ -60,9 +60,17 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
       remainder = as.numeric(deseas - trend)
     )
 
+  seasonalities <- lapply(season.args, function(x){
+    x["base"] <- 0
+    x[c("period", "base")]
+  })
+
+  names(seasonalities) <- names(seas)
+
   fablelite::as_dable(decomposition,
-           !!sym(measured_vars(.data)),
-           !!(Reduce(function(x,y) call2("+", x, y), syms(measured_vars(decomposition))))
+    !!sym(measured_vars(.data)),
+    !!(Reduce(function(x,y) call2("+", x, y), syms(measured_vars(decomposition)))),
+    seasonalities
   )
 }
 
