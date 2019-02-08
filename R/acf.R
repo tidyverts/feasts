@@ -107,7 +107,7 @@ build_cf <- function(.data, cf_fn, ...){
     mutate(data = map(!!sym("data"), cf_fn, ...)) %>%
     unnest(!!sym("data")) %>%
     mutate(lag = as_lag(!!sym("lag"), interval = interval)) %>%
-    enclass("tbl_cf")
+    add_class("tbl_cf")
 }
 
 #' @export
@@ -142,7 +142,7 @@ c.lag <- function(x, ...) {
 format.lag <- function(x, ...){
   x %>% map_chr(~ format(attr(x, "interval") %>%
                            map(`*`, .x) %>%
-                           enclass("interval")))
+                           add_class("interval")))
 }
 
 #' @export
