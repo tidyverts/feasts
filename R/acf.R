@@ -121,6 +121,7 @@ obj_sum.lag <- function(x){
 }
 
 pillar_shaft.lag <- function(x, ...) {
+  require_package("pillar")
   pillar::new_pillar_shaft_simple(format(x), align = "right", min_width = 10)
 }
 
