@@ -1,6 +1,6 @@
-Package: tsibblestats
+Package: feasts
 Version: 0.0.0.9001
-Title: Analysis of tidy time series
+Title: Feature Extraction And Statistics for Time Series
 Description: A collection of tsibble analysis tools.
 Authors@R: c(
     person("Rob", "Hyndman", email="Rob.Hyndman@monash.edu", role = c("aut", "cre", "cph")),
@@ -36,8 +36,8 @@ Remotes:
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL-3
-URL: https://github.com/tidyverts/tsibblestats
-BugReports: https://github.com/tidyverts/tsibblestats/issues
+URL: https://github.com/tidyverts/feasts
+BugReports: https://github.com/tidyverts/feasts/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
