@@ -1,6 +1,6 @@
-#' @importFrom magrittr %>%
+#' @importFrom fablelite %>%
 #' @export
-magrittr::`%>%`
+fablelite::`%>%`
 
 #' @export
 tsibble::as_tsibble

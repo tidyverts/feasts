@@ -17,7 +17,6 @@ Imports:
     dplyr (>= 0.7.3),
     ggplot2 (>= 3.0.0),
     tidyselect,
-    magrittr,
     digest,
     scales,
     fablelite,
