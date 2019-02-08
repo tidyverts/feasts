@@ -18,7 +18,7 @@ specials_stl <- fablelite::new_specials(
     period <- get_frequencies(period, self$data)
     period <- period[NROW(self$data)/period >= 2]
     if(!is.null(period)){
-      map(period, ~ c(period = .x, args))
+      map(period, function(.x) c(period = .x, args))
     }
   },
 

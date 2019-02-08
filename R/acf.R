@@ -141,9 +141,9 @@ c.lag <- function(x, ...) {
 
 #' @export
 format.lag <- function(x, ...){
-  x %>% map_chr(~ format(attr(x, "interval") %>%
-                           map(`*`, .x) %>%
-                           add_class("interval")))
+  x %>% map_chr(function(.x){
+    format(add_class(map(attr(x, "interval"), `*`, .x), "interval"))
+  })
 }
 
 #' @export
