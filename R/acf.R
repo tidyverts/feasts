@@ -163,12 +163,18 @@ is_vector_s3.lag <- function(x) {
 autoplot.tbl_cf <- function(object, ...){
   cf_type <- colnames(object)[colnames(object) %in% c("acf", "pacf", "ccf")]
   plot_aes <- eval_tidy(expr(ggplot2::aes(x = !!sym("lag"), y = !!sym(cf_type))))
-  interval <- attr(object[["lag"]], "interval")
+  interval <- interval(object)
 
-  ggplot(object, plot_aes) +
+  p <- ggplot(object, plot_aes) +
     geom_linecol() +
     geom_hline(yintercept = 0) +
     xlab(paste0("lag [", format(interval),"]"))
+
+  if(!is_empty(key(object))){
+    p <- p + facet_grid(rows = vars(!!!key(object)))
+  }
+
+  p
 }
 
 #' @export
