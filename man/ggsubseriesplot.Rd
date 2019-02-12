@@ -34,6 +34,7 @@ The \code{ggmonthplot} function is simply a wrapper for
 \code{\link[stats]{monthplot}}.
 }
 \examples{
+library(tsibble)
 tsibbledata::ausretail \%>\%
   filter(
     State == "Victoria",

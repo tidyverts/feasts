@@ -32,6 +32,7 @@ chapter 2). This is like a time plot except that the data are plotted
 against the seasons in separate years.
 }
 \examples{
+library(tsibble)
 tsibbledata::ausretail \%>\%
   filter(
     State == "Victoria",

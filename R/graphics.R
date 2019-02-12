@@ -4,6 +4,7 @@
 #' @param ... Additional arguments passed to methods
 #'
 #' @examples
+#' library(tsibble)
 #' tsibbledata::ausretail %>%
 #'   filter(
 #'     State == "Victoria",
@@ -77,6 +78,7 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
 #' @inheritParams ggseasonplot
 #'
 #' @examples
+#' library(tsibble)
 #' tsibbledata::ausretail %>%
 #'   filter(
 #'     State == "Victoria",
