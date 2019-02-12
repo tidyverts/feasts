@@ -195,11 +195,11 @@ scale_x_lag <- function(...) {
                      if(!is.null(gap <- attr(x, "interval"))){
                        self$interval <- gap
                        freq <- get_frequencies("all", gap)
-                       self$frequency <- min(freq[freq>3])
+                       self$frequency <- min(freq[freq>3]%empty%NA)
                      }
                    },
                    get_breaks = function(self, limits = self$get_limits()) {
-                     if(inherits(self$breaks, "waiver")){
+                     if(inherits(self$breaks, "waiver") && !is.na(self$frequency)){
                        freq <- self$frequency
                        lags <- ceiling(limits[1]):floor(limits[2])
                        # nlags <- length(lags)
