@@ -125,7 +125,7 @@ ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = "smallest", ...){
   ggplot(x, aes(x = !!idx, y = !!var)) +
     geom_line() +
     facet_grid(~ id) +
-    geom_hline(aes(yintercept = .yint), colour = "blue")
+    geom_hline(aes(yintercept = !!sym(".yint")), colour = "blue")
 }
 
 
@@ -149,7 +149,7 @@ gglagplot <- function(x, ...){
 #' @inheritParams ggseasonplot.tbl_ts
 #' @param lags A vector of lags to display as facets.
 #' @rdname gglagplot
-#' @importFrom ggplot2 ggplot aes geom_path facet_wrap
+#' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
 gglagplot.tbl_ts <- function(x, var = NULL, period = "smallest", lags = 1:16, ...){
   if(quo_is_null(enquo(var))){
@@ -179,11 +179,11 @@ gglagplot.tbl_ts <- function(x, var = NULL, period = "smallest", lags = 1:16, ..
     mutate(
       season = factor(!!idx - period_units*(units_since(!!idx)%/%period_units)),
       !!!lag_exprs) %>%
-    gather(.lag, .value, !!names(lag_exprs)) %>%
+    gather(".lag", ".value", !!names(lag_exprs)) %>%
     mutate(.lag = factor(.lag, levels = names(lag_exprs), labels = paste("lag", lags)))
 
   x %>%
-    ggplot(aes(x = !!var, y = .value, colour = season)) +
+    ggplot(aes(x = !!var, y = !!sym(".value"), colour = !!sym("season"))) +
     geom_abline(colour = "gray", linetype = "dashed") +
     geom_path() +
     facet_wrap(~ .lag)
