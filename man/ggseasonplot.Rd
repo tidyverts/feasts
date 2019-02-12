@@ -11,9 +11,17 @@ ggseasonplot(x, ...)
   facet_period = NULL, ...)
 }
 \arguments{
-\item{x}{a numeric vector or time series of class \code{ts}.}
+\item{x}{A time series object}
 
-\item{...}{additional arguments to \code{\link[graphics]{plot}}.}
+\item{...}{Additional arguments passed to methods}
+
+\item{var}{The variable to plot (a bare expression). If NULL, it will
+automatically selected from the data.}
+
+\item{period}{The seasonal period to display}
+
+\item{facet_period}{A secondary seasonal period to facet by
+(typically smaller than period)}
 }
 \value{
 None.

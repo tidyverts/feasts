@@ -1,5 +1,8 @@
 #' @inherit forecast::ggseasonplot
 #'
+#' @param x A time series object
+#' @param ... Additional arguments passed to methods
+#'
 #' @examples
 #' tsibbledata::ausretail %>%
 #'   filter(
@@ -14,6 +17,11 @@ ggseasonplot <- function(x, ...){
   UseMethod("ggseasonplot")
 }
 
+#' @param var The variable to plot (a bare expression). If NULL, it will
+#' automatically selected from the data.
+#' @param period The seasonal period to display
+#' @param facet_period A secondary seasonal period to facet by
+#' (typically smaller than period)
 #' @rdname ggseasonplot
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
@@ -66,6 +74,8 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
 
 #' @inherit forecast::ggsubseriesplot
 #'
+#' @inheritParams ggseasonplot
+#'
 #' @examples
 #' tsibbledata::ausretail %>%
 #'   filter(
@@ -80,6 +90,7 @@ ggsubseriesplot <- function(x, ...){
   UseMethod("ggsubseriesplot")
 }
 
+#' @inheritParams ggseasonplot.tbl_ts
 #' @rdname ggsubseriesplot
 #' @importFrom ggplot2 ggplot aes geom_line geom_hline facet_grid
 #' @export
@@ -118,6 +129,7 @@ ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = "smallest", ...){
 }
 
 
+#' @inheritParams ggseasonplot
 #' @inherit forecast::gglagplot
 #'
 #' @examples
@@ -134,6 +146,8 @@ gglagplot <- function(x, ...){
   UseMethod("gglagplot")
 }
 
+#' @inheritParams ggseasonplot.tbl_ts
+#' @param lags A vector of lags to display as facets.
 #' @rdname gglagplot
 #' @importFrom ggplot2 ggplot aes geom_path facet_wrap
 #' @export

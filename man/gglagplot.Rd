@@ -15,7 +15,12 @@ gglagplot(x, ...)
 
 \item{...}{Not used (for consistency with lag.plot)}
 
-\item{lags}{number of lag plots desired, see arg set.lags.}
+\item{var}{The variable to plot (a bare expression). If NULL, it will
+automatically selected from the data.}
+
+\item{period}{The seasonal period to display}
+
+\item{lags}{A vector of lags to display as facets.}
 }
 \value{
 None.
