@@ -103,11 +103,11 @@ build_cf <- function(.data, cf_fn, ...){
   .data %>%
     group_by(!!!syms(key_vars(.data))) %>%
     nest %>%
-    as_tibble %>%
     mutate(data = map(!!sym("data"), cf_fn, ...)) %>%
     unnest(!!sym("data")) %>%
     mutate(lag = as_lag(!!sym("lag"), interval = interval)) %>%
-    add_class("tbl_cf")
+    as_tsibble(index = !!sym("lag"), key = key(.data)) %>%
+    new_tsibble(class = "tbl_cf")
 }
 
 #' @export
@@ -171,6 +171,11 @@ autoplot.tbl_cf <- function(object, ...){
     xlab(paste0("lag [", format(interval),"]"))
 }
 
+#' @export
+index_valid.lag <- function(x) TRUE
+
+#' @export
+pull_interval.lag <- function(x) attr(x, "interval")
 
 #' @importFrom ggplot2 scale_type
 #' @export
