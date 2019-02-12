@@ -100,6 +100,13 @@ CCF <- function(.data, value1, value2, ...){
 build_cf <- function(.data, cf_fn, ...){
   .data <- as_tsibble(.data)
   interval <- interval(.data)
+
+  lens <- key_data(.data) %>%
+    transmute(
+      !!!key(.data),
+      .len = map_dbl(.rows, length)
+    )
+
   .data %>%
     group_by(!!!syms(key_vars(.data))) %>%
     nest %>%
@@ -107,7 +114,7 @@ build_cf <- function(.data, cf_fn, ...){
     unnest(!!sym("data")) %>%
     mutate(lag = as_lag(!!sym("lag"), interval = interval)) %>%
     as_tsibble(index = !!sym("lag"), key = key(.data)) %>%
-    new_tsibble(class = "tbl_cf")
+    new_tsibble(num_obs = lens, class = "tbl_cf")
 }
 
 #' @export
@@ -160,15 +167,30 @@ is_vector_s3.lag <- function(x) {
 
 #' @importFrom ggplot2 ggplot geom_hline xlab ylab ggtitle
 #' @export
-autoplot.tbl_cf <- function(object, ...){
+autoplot.tbl_cf <- function(object, level = 95, ...){
   cf_type <- colnames(object)[colnames(object) %in% c("acf", "pacf", "ccf")]
   plot_aes <- eval_tidy(expr(ggplot2::aes(x = !!sym("lag"), y = !!sym(cf_type))))
   interval <- interval(object)
+
+  if(length(level) > 1){
+    abort("Only one confidence interval is currently supported for this autoplot.")
+  }
 
   p <- ggplot(object, plot_aes) +
     geom_linecol() +
     geom_hline(yintercept = 0) +
     xlab(paste0("lag [", format(interval),"]"))
+
+  if(!is.null(level)){
+    conf_int <- object%@%"num_obs" %>%
+      mutate(
+        upper = qnorm((1 + (level/100)) / 2) / sqrt(.len),
+        lower = -upper
+      ) %>%
+      gather("type", ".ci", !!!syms(c("upper", "lower")))
+    p <- p + geom_hline(aes(yintercept = !!sym(".ci"), group = !!sym("type")),
+                        data = conf_int, colour = "blue", linetype = "dashed")
+  }
 
   if(!is_empty(key(object))){
     p <- p + facet_grid(rows = vars(!!!key(object)))
