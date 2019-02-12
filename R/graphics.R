@@ -133,6 +133,7 @@ ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = "smallest", ...){
 #' @inherit forecast::gglagplot
 #'
 #' @examples
+#' library(tsibble)
 #' tsibbledata::ausretail %>%
 #'   filter(
 #'     State == "Victoria",
