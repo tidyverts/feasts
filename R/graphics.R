@@ -183,7 +183,7 @@ gglagplot.tbl_ts <- function(x, var = NULL, period = "smallest", lags = 1:16, ..
       season = factor(!!idx - period_units*(units_since(!!idx)%/%period_units)),
       !!!lag_exprs) %>%
     gather(".lag", ".value", !!names(lag_exprs)) %>%
-    mutate(.lag = factor(.lag, levels = names(lag_exprs), labels = paste("lag", lags)))
+    mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags)))
 
   x %>%
     ggplot(aes(x = !!var, y = !!sym(".value"), colour = !!sym("season"))) +
