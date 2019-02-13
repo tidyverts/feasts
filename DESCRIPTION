@@ -12,7 +12,7 @@ Depends:
 Imports: 
     rlang (>= 0.2.0),
     tibble (>= 1.4.1),
-    tsibble (>= 0.6.2),
+    tsibble (>= 0.7.0),
     ggplot2 (>= 3.0.0),
     fablelite,
     R6
