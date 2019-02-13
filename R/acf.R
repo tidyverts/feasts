@@ -97,7 +97,8 @@ CCF <- function(.data, value1, value2, ...){
   build_cf(.data, compute_ccf, value1=!!enexpr(value1), value2=!!enexpr(value2), ...)
 }
 
-build_cf <- function(.data, cf_fn, ...){
+#' @importFrom stats na.contiguous
+build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
   .data <- as_tsibble(.data)
   interval <- interval(.data)
 
@@ -110,7 +111,7 @@ build_cf <- function(.data, cf_fn, ...){
   .data %>%
     group_by(!!!syms(key_vars(.data))) %>%
     nest %>%
-    mutate(data = map(!!sym("data"), cf_fn, ...)) %>%
+    mutate(data = map(!!sym("data"), cf_fn, na.action = na.action, ...)) %>%
     unnest(!!sym("data")) %>%
     mutate(lag = as_lag(!!sym("lag"), interval = interval)) %>%
     as_tsibble(index = !!sym("lag"), key = key(.data)) %>%
