@@ -9,7 +9,7 @@
 ACF(.data, ..., lag_max = NULL, demean = TRUE,
   type = c("correlation", "covariance", "partial"))
 
-PACF(.data, ..., lag_max)
+PACF(.data, ..., lag_max = NULL)
 
 CCF(.data, ..., lag_max = NULL, type = c("correlation", "covariance"))
 }

@@ -129,7 +129,7 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
   lens <- key_data(.data) %>%
     transmute(
       !!!key(.data),
-      .len = map_dbl(.rows, length)
+      .len = map_dbl(!!sym(".rows"), length)
     )
 
   .data %>%
@@ -190,7 +190,8 @@ is_vector_s3.lag <- function(x) {
   TRUE
 }
 
-#' @importFrom ggplot2 ggplot geom_hline xlab ylab ggtitle
+#' @importFrom ggplot2 ggplot geom_hline xlab ylab ggtitle vars
+#' @importFrom stats qnorm
 #' @export
 autoplot.tbl_cf <- function(object, level = 95, ...){
   cf_type <- colnames(object)[colnames(object) %in% c("acf", "pacf", "ccf")]
@@ -209,8 +210,8 @@ autoplot.tbl_cf <- function(object, level = 95, ...){
   if(!is.null(level)){
     conf_int <- object%@%"num_obs" %>%
       mutate(
-        upper = qnorm((1 + (level/100)) / 2) / sqrt(.len),
-        lower = -upper
+        upper = qnorm((1 + (level/100)) / 2) / sqrt(!!sym(".len")),
+        lower = !!parse_expr("-upper")
       ) %>%
       gather("type", ".ci", !!!syms(c("upper", "lower")))
     p <- p + geom_hline(aes(yintercept = !!sym(".ci"), group = !!sym("type")),
