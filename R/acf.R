@@ -17,8 +17,11 @@
 #' autocovariance proposed by McMurry and Politis (2010).
 #'
 #' @param .data A tsibble
-#' @param value,value1,value2 The column(s) from the tsibble used to compute the ACF, PACF or CCF.
-#' @param ... Further arguments to be passed on to acf, pacf, and ccf
+#' @param ... The column(s) from the tsibble used to compute the ACF, PACF or CCF.
+#' @param lag_max maximum lag at which to calculate the acf. Default is 10*log10(N/m)
+#' where N is the number of observations and m the number of series. Will be
+#' automatically limited to one less than the number of observations in the series.
+#' @inheritParams stats::acf
 #'
 #' @return The `ACF`, `PACF` and `CCF` functions return objects
 #' of class "tbl_cf", which is a tibble containing the correlations computed.
@@ -46,7 +49,8 @@
 #'
 #' @rdname ACF
 #' @export
-ACF <- function(.data, value = NULL, ...){
+ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
+                type = c("correlation", "covariance", "partial")){
   compute_acf <- function(.data, value, ...){
     value <- enexpr(value)
     if(is.null(value)){
@@ -58,14 +62,20 @@ ACF <- function(.data, value = NULL, ...){
     acf <- tail(as.numeric(acf(x, plot=FALSE, ...)$acf), -1)
     tibble(lag = seq_along(acf), acf = acf)
   }
-  build_cf(.data, compute_acf, value=!!enexpr(value), ...)
+  value <- enexprs(...)
+  if(length(value) > 1){
+    warn(sprintf("ACF currently only supports one column, `%s` will be used.",
+                 expr_text(value[[1]])))
+  }
+  build_cf(.data, compute_acf, value=!!value[[1]], lag.max = lag_max,
+           demean = demean, type = type)
 }
 
 #' @rdname ACF
 #' @examples
 #' tsibbledata::elecdemand %>% PACF(Demand)
 #' @export
-PACF <- function(.data, value = NULL, ...){
+PACF <- function(.data, ..., lag_max){
   compute_pacf <- function(.data, value, ...){
     value <- enexpr(value)
     if(is.null(value)){
@@ -77,14 +87,19 @@ PACF <- function(.data, value = NULL, ...){
     pacf <- tail(as.numeric(pacf(x, plot=FALSE, ...)$acf), -1)
     tibble(lag = seq_along(pacf), pacf = pacf)
   }
-  build_cf(.data, compute_pacf, value=!!enexpr(value), ...)
+  value <- enexprs(...)
+  if(length(value) > 1){
+    warn(sprintf("PACF currently only supports one column, `%s` will be used.",
+                 expr_text(value[[1]])))
+  }
+  build_cf(.data, compute_pacf, value=!!value[[1]], lag.max = lag_max)
 }
 
 #' @rdname ACF
 #' @examples
 #' tsibbledata::UKLungDeaths %>% CCF(mdeaths, fdeaths)
 #' @export
-CCF <- function(.data, value1, value2, ...){
+CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance")){
   compute_ccf <- function(.data, value1, value2, ...){
     value1 <- enexpr(value1)
     value2 <- enexpr(value2)
@@ -94,7 +109,16 @@ CCF <- function(.data, value1, value2, ...){
     lag <- as.numeric(ccf$lag)*frequency(.data)
     tibble(lag = lag, ccf = as.numeric(ccf$acf))
   }
-  build_cf(.data, compute_ccf, value1=!!enexpr(value1), value2=!!enexpr(value2), ...)
+  value <- enexprs(...)
+  if(length(value) > 2){
+    warn(sprintf("CCF currently only supports two column, `%s` and `%s` will be used.",
+                 expr_text(value[[1]]), expr_text(value[[2]])))
+  }
+  if(length(value) == 1){
+    abort("CCF requires two columns specified.")
+  }
+  build_cf(.data, compute_ccf, value1=!!value[[1]], value2=!!value[[2]],
+           lag.max = lag_max, type = type)
 }
 
 #' @importFrom stats na.contiguous

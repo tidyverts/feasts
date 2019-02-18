@@ -6,18 +6,29 @@
 \alias{CCF}
 \title{(Partial) Autocorrelation and Cross-Correlation Function Estimation}
 \usage{
-ACF(.data, value = NULL, ...)
+ACF(.data, ..., lag_max = NULL, demean = TRUE,
+  type = c("correlation", "covariance", "partial"))
 
-PACF(.data, value = NULL, ...)
+PACF(.data, ..., lag_max)
 
-CCF(.data, value1, value2, ...)
+CCF(.data, ..., lag_max = NULL, type = c("correlation", "covariance"))
 }
 \arguments{
 \item{.data}{A tsibble}
 
-\item{value, value1, value2}{The column(s) from the tsibble used to compute the ACF, PACF or CCF.}
+\item{...}{The column(s) from the tsibble used to compute the ACF, PACF or CCF.}
 
-\item{...}{Further arguments to be passed on to acf, pacf, and ccf}
+\item{lag_max}{maximum lag at which to calculate the acf. Default is 10*log10(N/m)
+where N is the number of observations and m the number of series. Will be
+automatically limited to one less than the number of observations in the series.}
+
+\item{demean}{logical.  Should the covariances be about the sample
+    means?}
+
+\item{type}{character string giving the type of acf to be computed.
+    Allowed values are
+    \code{"correlation"} (the default), \code{"covariance"} or
+    \code{"partial"}.  Will be partially matched.}
 }
 \value{
 The \code{ACF}, \code{PACF} and \code{CCF} functions return objects
