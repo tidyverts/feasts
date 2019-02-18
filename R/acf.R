@@ -75,7 +75,7 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
 #' @examples
 #' tsibbledata::elecdemand %>% PACF(Demand)
 #' @export
-PACF <- function(.data, ..., lag_max){
+PACF <- function(.data, ..., lag_max = NULL){
   compute_pacf <- function(.data, value, ...){
     value <- enexpr(value)
     if(is.null(value)){
