@@ -3,7 +3,7 @@ globalVariables("self")
 specials_stl <- fablelite::new_specials(
   trend = function(window, degree, jump){
     args <- call_args(match.call())
-    if(length(args > 1)){
+    if(length(args) > 0){
       set_names(args, paste0("t.", names(args)))
     }
   },
@@ -21,8 +21,14 @@ specials_stl <- fablelite::new_specials(
       map(period, function(.x) c(period = .x, args))
     }
   },
+  lowpass = function(window, degree, jump){
+    args <- call_args(match.call())
+    if(length(args) > 0){
+      set_names(args, paste0("l.", names(args)))
+    }
+  },
 
-  .required_specials = c("trend", "season")
+  .required_specials = c("trend", "season", "lowpass")
 )
 
 train_stl <- function(.data, formula, specials, iterations = 2, ...){
@@ -32,6 +38,7 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 
   trend.args <- specials$trend[[1]]
   season.args <- unlist(specials$season, recursive = FALSE)
+  lowpass.args <- specials$lowpass[[1]]
 
   deseas <- y
   seas <- set_names(as.list(rep(0, length(season.args))), paste0("season_", names(season.args)%||%map(season.args, "period")))
@@ -41,7 +48,7 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
       for (i in seq_along(season.args))
       {
         deseas <- ts(deseas + seas[[i]], frequency = season.args[[i]][[1]])
-        fit <- eval_tidy(expr(stl(deseas, !!!c(trend.args, season.args[[i]][-1]), ...)))
+        fit <- eval_tidy(expr(stl(deseas, !!!c(trend.args, season.args[[i]][-1], lowpass.args), ...)))
         seas[[i]] <- as.numeric(fit$time.series[, "seasonal"])
         deseas <- deseas - seas[[i]]
       }
