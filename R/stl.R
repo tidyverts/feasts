@@ -75,11 +75,8 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 
   names(seasonalities) <- names(seas)
 
-  fablelite::as_dable(decomposition,
-    !!sym(measured_vars(.data)),
-    seasonalities,
-    aliases
-  )
+  fablelite::as_dable(decomposition, resp = !!sym(measured_vars(.data)),
+                      method = "STL", seasons = seasonalities, aliases = aliases)
 }
 
 stl_decomposition <- R6::R6Class(NULL,

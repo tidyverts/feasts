@@ -40,11 +40,8 @@ train_classical <- function(.data, formula, specials,
     seas_adjust = call2(dcmp_op, sym("trend"), sym("random"))
   )
 
-  fablelite::as_dable(dcmp,
-           !!sym(measured_vars(.data)),
-           seasonalities,
-           aliases
-  )
+  fablelite::as_dable(dcmp, resp = !!sym(measured_vars(.data)), method = "Classical",
+                      seasons = seasonalities, aliases = aliases)
 }
 
 classical_decomposition_def <- R6::R6Class(NULL,
