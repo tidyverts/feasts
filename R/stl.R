@@ -52,12 +52,14 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
     trend <- stats::supsmu(seq_len(length(y)), y)$y
   }
 
+  trend <- as.numeric(trend)
+  deseas <- as.numeric(deseas)
   decomposition <- .data %>%
-    select(!!!key(.data), !!index(.)) %>%
     mutate(
-      trend = as.numeric(trend),
+      trend = trend,
       !!!seas,
-      remainder = as.numeric(deseas - trend)
+      remainder = deseas - trend,
+      seas_adjust = deseas
     )
 
   seasonalities <- lapply(season.args, function(x){
@@ -65,12 +67,19 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
     x[c("period", "base")]
   })
 
+  aliases <- list2(
+    !!measured_vars(.data) := reduce(syms(c("trend", names(seas), "remainder")),
+                                   function(x,y) call2("+", x, y)),
+    seas_adjust = call2("+", sym("trend"), sym("remainder"))
+  )
+
   names(seasonalities) <- names(seas)
 
   fablelite::as_dable(decomposition,
     !!sym(measured_vars(.data)),
-    !!(Reduce(function(x,y) call2("+", x, y), syms(measured_vars(decomposition)))),
-    seasonalities
+    !!aliases[[measured_vars(.data)]],
+    seasonalities,
+    aliases
   )
 }
 
