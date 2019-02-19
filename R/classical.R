@@ -42,7 +42,6 @@ train_classical <- function(.data, formula, specials,
 
   fablelite::as_dable(dcmp,
            !!sym(measured_vars(.data)),
-           !!aliases[[measured_vars(.data)]],
            seasonalities,
            aliases
   )

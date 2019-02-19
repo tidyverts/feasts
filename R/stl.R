@@ -77,7 +77,6 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 
   fablelite::as_dable(decomposition,
     !!sym(measured_vars(.data)),
-    !!aliases[[measured_vars(.data)]],
     seasonalities,
     aliases
   )
