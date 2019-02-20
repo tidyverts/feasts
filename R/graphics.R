@@ -203,7 +203,8 @@ ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = "smallest", ...){
 
   x <- as_tibble(x) %>%
     mutate(
-      id = !!idx - period_units*(units_since(!!idx)%/%period_units)
+      id = !!idx - period_units*(units_since(!!idx)%/%period_units),
+      id = factor(id, labels = within_time_identifier(unique(id)))
     ) %>%
     group_by(id) %>%
     mutate(.yint = mean(!!var))
