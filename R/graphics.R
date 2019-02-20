@@ -1,3 +1,84 @@
+
+# Find minimum largest identifier for each group
+# 1. Find largest homogenous descriptor within groups
+# 2. Return if descriptor is distinct across groups
+# 3. If descriptor varies across groups, add it to list
+# 4. Go to next largest descriptor and repeat from 2.
+time_identifier <- function(idx, time_units){
+  if(is.null(time_units)){
+    return(rep(NA, length(idx)))
+  }
+  grps <- units_since(idx) %/% time_units
+  idx_grp <- split(idx, grps)
+
+  formats <- list(
+    Weekday = "%A",
+    Monthday = "%d",
+    Yearday = "%j",
+    Week = "%V",
+    Month = "%B",
+    Year = "%Y",
+    Yearweek = "%Y W%V",
+    Yearmonth = "%Y %b",
+    Minute = "%M",
+    Hour = "%H",
+    HourMinute = "%H:%M",
+    Time = "%X",
+    Date = "%x",
+    Datetime = "%x %X"
+  )
+
+  found_format <- FALSE
+  for(fmt in formats){
+    if(length(unique(format(idx_grp[[1]], format = fmt))) == 1){
+      ids <- map(idx_grp, function(x) unique(format(x, format = fmt)))
+      if(all(map_lgl(ids, function(x) length(x) == 1)) && length(unique(ids)) == length(idx_grp)){
+        found_format <- TRUE
+        break
+      }
+    }
+  }
+
+  if(found_format){
+    format(idx, format = fmt)
+  }
+  else{
+    # Default to time ranges
+    map(idx_grp, function(x) rep(paste0(c(min(x), max(x)), collapse = " - "), length(x))) %>%
+      unsplit(grps)
+  }
+}
+
+within_time_identifier <- function(x){
+  formats <- list(
+    Year = "%Y",
+    Month = "%B",
+    Week = "%V",
+    Weekday = "%A",
+    Monthday = "%d",
+    Yearmonth = "%Y %b",
+    Yearweek = "%Y W%V",
+    Yearday = "%j",
+    Date = "%x",
+    Hour = "%H",
+    Minute = "%M",
+    HourMinute = "%H:%M",
+    Time = "%X",
+    Datetime = "%x %X"
+  )
+
+  y <- x
+  x <- x[!is.na(x)]
+
+  for(fmt in formats){
+    if(sum(duplicated(format(x, format = fmt))) == 0){
+      break
+    }
+  }
+
+  format(y, format = fmt)
+}
+
 guess_plot_var <- function(x, var){
   if(quo_is_null(enquo(var))){
     inform(sprintf(
@@ -69,11 +150,17 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
       !!as_string(idx) := !!idx - period * (units_since(!!idx) %/% period)
     )
 
-  p <- ggplot(x, aes(x = !!idx, y = !!var, group = !!sym("id"))) +
+  p <- ggplot(x, aes(x = !!idx, y = !!var, colour = !!sym("id"))) +
     geom_line()
 
   if(!is.null(facet_period)){
     p <- p + facet_grid(~ facet_id, scales = "free_x")
+  }
+
+  if(inherits(x[[expr_text(idx)]], "Date")){
+    p <- p + ggplot2::scale_x_date(labels = within_time_identifier)
+  } else if(inherits(x[[expr_text(idx)]], "POSIXct")){
+    p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
   }
 
   p
@@ -121,10 +208,18 @@ ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = "smallest", ...){
     group_by(id) %>%
     mutate(.yint = mean(!!var))
 
-  ggplot(x, aes(x = !!idx, y = !!var)) +
+  p <- ggplot(x, aes(x = !!idx, y = !!var)) +
     geom_line() +
     facet_grid(~ id) +
     geom_hline(aes(yintercept = !!sym(".yint")), colour = "blue")
+
+  if(inherits(x[[expr_text(idx)]], "Date")){
+    p <- p + ggplot2::scale_x_date(labels = within_time_identifier)
+  } else if(inherits(x[[expr_text(idx)]], "POSIXct")){
+    p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
+  }
+
+  p
 }
 
 
