@@ -1,3 +1,16 @@
+guess_plot_var <- function(x, var){
+  if(quo_is_null(enquo(var))){
+    inform(sprintf(
+      "Plot variable not specified, automatically selected `var = %s`",
+      measured_vars(x)[1]
+    ))
+    sym(measured_vars(x)[1])
+  }
+  else{
+    get_expr(enexpr(var))
+  }
+}
+
 #' @inherit forecast::ggseasonplot
 #'
 #' @param x A time series object
@@ -28,16 +41,7 @@ ggseasonplot <- function(x, ...){
 #' @export
 ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
                                 facet_period = NULL, ...){
-  if(quo_is_null(enquo(var))){
-    inform(sprintf(
-      "Plot variable not specified, automatically selected `var = %s`",
-      measured_vars(x)[1]
-    ))
-    var <- sym(measured_vars(x)[1])
-  }
-  else{
-    var <- enexpr(var)
-  }
+  var <- guess_plot_var(x, !!enquo(var))
 
   check_gaps(x)
   idx <- index(x)
@@ -57,17 +61,19 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
   }
 
   x <- as_tibble(x) %>%
+    group_by(
+      facet_id = time_identifier(!!idx, facet_period) %empty% NA
+    ) %>%
     mutate(
-      id = units_since(!!idx) %/% period,
-      facet_id = units_since(!!idx) %/% facet_period %empty% NA,
+      id = time_identifier(!!idx, period),
       !!as_string(idx) := !!idx - period * (units_since(!!idx) %/% period)
     )
 
-  p <- ggplot(x, aes(x = !!idx, y = !!var, group = factor(!!sym("id")))) +
+  p <- ggplot(x, aes(x = !!idx, y = !!var, group = !!sym("id"))) +
     geom_line()
 
   if(!is.null(facet_period)){
-    p <- p + facet_wrap(~ facet_id)
+    p <- p + facet_grid(~ facet_id, scales = "free_x")
   }
 
   p
@@ -97,16 +103,7 @@ ggsubseriesplot <- function(x, ...){
 #' @importFrom ggplot2 ggplot aes geom_line geom_hline facet_grid
 #' @export
 ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = "smallest", ...){
-  if(quo_is_null(enquo(var))){
-    inform(sprintf(
-      "Plot variable not specified, automatically selected `var = %s`",
-      measured_vars(x)[1]
-    ))
-    var <- sym(measured_vars(x)[1])
-  }
-  else{
-    var <- enexpr(var)
-  }
+  var <- guess_plot_var(x, !!enquo(var))
 
   check_gaps(x)
   idx <- index(x)
@@ -155,16 +152,7 @@ gglagplot <- function(x, ...){
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
 gglagplot.tbl_ts <- function(x, var = NULL, period = "smallest", lags = 1:16, ...){
-  if(quo_is_null(enquo(var))){
-    inform(sprintf(
-      "Plot variable not specified, automatically selected `var = %s`",
-      measured_vars(x)[1]
-    ))
-    var <- sym(measured_vars(x)[1])
-  }
-  else{
-    var <- enexpr(var)
-  }
+  var <- guess_plot_var(x, !!enquo(var))
 
   period <- get_frequencies(period, x)
   if(period <= 1){
@@ -190,4 +178,77 @@ gglagplot.tbl_ts <- function(x, var = NULL, period = "smallest", lags = 1:16, ..
     geom_abline(colour = "gray", linetype = "dashed") +
     geom_path() +
     facet_wrap(~ .lag)
+}
+
+#' @inheritParams ggtsdisplay
+#' @inherit forecast::ggtsdisplay
+#'
+#' @examples
+#' library(tsibble)
+#' tsibbledata::ausretail %>%
+#'   filter(
+#'     State == "Victoria",
+#'     Industry == "Cafes, restaurants and catering services"
+#'   ) %>%
+#'   ggtsdisplay(Turnover)
+#'
+#' @rdname ggtsdisplay
+#' @export
+ggtsdisplay <- function(x, ...){
+  UseMethod("ggtsdisplay")
+}
+
+#' @inheritParams ggseasonplot.tbl_ts
+#' @param lags A vector of lags to display as facets.
+#' @rdname ggtsdisplay
+#' @importFrom ggplot2 ggplot aes geom_point geom_histogram
+#' @export
+ggtsdisplay.tbl_ts <- function(x, var = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
+                               lag_max = NULL, ...){
+  require_package("grid")
+
+  # Set up grid for plots
+  grid::grid.newpage()
+  grid::pushViewport(grid::viewport(layout = grid::grid.layout(2, 2)))
+
+  plot_type <- match.arg(plot_type)
+  var <- guess_plot_var(x, !!enquo(var))
+
+  p1 <- ggplot(x, aes(x = !!index(x), y = !!var)) +
+    geom_line() +
+    geom_point()
+
+  p2 <- autoplot(ACF(x, !!var, lag_max = lag_max))
+
+  if(plot_type == "partial"){
+    p3 <- autoplot(PACF(x, !!var, lag_max = lag_max))
+
+    # Match y-axis range across ACF and PACF
+    p2_yrange <- ggplot2::layer_scales(p2)$y$range$range
+    p3_yrange <- ggplot2::layer_scales(p3)$y$range$range
+    yrange <- range(c(p2_yrange, p3_yrange))
+    p2 <- p2 + ylim(yrange)
+    p3 <- p3 + ylim(yrange)
+  } else if(plot_type == "histogram"){
+    p3 <- ggplot(x, aes(x = !!var)) +
+      geom_histogram(bins = min(500, grDevices::nclass.FD(na.exclude(x[[expr_text(var)]])))) +
+      ggplot2::geom_rug()
+  } else if(plot_type == "scatter"){
+    p3 <- x %>%
+      mutate(!!paste0(expr_text(var),"_lag") := lag(!!var, 1)) %>%
+      .[complete.cases(.),] %>%
+      ggplot(aes(y = !!var, x = !!sym(paste0(expr_text(var),"_lag")))) +
+      geom_point() +
+      xlab(expression(Y[t - 1])) + ylab(expression(Y[t]))
+  } else if(plot_type == "spectrum"){
+    p3 <- spec.ar(x[[expr_text(var)]], plot = FALSE) %>%
+      {tibble(spectrum = .$spec[,1], frequency = .$freq)} %>%
+      ggplot(aes(x = !!sym("frequency"), y = !!sym("spectrum"))) +
+      geom_line() +
+      ggplot2::scale_y_log10()
+  }
+
+  print(p1, vp = grid::viewport(layout.pos.row = c(1, 1), layout.pos.col = c(1, 2)))
+  print(p2, vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 1))
+  print(p3, vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 2))
 }
