@@ -3,7 +3,7 @@
 \name{ggtsdisplay}
 \alias{ggtsdisplay}
 \alias{ggtsdisplay.tbl_ts}
-\title{Time series display}
+\title{Ensemble of time series displays}
 \usage{
 ggtsdisplay(x, ...)
 
@@ -11,24 +11,27 @@ ggtsdisplay(x, ...)
   "histogram", "scatter", "spectrum"), lag_max = NULL, ...)
 }
 \arguments{
-\item{x}{a numeric vector or time series of class \code{ts}.}
+\item{x}{A time series object}
 
-\item{...}{additional arguments to \code{\link[stats]{acf}}.}
+\item{...}{Arguments for subsequent plotting methods.}
 
 \item{var}{The variable to plot (a bare expression). If NULL, it will
 automatically selected from the data.}
 
+\item{plot_type}{type of plot to include in lower right corner.}
+
+\item{lag_max}{maximum lag at which to calculate the acf. Default is 10*log10(N/m)
+where N is the number of observations and m the number of series. Will be
+automatically limited to one less than the number of observations in the series.}
+
 \item{lags}{A vector of lags to display as facets.}
 }
 \value{
-None.
+A ggplot2 plot.
 }
 \description{
-Plots a time series along with its acf and either its pacf, lagged
-scatterplot or spectrum.
-}
-\details{
-\code{ggtsdisplay} will produce the equivalent plot using ggplot graphics.
+Plots a time series along with its ACF along with an customisable third
+graphic of either a PACF, lagged scatterplot or spectral density.
 }
 \examples{
 library(tsibble)
@@ -46,6 +49,9 @@ and practice}, 2nd edition, OTexts: Melbourne, Australia.
 \url{https://OTexts.org/fpp2/}
 }
 \seealso{
-\code{\link[stats]{plot.ts}}, \code{\link{Acf}},
+\code{\link[stats]{plot.ts}}, \code{\link{ACF}},
 \code{\link[stats]{spec.ar}}
+}
+\author{
+Rob J Hyndman & Mitchell O'Hara-Wild
 }

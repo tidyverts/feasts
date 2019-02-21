@@ -276,8 +276,25 @@ gglagplot.tbl_ts <- function(x, var = NULL, period = "smallest", lags = 1:16, ..
     facet_wrap(~ .lag)
 }
 
-#' @inheritParams ggtsdisplay
-#' @inherit forecast::ggtsdisplay
+#' Ensemble of time series displays
+#'
+#' Plots a time series along with its ACF along with an customisable third
+#' graphic of either a PACF, lagged scatterplot or spectral density.
+#'
+#' @param plot_type type of plot to include in lower right corner.
+#' @param ... Arguments for subsequent plotting methods.
+#' @inheritParams ggseasonplot
+#' @inheritParams ACF
+#'
+#' @return A ggplot2 plot.
+#' @author Rob J Hyndman & Mitchell O'Hara-Wild
+#'
+#' @seealso \code{\link[stats]{plot.ts}}, \code{\link{ACF}},
+#' \code{\link[stats]{spec.ar}}
+#'
+#' @references Hyndman and Athanasopoulos (2018) \emph{Forecasting: principles
+#' and practice}, 2nd edition, OTexts: Melbourne, Australia.
+#' \url{https://OTexts.org/fpp2/}
 #'
 #' @examples
 #' library(tsibble)
@@ -297,7 +314,8 @@ ggtsdisplay <- function(x, ...){
 #' @inheritParams ggseasonplot.tbl_ts
 #' @param lags A vector of lags to display as facets.
 #' @rdname ggtsdisplay
-#' @importFrom ggplot2 ggplot aes geom_point geom_histogram
+#' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
+#' @importFrom stats na.exclude complete.cases
 #' @export
 ggtsdisplay.tbl_ts <- function(x, var = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
                                lag_max = NULL, ...){
@@ -337,7 +355,7 @@ ggtsdisplay.tbl_ts <- function(x, var = NULL, plot_type = c("partial", "histogra
       geom_point() +
       xlab(expression(Y[t - 1])) + ylab(expression(Y[t]))
   } else if(plot_type == "spectrum"){
-    p3 <- spec.ar(x[[expr_text(var)]], plot = FALSE) %>%
+    p3 <- stats::spec.ar(x[[expr_text(var)]], plot = FALSE) %>%
       {tibble(spectrum = .$spec[,1], frequency = .$freq)} %>%
       ggplot(aes(x = !!sym("frequency"), y = !!sym("spectrum"))) +
       geom_line() +
