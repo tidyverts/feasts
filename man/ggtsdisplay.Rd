@@ -23,8 +23,6 @@ automatically selected from the data.}
 \item{lag_max}{maximum lag at which to calculate the acf. Default is 10*log10(N/m)
 where N is the number of observations and m the number of series. Will be
 automatically limited to one less than the number of observations in the series.}
-
-\item{lags}{A vector of lags to display as facets.}
 }
 \value{
 A ggplot2 plot.

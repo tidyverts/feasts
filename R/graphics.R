@@ -312,7 +312,6 @@ ggtsdisplay <- function(x, ...){
 }
 
 #' @inheritParams ggseasonplot.tbl_ts
-#' @param lags A vector of lags to display as facets.
 #' @rdname ggtsdisplay
 #' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
 #' @importFrom stats na.exclude complete.cases
