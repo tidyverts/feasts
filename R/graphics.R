@@ -220,7 +220,7 @@ ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = "smallest", ...){
     p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
   }
 
-  p
+  p + ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 90))
 }
 
 
