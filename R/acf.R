@@ -63,6 +63,13 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
     tibble(lag = seq_along(acf), acf = acf)
   }
   value <- enexprs(...)
+  if(length(value) == 0){
+    inform(sprintf(
+      "Response variable not specified, automatically selected `var = %s`",
+      measured_vars(.data)[1]
+    ))
+    value <- syms(measured_vars(.data)[1])
+  }
   if(length(value) > 1){
     warn(sprintf("ACF currently only supports one column, `%s` will be used.",
                  expr_text(value[[1]])))
@@ -88,6 +95,13 @@ PACF <- function(.data, ..., lag_max = NULL){
     tibble(lag = seq_along(pacf), pacf = pacf)
   }
   value <- enexprs(...)
+  if(length(value) == 0){
+    inform(sprintf(
+      "Response variable not specified, automatically selected `var = %s`",
+      measured_vars(.data)[1]
+    ))
+    value <- syms(measured_vars(.data)[1])
+  }
   if(length(value) > 1){
     warn(sprintf("PACF currently only supports one column, `%s` will be used.",
                  expr_text(value[[1]])))
@@ -110,6 +124,16 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
     tibble(lag = lag, ccf = as.numeric(ccf$acf))
   }
   value <- enexprs(...)
+  if(length(value) == 0){
+    if(length(measured_vars(.data) < 2)){
+      abort("CCF requires two columns specified.")
+    }
+    inform(sprintf(
+      "Response variable not specified, automatically selected `%s` and `%s",
+      measured_vars(.data)[1], measured_vars(.data)[2]
+    ))
+    value <- syms(measured_vars(.data)[1:2])
+  }
   if(length(value) > 2){
     warn(sprintf("CCF currently only supports two column, `%s` and `%s` will be used.",
                  expr_text(value[[1]]), expr_text(value[[2]])))
