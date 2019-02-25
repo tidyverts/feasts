@@ -121,9 +121,11 @@ ggseasonplot <- function(x, ...){
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
 ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
-                                facet_period = NULL, polar = FALSE, ...){
+                                facet_period = NULL, polar = FALSE,
+                                labels = c("none", "left", "right", "both"), ...){
   var <- guess_plot_var(x, !!enquo(var))
 
+  labels <- match.arg(labels)
   check_gaps(x)
   idx <- index(x)
   ts_unit <- time_unit(interval(x))
@@ -179,6 +181,23 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
 
   if(polar){
     p <- p + ggplot2::coord_polar()
+  }
+
+  if(labels != "none"){
+    if(labels == "left"){
+      label_pos <- expr(min(!!idx))
+    }
+    else if(lables == "right"){
+      label_pos <- expr(max(!!idx))
+    }
+    else{
+      label_pos <- expr(range(!!idx))
+    }
+    labels_x <- x %>%
+      group_by(facet_id, id) %>%
+      filter(!!idx %in% !!label_pos)
+
+    p <- p + ggplot2::geom_text(aes(label = !!sym("id")), data = labels_x)
   }
 
   p
