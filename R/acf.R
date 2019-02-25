@@ -53,12 +53,7 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
                 type = c("correlation", "covariance", "partial")){
   compute_acf <- function(.data, value, ...){
     value <- enexpr(value)
-    if(is.null(value)){
-      x <- as.ts(.data)
-    }
-    else{
-      x <- as.ts(.data, !!value)
-    }
+    x <- as.ts(transmute(.data, !!value))
     acf <- tail(as.numeric(acf(x, plot=FALSE, ...)$acf), -1)
     tibble(lag = seq_along(acf), acf = acf)
   }
@@ -85,12 +80,7 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
 PACF <- function(.data, ..., lag_max = NULL){
   compute_pacf <- function(.data, value, ...){
     value <- enexpr(value)
-    if(is.null(value)){
-      x <- as.ts(.data)
-    }
-    else{
-      x <- as.ts(.data, !!value)
-    }
+    x <- as.ts(transmute(.data, !!value))
     pacf <- tail(as.numeric(pacf(x, plot=FALSE, ...)$acf), -1)
     tibble(lag = seq_along(pacf), pacf = pacf)
   }
@@ -117,8 +107,8 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
   compute_ccf <- function(.data, value1, value2, ...){
     value1 <- enexpr(value1)
     value2 <- enexpr(value2)
-    ccf <- ccf(x = as.ts(.data %>% select(!!index(.), !!value1)),
-               y = as.ts(.data %>% select(!!index(.), !!value2)),
+    ccf <- ccf(x = as.ts(transmute(.data, !!value1)),
+               y = as.ts(transmute(.data, !!value)),
                plot=FALSE, ...)
     lag <- as.numeric(ccf$lag)*frequency(.data)
     tibble(lag = lag, ccf = as.numeric(ccf$acf))
