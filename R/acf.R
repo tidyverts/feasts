@@ -81,7 +81,7 @@ PACF <- function(.data, ..., lag_max = NULL){
   compute_pacf <- function(.data, value, ...){
     value <- enexpr(value)
     x <- as.ts(transmute(.data, !!value))
-    pacf <- tail(as.numeric(pacf(x, plot=FALSE, ...)$acf), -1)
+    pacf <- as.numeric(pacf(x, plot=FALSE, ...)$acf)
     tibble(lag = seq_along(pacf), pacf = pacf)
   }
   value <- enexprs(...)
