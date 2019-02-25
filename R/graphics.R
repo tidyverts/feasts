@@ -187,7 +187,7 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
     if(labels == "left"){
       label_pos <- expr(min(!!idx))
     }
-    else if(lables == "right"){
+    else if(labels == "right"){
       label_pos <- expr(max(!!idx))
     }
     else{
