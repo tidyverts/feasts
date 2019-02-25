@@ -121,24 +121,25 @@ ggseasonplot <- function(x, ...){
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
 ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
-                                facet_period = NULL, ...){
+                                facet_period = NULL, polar = FALSE, ...){
   var <- guess_plot_var(x, !!enquo(var))
 
   check_gaps(x)
   idx <- index(x)
+  ts_unit <- time_unit(interval(x))
 
   period <- get_frequencies(period, x)
   if(period <= 1){
     abort("The data must contain at least one observation per seasonal period.")
   }
-  period <- period*time_unit(interval(x))
+  period <- period*ts_unit
 
   if(!is.null(facet_period)){
     facet_period <- get_frequencies(facet_period, x)
     if(facet_period <= 1){
       abort("The data must contain at least one observation per seasonal period.")
     }
-    facet_period <- facet_period*time_unit(interval(x))
+    facet_period <- facet_period*ts_unit
   }
 
   x <- as_tibble(x) %>%
@@ -149,6 +150,19 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
       id = time_identifier(!!idx, period),
       !!as_string(idx) := !!idx - period * (units_since(!!idx) %/% period)
     )
+
+  if(polar){
+    extra_x <- x %>%
+      group_by(facet_id, id) %>%
+      summarise(
+        !!expr_text(idx) := max(!!idx) + ts_unit - .Machine$double.eps,
+        !!expr_text(var) := (!!var)[[which.min(!!idx)]]
+      ) %>%
+      group_by(facet_id) %>%
+      mutate(!!expr_text(var) := tsibble::lead(!!var)) %>%
+      filter(!is.na(!!var))
+    x <- rbind(x, extra_x)
+  }
 
   p <- ggplot(x, aes(x = !!idx, y = !!var, colour = !!sym("id"))) +
     geom_line()
@@ -161,6 +175,10 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
     p <- p + ggplot2::scale_x_date(labels = within_time_identifier)
   } else if(inherits(x[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
+  }
+
+  if(polar){
+    p <- p + ggplot2::coord_polar()
   }
 
   p
