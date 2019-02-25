@@ -8,7 +8,8 @@
 ggseasonplot(x, ...)
 
 \method{ggseasonplot}{tbl_ts}(x, var = NULL, period = "largest",
-  facet_period = NULL, ...)
+  facet_period = NULL, polar = FALSE, labels = c("none", "left",
+  "right", "both"), ...)
 }
 \arguments{
 \item{x}{A time series object}
@@ -18,10 +19,14 @@ ggseasonplot(x, ...)
 \item{var}{The variable to plot (a bare expression). If NULL, it will
 automatically selected from the data.}
 
-\item{period}{The seasonal period to display}
+\item{period}{The seasonal period to display.}
 
 \item{facet_period}{A secondary seasonal period to facet by
-(typically smaller than period)}
+(typically smaller than period).}
+
+\item{polar}{If TRUE, the seasonplot will be shown on polar coordinates.}
+
+\item{labels}{Position of the labels for seasonal period identifier.}
 }
 \value{
 None.

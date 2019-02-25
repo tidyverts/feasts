@@ -18,7 +18,7 @@ ggsubseriesplot(x, ...)
 \item{var}{The variable to plot (a bare expression). If NULL, it will
 automatically selected from the data.}
 
-\item{period}{The seasonal period to display}
+\item{period}{The seasonal period to display.}
 }
 \value{
 Returns an object of class \code{ggplot}.

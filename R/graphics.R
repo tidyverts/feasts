@@ -114,9 +114,11 @@ ggseasonplot <- function(x, ...){
 
 #' @param var The variable to plot (a bare expression). If NULL, it will
 #' automatically selected from the data.
-#' @param period The seasonal period to display
+#' @param period The seasonal period to display.
 #' @param facet_period A secondary seasonal period to facet by
-#' (typically smaller than period)
+#' (typically smaller than period).
+#' @param polar If TRUE, the seasonplot will be shown on polar coordinates.
+#' @param labels Position of the labels for seasonal period identifier.
 #' @rdname ggseasonplot
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
@@ -155,12 +157,12 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
 
   if(polar){
     extra_x <- x %>%
-      group_by(facet_id, id) %>%
+      group_by(!!sym("facet_id"), !!sym("id")) %>%
       summarise(
         !!expr_text(idx) := max(!!idx) + ts_unit - .Machine$double.eps,
         !!expr_text(var) := (!!var)[[which.min(!!idx)]]
       ) %>%
-      group_by(facet_id) %>%
+      group_by(!!sym("facet_id")) %>%
       mutate(!!expr_text(var) := tsibble::lead(!!var)) %>%
       filter(!is.na(!!var))
     x <- rbind(x, extra_x)
