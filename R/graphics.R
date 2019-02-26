@@ -1,3 +1,12 @@
+format_time <- function(x, format, ...){
+  out <- format(x, format)
+  if (grepl("%q", format)) {
+    qtr <- 1 + as.numeric(format(as.Date(x), "%m"))%/%3
+    out <- split(out, qtr) %>% imap(function(x, rpl) gsub("%q", rpl, x)) %>% unsplit(qtr)
+  }
+  out
+}
+
 
 # Find minimum largest identifier for each group
 # 1. Find largest homogenous descriptor within groups
@@ -40,7 +49,7 @@ time_identifier <- function(idx, time_units){
   }
 
   if(found_format){
-    format(idx, format = fmt)
+    format_time(idx, format = fmt)
   }
   else{
     # Default to time ranges
@@ -52,10 +61,12 @@ time_identifier <- function(idx, time_units){
 within_time_identifier <- function(x){
   formats <- list(
     Year = "%Y",
+    Quarter = "Q%q",
     Month = "%b",
     Week = "%V",
     Weekday = "%A",
     Monthday = "%d",
+    Yearquarter = "%Y Q%q",
     Yearmonth = "%Y %b",
     Yearweek = "%Y W%V",
     Yearday = "%j",
@@ -76,7 +87,7 @@ within_time_identifier <- function(x){
     }
   }
 
-  out <- format(y, format = fmt)
+  out <- format_time(y, format = fmt)
   if(fmt == "%b"){
     out <- factor(out, levels = month.abb)
   }
