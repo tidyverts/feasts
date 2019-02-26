@@ -202,7 +202,8 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = NULL,
       group_by(facet_id, id) %>%
       filter(!!idx %in% !!label_pos)
 
-    p <- p + ggplot2::geom_text(aes(label = !!sym("id")), data = labels_x)
+    p <- p + ggplot2::geom_text(aes(label = !!sym("id")), data = labels_x) +
+      ggplot2::guides(colour = "none")
   }
 
   p
