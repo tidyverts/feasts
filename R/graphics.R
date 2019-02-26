@@ -68,7 +68,7 @@ within_time_identifier <- function(x){
   )
 
   y <- x
-  x <- x[!is.na(x)]
+  x <- unique(x[!is.na(x)])
 
   for(fmt in formats){
     if(sum(duplicated(format(x, format = fmt))) == 0){
@@ -76,7 +76,11 @@ within_time_identifier <- function(x){
     }
   }
 
-  format(y, format = fmt)
+  out <- format(y, format = fmt)
+  if(fmt == "%b"){
+    out <- factor(out, levels = month.abb)
+  }
+  out
 }
 
 guess_plot_var <- function(x, var){
@@ -247,7 +251,7 @@ ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = NULL, ...){
   x <- as_tibble(x) %>%
     mutate(
       id = !!idx - period_units*(units_since(!!idx)%/%period_units),
-      id = factor(id, labels = within_time_identifier(unique(id)))
+      id = within_time_identifier(id)
     ) %>%
     group_by(id) %>%
     mutate(.yint = mean(!!var))
