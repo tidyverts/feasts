@@ -7,8 +7,7 @@
 \usage{
 ggsubseriesplot(x, ...)
 
-\method{ggsubseriesplot}{tbl_ts}(x, var = NULL, period = "smallest",
-  ...)
+\method{ggsubseriesplot}{tbl_ts}(x, var = NULL, period = NULL, ...)
 }
 \arguments{
 \item{x}{a time series object (type \code{ts}).}

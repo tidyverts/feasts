@@ -122,8 +122,8 @@ ggseasonplot <- function(x, ...){
 #' @rdname ggseasonplot
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
-ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
-                                facet_period = NULL, polar = FALSE,
+ggseasonplot.tbl_ts <- function(x, var = NULL, period = NULL,
+                                facet_period, polar = FALSE,
                                 labels = c("none", "left", "right", "both"), ...){
   var <- guess_plot_var(x, !!enquo(var))
 
@@ -132,14 +132,14 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
   idx <- index(x)
   ts_unit <- time_unit(interval(x))
 
-  period <- get_frequencies(period, x)
+  period <- get_frequencies(period, x, .auto = "largest")
   if(period <= 1){
     abort("The data must contain at least one observation per seasonal period.")
   }
   period <- period*ts_unit
 
-  if(!is.null(facet_period)){
-    facet_period <- get_frequencies(facet_period, x)
+  if(!is_missing(facet_period)){
+    facet_period <- get_frequencies(facet_period, x, .auto = "smallest")
     if(facet_period <= 1){
       abort("The data must contain at least one observation per seasonal period.")
     }
@@ -171,7 +171,7 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = "largest",
   p <- ggplot(x, aes(x = !!idx, y = !!var, colour = !!sym("id"))) +
     geom_line()
 
-  if(!is.null(facet_period)){
+  if(!is_missing(facet_period)){
     p <- p + facet_grid(~ facet_id, scales = "free_x")
   }
 
@@ -228,13 +228,13 @@ ggsubseriesplot <- function(x, ...){
 #' @rdname ggsubseriesplot
 #' @importFrom ggplot2 ggplot aes geom_line geom_hline facet_grid
 #' @export
-ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = "smallest", ...){
+ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = NULL, ...){
   var <- guess_plot_var(x, !!enquo(var))
 
   check_gaps(x)
   idx <- index(x)
 
-  period <- get_frequencies(period, x)
+  period <- get_frequencies(period, x, .auto = "smallest")
   if(period <= 1){
     abort("The data must contain at least one observation per seasonal period.")
   }
@@ -286,10 +286,10 @@ gglagplot <- function(x, ...){
 #' @rdname gglagplot
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
-gglagplot.tbl_ts <- function(x, var = NULL, period = "smallest", lags = 1:16, ...){
+gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9, ...){
   var <- guess_plot_var(x, !!enquo(var))
 
-  period <- get_frequencies(period, x)
+  period <- get_frequencies(period, x, .auto = "smallest")
   if(period <= 1){
     abort("The data must contain at least one observation per seasonal period.")
   }
@@ -403,4 +403,5 @@ ggtsdisplay.tbl_ts <- function(x, var = NULL, plot_type = c("partial", "histogra
   print(p1, vp = grid::viewport(layout.pos.row = c(1, 1), layout.pos.col = c(1, 2)))
   print(p2, vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 1))
   print(p3, vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 2))
+  invisible(NULL)
 }

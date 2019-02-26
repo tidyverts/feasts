@@ -267,7 +267,7 @@ scale_x_lag <- function(...) {
                      self$range$train(x)
                      if(!is.null(gap <- attr(x, "interval"))){
                        self$interval <- gap
-                       freq <- get_frequencies("all", gap)
+                       freq <- get_frequencies(NULL, gap, .auto = "all")
                        self$frequency <- min(freq[freq>3]%empty%NA)
                      }
                    },

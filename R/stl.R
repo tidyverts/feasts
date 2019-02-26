@@ -7,7 +7,7 @@ specials_stl <- fablelite::new_specials(
       set_names(args, paste0("t.", names(args)))
     }
   },
-  season = function(period = "all", window = 13, degree, jump){
+  season = function(period = NULL, window = 13, degree, jump){
     args <- call_args(match.call())
     args <- args[names(args)!="period"]
     if(is.null(args$window)){
@@ -15,7 +15,7 @@ specials_stl <- fablelite::new_specials(
     }
     args <- set_names(args, paste0("s.", names(args)))
 
-    period <- get_frequencies(period, self$data)
+    period <- get_frequencies(period, self$data, .auto = "all")
     period <- period[NROW(self$data)/period >= 2]
     if(!is.null(period)){
       map(period, function(.x) c(period = .x, args))
@@ -105,7 +105,7 @@ stl_decomposition <- R6::R6Class(NULL,
 #' @param ... Other arguments passed to \code{\link[forecast]{mstl}}.
 #'
 #' @examples
-#' USAccDeaths %>% as_tsibble %>% STL(value ~ season("all") + trend(window = 10))
+#' USAccDeaths %>% as_tsibble %>% STL(value ~ trend(window = 10))
 #'
 #' @importFrom stats ts stl
 #' @export

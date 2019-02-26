@@ -7,8 +7,8 @@
 \usage{
 gglagplot(x, ...)
 
-\method{gglagplot}{tbl_ts}(x, var = NULL, period = "smallest",
-  lags = 1:16, ...)
+\method{gglagplot}{tbl_ts}(x, var = NULL, period = NULL, lags = 1:16,
+  ...)
 }
 \arguments{
 \item{x}{a time series object (type \code{ts}).}

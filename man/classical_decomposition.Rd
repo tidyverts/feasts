@@ -41,7 +41,7 @@ The additive model used is:
 \examples{
 USAccDeaths \%>\%
   as_tsibble \%>\%
-  classical_decomposition(value ~ season("smallest"))
+  classical_decomposition(value)
 
 USAccDeaths \%>\%
   as_tsibble \%>\%

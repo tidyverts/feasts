@@ -25,7 +25,7 @@ Optionally, the time series may be Box-Cox transformed before decomposition.
 Unlike \code{\link[stats]{stl}}, \code{mstl} is completely automated.
 }
 \examples{
-USAccDeaths \%>\% as_tsibble \%>\% STL(value ~ season("all") + trend(window = 10))
+USAccDeaths \%>\% as_tsibble \%>\% STL(value ~ trend(window = 10))
 
 }
 \seealso{

@@ -1,6 +1,6 @@
 specials_classical <- fablelite::new_specials(
-  season = function(period = "smallest"){
-    period <- get_frequencies(period, self$data)
+  season = function(period = NULL){
+    period <- get_frequencies(period, self$data, .auto = "smallest")
 
     if(length(period) > 1){
       warn("Multiple seasonal decomposition is not supported by classical decomposition")
@@ -65,7 +65,7 @@ classical_decomposition_def <- R6::R6Class(NULL,
 #' @examples
 #' USAccDeaths %>%
 #'   as_tsibble %>%
-#'   classical_decomposition(value ~ season("smallest"))
+#'   classical_decomposition(value)
 #'
 #' USAccDeaths %>%
 #'   as_tsibble %>%

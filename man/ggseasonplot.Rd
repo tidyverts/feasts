@@ -7,9 +7,9 @@
 \usage{
 ggseasonplot(x, ...)
 
-\method{ggseasonplot}{tbl_ts}(x, var = NULL, period = "largest",
-  facet_period = NULL, polar = FALSE, labels = c("none", "left",
-  "right", "both"), ...)
+\method{ggseasonplot}{tbl_ts}(x, var = NULL, period = NULL,
+  facet_period, polar = FALSE, labels = c("none", "left", "right",
+  "both"), ...)
 }
 \arguments{
 \item{x}{A time series object}
