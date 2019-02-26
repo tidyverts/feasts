@@ -145,6 +145,9 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = NULL,
     }
     facet_period <- facet_period*ts_unit
   }
+  else{
+    facet_period <- NULL
+  }
 
   x <- as_tibble(x) %>%
     group_by(
@@ -171,7 +174,7 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = NULL,
   p <- ggplot(x, aes(x = !!idx, y = !!var, colour = !!sym("id"))) +
     geom_line()
 
-  if(!is_missing(facet_period)){
+  if(!is.null(facet_period)){
     p <- p + facet_grid(~ facet_id, scales = "free_x")
   }
 
