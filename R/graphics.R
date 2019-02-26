@@ -325,7 +325,8 @@ gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9, ...){
       season = factor(!!idx - period_units*(units_since(!!idx)%/%period_units)),
       !!!lag_exprs) %>%
     gather(".lag", ".value", !!names(lag_exprs)) %>%
-    mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags)))
+    mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags))) %>%
+    filter(!is.na(!!sym(".value")) | is.na(Trips))
 
   x %>%
     ggplot(aes(x = !!var, y = !!sym(".value"), colour = !!sym("season"))) +
