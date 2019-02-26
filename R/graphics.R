@@ -16,7 +16,7 @@ time_identifier <- function(idx, time_units){
     Monthday = "%d",
     Yearday = "%j",
     Week = "%V",
-    Month = "%B",
+    Month = "%b",
     Year = "%Y",
     Yearweek = "%Y W%V",
     Yearmonth = "%Y %b",
@@ -52,7 +52,7 @@ time_identifier <- function(idx, time_units){
 within_time_identifier <- function(x){
   formats <- list(
     Year = "%Y",
-    Month = "%B",
+    Month = "%b",
     Week = "%V",
     Weekday = "%A",
     Monthday = "%d",
