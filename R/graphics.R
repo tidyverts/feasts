@@ -302,6 +302,7 @@ gglagplot <- function(x, ...){
 
 #' @inheritParams ggseasonplot.tbl_ts
 #' @param lags A vector of lags to display as facets.
+#' @param type The geometry used to display the data.
 #' @rdname gglagplot
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
