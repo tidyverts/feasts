@@ -305,8 +305,11 @@ gglagplot <- function(x, ...){
 #' @rdname gglagplot
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
-gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9, ...){
+gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9,
+                             type = c("path", "point"), ...){
   var <- guess_plot_var(x, !!enquo(var))
+  type <- match.arg(type)
+  lag_geom <- switch(type, path = geom_path, point = geom_point)
 
   period <- get_frequencies(period, x, .auto = "smallest")
   if(period <= 1){
@@ -331,7 +334,7 @@ gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9, ...){
   x %>%
     ggplot(aes(x = !!var, y = !!sym(".value"), colour = !!sym("season"))) +
     geom_abline(colour = "gray", linetype = "dashed") +
-    geom_path() +
+    lag_geom() +
     facet_wrap(~ .lag)
 }
 
