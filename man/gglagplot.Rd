@@ -7,7 +7,7 @@
 \usage{
 gglagplot(x, ...)
 
-\method{gglagplot}{tbl_ts}(x, var = NULL, period = NULL, lags = 1:16,
+\method{gglagplot}{tbl_ts}(x, var = NULL, period = NULL, lags = 1:9,
   ...)
 }
 \arguments{
