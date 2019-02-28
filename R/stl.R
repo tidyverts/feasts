@@ -86,15 +86,6 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
                       method = "STL", seasons = seasonalities, aliases = aliases)
 }
 
-stl_decomposition <- R6::R6Class(NULL,
-                                 inherit = fablelite::decomposition_definition,
-                                 public = list(
-                                   method = "STL",
-                                   train = train_stl,
-                                   specials = specials_stl
-                                 )
-)
-
 #' Multiple seasonal decomposition by Loess
 #'
 #' @inherit forecast::mstl
@@ -108,5 +99,10 @@ stl_decomposition <- R6::R6Class(NULL,
 #' USAccDeaths %>% as_tsibble %>% STL(value ~ trend(window = 10))
 #'
 #' @importFrom stats ts stl
+#' @importFrom fablelite new_decomposition_class new_decomposition
 #' @export
-STL <- fablelite::new_decomposition(stl_decomposition)
+STL <- function(.data, formula, iterations = 2, ...){
+  dcmp <- new_decomposition_class("STL", train = train_stl, specials = specials_stl)
+  new_decomposition(dcmp, .data, !!enquo(formula), iterations = iterations, ...)
+}
+

@@ -44,15 +44,6 @@ train_classical <- function(.data, formula, specials,
                       seasons = seasonalities, aliases = aliases)
 }
 
-classical_decomposition_def <- R6::R6Class(NULL,
-                                 inherit = fablelite::decomposition_definition,
-                                 public = list(
-                                   method = "Classical decomposition",
-                                   train = train_classical,
-                                   specials = specials_classical
-                                 )
-)
-
 #' Classical Seasonal Decomposition by Moving Averages
 #'
 #' @inherit stats::decompose description details
@@ -72,5 +63,10 @@ classical_decomposition_def <- R6::R6Class(NULL,
 #'   classical_decomposition(value ~ season(12), type = "mult")
 #'
 #' @importFrom stats ts decompose
+#' @importFrom fablelite new_decomposition_class new_decomposition
 #' @export
-classical_decomposition <- fablelite::new_decomposition(classical_decomposition_def)
+classical_decomposition <- function(.data, formula, type = c("additive", "multiplicative"), ...){
+  dcmp <- new_decomposition_class("Classical decomposition",
+                                  train = train_classical, specials = specials_classical)
+  new_decomposition(dcmp, .data, !!enquo(formula), type = type, ...)
+}
