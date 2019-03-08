@@ -137,7 +137,7 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
 
 #' @importFrom stats na.contiguous
 build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
-  .data <- as_tsibble(.data)
+  check_gaps(.data)
   if(is_regular(.data)){
     interval <- interval(.data)
   }
