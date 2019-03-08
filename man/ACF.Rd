@@ -53,11 +53,13 @@ described in Hyndman (2015), based on the banded and tapered estimates of
 autocovariance proposed by McMurry and Politis (2010).
 }
 \examples{
-tsibbledata::aus_elec \%>\% ACF(Temperature)
+library(tsibbledata)
 
-tsibbledata::aus_elec \%>\% ACF(Temperature)
+aus_elec \%>\% ACF(Temperature)
 
-tsibbledata::global_economy \%>\%
+aus_elec \%>\% PACF(Temperature)
+
+global_economy \%>\%
   filter(Country == "Australia") \%>\%
   CCF(GDP, Population)
 
