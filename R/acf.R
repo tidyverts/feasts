@@ -232,7 +232,7 @@ autoplot.tbl_cf <- function(object, level = 95, ...){
                         data = conf_int, colour = "blue", linetype = "dashed")
   }
 
-  if(!is_empty(key(object))){
+  if(n_keys(object) > 1){
     p <- p + facet_grid(rows = vars(!!!key(object)))
   }
 
