@@ -40,7 +40,7 @@
 #' \code{\link[stats]{ccf}}
 #'
 #' @examples
-#' tsibbledata::elecdemand %>% ACF(Temperature)
+#' tsibbledata::aus_elec %>% ACF(Temperature)
 #'
 #' @importFrom tibble tibble
 #' @importFrom stats as.ts frequency
@@ -75,7 +75,8 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
 
 #' @rdname ACF
 #' @examples
-#' tsibbledata::elecdemand %>% PACF(Demand)
+#' tsibbledata::aus_elec %>% ACF(Temperature)
+#'
 #' @export
 PACF <- function(.data, ..., lag_max = NULL){
   compute_pacf <- function(.data, value, ...){
@@ -101,7 +102,10 @@ PACF <- function(.data, ..., lag_max = NULL){
 
 #' @rdname ACF
 #' @examples
-#' tsibbledata::UKLungDeaths %>% CCF(mdeaths, fdeaths)
+#' tsibbledata::global_economy %>%
+#'   filter(Country == "Australia") %>%
+#'   CCF(GDP, Population)
+#'
 #' @export
 CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance")){
   compute_ccf <- function(.data, value1, value2, ...){

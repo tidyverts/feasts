@@ -53,10 +53,14 @@ described in Hyndman (2015), based on the banded and tapered estimates of
 autocovariance proposed by McMurry and Politis (2010).
 }
 \examples{
-tsibbledata::elecdemand \%>\% ACF(Temperature)
+tsibbledata::aus_elec \%>\% ACF(Temperature)
 
-tsibbledata::elecdemand \%>\% PACF(Demand)
-tsibbledata::UKLungDeaths \%>\% CCF(mdeaths, fdeaths)
+tsibbledata::aus_elec \%>\% ACF(Temperature)
+
+tsibbledata::global_economy \%>\%
+  filter(Country == "Australia") \%>\%
+  CCF(GDP, Population)
+
 }
 \references{
 Hyndman, R.J. (2015). Discussion of ``High-dimensional
