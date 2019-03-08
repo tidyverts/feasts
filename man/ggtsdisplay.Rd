@@ -33,7 +33,7 @@ graphic of either a PACF, lagged scatterplot or spectral density.
 }
 \examples{
 library(tsibble)
-tsibbledata::ausretail \%>\%
+tsibbledata::aus_retail \%>\%
   filter(
     State == "Victoria",
     Industry == "Cafes, restaurants and catering services"

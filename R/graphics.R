@@ -114,7 +114,7 @@ guess_plot_var <- function(x, var){
 #'
 #' @examples
 #' library(tsibble)
-#' tsibbledata::ausretail %>%
+#' tsibbledata::aus_retail %>%
 #'   filter(
 #'     State == "Victoria",
 #'     Industry == "Cafes, restaurants and catering services"
@@ -230,7 +230,7 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = NULL,
 #'
 #' @examples
 #' library(tsibble)
-#' tsibbledata::ausretail %>%
+#' tsibbledata::aus_retail %>%
 #'   filter(
 #'     State == "Victoria",
 #'     Industry == "Cafes, restaurants and catering services"
@@ -287,7 +287,7 @@ ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = NULL, ...){
 #'
 #' @examples
 #' library(tsibble)
-#' tsibbledata::ausretail %>%
+#' tsibbledata::aus_retail %>%
 #'   filter(
 #'     State == "Victoria",
 #'     Industry == "Cafes, restaurants and catering services"
@@ -361,7 +361,7 @@ gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9,
 #'
 #' @examples
 #' library(tsibble)
-#' tsibbledata::ausretail %>%
+#' tsibbledata::aus_retail %>%
 #'   filter(
 #'     State == "Victoria",
 #'     Industry == "Cafes, restaurants and catering services"

@@ -38,7 +38,7 @@ against the seasons in separate years.
 }
 \examples{
 library(tsibble)
-tsibbledata::ausretail \%>\%
+tsibbledata::aus_retail \%>\%
   filter(
     State == "Victoria",
     Industry == "Cafes, restaurants and catering services"
