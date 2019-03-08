@@ -143,7 +143,7 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
   }
   else{
     warn("Provided data has an irregular interval, results should be treated with caution. Computing ACF by observation.")
-    interval <- pull_interval(1:2)
+    interval <- new_interval(unit = 1)
   }
 
   lens <- key_data(.data) %>%
