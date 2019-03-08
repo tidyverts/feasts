@@ -138,7 +138,13 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
 #' @importFrom stats na.contiguous
 build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
   .data <- as_tsibble(.data)
-  interval <- interval(.data)
+  if(is_regular(.data)){
+    interval <- interval(.data)
+  }
+  else{
+    warn("Provided data has an irregular interval, results should be treated with caution. Computing ACF by observation.")
+    interval <- pull_interval(1:2)
+  }
 
   lens <- key_data(.data) %>%
     transmute(
