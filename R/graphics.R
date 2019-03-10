@@ -302,15 +302,15 @@ gglagplot <- function(x, ...){
 
 #' @inheritParams ggseasonplot.tbl_ts
 #' @param lags A vector of lags to display as facets.
-#' @param type The geometry used to display the data.
+#' @param geom The geometry used to display the data.
 #' @rdname gglagplot
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
 gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9,
-                             type = c("path", "point"), ...){
+                             geom = c("path", "point"), ...){
   var <- guess_plot_var(x, !!enquo(var))
-  type <- match.arg(type)
-  lag_geom <- switch(type, path = geom_path, point = geom_point)
+  geom <- match.arg(geom)
+  lag_geom <- switch(geom, path = geom_path, point = geom_point)
 
   period <- get_frequencies(period, x, .auto = "smallest")
   if(period <= 1){

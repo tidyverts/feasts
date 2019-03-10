@@ -8,7 +8,7 @@
 gglagplot(x, ...)
 
 \method{gglagplot}{tbl_ts}(x, var = NULL, period = NULL, lags = 1:9,
-  type = c("path", "point"), ...)
+  geom = c("path", "point"), ...)
 }
 \arguments{
 \item{x}{a time series object (type \code{ts}).}
@@ -22,7 +22,7 @@ automatically selected from the data.}
 
 \item{lags}{A vector of lags to display as facets.}
 
-\item{type}{The geometry used to display the data.}
+\item{geom}{The geometry used to display the data.}
 }
 \value{
 None.
