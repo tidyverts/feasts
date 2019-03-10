@@ -7,7 +7,7 @@
 \usage{
 gglagplot(x, ...)
 
-\method{gglagplot}{tbl_ts}(x, var = NULL, period = NULL, lags = 1:9,
+\method{gglagplot}{tbl_ts}(x, y = NULL, period = NULL, lags = 1:9,
   geom = c("path", "point"), ...)
 }
 \arguments{
@@ -15,7 +15,7 @@ gglagplot(x, ...)
 
 \item{...}{Not used (for consistency with lag.plot)}
 
-\item{var}{The variable to plot (a bare expression). If NULL, it will
+\item{y}{The variable to plot (a bare expression). If NULL, it will
 automatically selected from the data.}
 
 \item{period}{The seasonal period to display.}

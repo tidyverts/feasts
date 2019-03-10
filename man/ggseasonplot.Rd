@@ -7,16 +7,15 @@
 \usage{
 ggseasonplot(x, ...)
 
-\method{ggseasonplot}{tbl_ts}(x, var = NULL, period = NULL,
-  facet_period, polar = FALSE, labels = c("none", "left", "right",
-  "both"), ...)
+\method{ggseasonplot}{tbl_ts}(x, y = NULL, period = NULL, facet_period,
+  polar = FALSE, labels = c("none", "left", "right", "both"), ...)
 }
 \arguments{
 \item{x}{A time series object}
 
 \item{...}{Additional arguments passed to methods}
 
-\item{var}{The variable to plot (a bare expression). If NULL, it will
+\item{y}{The variable to plot (a bare expression). If NULL, it will
 automatically selected from the data.}
 
 \item{period}{The seasonal period to display.}

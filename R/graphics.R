@@ -94,16 +94,16 @@ within_time_identifier <- function(x){
   out
 }
 
-guess_plot_var <- function(x, var){
-  if(quo_is_null(enquo(var))){
+guess_plot_var <- function(x, y){
+  if(quo_is_null(enquo(y))){
     inform(sprintf(
-      "Plot variable not specified, automatically selected `var = %s`",
+      "Plot yiable not specified, automatically selected `y = %s`",
       measured_vars(x)[1]
     ))
     sym(measured_vars(x)[1])
   }
   else{
-    get_expr(enexpr(var))
+    get_expr(enexpr(y))
   }
 }
 
@@ -127,7 +127,7 @@ ggseasonplot <- function(x, ...){
   UseMethod("ggseasonplot")
 }
 
-#' @param var The variable to plot (a bare expression). If NULL, it will
+#' @param y The variable to plot (a bare expression). If NULL, it will
 #' automatically selected from the data.
 #' @param period The seasonal period to display.
 #' @param facet_period A secondary seasonal period to facet by
@@ -137,10 +137,10 @@ ggseasonplot <- function(x, ...){
 #' @rdname ggseasonplot
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
-ggseasonplot.tbl_ts <- function(x, var = NULL, period = NULL,
+ggseasonplot.tbl_ts <- function(x, y = NULL, period = NULL,
                                 facet_period, polar = FALSE,
                                 labels = c("none", "left", "right", "both"), ...){
-  var <- guess_plot_var(x, !!enquo(var))
+  y <- guess_plot_var(x, !!enquo(y))
 
   labels <- match.arg(labels)
   check_gaps(x)
@@ -178,15 +178,15 @@ ggseasonplot.tbl_ts <- function(x, var = NULL, period = NULL,
       group_by(!!sym("facet_id"), !!sym("id")) %>%
       summarise(
         !!expr_text(idx) := max(!!idx) + ts_unit - .Machine$double.eps,
-        !!expr_text(var) := (!!var)[[which.min(!!idx)]]
+        !!expr_text(y) := (!!y)[[which.min(!!idx)]]
       ) %>%
       group_by(!!sym("facet_id")) %>%
-      mutate(!!expr_text(var) := tsibble::lead(!!var)) %>%
-      filter(!is.na(!!var))
+      mutate(!!expr_text(y) := tsibble::lead(!!y)) %>%
+      filter(!is.na(!!y))
     x <- rbind(x, extra_x)
   }
 
-  p <- ggplot(x, aes(x = !!idx, y = !!var, colour = !!sym("id"))) +
+  p <- ggplot(x, aes(x = !!idx, y = !!y, colour = !!sym("id"))) +
     geom_line()
 
   if(!is.null(facet_period)){
@@ -247,8 +247,8 @@ ggsubseriesplot <- function(x, ...){
 #' @rdname ggsubseriesplot
 #' @importFrom ggplot2 ggplot aes geom_line geom_hline facet_grid
 #' @export
-ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = NULL, ...){
-  var <- guess_plot_var(x, !!enquo(var))
+ggsubseriesplot.tbl_ts <- function(x, y = NULL, period = NULL, ...){
+  y <- guess_plot_var(x, !!enquo(y))
 
   check_gaps(x)
   idx <- index(x)
@@ -265,9 +265,9 @@ ggsubseriesplot.tbl_ts <- function(x, var = NULL, period = NULL, ...){
       id = within_time_identifier(id)
     ) %>%
     group_by(id) %>%
-    mutate(.yint = mean(!!var))
+    mutate(.yint = mean(!!y))
 
-  p <- ggplot(x, aes(x = !!idx, y = !!var)) +
+  p <- ggplot(x, aes(x = !!idx, y = !!y)) +
     geom_line() +
     facet_grid(~ id) +
     geom_hline(aes(yintercept = !!sym(".yint")), colour = "blue")
@@ -306,9 +306,9 @@ gglagplot <- function(x, ...){
 #' @rdname gglagplot
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
-gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9,
+gglagplot.tbl_ts <- function(x, y = NULL, period = NULL, lags = 1:9,
                              geom = c("path", "point"), ...){
-  var <- guess_plot_var(x, !!enquo(var))
+  y <- guess_plot_var(x, !!enquo(y))
   geom <- match.arg(geom)
   lag_geom <- switch(geom, path = geom_path, point = geom_point)
 
@@ -318,7 +318,7 @@ gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9,
   }
   period_units <- period*time_unit(interval(x))
 
-  lag_exprs <- map(lags, function(lag) expr(lag(!!var, !!lag))) %>%
+  lag_exprs <- map(lags, function(lag) expr(lag(!!y, !!lag))) %>%
     set_names(paste0(".lag_", lags))
 
   idx <- index(x)
@@ -330,10 +330,10 @@ gglagplot.tbl_ts <- function(x, var = NULL, period = NULL, lags = 1:9,
       !!!lag_exprs) %>%
     gather(".lag", ".value", !!names(lag_exprs)) %>%
     mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags))) %>%
-    filter(!is.na(!!sym(".value")) | is.na(!!var))
+    filter(!is.na(!!sym(".value")) | is.na(!!y))
 
   x %>%
-    ggplot(aes(x = !!var, y = !!sym(".value"), colour = !!sym("season"))) +
+    ggplot(aes(x = !!y, y = !!sym(".value"), colour = !!sym("season"))) +
     geom_abline(colour = "gray", linetype = "dashed") +
     lag_geom() +
     facet_wrap(~ .lag)
@@ -379,7 +379,7 @@ ggtsdisplay <- function(x, ...){
 #' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
 #' @importFrom stats na.exclude complete.cases
 #' @export
-ggtsdisplay.tbl_ts <- function(x, var = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
+ggtsdisplay.tbl_ts <- function(x, y = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
                                lag_max = NULL, ...){
   require_package("grid")
 
@@ -388,16 +388,16 @@ ggtsdisplay.tbl_ts <- function(x, var = NULL, plot_type = c("partial", "histogra
   grid::pushViewport(grid::viewport(layout = grid::grid.layout(2, 2)))
 
   plot_type <- match.arg(plot_type)
-  var <- guess_plot_var(x, !!enquo(var))
+  y <- guess_plot_var(x, !!enquo(y))
 
-  p1 <- ggplot(x, aes(x = !!index(x), y = !!var)) +
+  p1 <- ggplot(x, aes(x = !!index(x), y = !!y)) +
     geom_line() +
     geom_point()
 
-  p2 <- autoplot(ACF(x, !!var, lag_max = lag_max))
+  p2 <- autoplot(ACF(x, !!y, lag_max = lag_max))
 
   if(plot_type == "partial"){
-    p3 <- autoplot(PACF(x, !!var, lag_max = lag_max))
+    p3 <- autoplot(PACF(x, !!y, lag_max = lag_max))
 
     # Match y-axis range across ACF and PACF
     p2_yrange <- ggplot2::layer_scales(p2)$y$range$range
@@ -406,18 +406,18 @@ ggtsdisplay.tbl_ts <- function(x, var = NULL, plot_type = c("partial", "histogra
     p2 <- p2 + ylim(yrange)
     p3 <- p3 + ylim(yrange)
   } else if(plot_type == "histogram"){
-    p3 <- ggplot(x, aes(x = !!var)) +
-      geom_histogram(bins = min(500, grDevices::nclass.FD(na.exclude(x[[expr_text(var)]])))) +
+    p3 <- ggplot(x, aes(x = !!y)) +
+      geom_histogram(bins = min(500, grDevices::nclass.FD(na.exclude(x[[expr_text(y)]])))) +
       ggplot2::geom_rug()
   } else if(plot_type == "scatter"){
     p3 <- x %>%
-      mutate(!!paste0(expr_text(var),"_lag") := lag(!!var, 1)) %>%
+      mutate(!!paste0(expr_text(y),"_lag") := lag(!!y, 1)) %>%
       .[complete.cases(.),] %>%
-      ggplot(aes(y = !!var, x = !!sym(paste0(expr_text(var),"_lag")))) +
+      ggplot(aes(y = !!y, x = !!sym(paste0(expr_text(y),"_lag")))) +
       geom_point() +
       xlab(expression(Y[t - 1])) + ylab(expression(Y[t]))
   } else if(plot_type == "spectrum"){
-    p3 <- stats::spec.ar(x[[expr_text(var)]], plot = FALSE) %>%
+    p3 <- stats::spec.ar(x[[expr_text(y)]], plot = FALSE) %>%
       {tibble(spectrum = .$spec[,1], frequency = .$freq)} %>%
       ggplot(aes(x = !!sym("frequency"), y = !!sym("spectrum"))) +
       geom_line() +

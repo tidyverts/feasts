@@ -7,7 +7,7 @@
 \usage{
 ggtsdisplay(x, ...)
 
-\method{ggtsdisplay}{tbl_ts}(x, var = NULL, plot_type = c("partial",
+\method{ggtsdisplay}{tbl_ts}(x, y = NULL, plot_type = c("partial",
   "histogram", "scatter", "spectrum"), lag_max = NULL, ...)
 }
 \arguments{
@@ -15,7 +15,7 @@ ggtsdisplay(x, ...)
 
 \item{...}{Arguments for subsequent plotting methods.}
 
-\item{var}{The variable to plot (a bare expression). If NULL, it will
+\item{y}{The variable to plot (a bare expression). If NULL, it will
 automatically selected from the data.}
 
 \item{plot_type}{type of plot to include in lower right corner.}

@@ -7,14 +7,14 @@
 \usage{
 ggsubseriesplot(x, ...)
 
-\method{ggsubseriesplot}{tbl_ts}(x, var = NULL, period = NULL, ...)
+\method{ggsubseriesplot}{tbl_ts}(x, y = NULL, period = NULL, ...)
 }
 \arguments{
 \item{x}{a time series object (type \code{ts}).}
 
 \item{...}{Not used (for consistency with monthplot)}
 
-\item{var}{The variable to plot (a bare expression). If NULL, it will
+\item{y}{The variable to plot (a bare expression). If NULL, it will
 automatically selected from the data.}
 
 \item{period}{The seasonal period to display.}
