@@ -84,7 +84,7 @@ train_x11 <- function(.data, formula, specials, type, ...){
 #'
 #' @importFrom fablelite new_decomposition_class new_decomposition
 #' @export
-X11 <- function(.data, formula, type = c("additive", "multiplicative"), ...){
+x11 <- function(.data, formula, type = c("additive", "multiplicative"), ...){
   type <- match.arg(type)
   dcmp <- new_decomposition_class("X11", train = train_x11, specials = specials_x11)
   new_decomposition(dcmp, .data, !!enquo(formula), type = type, ...)
