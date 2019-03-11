@@ -41,8 +41,9 @@
 #'
 #' @examples
 #' library(tsibble)
+#' library(tsibbledata)
 #'
-#' tsibbledata::aus_elec %>% ACF(Temperature)
+#' aus_elec %>% ACF(Temperature)
 #'
 #' @importFrom tibble tibble
 #' @importFrom stats as.ts frequency
