@@ -68,7 +68,7 @@ train_x11 <- function(.data, formula, specials, type, ...){
 #' @param ... Other arguments passed to [seasonal::seas()].
 #'
 #' @examples
-#' tsibbledata::aus_production %>% X11(Beer)
+#' tsibbledata::aus_production %>% x11(Beer)
 #'
 #' @seealso [seasonal::seas()]
 #'

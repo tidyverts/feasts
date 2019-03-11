@@ -21,7 +21,7 @@ Census Bureau X-11 and X-11Q programs. The type of seasonal decomposition
 (additive or multiplicative) can be controlled using the \code{type} argument.
 }
 \examples{
-tsibbledata::aus_production \%>\% X11(Beer)
+tsibbledata::aus_production \%>\% x11(Beer)
 
 }
 \references{
