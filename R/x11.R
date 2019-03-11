@@ -29,7 +29,7 @@ train_X11 <- function(.data, formula, specials, type, ...){
   type <- switch(type, additive = "add", multiplicative = "mult")
   op <- switch(type, add = "+", mult = "*")
 
-  fit <- seasonal::seas(y, X11 = "", X11.mode = type,
+  fit <- seasonal::seas(y, x11 = "", x11.mode = type,
                         transform.function = switch(type, add = "none", "log"))
 
   dcmp <- unclass(fit$data)
