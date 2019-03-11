@@ -93,7 +93,7 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 #' @param .data A tsibble.
 #' @param formula Decomposition specification.
 #' @param iterations Number of iterations to use to refine the seasonal component.
-#' @param ... Other arguments passed to \code{\link[forecast]{mstl}}.
+#' @param ... Other arguments passed to [stats::stl()].
 #'
 #' @examples
 #' USAccDeaths %>% as_tsibble %>% STL(value ~ trend(window = 10))

@@ -13,7 +13,7 @@ STL(.data, formula, iterations = 2, ...)
 
 \item{iterations}{Number of iterations to use to refine the seasonal component.}
 
-\item{...}{Other arguments passed to \code{\link[forecast]{mstl}}.}
+\item{...}{Other arguments passed to \code{\link[stats:stl]{stats::stl()}}.}
 }
 \description{
 Decompose a time series into seasonal, trend and remainder components.
