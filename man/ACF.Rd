@@ -53,9 +53,9 @@ described in Hyndman (2015), based on the banded and tapered estimates of
 autocovariance proposed by McMurry and Politis (2010).
 }
 \examples{
-library(tsibbledata)
+library(tsibble)
 
-aus_elec \%>\% ACF(Temperature)
+tsibbledata::aus_elec \%>\% ACF(Temperature)
 
 aus_elec \%>\% PACF(Temperature)
 

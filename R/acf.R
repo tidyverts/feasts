@@ -40,9 +40,9 @@
 #' \code{\link[stats]{ccf}}
 #'
 #' @examples
-#' library(tsibbledata)
+#' library(tsibble)
 #'
-#' aus_elec %>% ACF(Temperature)
+#' tsibbledata::aus_elec %>% ACF(Temperature)
 #'
 #' @importFrom tibble tibble
 #' @importFrom stats as.ts frequency
