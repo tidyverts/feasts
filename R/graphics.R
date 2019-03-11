@@ -109,8 +109,15 @@ guess_plot_var <- function(x, y){
 
 #' @inherit forecast::ggseasonplot
 #'
-#' @param x A time series object
+#' @param data A tidy time series object (tsibble)
 #' @param ... Additional arguments passed to methods
+#' @param y The variable to plot (a bare expression). If NULL, it will
+#' automatically selected from the data.
+#' @param period The seasonal period to display.
+#' @param facet_period A secondary seasonal period to facet by
+#' (typically smaller than period).
+#' @param polar If TRUE, the season plot will be shown on polar coordinates.
+#' @param labels Position of the labels for seasonal period identifier.
 #'
 #' @examples
 #' library(tsibble)
@@ -119,42 +126,28 @@ guess_plot_var <- function(x, y){
 #'     State == "Victoria",
 #'     Industry == "Cafes, restaurants and catering services"
 #'   ) %>%
-#'   ggseasonplot(Turnover)
+#'   gg_season(Turnover)
 #'
-#' @rdname ggseasonplot
-#' @export
-ggseasonplot <- function(x, ...){
-  UseMethod("ggseasonplot")
-}
-
-#' @param y The variable to plot (a bare expression). If NULL, it will
-#' automatically selected from the data.
-#' @param period The seasonal period to display.
-#' @param facet_period A secondary seasonal period to facet by
-#' (typically smaller than period).
-#' @param polar If TRUE, the seasonplot will be shown on polar coordinates.
-#' @param labels Position of the labels for seasonal period identifier.
-#' @rdname ggseasonplot
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
-ggseasonplot.tbl_ts <- function(x, y = NULL, period = NULL,
+gg_season <- function(data, y = NULL, period = NULL,
                                 facet_period, polar = FALSE,
                                 labels = c("none", "left", "right", "both"), ...){
-  y <- guess_plot_var(x, !!enquo(y))
+  y <- guess_plot_var(data, !!enquo(y))
 
   labels <- match.arg(labels)
-  check_gaps(x)
-  idx <- index(x)
-  ts_unit <- time_unit(interval(x))
+  check_gaps(data)
+  idx <- index(data)
+  ts_unit <- time_unit(interval(data))
 
-  period <- get_frequencies(period, x, .auto = "largest")
+  period <- get_frequencies(period, data, .auto = "largest")
   if(period <= 1){
     abort("The data must contain at least one observation per seasonal period.")
   }
   period <- period*ts_unit
 
   if(!is_missing(facet_period)){
-    facet_period <- get_frequencies(facet_period, x, .auto = "smallest")
+    facet_period <- get_frequencies(facet_period, data, .auto = "smallest")
     if(facet_period <= 1){
       abort("The data must contain at least one observation per seasonal period.")
     }
@@ -164,7 +157,7 @@ ggseasonplot.tbl_ts <- function(x, y = NULL, period = NULL,
     facet_period <- NULL
   }
 
-  x <- as_tibble(x) %>%
+  data <- as_tibble(data) %>%
     group_by(
       facet_id = time_identifier(!!idx, facet_period) %empty% NA
     ) %>%
@@ -174,7 +167,7 @@ ggseasonplot.tbl_ts <- function(x, y = NULL, period = NULL,
     )
 
   if(polar){
-    extra_x <- x %>%
+    extra_x <- data %>%
       group_by(!!sym("facet_id"), !!sym("id")) %>%
       summarise(
         !!expr_text(idx) := max(!!idx) + ts_unit - .Machine$double.eps,
@@ -183,19 +176,19 @@ ggseasonplot.tbl_ts <- function(x, y = NULL, period = NULL,
       group_by(!!sym("facet_id")) %>%
       mutate(!!expr_text(y) := tsibble::lead(!!y)) %>%
       filter(!is.na(!!y))
-    x <- rbind(x, extra_x)
+    data <- rbind(data, extra_x)
   }
 
-  p <- ggplot(x, aes(x = !!idx, y = !!y, colour = !!sym("id"))) +
+  p <- ggplot(data, aes(x = !!idx, y = !!y, colour = !!sym("id"))) +
     geom_line()
 
   if(!is.null(facet_period)){
     p <- p + facet_grid(~ facet_id, scales = "free_x")
   }
 
-  if(inherits(x[[expr_text(idx)]], "Date")){
+  if(inherits(data[[expr_text(idx)]], "Date")){
     p <- p + ggplot2::scale_x_date(labels = within_time_identifier)
-  } else if(inherits(x[[expr_text(idx)]], "POSIXct")){
+  } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
   }
 
@@ -213,7 +206,7 @@ ggseasonplot.tbl_ts <- function(x, y = NULL, period = NULL,
     else{
       label_pos <- expr(range(!!idx))
     }
-    labels_x <- x %>%
+    labels_x <- data %>%
       group_by(!!!syms(c("facet_id", "id"))) %>%
       filter(!!idx %in% !!label_pos)
 
@@ -226,7 +219,7 @@ ggseasonplot.tbl_ts <- function(x, y = NULL, period = NULL,
 
 #' @inherit forecast::ggsubseriesplot
 #'
-#' @inheritParams ggseasonplot
+#' @inheritParams gg_season
 #'
 #' @examples
 #' library(tsibble)
@@ -235,31 +228,23 @@ ggseasonplot.tbl_ts <- function(x, y = NULL, period = NULL,
 #'     State == "Victoria",
 #'     Industry == "Cafes, restaurants and catering services"
 #'   ) %>%
-#'   ggsubseriesplot(Turnover)
+#'   gg_subseries(Turnover)
 #'
-#' @rdname ggsubseriesplot
+#' @importFrom ggplot2 facet_grid
 #' @export
-ggsubseriesplot <- function(x, ...){
-  UseMethod("ggsubseriesplot")
-}
+gg_subseries <- function(data, y = NULL, period = NULL, ...){
+  y <- guess_plot_var(data, !!enquo(y))
 
-#' @inheritParams ggseasonplot.tbl_ts
-#' @rdname ggsubseriesplot
-#' @importFrom ggplot2 ggplot aes geom_line geom_hline facet_grid
-#' @export
-ggsubseriesplot.tbl_ts <- function(x, y = NULL, period = NULL, ...){
-  y <- guess_plot_var(x, !!enquo(y))
+  check_gaps(data)
+  idx <- index(data)
 
-  check_gaps(x)
-  idx <- index(x)
-
-  period <- get_frequencies(period, x, .auto = "smallest")
+  period <- get_frequencies(period, data, .auto = "smallest")
   if(period <= 1){
     abort("The data must contain at least one observation per seasonal period.")
   }
-  period_units <- period*time_unit(interval(x))
+  period_units <- period*time_unit(interval(data))
 
-  x <- as_tibble(x) %>%
+  data <- as_tibble(data) %>%
     mutate(
       id = !!idx - period_units*(units_since(!!idx)%/%period_units),
       id = within_time_identifier(id)
@@ -267,14 +252,14 @@ ggsubseriesplot.tbl_ts <- function(x, y = NULL, period = NULL, ...){
     group_by(id) %>%
     mutate(.yint = mean(!!y))
 
-  p <- ggplot(x, aes(x = !!idx, y = !!y)) +
+  p <- ggplot(data, aes(x = !!idx, y = !!y)) +
     geom_line() +
     facet_grid(~ id) +
     geom_hline(aes(yintercept = !!sym(".yint")), colour = "blue")
 
-  if(inherits(x[[expr_text(idx)]], "Date")){
+  if(inherits(data[[expr_text(idx)]], "Date")){
     p <- p + ggplot2::scale_x_date(labels = within_time_identifier)
-  } else if(inherits(x[[expr_text(idx)]], "POSIXct")){
+  } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
   }
 
@@ -282,8 +267,11 @@ ggsubseriesplot.tbl_ts <- function(x, y = NULL, period = NULL, ...){
 }
 
 
-#' @inheritParams ggseasonplot
+#' @inheritParams gg_season
 #' @inherit forecast::gglagplot
+#'
+#' @param lags A vector of lags to display as facets.
+#' @param geom The geometry used to display the data.
 #'
 #' @examples
 #' library(tsibble)
@@ -292,38 +280,28 @@ ggsubseriesplot.tbl_ts <- function(x, y = NULL, period = NULL, ...){
 #'     State == "Victoria",
 #'     Industry == "Cafes, restaurants and catering services"
 #'   ) %>%
-#'   gglagplot(Turnover)
+#'   gg_lag(Turnover)
 #'
-#' @rdname gglagplot
-#' @export
-gglagplot <- function(x, ...){
-  UseMethod("gglagplot")
-}
-
-#' @inheritParams ggseasonplot.tbl_ts
-#' @param lags A vector of lags to display as facets.
-#' @param geom The geometry used to display the data.
-#' @rdname gglagplot
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
-gglagplot.tbl_ts <- function(x, y = NULL, period = NULL, lags = 1:9,
+gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
                              geom = c("path", "point"), ...){
-  y <- guess_plot_var(x, !!enquo(y))
+  y <- guess_plot_var(data, !!enquo(y))
   geom <- match.arg(geom)
   lag_geom <- switch(geom, path = geom_path, point = geom_point)
 
-  period <- get_frequencies(period, x, .auto = "smallest")
+  period <- get_frequencies(period, data, .auto = "smallest")
   if(period <= 1){
     abort("The data must contain at least one observation per seasonal period.")
   }
-  period_units <- period*time_unit(interval(x))
+  period_units <- period*time_unit(interval(data))
 
   lag_exprs <- map(lags, function(lag) expr(lag(!!y, !!lag))) %>%
     set_names(paste0(".lag_", lags))
 
-  idx <- index(x)
+  idx <- index(data)
 
-  x <- x %>%
+  data <- data %>%
     as_tibble %>%
     mutate(
       season = factor(!!idx - period_units*(units_since(!!idx)%/%period_units)),
@@ -332,7 +310,7 @@ gglagplot.tbl_ts <- function(x, y = NULL, period = NULL, lags = 1:9,
     mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags))) %>%
     filter(!is.na(!!sym(".value")) | is.na(!!y))
 
-  x %>%
+  data %>%
     ggplot(aes(x = !!y, y = !!sym(".value"), colour = !!sym("season"))) +
     geom_abline(colour = "gray", linetype = "dashed") +
     lag_geom() +
@@ -346,7 +324,7 @@ gglagplot.tbl_ts <- function(x, y = NULL, period = NULL, lags = 1:9,
 #'
 #' @param plot_type type of plot to include in lower right corner.
 #' @param ... Arguments for subsequent plotting methods.
-#' @inheritParams ggseasonplot
+#' @inheritParams gg_season
 #' @inheritParams ACF
 #'
 #' @return A ggplot2 plot.
@@ -366,20 +344,12 @@ gglagplot.tbl_ts <- function(x, y = NULL, period = NULL, lags = 1:9,
 #'     State == "Victoria",
 #'     Industry == "Cafes, restaurants and catering services"
 #'   ) %>%
-#'   ggtsdisplay(Turnover)
+#'   gg_tsdisplay(Turnover)
 #'
-#' @rdname ggtsdisplay
-#' @export
-ggtsdisplay <- function(x, ...){
-  UseMethod("ggtsdisplay")
-}
-
-#' @inheritParams ggseasonplot.tbl_ts
-#' @rdname ggtsdisplay
 #' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
 #' @importFrom stats na.exclude complete.cases
 #' @export
-ggtsdisplay.tbl_ts <- function(x, y = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
+gg_tsdisplay <- function(data, y = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
                                lag_max = NULL, ...){
   require_package("grid")
 
@@ -388,16 +358,16 @@ ggtsdisplay.tbl_ts <- function(x, y = NULL, plot_type = c("partial", "histogram"
   grid::pushViewport(grid::viewport(layout = grid::grid.layout(2, 2)))
 
   plot_type <- match.arg(plot_type)
-  y <- guess_plot_var(x, !!enquo(y))
+  y <- guess_plot_var(data, !!enquo(y))
 
-  p1 <- ggplot(x, aes(x = !!index(x), y = !!y)) +
+  p1 <- ggplot(data, aes(x = !!index(data), y = !!y)) +
     geom_line() +
     geom_point()
 
-  p2 <- autoplot(ACF(x, !!y, lag_max = lag_max))
+  p2 <- autoplot(ACF(data, !!y, lag_max = lag_max))
 
   if(plot_type == "partial"){
-    p3 <- autoplot(PACF(x, !!y, lag_max = lag_max))
+    p3 <- autoplot(PACF(data, !!y, lag_max = lag_max))
 
     # Match y-axis range across ACF and PACF
     p2_yrange <- ggplot2::layer_scales(p2)$y$range$range
@@ -406,18 +376,18 @@ ggtsdisplay.tbl_ts <- function(x, y = NULL, plot_type = c("partial", "histogram"
     p2 <- p2 + ylim(yrange)
     p3 <- p3 + ylim(yrange)
   } else if(plot_type == "histogram"){
-    p3 <- ggplot(x, aes(x = !!y)) +
-      geom_histogram(bins = min(500, grDevices::nclass.FD(na.exclude(x[[expr_text(y)]])))) +
+    p3 <- ggplot(data, aes(x = !!y)) +
+      geom_histogram(bins = min(500, grDevices::nclass.FD(na.exclude(data[[expr_text(y)]])))) +
       ggplot2::geom_rug()
   } else if(plot_type == "scatter"){
-    p3 <- x %>%
+    p3 <- data %>%
       mutate(!!paste0(expr_text(y),"_lag") := lag(!!y, 1)) %>%
       .[complete.cases(.),] %>%
       ggplot(aes(y = !!y, x = !!sym(paste0(expr_text(y),"_lag")))) +
       geom_point() +
       xlab(expression(Y[t - 1])) + ylab(expression(Y[t]))
   } else if(plot_type == "spectrum"){
-    p3 <- stats::spec.ar(x[[expr_text(y)]], plot = FALSE) %>%
+    p3 <- stats::spec.ar(data[[expr_text(y)]], plot = FALSE) %>%
       {tibble(spectrum = .$spec[,1], frequency = .$freq)} %>%
       ggplot(aes(x = !!sym("frequency"), y = !!sym("spectrum"))) +
       geom_line() +
