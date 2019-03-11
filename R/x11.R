@@ -1,6 +1,6 @@
 globalVariables("self")
 
-specials_x11 <- fablelite::new_specials(
+specials_X11 <- fablelite::new_specials(
   season = function(period = NULL){
     period <- get_frequencies(period, self$data, .auto = "smallest")
     if(!(period %in% c(4, 12))){
@@ -16,7 +16,7 @@ specials_x11 <- fablelite::new_specials(
   .required_specials = "season"
 )
 
-train_x11 <- function(.data, formula, specials, type, ...){
+train_X11 <- function(.data, formula, specials, type, ...){
   require_package("seasonal")
   stopifnot(is_tsibble(.data))
 
@@ -29,7 +29,7 @@ train_x11 <- function(.data, formula, specials, type, ...){
   type <- switch(type, additive = "add", multiplicative = "mult")
   op <- switch(type, add = "+", mult = "*")
 
-  fit <- seasonal::seas(y, x11 = "", x11.mode = type,
+  fit <- seasonal::seas(y, X11 = "", X11.mode = type,
                         transform.function = switch(type, add = "none", "log"))
 
   dcmp <- unclass(fit$data)
@@ -68,7 +68,7 @@ train_x11 <- function(.data, formula, specials, type, ...){
 #' @param ... Other arguments passed to [seasonal::seas()].
 #'
 #' @examples
-#' tsibbledata::aus_production %>% x11(Beer)
+#' tsibbledata::aus_production %>% X11(Beer)
 #'
 #' @seealso [seasonal::seas()]
 #'
@@ -84,9 +84,9 @@ train_x11 <- function(.data, formula, specials, type, ...){
 #'
 #' @importFrom fablelite new_decomposition_class new_decomposition
 #' @export
-x11 <- function(.data, formula, type = c("additive", "multiplicative"), ...){
+X11 <- function(.data, formula, type = c("additive", "multiplicative"), ...){
   type <- match.arg(type)
-  dcmp <- new_decomposition_class("X11", train = train_x11, specials = specials_x11)
+  dcmp <- new_decomposition_class("X11", train = train_X11, specials = specials_X11)
   new_decomposition(dcmp, .data, !!enquo(formula), type = type, ...)
 }
 
