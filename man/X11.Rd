@@ -33,3 +33,6 @@ http://www.seasonal.website/seasonal.html#input
 
 Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
 }
+\seealso{
+\code{\link[seasonal:seas]{seasonal::seas()}}
+}

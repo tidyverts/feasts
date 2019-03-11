@@ -70,6 +70,8 @@ train_x11 <- function(.data, formula, specials, type, ...){
 #' @examples
 #' tsibbledata::aus_production %>% X11(Beer)
 #'
+#' @seealso [seasonal::seas()]
+#'
 #' @references
 #'
 #' Dagum, E. B., & Bianconcini, S. (2016) "Seasonal adjustment methods and real
