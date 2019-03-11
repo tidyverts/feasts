@@ -1,0 +1,90 @@
+globalVariables("self")
+
+specials_x11 <- fablelite::new_specials(
+  season = function(period = NULL){
+    period <- get_frequencies(period, self$data, .auto = "smallest")
+    if(!(period %in% c(4, 12))){
+      abort("The X11 method only supports monthly (`period = 12`) and quarterly (`period = 4`) seasonal patterns")
+    }
+    period
+  },
+
+  xreg = function(...){
+    abort("Exogenous regressors are not supported for X11 decompositions.")
+  },
+
+  .required_specials = "season"
+)
+
+train_x11 <- function(.data, formula, specials, type, ...){
+  require_package("seasonal")
+  stopifnot(is_tsibble(.data))
+
+  if(length(specials$season) != 1){
+    abort("X11 only supports one seasonal period.")
+  }
+  period <- specials$season[[1]]
+  y <- as.ts(.data, frequency = period)
+
+  type <- switch(type, additive = "add", multiplicative = "mult")
+  op <- switch(type, add = "+", mult = "*")
+
+  fit <- seasonal::seas(y, x11 = "", x11.mode = type,
+                        transform.function = switch(type, add = "none", "log"))
+
+  dcmp <- unclass(fit$data)
+
+  dcmp <- .data %>%
+    mutate(
+      trend = dcmp[,"trend"],
+      seasonal = dcmp[,"adjustfac"],
+      irregular = dcmp[,"irregular"],
+      seas_adjust = !!call2(op, !!!syms(c("trend", "irregular")))
+    )
+
+  seasonalities <- list(
+    seasonal = list(period = period, base = switch(op, `+` = 0, 1))
+  )
+
+  aliases <- list2(
+    !!measured_vars(.data) := reduce(syms(c("trend", "seasonal", "irregular")),
+                                     function(x,y) call2(op, x, y)),
+    seas_adjust = call2(op, sym("trend"), sym("irregular"))
+  )
+
+  fablelite::as_dable(dcmp, resp = !!sym(measured_vars(.data)),
+                      method = "X11", seasons = seasonalities, aliases = aliases)
+}
+
+#' X11 seasonal decomposition
+#'
+#' Applies a seasonal adjustment by an enhanced version of the methodology of the
+#' Census Bureau X-11 and X-11Q programs. The type of seasonal decomposition
+#' (additive or multiplicative) can be controlled using the `type` argument.
+#'
+#' @param .data A tsibble.
+#' @param formula Decomposition specification.
+#' @param type The type of decomposition: additive or multiplicative
+#' @param ... Other arguments passed to [seasonal::seas()].
+#'
+#' @examples
+#' tsibbledata::aus_production %>% X11(Beer)
+#'
+#' @references
+#'
+#' Dagum, E. B., & Bianconcini, S. (2016) "Seasonal adjustment methods and real
+#' time trend-cycle estimation". \emph{Springer}.
+#'
+#' X11 Documentation from the seasonal package's website:
+#' http://www.seasonal.website/seasonal.html#input
+#'
+#' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
+#'
+#' @importFrom fablelite new_decomposition_class new_decomposition
+#' @export
+X11 <- function(.data, formula, type = c("additive", "multiplicative"), ...){
+  type <- match.arg(type)
+  dcmp <- new_decomposition_class("X11", train = train_x11, specials = specials_x11)
+  new_decomposition(dcmp, .data, !!enquo(formula), type = type, ...)
+}
+

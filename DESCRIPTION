@@ -23,7 +23,8 @@ Suggests:
     rmarkdown,
     testthat,
     covr,
-    grid
+    grid,
+    seasonal
 Remotes:
     tidyverts/tsibble,
     tidyverts/tsibbledata,
