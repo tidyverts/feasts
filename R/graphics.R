@@ -304,7 +304,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
   data <- data %>%
     as_tibble %>%
     mutate(
-      season = factor(!!idx - period_units*(units_since(!!idx)%/%period_units)),
+      season = within_time_identifier(!!idx - period_units*(units_since(!!idx)%/%period_units)),
       !!!lag_exprs) %>%
     gather(".lag", ".value", !!names(lag_exprs)) %>%
     mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags))) %>%
