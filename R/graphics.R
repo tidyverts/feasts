@@ -250,7 +250,7 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
       id = within_time_identifier(id)
     ) %>%
     group_by(id) %>%
-    mutate(.yint = mean(!!y))
+    mutate(.yint = mean(!!y, na.rm = TRUE))
 
   p <- ggplot(data, aes(x = !!idx, y = !!y)) +
     geom_line() +
