@@ -49,7 +49,7 @@ time_identifier <- function(idx, time_units){
   for(fmt in formats){
     fmt_idx_grp <- if(grepl("W%V", fmt)) wk_idx_grp else idx_grp
     if(length(unique(format_time(fmt_idx_grp[[1]], format = fmt))) == 1){
-      ids <- map(fmt_idx_grp, function(x) unique(format(x, format = fmt)))
+      ids <- map(fmt_idx_grp, function(x) unique(format_time(x, format = fmt)))
       if(all(map_lgl(ids, function(x) length(x) == 1)) && length(unique(ids)) == length(fmt_idx_grp)){
         found_format <- TRUE
         break
