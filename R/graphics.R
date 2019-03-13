@@ -1,4 +1,7 @@
 format_time <- function(x, format, ...){
+  if(format == "%Y W%V"){
+    return(format(yearweek(x)))
+  }
   out <- format(x, format)
   if (grepl("%q", format)) {
     qtr <- 1 + as.numeric(format(as.Date(x), "%m"))%/%3
@@ -17,14 +20,19 @@ time_identifier <- function(idx, time_units){
   if(is.null(time_units)){
     return(rep(NA, length(idx)))
   }
+
   grps <- units_since(idx) %/% time_units
   idx_grp <- split(idx, grps)
+
+  # Different origin for weeks
+  wk_grps <- (60*60*24*3 + units_since(idx)) %/% time_units
+  wk_idx_grp <- split(idx, wk_grps)
 
   formats <- list(
     Weekday = "%A",
     Monthday = "%d",
     Yearday = "%j",
-    Week = "%V",
+    Week = "W%V",
     Month = "%b",
     Year = "%Y",
     Yearweek = "%Y W%V",
@@ -39,9 +47,10 @@ time_identifier <- function(idx, time_units){
 
   found_format <- FALSE
   for(fmt in formats){
-    if(length(unique(format(idx_grp[[1]], format = fmt))) == 1){
-      ids <- map(idx_grp, function(x) unique(format(x, format = fmt)))
-      if(all(map_lgl(ids, function(x) length(x) == 1)) && length(unique(ids)) == length(idx_grp)){
+    fmt_idx_grp <- if(grepl("W%V", fmt)) wk_idx_grp else idx_grp
+    if(length(unique(format_time(fmt_idx_grp[[1]], format = fmt))) == 1){
+      ids <- map(fmt_idx_grp, function(x) unique(format(x, format = fmt)))
+      if(all(map_lgl(ids, function(x) length(x) == 1)) && length(unique(ids)) == length(fmt_idx_grp)){
         found_format <- TRUE
         break
       }
@@ -63,7 +72,7 @@ within_time_identifier <- function(x){
     Year = "%Y",
     Quarter = "Q%q",
     Month = "%b",
-    Week = "%V",
+    Week = "W%V",
     Weekday = "%A",
     Monthday = "%d",
     Yearquarter = "%Y Q%q",
