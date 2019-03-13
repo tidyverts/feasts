@@ -97,7 +97,7 @@ within_time_identifier <- function(x){
 guess_plot_var <- function(x, y){
   if(quo_is_null(enquo(y))){
     inform(sprintf(
-      "Plot yiable not specified, automatically selected `y = %s`",
+      "Plot variable not specified, automatically selected `y = %s`",
       measured_vars(x)[1]
     ))
     sym(measured_vars(x)[1])
