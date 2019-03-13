@@ -314,7 +314,8 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
     ggplot(aes(x = !!y, y = !!sym(".value"), colour = !!sym("season"))) +
     geom_abline(colour = "gray", linetype = "dashed") +
     lag_geom() +
-    facet_wrap(~ .lag)
+    facet_wrap(~ .lag) +
+    ylab(paste0("lag(", as_string(y), ", n)"))
 }
 
 #' Ensemble of time series displays
