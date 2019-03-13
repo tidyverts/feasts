@@ -2,7 +2,7 @@ format_time <- function(x, format, ...){
   if(format == "%Y W%V"){
     return(format(yearweek(x)))
   }
-  out <- format(x, format)
+  out <- format(x, format = format)
   if (grepl("%q", format)) {
     qtr <- 1 + as.numeric(format(as.Date(x), "%m"))%/%3
     out <- split(out, qtr) %>% imap(function(x, rpl) gsub("%q", rpl, x)) %>% unsplit(qtr)
@@ -301,9 +301,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
   lag_geom <- switch(geom, path = geom_path, point = geom_point)
 
   period <- get_frequencies(period, data, .auto = "smallest")
-  if(period <= 1){
-    abort("The data must contain at least one observation per seasonal period.")
-  }
+
   period_units <- period*time_unit(interval(data))
 
   lag_exprs <- map(lags, function(lag) expr(lag(!!y, !!lag))) %>%
@@ -320,8 +318,12 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
     mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags))) %>%
     filter(!is.na(!!sym(".value")) | is.na(!!y))
 
+  mapping <- aes(x = !!y, y = !!sym(".value"))
+  if(period > 1){
+    mapping$colour <- sym("season")
+  }
   data %>%
-    ggplot(aes(x = !!y, y = !!sym(".value"), colour = !!sym("season"))) +
+    ggplot(mapping) +
     geom_abline(colour = "gray", linetype = "dashed") +
     lag_geom() +
     facet_wrap(~ .lag) +
