@@ -172,7 +172,7 @@ gg_season <- function(data, y = NULL, period = NULL,
     ) %>%
     mutate(
       id = time_identifier(!!idx, period),
-      !!as_string(idx) := !!idx - period * (units_since(!!idx) %/% period)
+      !!as_string(idx) := !!idx - period * ((units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
     )
 
   if(polar){
@@ -251,11 +251,12 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
   if(period <= 1){
     abort("The data must contain at least one observation per seasonal period.")
   }
-  period_units <- period*time_unit(interval(data))
+  period <- period*time_unit(interval(data))
 
   data <- as_tibble(data) %>%
     mutate(
-      id = !!idx - period_units*(units_since(!!idx)%/%period_units),
+      id = time_identifier(!!idx, period),
+      id = !!idx - period * ((units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period),
       id = within_time_identifier(id)
     ) %>%
     group_by(id) %>%
