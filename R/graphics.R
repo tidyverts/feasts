@@ -317,6 +317,10 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
   geom <- match.arg(geom)
   lag_geom <- switch(geom, path = geom_path, point = geom_point)
 
+  if(n_keys(data) > 1){
+    abort("The data provided to contains more than one time series. Please filter a single time series to use `gg_lag()`")
+  }
+
   period <- get_frequencies(period, data, .auto = "smallest")
 
   period_units <- period*time_unit(interval(data))
@@ -383,6 +387,10 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' @export
 gg_tsdisplay <- function(data, y = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
                                lag_max = NULL){
+  if(n_keys(data) > 1){
+    abort("The data provided to contains more than one time series. Please filter a single time series to use `gg_tsdisplay()`")
+  }
+
   require_package("grid")
 
   # Set up grid for plots
