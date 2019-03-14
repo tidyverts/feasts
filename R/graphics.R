@@ -91,7 +91,7 @@ within_time_identifier <- function(x){
   x <- unique(x[!is.na(x)])
 
   for(fmt in formats){
-    if(sum(duplicated(format(x[-length(x)], format = fmt))) == 0){
+    if(sum(duplicated(format_time(x[-length(x)], format = fmt))) == 0){
       break
     }
   }
