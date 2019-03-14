@@ -195,7 +195,7 @@ gg_season <- function(data, y = NULL, period = NULL,
     geom_line()
 
   if(!is.null(facet_period)){
-    p <- p + facet_grid(rows = ifelse(n_key > 1, vars(!!!keys), NULL),
+    p <- p + facet_grid(rows = vars(!!!keys),
                         cols = vars(!!sym("facet_id")),
                         scales = ifelse(n_key > 1, "free", "free_x"))
   }
