@@ -259,7 +259,8 @@ gg_season <- function(data, y = NULL, period = NULL,
 #' @export
 gg_subseries <- function(data, y = NULL, period = NULL, ...){
   y <- guess_plot_var(data, !!enquo(y))
-
+  n_key <- n_keys(data)
+  keys <- key(data)
   check_gaps(data)
   idx <- index(data)
 
@@ -270,17 +271,18 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
   period <- period*time_unit(interval(data))
 
   data <- as_tibble(data) %>%
+    group_by(!!!keys) %>%
     mutate(
       id = time_identifier(!!idx, period),
       id = !!idx - period * ((units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period),
       id = within_time_identifier(id)
     ) %>%
-    group_by(id) %>%
+    group_by(id, !!!keys) %>%
     mutate(.yint = mean(!!y, na.rm = TRUE))
 
   p <- ggplot(data, aes(x = !!idx, y = !!y)) +
     geom_line() +
-    facet_grid(~ id) +
+    facet_grid(rows = vars(!!!keys), cols = vars(!!sym("id")), scales = "free_y") +
     geom_hline(aes(yintercept = !!sym(".yint")), colour = "blue")
 
   if(inherits(data[[expr_text(idx)]], "Date")){
