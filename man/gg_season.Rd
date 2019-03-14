@@ -4,8 +4,8 @@
 \alias{gg_season}
 \title{Seasonal plot}
 \usage{
-gg_season(data, y = NULL, period = NULL, facet_period, polar = FALSE,
-  labels = c("none", "left", "right", "both"))
+gg_season(data, y = NULL, period = NULL, facet_period, max_col = 15,
+  polar = FALSE, labels = c("none", "left", "right", "both"))
 }
 \arguments{
 \item{data}{A tidy time series object (tsibble)}
@@ -17,6 +17,11 @@ automatically selected from the data.}
 
 \item{facet_period}{A secondary seasonal period to facet by
 (typically smaller than period).}
+
+\item{max_col}{The maximum number of colours to display on the plot. If the
+number of seasonal periods in the data is larger than \code{max_col}, the plot
+will not include a colour. Use \code{max_col = 0} to never colour the lines, or Inf
+to always colour the lines.}
 
 \item{polar}{If TRUE, the season plot will be shown on polar coordinates.}
 
