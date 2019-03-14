@@ -147,6 +147,8 @@ gg_season <- function(data, y = NULL, period = NULL,
   labels <- match.arg(labels)
   check_gaps(data)
   idx <- index(data)
+  n_key <- n_keys(data)
+  keys <- key(data)
   ts_unit <- time_unit(interval(data))
 
   period <- get_frequencies(period, data, .auto = "largest")
@@ -168,7 +170,8 @@ gg_season <- function(data, y = NULL, period = NULL,
 
   data <- as_tibble(data) %>%
     group_by(
-      facet_id = time_identifier(!!idx, facet_period) %empty% NA
+      facet_id = time_identifier(!!idx, facet_period) %empty% NA,
+      !!!key(data)
     ) %>%
     mutate(
       id = time_identifier(!!idx, period),
@@ -192,7 +195,12 @@ gg_season <- function(data, y = NULL, period = NULL,
     geom_line()
 
   if(!is.null(facet_period)){
-    p <- p + facet_grid(~ facet_id, scales = "free_x")
+    p <- p + facet_grid(rows = ifelse(n_key > 1, vars(!!!keys), NULL),
+                        cols = vars(!!sym("facet_id")),
+                        scales = ifelse(n_key > 1, "free", "free_x"))
+  }
+  else if(n_key > 1){
+    p <- p + facet_grid(rows = vars(!!!keys), scales = "free_y")
   }
 
   if(inherits(data[[expr_text(idx)]], "Date")){
