@@ -5,7 +5,7 @@
 \title{Ensemble of time series displays}
 \usage{
 gg_tsdisplay(data, y = NULL, plot_type = c("partial", "histogram",
-  "scatter", "spectrum"), lag_max = NULL, ...)
+  "scatter", "spectrum"), lag_max = NULL)
 }
 \arguments{
 \item{data}{A tidy time series object (tsibble)}
@@ -18,8 +18,6 @@ automatically selected from the data.}
 \item{lag_max}{maximum lag at which to calculate the acf. Default is 10*log10(N/m)
 where N is the number of observations and m the number of series. Will be
 automatically limited to one less than the number of observations in the series.}
-
-\item{...}{Arguments for subsequent plotting methods.}
 }
 \value{
 A ggplot2 plot.

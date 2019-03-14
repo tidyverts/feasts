@@ -119,7 +119,6 @@ guess_plot_var <- function(x, y){
 #' @inherit forecast::ggseasonplot
 #'
 #' @param data A tidy time series object (tsibble)
-#' @param ... Additional arguments passed to methods
 #' @param y The variable to plot (a bare expression). If NULL, it will
 #' automatically selected from the data.
 #' @param period The seasonal period to display.
@@ -141,7 +140,7 @@ guess_plot_var <- function(x, y){
 #' @export
 gg_season <- function(data, y = NULL, period = NULL,
                                 facet_period, polar = FALSE,
-                                labels = c("none", "left", "right", "both"), ...){
+                                labels = c("none", "left", "right", "both")){
   y <- guess_plot_var(data, !!enquo(y))
 
   labels <- match.arg(labels)
@@ -257,7 +256,7 @@ gg_season <- function(data, y = NULL, period = NULL,
 #'
 #' @importFrom ggplot2 facet_grid
 #' @export
-gg_subseries <- function(data, y = NULL, period = NULL, ...){
+gg_subseries <- function(data, y = NULL, period = NULL){
   y <- guess_plot_var(data, !!enquo(y))
   n_key <- n_keys(data)
   keys <- key(data)
@@ -313,7 +312,7 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
 gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
-                             geom = c("path", "point"), ...){
+                             geom = c("path", "point")){
   y <- guess_plot_var(data, !!enquo(y))
   geom <- match.arg(geom)
   lag_geom <- switch(geom, path = geom_path, point = geom_point)
@@ -354,7 +353,6 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' graphic of either a PACF, lagged scatterplot or spectral density.
 #'
 #' @param plot_type type of plot to include in lower right corner.
-#' @param ... Arguments for subsequent plotting methods.
 #' @inheritParams gg_season
 #' @inheritParams ACF
 #'
@@ -381,7 +379,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' @importFrom stats na.exclude complete.cases
 #' @export
 gg_tsdisplay <- function(data, y = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
-                               lag_max = NULL, ...){
+                               lag_max = NULL){
   require_package("grid")
 
   # Set up grid for plots

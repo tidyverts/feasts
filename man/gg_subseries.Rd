@@ -4,7 +4,7 @@
 \alias{gg_subseries}
 \title{Create a seasonal subseries ggplot}
 \usage{
-gg_subseries(data, y = NULL, period = NULL, ...)
+gg_subseries(data, y = NULL, period = NULL)
 }
 \arguments{
 \item{data}{A tidy time series object (tsibble)}
@@ -13,8 +13,6 @@ gg_subseries(data, y = NULL, period = NULL, ...)
 automatically selected from the data.}
 
 \item{period}{The seasonal period to display.}
-
-\item{...}{Not used (for consistency with monthplot)}
 }
 \value{
 Returns an object of class \code{ggplot}.

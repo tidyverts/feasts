@@ -5,7 +5,7 @@
 \title{Seasonal plot}
 \usage{
 gg_season(data, y = NULL, period = NULL, facet_period, polar = FALSE,
-  labels = c("none", "left", "right", "both"), ...)
+  labels = c("none", "left", "right", "both"))
 }
 \arguments{
 \item{data}{A tidy time series object (tsibble)}
@@ -21,8 +21,6 @@ automatically selected from the data.}
 \item{polar}{If TRUE, the season plot will be shown on polar coordinates.}
 
 \item{labels}{Position of the labels for seasonal period identifier.}
-
-\item{...}{Additional arguments passed to methods}
 }
 \value{
 None.
