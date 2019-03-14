@@ -330,15 +330,18 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
     as_tibble %>%
     mutate(
       season = within_time_identifier(!!idx - period_units*(units_since(!!idx)%/%period_units)),
-      !!!lag_exprs) %>%
+      !!!lag_exprs)
+  warn(sprintf("Removed %i rows containing missing values (gg_lag).", sum(is.na(data[[as_string(y)]]))))
+  data <- data %>%
     gather(".lag", ".value", !!names(lag_exprs)) %>%
     mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags))) %>%
-    filter(!is.na(!!sym(".value")) | is.na(!!y))
+    filter(!is.na(!!sym(".value")) & !is.na(!!y))
 
   mapping <- aes(x = !!y, y = !!sym(".value"))
   if(period > 1){
     mapping$colour <- sym("season")
   }
+
   data %>%
     ggplot(mapping) +
     geom_abline(colour = "gray", linetype = "dashed") +
