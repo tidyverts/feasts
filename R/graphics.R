@@ -198,7 +198,15 @@ gg_season <- function(data, y = NULL, period = NULL,
   if(inherits(data[[expr_text(idx)]], "Date")){
     p <- p + ggplot2::scale_x_date(labels = within_time_identifier)
   } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
-    p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
+    p <- p + ggplot2::scale_x_datetime(breaks = function(limit){
+      if(period == 7*60*60*24){
+        limit <- limit - as.numeric(limit)%%(60*60*24)
+        seq(limit[1], length.out = 8, by = "day")
+      }
+      else{
+        ggplot2::scale_x_datetime()$trans$breaks(limit)
+      }
+    }, labels = within_time_identifier)
   }
 
   if(polar){
