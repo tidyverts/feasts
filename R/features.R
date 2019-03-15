@@ -51,6 +51,10 @@ build_feature_calls <- function(measures, available_args){
 features.tbl_ts <- function(data, y = NULL, ..., features = list(guerrero)){
   dots <- dots_list(...)
 
+  if(is_function(features)){
+    features <- list(features)
+  }
+
   if(quo_is_null(enquo(y))){
     inform(sprintf(
       "Feature variable not specified, automatically selected `y = %s`",
