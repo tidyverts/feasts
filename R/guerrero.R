@@ -22,10 +22,18 @@ guer.cv <- function(lam, x, .period = 2) {
   res
 }
 
-# guerrero extracts the required lambda
-# Input: x = original time series as a time series object
-# Output: lambda that minimises the coefficient of variation
-
+#' Guerrero's method for Box Cox lambda selection
+#'
+#' Applies Guerrero's (1993) method to select the lambda which minimises the
+#' coefficient of variation for subseries x.
+#'
+#' @param x A numeric vector. The data used to identify the transformation
+#' parameter lambda.
+#' @param lower The lower bound for lambda.
+#' @param upper The upper bound for lambda.
+#' @param .period The seasonal period of the time series.
+#'
+#' @export
 guerrero <- function(x, lower=-1, upper=2, .period) {
   lambda <- optimize(
     guer.cv, c(lower, upper), x = x,
