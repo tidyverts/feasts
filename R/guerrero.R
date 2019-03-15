@@ -10,6 +10,7 @@
 # Output: coefficient of variation
 
 guer.cv <- function(lam, x, .period = 2) {
+  if(all(x == x[1])) return(1)
   nobsf <- length(x)
   nyr <- floor(nobsf / .period)
   nobst <- floor(nyr * .period)
