@@ -8,7 +8,7 @@
 # 	lam = lambda
 # 	x = original time series as a time series object
 # Output: coefficient of variation
-
+#' @importFrom stats sd
 guer.cv <- function(lam, x, .period = 2) {
   if(all(x == x[1])) return(1)
   nobsf <- length(x)
@@ -32,6 +32,8 @@ guer.cv <- function(lam, x, .period = 2) {
 #' @param lower The lower bound for lambda.
 #' @param upper The upper bound for lambda.
 #' @param .period The seasonal period of the time series.
+#'
+#' @importFrom stats optimize
 #'
 #' @export
 guerrero <- function(x, lower=-1, upper=2, .period) {
