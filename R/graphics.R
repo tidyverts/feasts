@@ -342,7 +342,12 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
     mutate(
       season = within_time_identifier(!!idx - period_units*(units_since(!!idx)%/%period_units)),
       !!!lag_exprs)
-  warn(sprintf("Removed %i rows containing missing values (gg_lag).", sum(is.na(data[[as_string(y)]]))))
+
+  num_na <- eval_tidy(expr(sum(is.na(!!y))), data = data)
+  if(num_na > 0){
+    warn(sprintf("Removed %i rows containing missing values (gg_lag).", num_na))
+  }
+
   data <- data %>%
     gather(".lag", ".value", !!names(lag_exprs)) %>%
     mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags))) %>%
