@@ -21,7 +21,7 @@ automatically selected from the data.}
 \item{max_col}{The maximum number of colours to display on the plot. If the
 number of seasonal periods in the data is larger than \code{max_col}, the plot
 will not include a colour. Use \code{max_col = 0} to never colour the lines, or Inf
-to always colour the lines.}
+to always colour the lines. If labels are used, then max_col will be ignored.}
 
 \item{polar}{If TRUE, the season plot will be shown on polar coordinates.}
 
