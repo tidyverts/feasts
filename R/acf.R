@@ -165,7 +165,7 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
     mutate(data = map(!!sym("data"), cf_fn, na.action = na.action, ...)) %>%
     unnest(!!sym("data")) %>%
     mutate(lag = as_lag(!!sym("lag"), interval = interval)) %>%
-    as_tsibble(index = !!sym("lag"), key = key(.data)) %>%
+    as_tsibble(index = !!sym("lag"), key = !!key(.data)) %>%
     new_tsibble(num_obs = lens, class = "tbl_cf")
 }
 
