@@ -19,16 +19,17 @@ train_classical <- function(.data, formula, specials,
   y <- .data[[measured_vars(.data)]]
   m <- specials$season[[1]]
 
+  dcmp_op <- switch(type,
+                    additive = "+",
+                    multiplicative = "*")
+
   dcmp <- decompose(ts(y, frequency = m), type = type, ...)[c("trend", "seasonal", "random")]
 
   dcmp <- .data %>%
     mutate(
-      !!!map(dcmp, as.numeric)
+      !!!map(dcmp, as.numeric),
+      seas_adjust = !!call2(dcmp_op, sym("trend"), sym("random"))
     )
-
-  dcmp_op <- switch(type,
-                    additive = "+",
-                    multiplicative = "*")
 
   seasonalities <- list(
     seasonal = list(period = m, base = switch(dcmp_op, `+` = 0, 1))
