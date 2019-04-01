@@ -31,7 +31,8 @@ specials_stl <- fablelite::new_specials(
   .required_specials = c("trend", "season", "lowpass")
 )
 
-estimate_stl <- function(y, trend.args, season.args,lowpass.args, iterations = 2, ...){
+estimate_stl <- function(y, trend.args, season.args, lowpass.args,
+                         iterations = 2, ...){
   deseas <- y
   seas <- set_names(as.list(rep(0, length(season.args))), paste0("season_", names(season.args)%||%map(season.args, "period")))
   if(length(season.args) > 0){

@@ -121,3 +121,48 @@ arch_stat <- function(x, lags = 12, demean = TRUE)
   arch.lm <- summary(fit)
   c(arch_lm = arch.lm$r.squared)
 }
+
+stl_features <- function(x, .period, s.window = 13, ...){
+  dots <- dots_list(...)
+  dots <- dots[names(dots) %in% names(formals(stats::stl))]
+  season.args <- list2(!!(names(.period)%||%.period) :=
+                         list(period = .period, s.window = s.window))
+  dcmp <- eval_tidy(quo(estimate_stl(x, trend.args = list(),
+                    season.args = season.args, lowpass.args = list(), !!!dots)))
+  trend <- dcmp[["trend"]]
+  remainder <- dcmp[["remainder"]]
+  seas_adjust <- dcmp[["seas_adjust"]]
+  seasonalities <- dcmp[seq_len(length(dcmp) - 3) + 1]
+  names(seasonalities) <- sub("season_", "", names(seasonalities))
+
+  var_e <- var(remainder, na.rm = TRUE)
+  n <- length(x)
+
+  # Spike
+  d <- (remainder - mean(remainder, na.rm = TRUE))^2
+  var_loo <- (var_e * (n - 1) - d)/(n - 2)
+  spike <- var(var_loo, na.rm = TRUE)
+
+  # Linearity & curvature
+  tren.coef <- coef(lm(trend ~ poly(seq(n), degree = 2L)))[2L:3L]
+  linearity <- tren.coef[[1L]]
+  curvature <- tren.coef[[2L]]
+
+  # Strength of terms
+  trend_strength <- max(0, min(1, 1 - var_e/var(seas_adjust, na.rm = TRUE)))
+  seasonal_strength <- map_dbl(seasonalities, function(seas){
+    max(0, min(1, 1 - var_e/var(remainder + seas, na.rm = TRUE)))
+  })
+
+  # Position of peaks and troughs
+  seasonal_peak <- map_dbl(seasonalities, function(seas){
+    which.max(seas) %% .period
+  })
+  seasonal_trough <- map_dbl(seasonalities, function(seas){
+    which.min(seas) %% .period
+  })
+
+  c(trend_strength = trend_strength, seasonal_strength = seasonal_strength,
+    spike = spike, linearity = linearity, curvature = curvature,
+    seasonal_peak = seasonal_peak, seasonal_trough = seasonal_trough)
+}
