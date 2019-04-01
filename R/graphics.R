@@ -21,7 +21,12 @@ time_identifier <- function(idx, time_units){
     return(rep(NA, length(idx)))
   }
 
-  grps <- units_since(idx) %/% time_units
+  if(inherits(idx, "yearweek") && time_units == 52){
+    grps <- format(idx, "%Y")
+  }
+  else{
+    grps <- units_since(idx) %/% time_units
+  }
   idx_grp <- split(idx, grps)
 
   # Different origin for weeks
