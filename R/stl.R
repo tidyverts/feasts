@@ -31,15 +31,7 @@ specials_stl <- fablelite::new_specials(
   .required_specials = c("trend", "season", "lowpass")
 )
 
-train_stl <- function(.data, formula, specials, iterations = 2, ...){
-  stopifnot(is_tsibble(.data))
-
-  y <- .data[[measured_vars(.data)]]
-
-  trend.args <- specials$trend[[1]]
-  season.args <- unlist(specials$season, recursive = FALSE)
-  lowpass.args <- specials$lowpass[[1]]
-
+estimate_stl <- function(y, trend.args, season.args,lowpass.args, iterations = 2, ...){
   deseas <- y
   seas <- set_names(as.list(rep(0, length(season.args))), paste0("season_", names(season.args)%||%map(season.args, "period")))
   if(length(season.args) > 0){
@@ -61,26 +53,33 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 
   trend <- as.numeric(trend)
   deseas <- as.numeric(deseas)
-  decomposition <- .data %>%
-    mutate(
-      trend = trend,
-      !!!seas,
-      remainder = deseas - trend,
-      seas_adjust = deseas
-    )
+  list2(trend = trend, !!!seas, remainder = deseas - trend, seas_adjust = deseas)
+}
 
+train_stl <- function(.data, formula, specials, iterations = 2, ...){
+  stopifnot(is_tsibble(.data))
+
+  y <- .data[[measured_vars(.data)]]
+
+  trend.args <- specials$trend[[1]]
+  season.args <- unlist(specials$season, recursive = FALSE)
+  lowpass.args <- specials$lowpass[[1]]
+
+  decomposition <- .data %>%
+    mutate(!!!estimate_stl(y, trend.args, season.args, lowpass.args, ...))
+
+  seas_cols <- paste0("season_", names(season.args)%||%map(season.args, "period"))
   seasonalities <- lapply(season.args, function(x){
     x["base"] <- 0
     x[c("period", "base")]
   })
+  names(seasonalities) <- seas_cols
 
   aliases <- list2(
-    !!measured_vars(.data) := reduce(syms(c("trend", names(seas), "remainder")),
+    !!measured_vars(.data) := reduce(syms(c("trend", seas_cols, "remainder")),
                                    function(x,y) call2("+", x, y)),
     seas_adjust = call2("+", sym("trend"), sym("remainder"))
   )
-
-  names(seasonalities) <- names(seas)
 
   fablelite::as_dable(decomposition, resp = !!sym(measured_vars(.data)),
                       method = "STL", seasons = seasonalities, aliases = aliases)
