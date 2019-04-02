@@ -300,15 +300,22 @@ gg_subseries <- function(data, y = NULL, period = NULL){
     group_by(!!!keys) %>%
     mutate(
       id = time_identifier(!!idx, period),
-      id = !!idx - period * ((tz_units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period),
-      id = within_time_identifier(id)
+      id = !!idx - period * ((tz_units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
     ) %>%
     group_by(id, !!!keys) %>%
     mutate(.yint = mean(!!y, na.rm = TRUE))
 
   p <- ggplot(data, aes(x = !!idx, y = !!y)) +
     geom_line() +
-    facet_grid(rows = vars(!!!keys), cols = vars(!!sym("id")), scales = "free_y") +
+    facet_grid(rows = vars(!!!keys), cols = vars(!!sym("id")), scales = "free_y",
+               labeller = function(dt){
+                 map(dt, function(x) {
+                   if(inherits(x, c("POSIXt", "Date")))
+                     within_time_identifier(x)
+                   else
+                     ggplot2::label_value(x)
+                 })
+               }) +
     geom_hline(aes(yintercept = !!sym(".yint")), colour = "blue")
 
   if(inherits(data[[expr_text(idx)]], "Date")){
