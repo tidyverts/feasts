@@ -11,7 +11,10 @@ format_time <- function(x, format, ...){
 }
 
 tz_units_since <- function(x){
-  units_since(`tz<-`(x, "UTC"))
+  if(!is.null(attr(x, "tz"))){
+    tz(x) <- "UTC"
+  }
+  units_since(x)
 }
 
 # Find minimum largest identifier for each group
