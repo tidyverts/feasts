@@ -36,7 +36,7 @@ time_identifier <- function(idx, time_units){
   idx_grp <- split(idx, grps)
 
   # Different origin for weeks
-  wk_grps <- (60*60*24*3 + tz_units_since(idx)) %/% time_units
+  wk_grps <- (60*60*24*4 + tz_units_since(idx)) %/% time_units
   wk_idx_grp <- split(idx, wk_grps)
 
   formats <- list(
@@ -190,7 +190,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
     ) %>%
     mutate(
       id = time_identifier(!!idx, period),
-      !!as_string(idx) := !!idx - period * ((tz_units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
+      !!as_string(idx) := !!idx - period * ((tz_units_since(!!idx) + 60*60*24*4*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
     )
 
   if(polar){
@@ -300,7 +300,7 @@ gg_subseries <- function(data, y = NULL, period = NULL){
     group_by(!!!keys) %>%
     mutate(
       id = time_identifier(!!idx, period),
-      id = !!idx - period * ((tz_units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
+      id = !!idx - period * ((tz_units_since(!!idx) + 60*60*24*4*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
     ) %>%
     group_by(id, !!!keys) %>%
     mutate(.yint = mean(!!y, na.rm = TRUE))
