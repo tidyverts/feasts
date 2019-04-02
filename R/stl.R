@@ -33,6 +33,9 @@ specials_stl <- fablelite::new_specials(
 
 estimate_stl <- function(y, trend.args, season.args, lowpass.args,
                          iterations = 2, ...){
+  if(any(is.na(y))){
+    abort("STL decomposition does not support series with missing values.")
+  }
   deseas <- y
   seas <- set_names(as.list(rep(0, length(season.args))), paste0("season_", names(season.args)%||%map(season.args, "period")))
   if(length(season.args) > 0){
