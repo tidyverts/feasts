@@ -3,6 +3,9 @@ globalVariables("self")
 specials_stl <- fablelite::new_specials(
   trend = function(window, degree, jump){
     args <- call_args(match.call())
+    if(isFALSE(is.finite(args$window)) && sign(args$window) == 1){
+      args$window <- NROW(self$data) + 1e7
+    }
     if(length(args) > 0){
       set_names(args, paste0("t.", names(args)))
     }
@@ -12,6 +15,9 @@ specials_stl <- fablelite::new_specials(
     args <- args[names(args)!="period"]
     if(is.null(args$window)){
       args$window <- window
+    }
+    if(isFALSE(is.finite(args$window)) && sign(args$window) == 1){
+      args$window <- "periodic"
     }
     args <- set_names(args, paste0("s.", names(args)))
 
@@ -23,6 +29,9 @@ specials_stl <- fablelite::new_specials(
   },
   lowpass = function(window, degree, jump){
     args <- call_args(match.call())
+    if(isFALSE(is.finite(args$window)) && sign(args$window) == 1){
+      args$window <- NROW(self$data) + 1e7
+    }
     if(length(args) > 0){
       set_names(args, paste0("l.", names(args)))
     }
