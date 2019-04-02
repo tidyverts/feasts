@@ -10,6 +10,9 @@ format_time <- function(x, format, ...){
   out
 }
 
+tz_units_since <- function(x){
+  units_since(`tz<-`(x, "UTC"))
+}
 
 # Find minimum largest identifier for each group
 # 1. Find largest homogenous descriptor within groups
@@ -25,12 +28,12 @@ time_identifier <- function(idx, time_units){
     grps <- format(idx, "%Y")
   }
   else{
-    grps <- units_since(idx) %/% time_units
+    grps <- tz_units_since(idx) %/% time_units
   }
   idx_grp <- split(idx, grps)
 
   # Different origin for weeks
-  wk_grps <- (60*60*24*3 + units_since(idx)) %/% time_units
+  wk_grps <- (60*60*24*3 + tz_units_since(idx)) %/% time_units
   wk_idx_grp <- split(idx, wk_grps)
 
   formats <- list(
@@ -154,9 +157,11 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
   labels <- match.arg(labels)
   check_gaps(data)
   idx <- index(data)
+  idx_class <- class(data[[as_string(idx)]])
   n_key <- n_keys(data)
   keys <- key(data)
-  ts_unit <- time_unit(interval(data))
+  ts_interval <- interval(data)
+  ts_unit <- time_unit(ts_interval)
 
   period <- get_frequencies(period, data, .auto = "largest")
   if(period <= 1){
@@ -182,7 +187,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
     ) %>%
     mutate(
       id = time_identifier(!!idx, period),
-      !!as_string(idx) := !!idx - period * ((units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
+      !!as_string(idx) := !!idx - period * ((tz_units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
     )
 
   if(polar){
@@ -215,12 +220,19 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
   }
 
   if(inherits(data[[expr_text(idx)]], "Date")){
-    p <- p + ggplot2::scale_x_date(labels = within_time_identifier)
+    p <- p + ggplot2::scale_x_date(breaks = function(limit){
+        limit <- add_class(limit, idx_class) # Fix dropped class from group_by+mutate
+        if(period/ts_unit <= 12){
+          seq(limit[1], length.out = ceiling(period)+1, by = ts_unit)
+        } else{
+          ggplot2::scale_x_date()$trans$breaks(limit)
+        }
+      }, labels = within_time_identifier)
   } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(breaks = function(limit){
       if(period == 7*60*60*24){
         limit <- limit - as.numeric(limit)%%(60*60*24)
-        seq(limit[1], length.out = 8, by = "day")
+        seq(as.POSIXct(as.Date(limit[1])), length.out = 8, by = "day")
       }
       else{
         ggplot2::scale_x_datetime()$trans$breaks(limit)
@@ -285,7 +297,7 @@ gg_subseries <- function(data, y = NULL, period = NULL){
     group_by(!!!keys) %>%
     mutate(
       id = time_identifier(!!idx, period),
-      id = !!idx - period * ((units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period),
+      id = !!idx - period * ((tz_units_since(!!idx) + 60*60*24*3*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period),
       id = within_time_identifier(id)
     ) %>%
     group_by(id, !!!keys) %>%
@@ -345,7 +357,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
   data <- data %>%
     as_tibble %>%
     mutate(
-      season = within_time_identifier(!!idx - period_units*(units_since(!!idx)%/%period_units)),
+      season = within_time_identifier(!!idx - period_units*(tz_units_since(!!idx)%/%period_units)),
       !!!lag_exprs)
 
   num_na <- eval_tidy(expr(sum(is.na(!!y))), data = data)
