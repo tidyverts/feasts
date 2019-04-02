@@ -16,8 +16,10 @@ specials_stl <- fablelite::new_specials(
     if(is.null(args$window)){
       args$window <- window
     }
-    if(isFALSE(is.finite(args$window)) && sign(args$window) == 1){
-      args$window <- "periodic"
+    if(isFALSE(is.finite(args$window)) && is.numeric(args$window)){
+      if(sign(args$window) == 1){
+        args$window <- "periodic"
+      }
     }
     args <- set_names(args, paste0("s.", names(args)))
 
