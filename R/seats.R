@@ -4,14 +4,14 @@ specials_seats <- fablelite::new_specials(
   season = function(period = NULL){
     period <- get_frequencies(period, self$data, .auto = "smallest")
     if(!(period %in% c(1, 2, 4, 6, 12))){
-      warning("The SEATS method only supports seasonal patterns with seasonal periods of 1, 2, 4, 6 or 12. Defaulting to `period = 1`.")
+      warning("The X-13ARIMA-SEATS method only supports seasonal patterns with seasonal periods of 1, 2, 4, 6 or 12. Defaulting to `period = 1`.")
       period <- 1
     }
     period
   },
 
   xreg = function(...){
-    abort("Exogenous regressors are not supported for SEATS decompositions.")
+    abort("Exogenous regressors are not supported for X-13ARIMA-SEATS decompositions.")
   },
 
   .required_specials = "season"
@@ -22,7 +22,7 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
   stopifnot(is_tsibble(.data))
 
   if(length(specials$season) != 1){
-    abort("SEATS only supports one seasonal period.")
+    abort("X-13ARIMA-SEATS only supports one seasonal period.")
   }
   period <- specials$season[[1]]
   y <- as.ts(.data, frequency = period)
@@ -50,14 +50,12 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
   )
 
   fablelite::as_dable(dcmp, resp = !!sym(measured_vars(.data)),
-                      method = "SEATS", seasons = seasonalities, aliases = aliases)
+                      method = "X-13ARIMA-SEATS", seasons = seasonalities, aliases = aliases)
 }
 
-#' Seasonal Extraction in ARIMA Time Series
+#' Seasonal decomposition with X-13ARIMA-SEATS
 #'
-#' Decomposes a time series via model based signal extraction using SEATS:
-#' a seasonal adjustment program developed by Victor Gomez and Agustin Maravall
-#' at the Bank of Spain
+#' Decomposes a time series via model based signal extraction using X-13ARIMA-SEATS.
 #'
 #' @param .data A tsibble.
 #' @param formula Decomposition specification.
@@ -73,7 +71,7 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
 #' Dagum, E. B., & Bianconcini, S. (2016) "Seasonal adjustment methods and real
 #' time trend-cycle estimation". \emph{Springer}.
 #'
-#' SEATS Documentation from the seasonal package's website:
+#' X-13ARIMA-SEATS Documentation from the seasonal package's website:
 #' http://www.seasonal.website/seasonal.html
 #'
 #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
