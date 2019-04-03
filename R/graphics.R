@@ -107,11 +107,7 @@ within_time_identifier <- function(x){
     }
   }
 
-  out <- format_time(y, format = fmt)
-  if(fmt == "%b"){
-    out <- factor(out, levels = month.abb)
-  }
-  out
+  format_time(y, format = fmt)
 }
 
 guess_plot_var <- function(x, y){
@@ -311,7 +307,7 @@ gg_subseries <- function(data, y = NULL, period = NULL){
                labeller = function(dt){
                  map(dt, function(x) {
                    if(inherits(x, c("POSIXt", "Date")))
-                     within_time_identifier(x)
+                     as.character(within_time_identifier(x))
                    else
                      ggplot2::label_value(x)
                  })
