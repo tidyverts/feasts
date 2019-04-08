@@ -2,7 +2,7 @@
 % Please edit documentation in R/seats.R
 \name{SEATS}
 \alias{SEATS}
-\title{Seasonal Extraction in ARIMA Time Series}
+\title{Seasonal decomposition with X-13ARIMA-SEATS}
 \usage{
 SEATS(.data, formula, ...)
 }
@@ -14,9 +14,7 @@ SEATS(.data, formula, ...)
 \item{...}{Other arguments passed to \code{\link[seasonal:seas]{seasonal::seas()}}.}
 }
 \description{
-Decomposes a time series via model based signal extraction using SEATS:
-a seasonal adjustment program developed by Victor Gomez and Agustin Maravall
-at the Bank of Spain
+Decomposes a time series via model based signal extraction using X-13ARIMA-SEATS.
 }
 \examples{
 tsibbledata::aus_production \%>\% SEATS(Beer)
@@ -26,7 +24,7 @@ tsibbledata::aus_production \%>\% SEATS(Beer)
 Dagum, E. B., & Bianconcini, S. (2016) "Seasonal adjustment methods and real
 time trend-cycle estimation". \emph{Springer}.
 
-SEATS Documentation from the seasonal package's website:
+X-13ARIMA-SEATS Documentation from the seasonal package's website:
 http://www.seasonal.website/seasonal.html
 
 Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf

@@ -256,7 +256,7 @@ autoplot.tbl_cf <- function(object, level = 95, ...){
 index_valid.lag <- function(x) TRUE
 
 #' @export
-pull_interval.lag <- function(x) attr(x, "interval")
+interval_pull.lag <- function(x) attr(x, "interval")
 
 #' @importFrom ggplot2 scale_type
 #' @export
