@@ -464,3 +464,40 @@ acf_features <- function(x, .period = 1) {
 
   return(output)
 }
+
+#' Partial autocorrelation-based features
+#'
+#' Computes various measures based on partial autocorrelation coefficients of the
+#' original series, first-differenced series and second-differenced series.
+#'
+#' @inheritParams acf_features
+#'
+#' @return A vector of 3 values: Sum of squared of first 5
+#' partial autocorrelation coefficients of the original series, first differenced
+#' series and twice-differenced series.
+#' For seasonal data, the partial autocorrelation coefficient at the first seasonal
+#' lag is also returned.
+#' @author Thiyanga Talagala
+#' @export
+pacf_features <- function(x, .period = 1) {
+  pacfx <- stats::pacf(x, lag.max = max(5L, .period), plot = FALSE)$acf
+  # Sum of squared of first 5 partial autocorrelation coefficients
+  pacf_5 <- sum((pacfx[seq(5L)])^2)
+
+  # Sum of squared of first 5 partial autocorrelation coefficients of difference series
+  diff1_pacf_5 <- sum((stats::pacf(diff(x, differences = 1), lag.max = 5L, plot = FALSE)$acf)^2)
+
+  # Sum of squared of first 5 partial autocorrelation coefficients of twice differenced series
+  diff2_pacf_5 <- sum((stats::pacf(diff(x, differences = 2), lag.max = 5L, plot = FALSE)$acf)^2)
+
+  output <- c(
+    x_pacf5 = unname(pacf_5),
+    diff1x_pacf5 = unname(diff1_pacf_5),
+    diff2x_pacf5 = unname(diff2_pacf_5)
+  )
+  if (.period > 1) {
+    output <- c(output, seas_pacf = pacfx[.period])
+  }
+
+  return(output)
+}
