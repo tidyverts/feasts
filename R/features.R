@@ -203,3 +203,36 @@ unitroot_pp <- function(x) {
   )
   c(pp_stat = result@teststat, pp_pval = pval)
 }
+
+#' Number of flat spots
+#'
+#' Number of flat spots in a time series
+#' @param x a univariate time series
+#' @return A numeric value.
+#' @author Earo Wang and Rob J Hyndman
+#' @export
+flat_spots <- function(x) {
+  cutx <- try(cut(x, breaks = 10, include.lowest = TRUE, labels = FALSE),
+              silent = TRUE
+  )
+  if (class(cutx) == "try-error") {
+    return(c(flat_spots = NA))
+  }
+  rlex <- rle(cutx)
+  return(c(flat_spots = max(rlex$lengths)))
+}
+
+#' Hurst coefficient
+#'
+#' Computes the Hurst coefficient indicating the level of fractional differencing
+#' of a time series.
+#' @param x a univariate time series. If missing values are present, the largest
+#' contiguous portion of the time series is used.
+#' @return A numeric value.
+#' @author Rob J Hyndman
+#' @export
+hurst <- function(x) {
+  require_package("fracdiff")
+  # Hurst=d+0.5 where d is fractional difference.
+  return(c(hurst = suppressWarnings(fracdiff::fracdiff(na.contiguous(x), 0, 0)[["d"]] + 0.5)))
+}

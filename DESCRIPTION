@@ -25,7 +25,8 @@ Suggests:
     covr,
     grid,
     seasonal,
-    urca
+    urca,
+    fracdiff
 Remotes:
     tidyverts/tsibble,
     tidyverts/tsibbledata,
