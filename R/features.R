@@ -236,3 +236,115 @@ hurst <- function(x) {
   # Hurst=d+0.5 where d is fractional difference.
   return(c(hurst = suppressWarnings(fracdiff::fracdiff(na.contiguous(x), 0, 0)[["d"]] + 0.5)))
 }
+
+
+#' Sliding window features
+#'
+#' Computes feature of a time series based on sliding (overlapping) windows.
+#' \code{max_level_shift} finds the largest mean shift between two consecutive windows.
+#' \code{max_var_shift} finds the largest var shift between two consecutive windows.
+#' \code{max_kl_shift} finds the largest shift in Kulback-Leibler divergence between
+#' two consecutive windows.
+#'
+#' Computes the largest level shift and largest variance shift in sliding mean calculations
+#' @param x a univariate time series
+#' @param .size size of sliding window, if NULL `.size` will be automatically chosen using `.period`
+#' @param .period The seasonal period (optional)
+#' @return A vector of 2 values: the size of the shift, and the time index of the shift.
+#'
+#' @author Earo Wang, Rob J Hyndman and Mitchell O'Hara-Wild
+#'
+#' @export
+max_level_shift <- function(x, .size = NULL, .period = 1) {
+  if(is.null(.size)){
+    .size <- ifelse(.period == 1, 10, .period)
+  }
+
+  rollmean <- tsibble::slide_dbl(x, mean, .size = .size, na.rm = TRUE)
+
+  means <- abs(diff(rollmean, .size))
+  if (length(means) == 0L) {
+    maxmeans <- 0
+    maxidx <- NA_real_
+  }
+  else if (all(is.na(means))) {
+    maxmeans <- NA_real_
+    maxidx <- NA_real_
+  }
+  else {
+    maxmeans <- max(means, na.rm = TRUE)
+    maxidx <- which.max(means) + 1L
+  }
+
+  return(c(level_shift_max = maxmeans, level_shift_index = maxidx))
+}
+
+#' @rdname max_level_shift
+#' @export
+max_var_shift <- function(x, .size = NULL, .period = 1) {
+  if(is.null(.size)){
+    .size <- ifelse(.period == 1, 10, .period)
+  }
+
+  rollvar <- tsibble::slide_dbl(x, var, .size = .size, na.rm = TRUE)
+
+  vars <- abs(diff(rollvar, .size))
+
+  if (length(vars) == 0L) {
+    maxvar <- 0
+    maxidx <- NA_real_
+  }
+  else if (all(is.na(vars))) {
+    maxvar <- NA_real_
+    maxidx <- NA_real_
+  }
+  else {
+    maxvar <- max(vars, na.rm = TRUE)
+    maxidx <- which.max(vars) + 1L
+  }
+
+  return(c(var_shift_max = maxvar, var_shift_index = maxidx))
+}
+
+#' @rdname max_level_shift
+#' @export
+max_kl_shift <- function(x, .size = NULL, .period = 1) {
+  if(is.null(.size)){
+    .size <- ifelse(.period == 1, 10, .period)
+  }
+
+  gw <- 100 # grid width
+  xgrid <- seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE), length = gw)
+  grid <- xgrid[2L] - xgrid[1L]
+  tmpx <- x[!is.na(x)] # Remove NA to calculate bw
+  bw <- stats::bw.nrd0(tmpx)
+  lenx <- length(x)
+  if (lenx <= (2 * .size)) {
+    return(c(max_kl_shift = NA_real_, time_kl_shift = NA_real_))
+  }
+
+  densities <- map(xgrid, function(xgrid) stats::dnorm(xgrid, mean = x, sd = bw))
+  densities <- map(densities, pmax, dnorm(38))
+
+  rmean <- map(densities, function(x)
+    tsibble::slide_dbl(x, mean, .size = .size, na.rm = TRUE, .align = "right")
+  ) %>%
+    transpose() %>%
+    map(unlist)
+
+  kl <- map2_dbl(
+    rmean[seq_len(lenx - .size)],
+    rmean[seq_len(lenx - .size) + .size],
+    function(x, y) sum(x * (log(x) - log(y)) * grid, na.rm = TRUE)
+  )
+
+  diffkl <- diff(kl, na.rm = TRUE)
+  if (length(diffkl) == 0L) {
+    diffkl <- 0
+    maxidx <- NA_real_
+  }
+  else {
+    maxidx <- which.max(diffkl) + 1L
+  }
+  return(c(kl_shift_max = max(diffkl, na.rm = TRUE), kl_shift_index = maxidx))
+}
