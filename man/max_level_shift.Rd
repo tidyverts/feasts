@@ -4,7 +4,7 @@
 \alias{max_level_shift}
 \alias{max_var_shift}
 \alias{max_kl_shift}
-\title{Time series features based on sliding windows}
+\title{Sliding window features}
 \usage{
 max_level_shift(x, .size = NULL, .period = 1)
 

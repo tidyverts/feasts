@@ -237,7 +237,6 @@ hurst <- function(x) {
   return(c(hurst = suppressWarnings(fracdiff::fracdiff(na.contiguous(x), 0, 0)[["d"]] + 0.5)))
 }
 
-
 #' Sliding window features
 #'
 #' Computes feature of a time series based on sliding (overlapping) windows.
@@ -347,4 +346,67 @@ max_kl_shift <- function(x, .size = NULL, .period = 1) {
     maxidx <- which.max(diffkl) + 1L
   }
   return(c(kl_shift_max = max(diffkl, na.rm = TRUE), kl_shift_index = maxidx))
+}
+
+#' Spectral entropy of a time series
+#'
+#' Computes the spectral entropy of a time series
+#' @param x a vector
+#' @return A numeric value.
+#' @author Rob J Hyndman
+#' @export
+entropy <- function(x) {
+  require_package("ForeCA")
+  entropy <- try(ForeCA::spectral_entropy(na.contiguous(x))[1L], silent = TRUE)
+  if (class(entropy) == "try-error") {
+    entropy <- NA
+  }
+  return(c(entropy = entropy))
+}
+
+#' Time series features based on tiled windows
+#'
+#' Computes feature of a time series based on tiled (non-overlapping) windows.
+#' Means or variances are produced for all tiled windows. Then stability is
+#' the variance of the means, while lumpiness is the variance of the variances.
+#'
+#' @inheritParams max_level_shift
+#' @return A numeric vector of length 2 containing a measure of lumpiness and
+#' a measure of stability.
+#' @author Earo Wang and Rob J Hyndman
+#'
+#' @rdname tile_features
+#' @export
+lumpiness <- function(x, .size = NULL, .period = 1) {
+  if(is.null(.size)){
+    .size <- ifelse(.period == 1, 10, .period)
+  }
+
+  x <- scale(x, center = TRUE, scale = TRUE)
+  varx <- tsibble::tile_dbl(x, var, na.rm = TRUE, .size = .size)
+
+  if (length(x) < 2 * .size) {
+    lumpiness <- 0
+  } else {
+    lumpiness <- var(varx, na.rm = TRUE)
+  }
+  return(c(lumpiness = lumpiness))
+}
+
+#' @rdname tile_features
+#' @export
+stability <- function(x, .size = NULL, .period = 1) {
+  if(is.null(.size)){
+    .size <- ifelse(.period == 1, 10, .period)
+  }
+
+  x <- scale(x, center = TRUE, scale = TRUE)
+  meanx <- tsibble::tile_dbl(x, mean, na.rm = TRUE, .size = .size)
+
+  if (length(x) < 2 * .size) {
+    stability <- 0
+  } else {
+    stability <- var(meanx, na.rm = TRUE)
+  }
+  return(c(stability = stability))
 }
