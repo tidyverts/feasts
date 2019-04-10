@@ -24,7 +24,8 @@ Suggests:
     testthat,
     covr,
     grid,
-    seasonal
+    seasonal,
+    urca
 Remotes:
     tidyverts/tsibble,
     tidyverts/tsibbledata,

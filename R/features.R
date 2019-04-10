@@ -166,3 +166,40 @@ stl_features <- function(x, .period, s.window = 13, ...){
     spike = spike, linearity = linearity, curvature = curvature,
     seasonal_peak = seasonal_peak, seasonal_trough = seasonal_trough)
 }
+
+#' Unit root tests
+#'
+#' Performs a test for the existence of a unit root in the vector.
+#'
+#' \code{unitroot_kpss} computes the statistic for the Kwiatkowski et al. unit root test with linear trend and lag 1.
+#' \code{unitroot_pp} computes the statistic for the `'Z-tau'' version of Phillips & Perron unit root test with constant trend and lag 1.
+#'
+#' @param x A vector to be tested for the unit root.
+#'
+#' @rdname unitroot
+#' @export
+unitroot_kpss <- function(x) {
+  require_package("urca")
+  result <- urca::ur.kpss(x)
+  pval <- tryCatch(
+    approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
+    error = function(e){
+      NA
+    }
+  )
+  c(kpss_stat = result@teststat, kpss_pval = pval)
+}
+
+#' @rdname unitroot
+#' @export
+unitroot_pp <- function(x) {
+  require_package("urca")
+  result <- urca::ur.pp(x, type = "Z-tau")
+  pval <- tryCatch(
+    approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
+    error = function(e){
+      NA
+    }
+  )
+  c(pp_stat = result@teststat, pp_pval = pval)
+}
