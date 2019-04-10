@@ -410,3 +410,57 @@ stability <- function(x, .size = NULL, .period = 1) {
   }
   return(c(stability = stability))
 }
+
+#' Autocorrelation-based features
+#'
+#' Computes various measures based on autocorrelation coefficients of the
+#' original series, first-differenced series and second-differenced series
+#'
+#' @inheritParams stability
+#'
+#' @return A vector of 6 values: first autocorrelation coefficient and sum of squared of
+#' first ten autocorrelation coefficients of original series, first-differenced series,
+#' and twice-differenced series.
+#' For seasonal data, the autocorrelation coefficient at the first seasonal lag is
+#' also returned.
+#'
+#' @author Thiyanga Talagala
+#' @export
+acf_features <- function(x, .period = 1) {
+  acfx <- stats::acf(x, lag.max = max(.period, 10L), plot = FALSE, na.action = stats::na.pass)
+  acfdiff1x <- stats::acf(diff(x, differences = 1), lag.max = 10L, plot = FALSE, na.action = stats::na.pass)
+  acfdiff2x <- stats::acf(diff(x, differences = 2), lag.max = 10L, plot = FALSE, na.action = stats::na.pass)
+
+  # first autocorrelation coefficient
+  acf_1 <- acfx$acf[2L]
+
+  # sum of squares of first 10 autocorrelation coefficients
+  sum_of_sq_acf10 <- sum((acfx$acf[2L:11L])^2)
+
+  # first autocorrelation coefficient of differenced series
+  diff1_acf1 <- acfdiff1x$acf[2L]
+
+  # Sum of squared of first 10 autocorrelation coefficients of differenced series
+  diff1_acf10 <- sum((acfdiff1x$acf[-1L])^2)
+
+  # first autocorrelation coefficient of twice-differenced series
+  diff2_acf1 <- acfdiff2x$acf[2L]
+
+  # Sum of squared of first 10 autocorrelation coefficients of twice-differenced series
+  diff2_acf10 <- sum((acfdiff2x$acf[-1L])^2)
+
+  output <- c(
+    x_acf1 = unname(acf_1),
+    x_acf10 = unname(sum_of_sq_acf10),
+    diff1_acf1 = unname(diff1_acf1),
+    diff1_acf10 = unname(diff1_acf10),
+    diff2_acf1 = unname(diff2_acf1),
+    diff2_acf10 = unname(diff2_acf10)
+  )
+
+  if (.period > 1) {
+    output <- c(output, seas_acf1 = unname(acfx$acf[.period + 1L]))
+  }
+
+  return(output)
+}
