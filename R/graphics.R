@@ -12,7 +12,7 @@ format_time <- function(x, format, ...){
 
 tz_units_since <- function(x){
   if(!is.null(attr(x, "tz"))){
-    tz(x) <- "UTC"
+    x <- as.POSIXct(as.numeric(x), origin=as.POSIXct("1970-01-01", tz="UTC"), tz="UTC")
   }
   units_since(x)
 }
