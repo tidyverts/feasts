@@ -7,7 +7,9 @@
 flat_spots(x)
 }
 \arguments{
-\item{x}{a univariate time series}
+\item{x}{a vector}
+
+\item{...}{Unused.}
 }
 \value{
 A numeric value.

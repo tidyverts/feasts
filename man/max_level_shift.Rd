@@ -6,11 +6,11 @@
 \alias{max_kl_shift}
 \title{Sliding window features}
 \usage{
-max_level_shift(x, .size = NULL, .period = 1)
+max_level_shift(x, .size = NULL, .period = 1, ...)
 
-max_var_shift(x, .size = NULL, .period = 1)
+max_var_shift(x, .size = NULL, .period = 1, ...)
 
-max_kl_shift(x, .size = NULL, .period = 1)
+max_kl_shift(x, .size = NULL, .period = 1, ...)
 }
 \arguments{
 \item{x}{a univariate time series}
@@ -18,6 +18,8 @@ max_kl_shift(x, .size = NULL, .period = 1)
 \item{.size}{size of sliding window, if NULL \code{.size} will be automatically chosen using \code{.period}}
 
 \item{.period}{The seasonal period (optional)}
+
+\item{...}{Unused.}
 }
 \value{
 A vector of 2 values: the size of the shift, and the time index of the shift.

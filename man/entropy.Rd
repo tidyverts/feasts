@@ -4,7 +4,7 @@
 \alias{entropy}
 \title{Spectral entropy of a time series}
 \usage{
-entropy(x)
+entropy(x, ...)
 }
 \arguments{
 \item{x}{a vector}

@@ -4,12 +4,14 @@
 \alias{pacf_features}
 \title{Partial autocorrelation-based features}
 \usage{
-pacf_features(x, .period = 1)
+pacf_features(x, .period = 1, ...)
 }
 \arguments{
 \item{x}{a univariate time series}
 
 \item{.period}{The seasonal period (optional)}
+
+\item{...}{Unused.}
 }
 \value{
 A vector of 3 values: Sum of squared of first 5

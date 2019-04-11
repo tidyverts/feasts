@@ -5,12 +5,14 @@
 \alias{unitroot_pp}
 \title{Unit root tests}
 \usage{
-unitroot_kpss(x)
+unitroot_kpss(x, ...)
 
-unitroot_pp(x)
+unitroot_pp(x, ...)
 }
 \arguments{
 \item{x}{A vector to be tested for the unit root.}
+
+\item{...}{Unused.}
 }
 \description{
 Performs a test for the existence of a unit root in the vector.

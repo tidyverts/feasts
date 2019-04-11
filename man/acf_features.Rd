@@ -4,12 +4,14 @@
 \alias{acf_features}
 \title{Autocorrelation-based features}
 \usage{
-acf_features(x, .period = 1)
+acf_features(x, .period = 1, ...)
 }
 \arguments{
 \item{x}{a univariate time series}
 
 \item{.period}{The seasonal period (optional)}
+
+\item{...}{Unused.}
 }
 \value{
 A vector of 6 values: first autocorrelation coefficient and sum of squared of
