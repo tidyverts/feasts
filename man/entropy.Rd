@@ -7,7 +7,9 @@
 entropy(x, ...)
 }
 \arguments{
-\item{x}{a vector}
+\item{x}{a univariate time series}
+
+\item{...}{Unused.}
 }
 \value{
 A numeric value.

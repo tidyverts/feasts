@@ -122,6 +122,7 @@ arch_stat <- function(x, lags = 12, demean = TRUE)
   c(arch_lm = arch.lm$r.squared)
 }
 
+#' @importFrom stats var coef
 stl_features <- function(x, .period, s.window = 13, ...){
   dots <- dots_list(...)
   dots <- dots[names(dots) %in% names(formals(stats::stl))]
@@ -183,7 +184,7 @@ unitroot_kpss <- function(x, ...) {
   require_package("urca")
   result <- urca::ur.kpss(x)
   pval <- tryCatch(
-    approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
+    stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
     error = function(e){
       NA
     }
@@ -197,7 +198,7 @@ unitroot_pp <- function(x, ...) {
   require_package("urca")
   result <- urca::ur.pp(x, type = "Z-tau")
   pval <- tryCatch(
-    approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
+    stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
     error = function(e){
       NA
     }
@@ -329,7 +330,7 @@ max_kl_shift <- function(x, .size = NULL, .period = 1, ...) {
   }
 
   densities <- map(xgrid, function(xgrid) stats::dnorm(xgrid, mean = x, sd = bw))
-  densities <- map(densities, pmax, dnorm(38))
+  densities <- map(densities, pmax, stats::dnorm(38))
 
   rmean <- map(densities, function(x)
     tsibble::slide_dbl(x, mean, .size = .size, na.rm = TRUE, .align = "right")
@@ -357,7 +358,9 @@ max_kl_shift <- function(x, .size = NULL, .period = 1, ...) {
 #' Spectral entropy of a time series
 #'
 #' Computes the spectral entropy of a time series
-#' @param x a vector
+#'
+#' @inheritParams max_level_shift
+#'
 #' @return A numeric value.
 #' @author Rob J Hyndman
 #' @export
@@ -382,6 +385,8 @@ entropy <- function(x, ...) {
 #' @author Earo Wang and Rob J Hyndman
 #'
 #' @rdname tile_features
+#'
+#' @importFrom stats var
 #' @export
 lumpiness <- function(x, .size = NULL, .period = 1, ...) {
   if(is.null(.size)){
