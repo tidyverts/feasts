@@ -36,7 +36,7 @@ time_identifier <- function(idx, time_units){
   idx_grp <- split(idx, grps)
 
   # Different origin for weeks
-  wk_grps <- (ifelse(is.Date(idx), 3, 60*60*24*3) + tz_units_since(idx)) %/% time_units
+  wk_grps <- (ifelse(inherits(idx, "Date"), 3, 60*60*24*3) + tz_units_since(idx)) %/% time_units
   wk_idx_grp <- split(idx, wk_grps)
 
   formats <- list(
@@ -140,6 +140,7 @@ guess_plot_var <- function(x, y){
 #'
 #' @examples
 #' library(tsibble)
+#' library(dplyr)
 #' tsibbledata::aus_retail %>%
 #'   filter(
 #'     State == "Victoria",
@@ -187,7 +188,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
     mutate(
       id = time_identifier(!!idx, period),
       !!as_string(idx) := !!idx - period * ((tz_units_since(!!idx) +
-        ifelse(is.Date(!!idx), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
+        ifelse(inherits(!!idx, "Date"), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
     )
 
   if(polar){
@@ -198,7 +199,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
         !!expr_text(y) := (!!y)[[which.min(!!idx)]]
       ) %>%
       group_by(!!sym("facet_id")) %>%
-      mutate(!!expr_text(y) := tsibble::lead(!!y)) %>%
+      mutate(!!expr_text(y) := dplyr::lead(!!y)) %>%
       filter(!is.na(!!y))
     data <- rbind(data, extra_x)
   }
@@ -271,6 +272,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
 #'
 #' @examples
 #' library(tsibble)
+#' library(dplyr)
 #' tsibbledata::aus_retail %>%
 #'   filter(
 #'     State == "Victoria",
@@ -298,7 +300,7 @@ gg_subseries <- function(data, y = NULL, period = NULL){
     mutate(
       id = time_identifier(!!idx, period),
       id = !!idx - period * ((tz_units_since(!!idx) +
-        ifelse(is.Date(!!idx), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
+        ifelse(inherits(!!idx, "Date"), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
     ) %>%
     group_by(id, !!!keys) %>%
     mutate(.yint = mean(!!y, na.rm = TRUE))
@@ -334,6 +336,7 @@ gg_subseries <- function(data, y = NULL, period = NULL){
 #'
 #' @examples
 #' library(tsibble)
+#' library(dplyr)
 #' tsibbledata::aus_retail %>%
 #'   filter(
 #'     State == "Victoria",
@@ -412,6 +415,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #'
 #' @examples
 #' library(tsibble)
+#' library(dplyr)
 #' tsibbledata::aus_retail %>%
 #'   filter(
 #'     State == "Victoria",

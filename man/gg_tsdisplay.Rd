@@ -28,6 +28,7 @@ graphic of either a PACF, lagged scatterplot or spectral density.
 }
 \examples{
 library(tsibble)
+library(dplyr)
 tsibbledata::aus_retail \%>\%
   filter(
     State == "Victoria",

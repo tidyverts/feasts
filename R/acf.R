@@ -42,6 +42,7 @@
 #' @examples
 #' library(tsibble)
 #' library(tsibbledata)
+#' library(dplyr)
 #'
 #' aus_elec %>% ACF(Temperature)
 #'

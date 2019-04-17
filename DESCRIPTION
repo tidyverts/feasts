@@ -14,6 +14,8 @@ Imports:
     tibble (>= 1.4.1),
     tsibble (>= 0.7.0),
     ggplot2 (>= 3.0.0),
+    dplyr (>= 0.8.0),
+    tidyr (>= 0.8.3),
     fablelite,
     R6
 Suggests:

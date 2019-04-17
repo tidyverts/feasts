@@ -55,6 +55,7 @@ autocovariance proposed by McMurry and Politis (2010).
 \examples{
 library(tsibble)
 library(tsibbledata)
+library(dplyr)
 
 aus_elec \%>\% ACF(Temperature)
 

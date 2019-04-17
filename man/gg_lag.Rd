@@ -35,6 +35,7 @@ plot. This helps visualise the change in 'auto-dependence' as lags increase.
 }
 \examples{
 library(tsibble)
+library(dplyr)
 tsibbledata::aus_retail \%>\%
   filter(
     State == "Victoria",

@@ -37,6 +37,7 @@ against the seasons in separate years.
 }
 \examples{
 library(tsibble)
+library(dplyr)
 tsibbledata::aus_retail \%>\%
   filter(
     State == "Victoria",
