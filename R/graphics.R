@@ -204,10 +204,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
     data <- rbind(data, extra_x)
   }
 
-  mapping <- aes(x = !!idx, y = !!y, group = !!sym("id"))
-  if(NROW(distinct(data, !!sym("id"))) <= max_col | labels != "none"){
-    mapping$colour <- sym("id")
-  }
+  mapping <- aes(x = !!idx, y = !!y, colour = !!sym("id"))
   p <- ggplot(data, mapping) +
     geom_line()
 
@@ -261,6 +258,9 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
 
     p <- p + ggplot2::geom_text(aes(label = !!sym("id")), data = labels_x) +
       ggplot2::guides(colour = "none")
+  }
+  else if(NROW(distinct(data, !!sym("id"))) >= max_col){
+    p <- p + ggplot2::guides(colour = "none")
   }
 
   p
