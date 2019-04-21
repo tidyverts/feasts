@@ -5,8 +5,6 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{as_tsibble}
-\alias{type_sum}
-\alias{obj_sum}
 \alias{autoplot}
 \alias{autolayer}
 \alias{components}
@@ -17,7 +15,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{fablelite}{\code{\link[fablelite]{\%>\%}}, \code{\link[fablelite]{type_sum}}, \code{\link[fablelite]{obj_sum}}, \code{\link[fablelite]{components}}}
+  \item{fablelite}{\code{\link[fablelite]{\%>\%}}, \code{\link[fablelite]{components}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{autoplot}}, \code{\link[ggplot2]{autolayer}}}
 

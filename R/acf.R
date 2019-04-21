@@ -170,12 +170,10 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
     new_tsibble(num_obs = lens, class = "tbl_cf")
 }
 
-#' @export
 type_sum.lag <- function(x){
   "lag"
 }
 
-#' @export
 obj_sum.lag <- function(x){
   rep("lag", length(x))
 }
