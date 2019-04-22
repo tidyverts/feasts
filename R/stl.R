@@ -48,7 +48,7 @@ estimate_stl <- function(y, trend.args, season.args, lowpass.args,
     abort("STL decomposition does not support series with missing values.")
   }
   deseas <- y
-  seas <- set_names(as.list(rep(0, length(season.args))), paste0("season_", names(season.args)%||%map(season.args, "period")))
+  seas <- set_names(as.list(rep(0, length(season.args))), paste0("season_", names(season.args)%||%map(season.args, function(x) x[["period"]])))
   if(length(season.args) > 0){
     for (j in seq_len(iterations))
     {
