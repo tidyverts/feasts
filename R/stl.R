@@ -2,7 +2,7 @@ globalVariables("self")
 
 specials_stl <- fablelite::new_specials(
   trend = function(window, degree, jump){
-    args <- call_args(match.call())
+    args <- map(call_args(match.call()), eval_tidy)
     if(isFALSE(is.finite(args$window)) && sign(args$window) == 1){
       args$window <- NROW(self$data) + 1e7
     }
@@ -11,7 +11,7 @@ specials_stl <- fablelite::new_specials(
     }
   },
   season = function(period = NULL, window = 13, degree, jump){
-    args <- call_args(match.call())
+    args <- map(call_args(match.call()), eval_tidy)
     args <- args[names(args)!="period"]
     if(is.null(args$window)){
       args$window <- window
@@ -30,7 +30,7 @@ specials_stl <- fablelite::new_specials(
     }
   },
   lowpass = function(window, degree, jump){
-    args <- call_args(match.call())
+    args <- map(call_args(match.call()), eval_tidy)
     if(isFALSE(is.finite(args$window)) && sign(args$window) == 1){
       args$window <- NROW(self$data) + 1e7
     }
