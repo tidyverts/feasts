@@ -122,7 +122,20 @@ arch_stat <- function(x, lags = 12, demean = TRUE)
   c(arch_lm = arch.lm$r.squared)
 }
 
+#' STL features
+#'
+#' Computes a variety of measures extracted from an STL decomposition of the
+#' time series. This includes details about the strength of trend and seasonality.
+#'
+#' @param x A vector to extract features from.
+#' @param .period The period of the seasonality.
+#' @param s.window The seasonal window of the data (passed to [`stats::stl()`])
+#' @param ... Further arguments passed to [`stats::stl()`]
+#'
+#' @seealso [https://otexts.com/fpp3/seasonal-strength.html]
+#'
 #' @importFrom stats var coef
+#' @export
 stl_features <- function(x, .period, s.window = 13, ...){
   dots <- dots_list(...)
   dots <- dots[names(dots) %in% names(formals(stats::stl))]
