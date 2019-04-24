@@ -3,8 +3,8 @@ Version: 0.0.0.9001
 Title: Feature Extraction And Statistics for Time Series
 Description: A collection of tsibble analysis tools.
 Authors@R: c(
-    person("Rob", "Hyndman", email="Rob.Hyndman@monash.edu", role = c("aut", "cre", "cph")),
-    person("Mitchell", "O'Hara-Wild", role = "aut"),
+    person("Mitchell", "O'Hara-Wild", email = "mail@mitchelloharawild.com", role = c("aut", "cre")),
+    person("Rob", "Hyndman", role = c("aut")),
     person("Earo", "Wang", role = "aut")
     )
 Depends:
