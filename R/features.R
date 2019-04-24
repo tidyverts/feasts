@@ -8,15 +8,10 @@ features <- function(.data, ...){
   UseMethod("features")
 }
 
-combine_features <- function(...){
-  dots <- dots_list(...)
-  res <- map2(dots, names(dots), function(val, nm){
-    if(nchar(nm) > 0){
-      nm <- paste0(nm, "_")
-    }
-    set_names(as.list(val), paste0(nm,names(val)))
-  })
-  as_tibble(flatten(unname(res)))
+tbl_features <- function(features){
+  function(...){
+    list(as_tibble(squash(map(features, function(.fn, ...) as.list(.fn(...)), ...))))
+  }
 }
 
 build_feature_calls <- function(measures, available_args){
@@ -48,44 +43,40 @@ build_feature_calls <- function(measures, available_args){
 }
 
 #' @export
-features.tbl_ts <- function(.data, y = NULL, ..., features = list(guerrero)){
+features.tbl_ts <- function(.tbl, .vars = NULL, features, ...){
   dots <- dots_list(...)
 
   if(is_function(features)){
     features <- list(features)
   }
+  features <- map(squash(features), rlang::as_function)
 
-  if(quo_is_null(enquo(y))){
+  if(possibly(is.null, FALSE)(.vars)){
     inform(sprintf(
       "Feature variable not specified, automatically selected `y = %s`",
-      measured_vars(.data)[1]
+      measured_vars(.tbl)[1]
     ))
-    y <- sym(measured_vars(.data)[1])
+    .vars <- syms(measured_vars(.tbl)[1])
   }
-  else{
-    y <- enexpr(y)
+  else if(!possibly(is_quosures, FALSE)(.vars)){
+    .vars <- enquos(.vars)
   }
-
-  features <- squash(features)
 
   if(is.null(dots$.period)){
-    dots$.period <- get_frequencies(NULL, .data, .auto = "smallest")
+    dots$.period <- get_frequencies(NULL, .tbl, .auto = "smallest")
   }
-
-  .data <- transmute(.data, x = !!y)
 
   fns <- build_feature_calls(features, c(names(dots), "x"))
 
-  with(dots,
-       .data %>%
-         as_tibble %>%
-         group_by(!!!key(.data), !!!groups(.data)) %>%
-         summarise(
-           .features = list(combine_features(!!!compact(fns)))
-         ) %>%
-         unnest(.features) %>%
-         ungroup()
-  )
+  as_tibble(.tbl) %>%
+    group_by(!!!key(.tbl), !!!groups(.tbl)) %>%
+    summarise_at(
+      .vars = .vars,
+      .funs = tbl_features(features),
+      !!!dots
+    ) %>%
+    unnest(!!!.vars, .sep = "_") %>%
+    ungroup()
 }
 
 #' @inherit tsfeatures::crossing_points
