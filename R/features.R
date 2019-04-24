@@ -132,7 +132,8 @@ arch_stat <- function(x, lags = 12, demean = TRUE)
 #' @param s.window The seasonal window of the data (passed to [`stats::stl()`])
 #' @param ... Further arguments passed to [`stats::stl()`]
 #'
-#' @seealso [https://otexts.com/fpp3/seasonal-strength.html]
+#' @seealso
+#' [Forecasting Principle and Practices: Measuring strength of trend and seasonality](https://otexts.com/fpp3/seasonal-strength.html)
 #'
 #' @importFrom stats var coef
 #' @export
