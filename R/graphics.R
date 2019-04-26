@@ -480,3 +480,54 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("partial", "histogram", "
   print(p3, vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 2))
   invisible(NULL)
 }
+
+#' Plot characteristic ARMA roots
+#'
+#' Produces a plot of the inverse AR and MA roots of an ARIMA model.
+#' Inverse roots outside the unit circle are shown in red.
+#'
+#' Only models which compute ARMA roots can be visualised with this function.
+#' That is to say, the `glance()` of the model contains `ar_roots` and `ma_roots`.
+#'
+#' @param mbl A mable containing models with AR and/or MA roots.
+#'
+#' @examples
+#' library(fable)
+#' library(tsibble)
+#' library(dplyr)
+#'
+#' tsibbledata::aus_retail %>%
+#'   filter(
+#'     State == "Victoria",
+#'     Industry == "Cafes, restaurants and catering services"
+#'   ) %>%
+#'   model(ARIMA(Turnover)) %>%
+#'   gg_arma()
+#'
+#' @export
+gg_arma <- function(mbl){
+  fcts <- c(key(mbl), sym(".model"))
+
+  mbl <- mbl %>%
+    glance() %>%
+    gather("type", "root", !!sym("ar_roots"), !!sym("ma_roots")) %>%
+    unnest(!!sym("root")) %>%
+    filter(!is.na(!!sym("root"))) %>%
+    mutate(root = 1/!!sym("root"),
+           type = factor(!!sym("type"), levels = c("ar_roots", "ma_roots"),
+                         labels = c("AR roots", "MA roots")),
+           UnitCircle = factor(abs(!!sym("root")) > 1, levels = c(TRUE, FALSE),
+                               labels = c("Outside", "Within")))
+
+  ggplot(mbl, aes(x = Re(!!sym("root")), y = Im(!!sym("root")),
+                  colour = !!sym("UnitCircle"))) +
+    ggplot2::annotate(
+      "path", x = cos(seq(0, 2 * pi, length.out = 100)),
+      y = sin(seq(0, 2 * pi, length.out = 100))
+    ) +
+    ggplot2::geom_vline(xintercept = 0) +
+    ggplot2::geom_hline(yintercept = 0) +
+    geom_point() +
+    ggplot2::coord_fixed(ratio = 1) +
+    facet_grid(vars(!!!fcts), vars(!!sym("type")))
+}
