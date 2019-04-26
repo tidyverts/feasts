@@ -7,12 +7,14 @@
 \usage{
 unitroot_kpss(x, ...)
 
-unitroot_pp(x, ...)
+unitroot_pp(x, type = "Z-tau", ...)
 }
 \arguments{
 \item{x}{A vector to be tested for the unit root.}
 
 \item{...}{Unused.}
+
+\item{type}{Test type, either \code{"Z-alpha"} or \code{"Z-tau"}.}
 }
 \description{
 Performs a test for the existence of a unit root in the vector.

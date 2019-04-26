@@ -186,6 +186,72 @@ unitroot_pp <- function(x, ...) {
   c(pp_stat = result@teststat, pp_pval = pval)
 }
 
+#' Number of differences required for a stationary series
+#'
+#' Use a unit root function to determine the minimum number of differences
+#' necessary to obtain a stationary time series.
+#'
+#' @inheritParams unitroot_kpss
+#' @param alpha The level of the test.
+#' @param unitroot_fn A function (or lambda) that provides a p-value for a unit root test.
+#' @param differences The possible differences to consider.
+#' @param ... Additional arguments passed to the `unitroot_fn` function
+#'
+#' @export
+unitroot_ndiffs <- function(x, alpha = 0.05, unitroot_fn = ~ unitroot_kpss(.)["kpss_pval"],
+                            differences = 0:2, ...) {
+  unitroot_fn <- as_function(unitroot_fn)
+
+  diff <- function(x, differences, ...){
+    if(differences == 0) return(x)
+    base::diff(x, differences = differences, ...)
+  }
+
+  # Non-missing x
+  keep <- map_lgl(differences, function(.x){
+    dx <- diff(x, differences = .x)
+    !all(is.na(dx))
+  })
+  differences <- differences[keep]
+
+  # Estimate the test
+  keep <- map_lgl(differences[-1]-1, function(.x) {
+    unitroot_fn(diff(x, differences = .x), ...) < alpha
+  })
+
+  c(ndiffs = max(differences[c(TRUE, keep)], na.rm = TRUE))
+}
+
+#' @rdname unitroot_ndiffs
+#'
+#' @export
+unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ stl_features(.,.period)%>%
+                               {.[grepl("seasonal_strength",names(.))][1]<0.64},
+                             differences = 0:2, .period = 1, ...) {
+  if(.period == 1) return(c(nsdiffs = min(differences)))
+
+  unitroot_fn <- as_function(unitroot_fn)
+
+  diff <- function(x, differences, ...){
+    if(differences == 0) return(x)
+    base::diff(x, differences = differences, ...)
+  }
+
+  # Non-missing x
+  keep <- map_lgl(differences, function(.x){
+    dx <- diff(x, lag = .period, differences = .x)
+    !all(is.na(dx))
+  })
+  differences <- differences[keep]
+
+  # Estimate the test
+  keep <- map_lgl(differences[-1]-1, function(.x) {
+    unitroot_fn(diff(x, lag = .period, differences = .x)) < alpha
+  })
+
+  c(nsdiffs = max(differences[c(TRUE, keep)], na.rm = TRUE))
+}
+
 #' Number of flat spots
 #'
 #' Number of flat spots in a time series
