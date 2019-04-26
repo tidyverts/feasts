@@ -34,6 +34,7 @@ Suggests:
 Remotes:
     tidyverts/tsibble,
     tidyverts/tsibbledata,
+    tidyverts/fable,
     tidyverts/fablelite
 ByteCompile: true
 VignetteBuilder: knitr
