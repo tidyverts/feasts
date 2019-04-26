@@ -33,7 +33,7 @@ features.tbl_ts <- function(.tbl, .vars = NULL, features = list(), ...){
       "Feature variable not specified, automatically selected `y = %s`",
       measured_vars(.tbl)[1]
     ))
-    .vars <- syms(measured_vars(.tbl)[1])
+    .vars <- new_quosures(syms(measured_vars(.tbl)[1]))
   }
   else if(!possibly(is_quosures, FALSE)(.vars)){
     .vars <- enquos(.vars)
