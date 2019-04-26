@@ -17,11 +17,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Rob Hyndman \email{Rob.Hyndman@monash.edu} [copyright holder]
+\strong{Maintainer}: Mitchell O'Hara-Wild \email{mail@mitchelloharawild.com}
 
 Authors:
 \itemize{
-  \item Mitchell O'Hara-Wild
+  \item Rob Hyndman
   \item Earo Wang
 }
 
