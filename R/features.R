@@ -162,7 +162,7 @@ stl_features <- function(x, .period, s.window = 13, ...){
 #' @export
 unitroot_kpss <- function(x, ...) {
   require_package("urca")
-  result <- urca::ur.kpss(x)
+  result <- urca::ur.kpss(x, ...)
   pval <- tryCatch(
     stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
     error = function(e){
@@ -172,11 +172,12 @@ unitroot_kpss <- function(x, ...) {
   c(kpss_stat = result@teststat, kpss_pval = pval)
 }
 
+#' @inheritParams urca::ur.pp
 #' @rdname unitroot
 #' @export
-unitroot_pp <- function(x, ...) {
+unitroot_pp <- function(x, type = "Z-tau", ...) {
   require_package("urca")
-  result <- urca::ur.pp(x, type = "Z-tau")
+  result <- urca::ur.pp(x, type = type, ...)
   pval <- tryCatch(
     stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
     error = function(e){
