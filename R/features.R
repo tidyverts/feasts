@@ -153,11 +153,14 @@ stl_features <- function(x, .period, s.window = 13, ...){
 #' Performs a test for the existence of a unit root in the vector.
 #'
 #' \code{unitroot_kpss} computes the statistic for the Kwiatkowski et al. unit root test with linear trend and lag 1.
+#'
 #' \code{unitroot_pp} computes the statistic for the `'Z-tau'' version of Phillips & Perron unit root test with constant trend and lag 1.
 #'
 #' @param x A vector to be tested for the unit root.
 #' @inheritParams urca::ur.kpss
 #' @param ... Unused.
+#'
+#' @seealso [urca::ur.kpss()]
 #'
 #' @rdname unitroot
 #' @export
@@ -176,6 +179,9 @@ unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "n
 
 #' @inheritParams urca::ur.pp
 #' @rdname unitroot
+#'
+#' @seealso [urca::ur.pp()]
+#'
 #' @export
 unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "trend"),
                         lags = c("short", "long"), use.lag = NULL, ...) {
