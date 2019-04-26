@@ -5,16 +5,24 @@
 \alias{unitroot_pp}
 \title{Unit root tests}
 \usage{
-unitroot_kpss(x, ...)
+unitroot_kpss(x, type = c("mu", "tau"), lags = c("short", "long",
+  "nil"), use.lag = NULL, ...)
 
-unitroot_pp(x, type = "Z-tau", ...)
+unitroot_pp(x, type = c("Z-tau", "Z-alpha"), model = c("constant",
+  "trend"), lags = c("short", "long"), use.lag = NULL, ...)
 }
 \arguments{
 \item{x}{A vector to be tested for the unit root.}
 
+\item{type}{Type of deterministic part.}
+
+\item{lags}{Maximum number of lags used for error term correction.}
+
+\item{use.lag}{User specified number of lags.}
+
 \item{...}{Unused.}
 
-\item{type}{Test type, either \code{"Z-alpha"} or \code{"Z-tau"}.}
+\item{model}{Determines the deterministic part in the test regression.}
 }
 \description{
 Performs a test for the existence of a unit root in the vector.

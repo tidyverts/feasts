@@ -156,13 +156,15 @@ stl_features <- function(x, .period, s.window = 13, ...){
 #' \code{unitroot_pp} computes the statistic for the `'Z-tau'' version of Phillips & Perron unit root test with constant trend and lag 1.
 #'
 #' @param x A vector to be tested for the unit root.
+#' @inheritParams urca::ur.kpss
 #' @param ... Unused.
 #'
 #' @rdname unitroot
 #' @export
-unitroot_kpss <- function(x, ...) {
+unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "nil"),
+                          use.lag = NULL, ...) {
   require_package("urca")
-  result <- urca::ur.kpss(x, ...)
+  result <- urca::ur.kpss(x, type = type, lags = lags, use.lag = use.lag)
   pval <- tryCatch(
     stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
     error = function(e){
@@ -175,9 +177,10 @@ unitroot_kpss <- function(x, ...) {
 #' @inheritParams urca::ur.pp
 #' @rdname unitroot
 #' @export
-unitroot_pp <- function(x, type = "Z-tau", ...) {
+unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "trend"),
+                        lags = c("short", "long"), use.lag = NULL, ...) {
   require_package("urca")
-  result <- urca::ur.pp(x, type = type, ...)
+  result <- urca::ur.pp(x, type = type, model = model, lags = lags, use.lag = use.lag)
   pval <- tryCatch(
     stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
     error = function(e){
