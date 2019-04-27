@@ -22,6 +22,8 @@ unitroot_nsdiffs(x, alpha = 0.05, unitroot_fn = ~stl_features(.,
 \item{differences}{The possible differences to consider.}
 
 \item{...}{Additional arguments passed to the \code{unitroot_fn} function}
+
+\item{.period}{The period of the seasonality.}
 }
 \description{
 Use a unit root function to determine the minimum number of differences

@@ -233,6 +233,7 @@ unitroot_ndiffs <- function(x, alpha = 0.05, unitroot_fn = ~ unitroot_kpss(.)["k
 }
 
 #' @rdname unitroot_ndiffs
+#' @param .period The period of the seasonality.
 #'
 #' @export
 unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ stl_features(.,.period)%>%
