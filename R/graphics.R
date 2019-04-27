@@ -509,7 +509,7 @@ gg_arma <- function(mbl){
   fcts <- c(key(mbl), sym(".model"))
 
   mbl <- mbl %>%
-    glance() %>%
+    fablelite::glance() %>%
     gather("type", "root", !!sym("ar_roots"), !!sym("ma_roots")) %>%
     unnest(!!sym("root")) %>%
     filter(!is.na(!!sym("root"))) %>%
