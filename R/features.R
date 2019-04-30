@@ -28,15 +28,16 @@ features.tbl_ts <- function(.tbl, .vars = NULL, features = list(), ...){
   }
   features <- map(squash(features), rlang::as_function)
 
-  if(quo_is_null(enquo(.vars))){
+  quo_vars <- enquo(.vars)
+  if(quo_is_null(quo_vars)){
     inform(sprintf(
       "Feature variable not specified, automatically selected `y = %s`",
       measured_vars(.tbl)[1]
     ))
-    .vars <- new_quosures(syms(measured_vars(.tbl)[1]))
+    .vars <- as_quosures(syms(measured_vars(.tbl)[1]), env = empty_env())
   }
-  else if(!possibly(is_quosures, FALSE)(.vars)){
-    .vars <- enquos(.vars)
+  else if(!possibly(compose(is_quosures, eval_tidy), FALSE)(.vars)){
+    .vars <- new_quosures(list(quo_vars))
   }
 
   if(is.null(dots$.period)){
