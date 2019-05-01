@@ -1,8 +1,8 @@
 # nocov start
 .onLoad <- function(...) {
-  register_s3_method("pillar", "pillar_shaft", "lag")
-  register_s3_method("pillar", "obj_sum", "lag")
-  register_s3_method("pillar", "type_sum", "lag")
+  register_s3_method("pillar", "pillar_shaft", "cf_lag")
+  register_s3_method("pillar", "obj_sum", "cf_lag")
+  register_s3_method("pillar", "type_sum", "cf_lag")
 
   invisible()
 }

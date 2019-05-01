@@ -170,49 +170,49 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
     new_tsibble(num_obs = lens, class = "tbl_cf")
 }
 
-type_sum.lag <- function(x){
+type_sum.cf_lag <- function(x){
   "lag"
 }
 
-obj_sum.lag <- function(x){
+obj_sum.cf_lag <- function(x){
   rep("lag", length(x))
 }
 
-pillar_shaft.lag <- function(x, ...) {
+pillar_shaft.cf_lag <- function(x, ...) {
   require_package("pillar")
   pillar::new_pillar_shaft_simple(format(x), align = "right", min_width = 10)
 }
 
 as_lag <- function(x, ...) {
-  structure(x, ..., class = "lag")
+  structure(x, ..., class = "cf_lag")
 }
 
 #' @export
-`[.lag` <- function(x, i) {
+`[.cf_lag` <- function(x, i) {
   as_lag(NextMethod(), interval = attr(x, "interval"))
 }
 
 #' @export
-c.lag <- function(x, ...) {
+c.cf_lag <- function(x, ...) {
   as_lag(NextMethod(), interval = attr(x, "interval"))
 }
 
 #' @export
-format.lag <- function(x, ...){
+format.cf_lag <- function(x, ...){
   x %>% map_chr(function(.x){
     format(add_class(map(attr(x, "interval"), `*`, .x), "interval"))
   })
 }
 
 #' @export
-print.lag <- function(x, ...){
+print.cf_lag <- function(x, ...){
   print(format(x, ...), quote = FALSE)
   invisible(x)
 }
 
 #' @importFrom tibble is_vector_s3
 #' @export
-is_vector_s3.lag <- function(x) {
+is_vector_s3.cf_lag <- function(x) {
   TRUE
 }
 
@@ -252,14 +252,14 @@ autoplot.tbl_cf <- function(object, level = 95, ...){
 }
 
 #' @export
-index_valid.lag <- function(x) TRUE
+index_valid.cf_lag <- function(x) TRUE
 
 #' @export
-interval_pull.lag <- function(x) attr(x, "interval")
+interval_pull.cf_lag <- function(x) attr(x, "interval")
 
 #' @importFrom ggplot2 scale_type
 #' @export
-scale_type.lag <- function(x) c("lag", "continuous")
+scale_type.cf_lag <- function(x) c("lag", "continuous")
 
 #' lagged datetime scales
 #' This set of scales defines new scales for lagged time structures.
