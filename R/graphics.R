@@ -212,13 +212,13 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 
   p <- ggplot(data, mapping) +
     geom_line() +
-    scale_color_gradientn(colours = scales::hue_pal()(9),
+    ggplot2::scale_color_gradientn(colours = scales::hue_pal()(9),
                           breaks = if (num_ids < max_col) seq_len(num_ids) else ggplot2::waiver(),
                           labels = function(idx) levels(data$id)[idx]) +
-    labs(colour = NULL)
+    ggplot2::labs(colour = NULL)
 
   if(num_ids < max_col){
-    p <- p + guides(colour = guide_legend())
+    p <- p + ggplot2::guides(colour = ggplot2::guide_legend())
   }
 
   if(!is.null(facet_period)){
