@@ -192,6 +192,8 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
     )
 
   if(polar){
+    warn("Polar plotting is not fully supported yet, and the resulting graph may be incorrect.
+This issue will be resolved once vctrs is integrated into dplyr.")
     extra_x <- data %>%
       group_by(!!sym("facet_id"), !!sym("id")) %>%
       summarise(
