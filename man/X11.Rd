@@ -20,6 +20,21 @@ Applies a seasonal adjustment by an enhanced version of the methodology of the
 Census Bureau X-11 and X-11Q programs. The type of seasonal decomposition
 (additive or multiplicative) can be controlled using the \code{type} argument.
 }
+\section{Specials}{
+
+
+\subsection{season}{
+The \code{season} special is used to specify seasonal attributes of the decomposition.
+\preformatted{
+season(period = NULL)
+}
+
+\tabular{ll}{
+\code{period}   \tab The periodic nature of the seasonality. X11 decompositions only support monthly (\code{period = 12}) and quarterly (\code{period = 4}) seasonal patterns.
+}
+}
+}
+
 \examples{
 tsibbledata::aus_production \%>\% X11(Beer)
 

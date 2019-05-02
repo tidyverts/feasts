@@ -16,6 +16,21 @@ SEATS(.data, formula, ...)
 \description{
 Decomposes a time series via model based signal extraction using X-13ARIMA-SEATS.
 }
+\section{Specials}{
+
+
+\subsection{season}{
+The \code{season} special is used to specify seasonal attributes of the decomposition.
+\preformatted{
+season(period = NULL)
+}
+
+\tabular{ll}{
+\code{period}   \tab The periodic nature of the seasonality. X-13ARIMA-SEATS decompositions only seasonal patterns with periods of 1, 2, 4, 6 or 12.
+}
+}
+}
+
 \examples{
 tsibbledata::aus_production \%>\% SEATS(Beer)
 

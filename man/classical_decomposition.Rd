@@ -10,7 +10,7 @@ classical_decomposition(.data, formula, type = c("additive",
 \arguments{
 \item{.data}{A tsibble.}
 
-\item{formula}{Decomposition specification.}
+\item{formula}{Decomposition specification (see "Specials" section).}
 
 \item{type}{The type of seasonal component. Can be abbreviated.}
 
@@ -38,6 +38,21 @@ The additive model used is:
   This only works well if \code{x} covers an integer number of complete
   periods.
 }
+\section{Specials}{
+
+
+\subsection{season}{
+The \code{season} special is used to specify seasonal attributes of the decomposition.
+\preformatted{
+season(period = NULL)
+}
+
+\tabular{ll}{
+\code{period}   \tab The periodic nature of the seasonality. This can be either a number indicating the number of observations in each seasonal period, or text to indicate the duration of the seasonal window (for example, annual seasonality would be "1 year").
+}
+}
+}
+
 \examples{
 USAccDeaths \%>\%
   as_tsibble \%>\%

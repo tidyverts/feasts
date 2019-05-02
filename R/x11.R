@@ -67,6 +67,20 @@ train_X11 <- function(.data, formula, specials, type, ...){
 #' @param type The type of decomposition: additive or multiplicative
 #' @param ... Other arguments passed to [seasonal::seas()].
 #'
+#' @section Specials:
+#'
+#' \subsection{season}{
+#' The `season` special is used to specify seasonal attributes of the decomposition.
+#' \preformatted{
+#' season(period = NULL)
+#' }
+#'
+#' \tabular{ll}{
+#'   `period`   \tab The periodic nature of the seasonality. X11 decompositions only support monthly (`period = 12`) and quarterly (`period = 4`) seasonal patterns.
+#' }
+#' }
+#'
+#'
 #' @examples
 #' tsibbledata::aus_production %>% X11(Beer)
 #'

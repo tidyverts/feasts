@@ -9,7 +9,7 @@ STL(.data, formula, iterations = 2, ...)
 \arguments{
 \item{.data}{A tsibble.}
 
-\item{formula}{Decomposition specification.}
+\item{formula}{Decomposition specification (see "Specials" section).}
 
 \item{iterations}{Number of iterations to use to refine the seasonal component.}
 
@@ -24,9 +24,56 @@ In this case, \code{\link[stats]{supsmu}} is used to estimate the trend.
 Optionally, the time series may be Box-Cox transformed before decomposition.
 Unlike \code{\link[stats]{stl}}, \code{mstl} is completely automated.
 }
+\section{Specials}{
+
+
+\subsection{trend}{
+The \code{trend} special is used to specify the trend extraction parameters.
+\preformatted{
+trend(window, degree, jump)
+}
+
+\tabular{ll}{
+\code{window} \tab The span (in lags) of the loess window, which should be odd. If NULL, the default, nextodd(ceiling((1.5*period) / (1-(1.5/s.window)))), is taken.\cr
+\code{degree} \tab The degree of locally-fitted polynomial. Should be zero or one. \cr
+\code{jump}   \tab Integers at least one to increase speed of the respective smoother. Linear interpolation happens between every \code{jump}th value.
+}
+}
+
+\subsection{season}{
+The \code{season} special is used to specify the season extraction parameters.
+\preformatted{
+season(period = NULL, window = 13, degree, jump)
+}
+
+\tabular{ll}{
+\code{period} \tab The periodic nature of the seasonality. This can be either a number indicating the number of observations in each seasonal period, or text to indicate the duration of the seasonal window (for example, annual seasonality would be "1 year").\cr
+\code{window} \tab The span (in lags) of the loess window, which should be odd. If the \code{window} is set to \code{"periodic"} or \code{Inf}, the seasonal pattern will be fixed. The window size should be odd and at least 7, according to Cleveland et al. \cr
+\code{degree} \tab The degree of locally-fitted polynomial. Should be zero or one. \cr
+\code{jump}   \tab Integers at least one to increase speed of the respective smoother. Linear interpolation happens between every \code{jump}th value.
+}
+}
+
+\subsection{lowpass}{
+The \code{lowpass} special is used to specify the low-pass filter parameters.
+\preformatted{
+lowpass(window, degree, jump)
+}
+
+\tabular{ll}{
+\code{window} \tab The span (in lags) of the loess window of the low-pass filter used for each subseries. Defaults to the smallest odd integer greater than or equal to the seasonal \code{period} which is recommended since it prevents competition between the trend and seasonal components. If not an odd integer its given value is increased to the next odd one. \cr
+\code{degree} \tab The degree of locally-fitted polynomial. Must be zero or one. \cr
+\code{jump}   \tab Integers at least one to increase speed of the respective smoother. Linear interpolation happens between every \code{jump}th value.
+}
+}
+}
+
 \examples{
 USAccDeaths \%>\% as_tsibble \%>\% STL(value ~ trend(window = 10))
 
+}
+\references{
+R. B. Cleveland, W. S. Cleveland, J.E. McRae, and I. Terpenning (1990) STL: A Seasonal-Trend Decomposition Procedure Based on Loess. Journal of Official Statistics, 6, 3–73.
 }
 \seealso{
 \code{\link[stats]{stl}}, \code{\link[stats]{supsmu}}

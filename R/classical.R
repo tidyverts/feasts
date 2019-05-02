@@ -50,9 +50,23 @@ train_classical <- function(.data, formula, specials,
 #' @inherit stats::decompose description details
 #'
 #' @param .data A tsibble.
-#' @param formula Decomposition specification.
+#' @param formula Decomposition specification (see "Specials" section).
 #' @param ... Other arguments passed to `\link[stats]{decompose}`.
 #' @inheritParams stats::decompose
+#'
+#'
+#' @section Specials:
+#'
+#' \subsection{season}{
+#' The `season` special is used to specify seasonal attributes of the decomposition.
+#' \preformatted{
+#' season(period = NULL)
+#' }
+#'
+#' \tabular{ll}{
+#'   `period`   \tab The periodic nature of the seasonality. This can be either a number indicating the number of observations in each seasonal period, or text to indicate the duration of the seasonal window (for example, annual seasonality would be "1 year").
+#' }
+#' }
 #'
 #' @examples
 #' USAccDeaths %>%

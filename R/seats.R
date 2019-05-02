@@ -61,6 +61,19 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
 #' @param formula Decomposition specification.
 #' @param ... Other arguments passed to [seasonal::seas()].
 #'
+#' @section Specials:
+#'
+#' \subsection{season}{
+#' The `season` special is used to specify seasonal attributes of the decomposition.
+#' \preformatted{
+#' season(period = NULL)
+#' }
+#'
+#' \tabular{ll}{
+#'   `period`   \tab The periodic nature of the seasonality. X-13ARIMA-SEATS decompositions only seasonal patterns with periods of 1, 2, 4, 6 or 12.
+#' }
+#' }
+#'
 #' @examples
 #' tsibbledata::aus_production %>% SEATS(Beer)
 #'
