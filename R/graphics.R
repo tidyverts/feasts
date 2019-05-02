@@ -338,10 +338,11 @@ gg_subseries <- function(data, y = NULL, period = NULL){
     mutate(
       id = time_identifier(!!idx, period),
       id = !!idx - period * ((tz_units_since(!!idx) +
-        ifelse(inherits(!!idx, "Date"), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
+        ifelse(inherits(!!idx, "Date"), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period),
+      .yint = !!y
     ) %>%
     group_by(id, !!!keys) %>%
-    mutate(.yint = mean(!!y, na.rm = TRUE))
+    mutate(.yint = mean(!!sym(".yint"), na.rm = TRUE))
 
   p <- ggplot(data, aes(x = !!idx, y = !!y)) +
     geom_line() +
