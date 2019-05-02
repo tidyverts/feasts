@@ -186,7 +186,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
       !!!key(data)
     ) %>%
     mutate(
-      id = time_identifier(!!idx, period),
+      id = ordered(time_identifier(!!idx, period)),
       !!as_string(idx) := !!idx - period * ((tz_units_since(!!idx) +
         ifelse(inherits(!!idx, "Date"), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
     )
@@ -206,9 +206,19 @@ This issue will be resolved once vctrs is integrated into dplyr.")
     data <- rbind(data, extra_x)
   }
 
-  mapping <- aes(x = !!idx, y = !!y, colour = !!sym("id"))
+  num_ids <- NROW(distinct(data, !!sym("id")))
+
+  mapping <- aes(x = !!idx, y = !!y, colour = unclass(!!sym("id")), group = !!sym("id"))
+
   p <- ggplot(data, mapping) +
-    geom_line()
+    geom_line() +
+    scale_color_gradientn(colours = scales::hue_pal()(9),
+                          breaks = if (num_ids < max_col) seq_len(num_ids) else ggplot2::waiver(),
+                          labels = function(idx) levels(data$id)[idx])
+
+  if(num_ids < max_col){
+    p <- p + guides(colour = guide_legend())
+  }
 
   if(!is.null(facet_period)){
     p <- p + facet_grid(rows = vars(!!!keys),
@@ -260,9 +270,6 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 
     p <- p + ggplot2::geom_text(aes(label = !!sym("id")), data = labels_x) +
       ggplot2::guides(colour = "none")
-  }
-  else if(NROW(distinct(data, !!sym("id"))) >= max_col){
-    p <- p + ggplot2::guides(colour = "none")
   }
 
   p

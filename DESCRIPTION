@@ -17,6 +17,7 @@ Imports:
     dplyr (>= 0.8.0),
     tidyr (>= 0.8.3),
     fablelite,
+    scales,
     R6
 Suggests:
     tsibbledata,
