@@ -27,7 +27,7 @@ tsibbledata::aus_retail \%>\%
     State == "Victoria",
     Industry == "Cafes, restaurants and catering services"
   ) \%>\%
-  model(ARIMA(Turnover)) \%>\%
+  model(ARIMA(Turnover ~ pdq(0,1,1) + PDQ(0,1,1))) \%>\%
   gg_arma()
 
 }
