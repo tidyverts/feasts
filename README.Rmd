@@ -15,9 +15,11 @@ knitr::opts_chunk$set(
 # feasts
 [![Travis build status](https://travis-ci.org/tidyverts/feasts.svg?branch=master)](https://travis-ci.org/tidyverts/feasts)
 
-The R package *feasts* munches on tidy temporal data ([tsibble](https://github.com/tidyverts/tsibble)) to produce time series features, decompositions, statistical summaries and convenient visualisations.
+## Overview
 
-The features offered by *feasts* are essential for the [fable](https://github.com/tidyverts/fable) modelling workflow. It includes convenient functions for exploration prior to modelling, and evaluation after modelling.
+feasts provides a collection of tools for the analysis of time series data. The package name is an acryonym comprising of its key features: *Feature Extraction And Statistics for Time Series*.
+
+The package works with tidy temporal data provided by the [tsibble](https://github.com/tidyverts/tsibble) package to produce time series features, decompositions, statistical summaries and convenient visualisations. These features are useful in understanding the behaviour of time series data, and closely integrates with the tidy forecasting workflow used in the [fable](https://github.com/tidyverts/fable) package.
 
 ## Installation
 
@@ -28,13 +30,74 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("tidyverts/feasts")
 ```
 
-## Example
+## Usage
 
-```{r acf}
-library(feasts)
+```{r pkgs, message=FALSE}
+library(tidyverse)
 library(tsibbledata)
-elecdemand %>% 
-  ACF(Temperature, lag.max=48) %>%
-  autoplot
+library(lubridate)
+library(feasts)
+```
+
+### Graphics
+
+Visualisation is often the first step in understanding the patterns in time series data. The package uses [ggplot2](https://github.com/tidyverse/ggplot2) to produce customisable graphics to visualise time series patterns.
+
+```{r graphics}
+aus_production %>% gg_season(Beer)
+aus_production %>% gg_subseries(Beer)
+aus_production %>% filter(year(Quarter) > 1991) %>% gg_lag(Beer)
+aus_production %>% ACF(Beer) %>% autoplot()
+```
+
+### Decompositions
+
+A common task in time series analysis is decomposing a time series into some simpler components. The feasts package supports four common time series decomposition methods:
+
+* Classical decomposition
+* STL decomposition
+* X11 decomposition
+* X-13ARIMA-SEATS decomposition
+
+```{r dcmp}
+aus_production %>% STL(Beer ~ season(window = Inf))
+```
+```{r dcmp-plot}
+aus_production %>% STL(Beer ~ season(window = Inf)) %>% autoplot()
+```
+
+### Feature extraction and statistics
+
+Extract features and statistics across a large collection of time series to identify unusual/extreme time series, or find clusters of similar behaviour.
+
+```{r features}
+aus_retail %>% 
+  features(Turnover, stl_features)
+```
+
+This allows you to visualise the behaviour of many time series (where the plotting methods above would show too much information).
+
+```{r features-plot}
+aus_retail %>% 
+  features(Turnover, stl_features) %>% 
+  ggplot(aes(x = Turnover_trend_strength, y = Turnover_seasonal_strength.year)) +
+  geom_point() + 
+  facet_wrap(vars(State))
+```
+
+Most of Australian's retail industries are highly trended and seasonal for all states.
+
+It's also easy to extract the most (and least) seasonal time series.
+
+```{r extreme}
+extreme_seasonalities <- aus_retail %>% 
+  features(Turnover, stl_features) %>% 
+  filter(Turnover_seasonal_strength.year %in% range(Turnover_seasonal_strength.year))
+aus_retail %>% 
+  right_join(extreme_seasonalities, by = c("State", "Industry")) %>% 
+  ggplot(aes(x = Month, y = Turnover)) + 
+  geom_line() + 
+  facet_grid(vars(State, Industry, scales::percent(Turnover_seasonal_strength.year)), 
+             scales = "free_y")
 ```
 
