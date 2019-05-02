@@ -118,20 +118,19 @@ behaviour.
 aus_retail %>% 
   features(Turnover, stl_features)
 #> # A tibble: 152 x 9
-#>    State Industry Turnover_trend_… Turnover_season… Turnover_spike
-#>    <chr> <chr>               <dbl>            <dbl>          <dbl>
-#>  1 Aust… Cafes, …            0.989            0.540     0.0000617 
-#>  2 Aust… Cafes, …            0.993            0.609     0.000116  
-#>  3 Aust… Clothin…            0.990            0.914     0.00000493
-#>  4 Aust… Clothin…            0.991            0.947     0.0000260 
-#>  5 Aust… Departm…            0.975            0.977     0.0000285 
-#>  6 Aust… Electri…            0.991            0.925     0.0000319 
-#>  7 Aust… Food re…            0.999            0.874     0.000250  
-#>  8 Aust… Footwea…            0.978            0.929     0.00000775
-#>  9 Aust… Furnitu…            0.979            0.657     0.0000487 
-#> 10 Aust… Hardwar…            0.992            0.892     0.0000156 
-#> # … with 142 more rows, and 4 more variables: Turnover_linearity <dbl>,
-#> #   Turnover_curvature <dbl>, Turnover_seasonal_peak.year <dbl>,
+#>    State Industry Turnover_trend_… Turnover_season… Turnover_spike Turnover_linear… Turnover_curvat…
+#>    <chr> <chr>               <dbl>            <dbl>          <dbl>            <dbl>            <dbl>
+#>  1 Aust… Cafes, …            0.989            0.540     0.0000617             224.             48.5 
+#>  2 Aust… Cafes, …            0.993            0.609     0.000116              336.             76.1 
+#>  3 Aust… Clothin…            0.990            0.914     0.00000493            129.             16.8 
+#>  4 Aust… Clothin…            0.991            0.947     0.0000260             192.             18.4 
+#>  5 Aust… Departm…            0.975            0.977     0.0000285             130.            -42.8 
+#>  6 Aust… Electri…            0.991            0.925     0.0000319             232.             -8.24
+#>  7 Aust… Food re…            0.999            0.874     0.000250             1247.            197.  
+#>  8 Aust… Footwea…            0.978            0.929     0.00000775             63.0             1.60
+#>  9 Aust… Furnitu…            0.979            0.657     0.0000487             139.            -22.5 
+#> 10 Aust… Hardwar…            0.992            0.892     0.0000156             170.             44.1 
+#> # … with 142 more rows, and 2 more variables: Turnover_seasonal_peak.year <dbl>,
 #> #   Turnover_seasonal_trough.year <dbl>
 ```
 

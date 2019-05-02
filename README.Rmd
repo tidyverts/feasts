@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+options(width = 100)
 ```
 # feasts
 [![Travis build status](https://travis-ci.org/tidyverts/feasts.svg?branch=master)](https://travis-ci.org/tidyverts/feasts)
@@ -43,7 +44,7 @@ library(feasts)
 
 Visualisation is often the first step in understanding the patterns in time series data. The package uses [ggplot2](https://github.com/tidyverse/ggplot2) to produce customisable graphics to visualise time series patterns.
 
-```{r graphics}
+```{r graphics, fig.height=3}
 aus_production %>% gg_season(Beer)
 aus_production %>% gg_subseries(Beer)
 aus_production %>% filter(year(Quarter) > 1991) %>% gg_lag(Beer)
