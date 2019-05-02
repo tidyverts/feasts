@@ -33,10 +33,11 @@ devtools::install_github("tidyverts/feasts")
 ## Usage
 
 ``` r
-library(tidyverse)
-library(tsibbledata)
-library(lubridate)
 library(feasts)
+library(tsibbledata)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
 ```
 
 ### Graphics
