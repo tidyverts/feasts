@@ -214,7 +214,8 @@ This issue will be resolved once vctrs is integrated into dplyr.")
     geom_line() +
     scale_color_gradientn(colours = scales::hue_pal()(9),
                           breaks = if (num_ids < max_col) seq_len(num_ids) else ggplot2::waiver(),
-                          labels = function(idx) levels(data$id)[idx])
+                          labels = function(idx) levels(data$id)[idx]) +
+    labs(colour = NULL)
 
   if(num_ids < max_col){
     p <- p + guides(colour = guide_legend())
