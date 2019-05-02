@@ -24,7 +24,7 @@ A ggplot2 plot.
 }
 \description{
 Plots a time series along with its ACF along with an customisable third
-graphic of either a PACF, lagged scatterplot or spectral density.
+graphic of either a PACF, histogram, lagged scatterplot or spectral density.
 }
 \examples{
 library(tsibble)

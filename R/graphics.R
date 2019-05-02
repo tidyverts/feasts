@@ -123,7 +123,12 @@ guess_plot_var <- function(x, y){
   }
 }
 
-#' @inherit forecast::ggseasonplot
+#' Seasonal plot
+#'
+#' Produces a time series seasonal plot. A seasonal plot is similar to a regular
+#' time series plot, except the x-axis shows data from within each season. This
+#' plot type allows the underlying seasonal pattern to be seen more clearly,
+#' and is especially useful in identifying years in which the pattern changes.
 #'
 #' @param data A tidy time series object (tsibble)
 #' @param y The variable to plot (a bare expression). If NULL, it will
@@ -137,6 +142,10 @@ guess_plot_var <- function(x, y){
 #' to always colour the lines. If labels are used, then max_col will be ignored.
 #' @param polar If TRUE, the season plot will be shown on polar coordinates.
 #' @param labels Position of the labels for seasonal period identifier.
+#'
+#' @references
+#' Hyndman and Athanasopoulos (2018) Forecasting: principles and practice,
+#'  2nd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp2/
 #'
 #' @examples
 #' library(tsibble)
@@ -276,9 +285,26 @@ This issue will be resolved once vctrs is integrated into dplyr.")
   p
 }
 
-#' @inherit forecast::ggsubseriesplot
+#' Seasonal subseries plots
+#'
+#' A seasonal subseries plot facets the time series by each season in the
+#' seasonal period. These facets form smaller time series plots consisting of
+#' data only from that season. If you had several years of monthly data, the
+#' resulting plot would show a separate time series plot for each month. The
+#' first subseries plot would consist of only data from January. This case is
+#' given as an example below.
+#'
+#' The horizontal lines are used to represent the mean of each facet, allowing
+#' easy identification of seasonal differences between seasons. This plot is
+#' particularly useful in identifying changes in the seasonal pattern over time.
+#'
+#' similar to a seasonal plot ([`gg_season()`]), and
 #'
 #' @inheritParams gg_season
+#'
+#' @references
+#' Hyndman and Athanasopoulos (2018) Forecasting: principles and practice,
+#'  2nd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp2/
 #'
 #' @examples
 #' library(tsibble)
@@ -338,9 +364,12 @@ gg_subseries <- function(data, y = NULL, period = NULL){
 }
 
 
-#' @inheritParams gg_season
-#' @inherit forecast::gglagplot
+#' Lag plots
 #'
+#' A lag plot shows the time series against lags of itself. It is often coloured
+#' the seasonal period to identify how each season correlates with others.
+#'
+#' @inheritParams gg_season
 #' @param lags A vector of lags to display as facets.
 #' @param geom The geometry used to display the data.
 #'
@@ -407,7 +436,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' Ensemble of time series displays
 #'
 #' Plots a time series along with its ACF along with an customisable third
-#' graphic of either a PACF, lagged scatterplot or spectral density.
+#' graphic of either a PACF, histogram, lagged scatterplot or spectral density.
 #'
 #' @param plot_type type of plot to include in lower right corner.
 #' @inheritParams gg_season

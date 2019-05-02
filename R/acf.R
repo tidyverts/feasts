@@ -216,6 +216,14 @@ is_vector_s3.cf_lag <- function(x) {
   TRUE
 }
 
+#' Auto- and Cross- Covariance and -Correlation plots
+#'
+#' Produces an appropriate plot for the result of  [`ACF()`], [`PACF()`], or [`CCF()`].
+#'
+#' @param object A tbl_cf object (the result [`ACF()`], [`PACF()`], or [`CCF()`]).
+#' @param level The level of confidence for the blue dashed lines.
+#' @param ... Unused.
+#'
 #' @importFrom ggplot2 ggplot geom_hline xlab ylab ggtitle vars
 #' @importFrom stats qnorm
 #' @export

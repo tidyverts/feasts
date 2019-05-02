@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{gg_lag}
 \alias{gg_lag}
-\title{Time series lag ggplots}
+\title{Lag plots}
 \usage{
 gg_lag(data, y = NULL, period = NULL, lags = 1:9, geom = c("path",
   "point"))
@@ -19,19 +19,9 @@ automatically selected from the data.}
 
 \item{geom}{The geometry used to display the data.}
 }
-\value{
-None.
-}
 \description{
-Plots a lag plot using ggplot.
-}
-\details{
-\dQuote{gglagplot} will plot time series against lagged versions of
-themselves. Helps visualising 'auto-dependence' even when auto-correlations
-vanish.
-
-\dQuote{gglagchull} will layer convex hulls of the lags, layered on a single
-plot. This helps visualise the change in 'auto-dependence' as lags increase.
+A lag plot shows the time series against lags of itself. It is often coloured
+the seasonal period to identify how each season correlates with others.
 }
 \examples{
 library(tsibble)
@@ -43,7 +33,4 @@ tsibbledata::aus_retail \%>\%
   ) \%>\%
   gg_lag(Turnover)
 
-}
-\seealso{
-\code{\link[stats]{lag.plot}}
 }

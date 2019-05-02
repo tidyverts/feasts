@@ -2,7 +2,7 @@
 % Please edit documentation in R/graphics.R
 \name{gg_subseries}
 \alias{gg_subseries}
-\title{Create a seasonal subseries ggplot}
+\title{Seasonal subseries plots}
 \usage{
 gg_subseries(data, y = NULL, period = NULL)
 }
@@ -14,18 +14,20 @@ automatically selected from the data.}
 
 \item{period}{The seasonal period to display.}
 }
-\value{
-Returns an object of class \code{ggplot}.
-}
 \description{
-Plots a subseries plot using ggplot. Each season is plotted as a separate
-mini time series. The blue lines represent the mean of the observations
-within each season.
+A seasonal subseries plot facets the time series by each season in the
+seasonal period. These facets form smaller time series plots consisting of
+data only from that season. If you had several years of monthly data, the
+resulting plot would show a separate time series plot for each month. The
+first subseries plot would consist of only data from January. This case is
+given as an example below.
 }
 \details{
-The \code{ggmonthplot} function is simply a wrapper for
-\code{ggsubseriesplot} as a convenience for users familiar with
-\code{\link[stats]{monthplot}}.
+The horizontal lines are used to represent the mean of each facet, allowing
+easy identification of seasonal differences between seasons. This plot is
+particularly useful in identifying changes in the seasonal pattern over time.
+
+similar to a seasonal plot (\code{\link[=gg_season]{gg_season()}}), and
 }
 \examples{
 library(tsibble)
@@ -38,6 +40,7 @@ tsibbledata::aus_retail \%>\%
   gg_subseries(Turnover)
 
 }
-\seealso{
-\code{\link[stats]{monthplot}}
+\references{
+Hyndman and Athanasopoulos (2018) Forecasting: principles and practice,
+2nd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp2/
 }

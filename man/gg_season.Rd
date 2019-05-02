@@ -27,13 +27,11 @@ to always colour the lines. If labels are used, then max_col will be ignored.}
 
 \item{labels}{Position of the labels for seasonal period identifier.}
 }
-\value{
-None.
-}
 \description{
-Plots a seasonal plot as described in Hyndman and Athanasopoulos (2014,
-chapter 2). This is like a time plot except that the data are plotted
-against the seasons in separate years.
+Produces a time series seasonal plot. A seasonal plot is similar to a regular
+time series plot, except the x-axis shows data from within each season. This
+plot type allows the underlying seasonal pattern to be seen more clearly,
+and is especially useful in identifying years in which the pattern changes.
 }
 \examples{
 library(tsibble)
@@ -47,10 +45,6 @@ tsibbledata::aus_retail \%>\%
 
 }
 \references{
-Hyndman and Athanasopoulos (2018) \emph{Forecasting: principles
-and practice}, 2nd edition, OTexts: Melbourne, Australia.
-\url{https://OTexts.org/fpp2/}
-}
-\seealso{
-\code{\link[stats]{monthplot}}
+Hyndman and Athanasopoulos (2018) Forecasting: principles and practice,
+2nd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp2/
 }
