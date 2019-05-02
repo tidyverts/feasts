@@ -267,7 +267,7 @@ interval_pull.cf_lag <- function(x) attr(x, "interval")
 
 #' @importFrom ggplot2 scale_type
 #' @export
-scale_type.cf_lag <- function(x) c("lag", "continuous")
+scale_type.cf_lag <- function(x) c("cf_lag", "continuous")
 
 #' lagged datetime scales
 #' This set of scales defines new scales for lagged time structures.
@@ -276,10 +276,10 @@ scale_type.cf_lag <- function(x) c("lag", "continuous")
 #'
 #' @return A ggproto object inheriting from `Scale`
 #'
-#' @name scale_lag
-#' @rdname scale_lag
+#' @name scale_cf_lag
+#' @rdname scale_cf_lag
 #' @export
-scale_x_lag <- function(...) {
+scale_x_cf_lag <- function(...) {
   scale <- ggplot2::ggproto("ScaleContinuousLag", ggplot2::scale_x_continuous(...),
                    train = function (self, x){
                      if (length(x) == 0)
