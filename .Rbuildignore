@@ -1,4 +1,7 @@
+^docs$
+^_pkgdown\.yml$
 ^feasts\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^\.travis\.yml$
+^tic\.R$
