@@ -195,10 +195,12 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
       !!!key(data)
     ) %>%
     mutate(
-      id = ordered(time_identifier(!!idx, period)),
+      id = time_identifier(!!idx, period),
       !!as_string(idx) := !!idx - period * ((tz_units_since(!!idx) +
         ifelse(inherits(!!idx, "Date"), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
-    )
+    ) %>%
+    ungroup() %>%
+    mutate(id = ordered(!!sym("id")))
 
   if(polar){
     warn("Polar plotting is not fully supported yet, and the resulting graph may be incorrect.
