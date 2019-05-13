@@ -4,7 +4,7 @@
 \alias{gg_subseries}
 \title{Seasonal subseries plots}
 \usage{
-gg_subseries(data, y = NULL, period = NULL)
+gg_subseries(data, y = NULL, period = NULL, ...)
 }
 \arguments{
 \item{data}{A tidy time series object (tsibble)}
@@ -13,6 +13,8 @@ gg_subseries(data, y = NULL, period = NULL)
 automatically selected from the data.}
 
 \item{period}{The seasonal period to display.}
+
+\item{...}{Additional arguments passed to geom_line()}
 }
 \description{
 A seasonal subseries plot facets the time series by each season in the

@@ -142,6 +142,7 @@ guess_plot_var <- function(x, y){
 #' to always colour the lines. If labels are used, then max_col will be ignored.
 #' @param polar If TRUE, the season plot will be shown on polar coordinates.
 #' @param labels Position of the labels for seasonal period identifier.
+#' @param ... Additional arguments passed to geom_line()
 #'
 #' @references
 #' Hyndman and Athanasopoulos (2018) Forecasting: principles and practice,
@@ -160,7 +161,8 @@ guess_plot_var <- function(x, y){
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
 gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
-                      polar = FALSE, labels = c("none", "left", "right", "both")){
+                      polar = FALSE, labels = c("none", "left", "right", "both"),
+                      ...){
   y <- guess_plot_var(data, !!enquo(y))
 
   labels <- match.arg(labels)
@@ -222,7 +224,7 @@ This issue will be resolved once vctrs is integrated into dplyr.")
   mapping <- aes(x = !!idx, y = !!y, colour = unclass(!!sym("id")), group = !!sym("id"))
 
   p <- ggplot(data, mapping) +
-    geom_line() +
+    geom_line(...) +
     ggplot2::scale_color_gradientn(colours = scales::hue_pal()(9),
                           breaks = if (num_ids < max_col) seq_len(num_ids) else ggplot2::waiver(),
                           labels = function(idx) levels(data$id)[idx]) +
@@ -320,7 +322,7 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 #'
 #' @importFrom ggplot2 facet_grid
 #' @export
-gg_subseries <- function(data, y = NULL, period = NULL){
+gg_subseries <- function(data, y = NULL, period = NULL, ...){
   y <- guess_plot_var(data, !!enquo(y))
   n_key <- n_keys(data)
   keys <- key(data)
@@ -345,7 +347,7 @@ gg_subseries <- function(data, y = NULL, period = NULL){
     mutate(.yint = mean(!!sym(".yint"), na.rm = TRUE))
 
   p <- ggplot(data, aes(x = !!idx, y = !!y)) +
-    geom_line() +
+    geom_line(...) +
     facet_grid(rows = vars(!!!keys), cols = vars(!!sym("id")), scales = "free_y",
                labeller = function(dt){
                  map(dt, function(x) {
@@ -375,6 +377,7 @@ gg_subseries <- function(data, y = NULL, period = NULL){
 #' @inheritParams gg_season
 #' @param lags A vector of lags to display as facets.
 #' @param geom The geometry used to display the data.
+#' @param ... Additional arguments passed to the geom.
 #'
 #' @examples
 #' library(tsibble)
@@ -389,7 +392,7 @@ gg_subseries <- function(data, y = NULL, period = NULL){
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
 gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
-                             geom = c("path", "point")){
+                   geom = c("path", "point"), ...){
   y <- guess_plot_var(data, !!enquo(y))
   geom <- match.arg(geom)
   lag_geom <- switch(geom, path = geom_path, point = geom_point)
@@ -431,7 +434,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
   data %>%
     ggplot(mapping) +
     geom_abline(colour = "gray", linetype = "dashed") +
-    lag_geom() +
+    lag_geom(...) +
     facet_wrap(~ .lag) +
     ylab(paste0("lag(", as_string(y), ", n)"))
 }
@@ -469,7 +472,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' @importFrom stats na.exclude complete.cases
 #' @export
 gg_tsdisplay <- function(data, y = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
-                               lag_max = NULL){
+                         lag_max = NULL){
   if(n_keys(data) > 1){
     abort("The data provided to contains more than one time series. Please filter a single time series to use `gg_tsdisplay()`")
   }

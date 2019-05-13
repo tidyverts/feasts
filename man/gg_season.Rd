@@ -5,7 +5,7 @@
 \title{Seasonal plot}
 \usage{
 gg_season(data, y = NULL, period = NULL, facet_period, max_col = 15,
-  polar = FALSE, labels = c("none", "left", "right", "both"))
+  polar = FALSE, labels = c("none", "left", "right", "both"), ...)
 }
 \arguments{
 \item{data}{A tidy time series object (tsibble)}
@@ -26,6 +26,8 @@ to always colour the lines. If labels are used, then max_col will be ignored.}
 \item{polar}{If TRUE, the season plot will be shown on polar coordinates.}
 
 \item{labels}{Position of the labels for seasonal period identifier.}
+
+\item{...}{Additional arguments passed to geom_line()}
 }
 \description{
 Produces a time series seasonal plot. A seasonal plot is similar to a regular
