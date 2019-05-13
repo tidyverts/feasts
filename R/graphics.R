@@ -517,10 +517,20 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("partial", "histogram", "
       ggplot2::scale_y_log10()
   }
 
-  print(p1, vp = grid::viewport(layout.pos.row = c(1, 1), layout.pos.col = c(1, 2)))
-  print(p2, vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 1))
-  print(p3, vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 2))
-  invisible(NULL)
+  structure(list(p1, p2, p3), class = c("gg_tsdisplay", "gg"))
+}
+
+#' @export
+`+.gg_tsdisplay` <- function(e1, e2){
+  e1[[1]] <- e1[[1]] + e2
+  e1
+}
+
+#' @export
+print.gg_tsdisplay <- function(x, ...){
+  print(x[[1]], vp = grid::viewport(layout.pos.row = c(1, 1), layout.pos.col = c(1, 2)))
+  print(x[[2]], vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 1))
+  print(x[[3]], vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 2))
 }
 
 #' Plot characteristic ARMA roots
