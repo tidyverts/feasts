@@ -82,7 +82,7 @@ This allows you to visualise the behaviour of many time series (where the plotti
 ```{r features-plot}
 aus_retail %>% 
   features(Turnover, stl_features) %>% 
-  ggplot(aes(x = Turnover_trend_strength, y = Turnover_seasonal_strength.year)) +
+  ggplot(aes(x = trend_strength, y = seasonal_strength.year)) +
   geom_point() + 
   facet_wrap(vars(State))
 ```
@@ -94,12 +94,12 @@ It's also easy to extract the most (and least) seasonal time series.
 ```{r extreme}
 extreme_seasonalities <- aus_retail %>% 
   features(Turnover, stl_features) %>% 
-  filter(Turnover_seasonal_strength.year %in% range(Turnover_seasonal_strength.year))
+  filter(seasonal_strength.year %in% range(seasonal_strength.year))
 aus_retail %>% 
   right_join(extreme_seasonalities, by = c("State", "Industry")) %>% 
   ggplot(aes(x = Month, y = Turnover)) + 
   geom_line() + 
-  facet_grid(vars(State, Industry, scales::percent(Turnover_seasonal_strength.year)), 
+  facet_grid(vars(State, Industry, scales::percent(seasonal_strength.year)), 
              scales = "free_y")
 ```
 
