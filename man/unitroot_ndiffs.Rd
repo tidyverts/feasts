@@ -9,8 +9,7 @@ unitroot_ndiffs(x, alpha = 0.05,
   unitroot_fn = ~unitroot_kpss(.)["kpss_pval"], differences = 0:2, ...)
 
 unitroot_nsdiffs(x, alpha = 0.05, unitroot_fn = ~stl_features(.,
-  .period) \%>\% {     .[grepl("seasonal_strength", names(.))][1] < 0.64 },
-  differences = 0:2, .period = 1, ...)
+  .period)[2] < 0.64, differences = 0:2, .period = 1, ...)
 }
 \arguments{
 \item{x}{A vector to be tested for the unit root.}

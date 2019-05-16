@@ -301,8 +301,7 @@ unitroot_ndiffs <- function(x, alpha = 0.05, unitroot_fn = ~ unitroot_kpss(.)["k
 #' @param .period The period of the seasonality.
 #'
 #' @export
-unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ stl_features(.,.period)%>%
-                               {.[grepl("seasonal_strength",names(.))][1]<0.64},
+unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ stl_features(.,.period)[2]<0.64,
                              differences = 0:2, .period = 1, ...) {
   if(.period == 1) return(c(nsdiffs = min(differences)))
 
