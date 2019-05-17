@@ -306,6 +306,8 @@ unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ stl_features(.,.pe
   if(.period == 1) return(c(nsdiffs = min(differences)))
 
   unitroot_fn <- as_function(unitroot_fn)
+  environment(unitroot_fn) <- new_environment(parent = get_env(unitroot_fn))
+  environment(unitroot_fn)$.period <- .period
 
   diff <- function(x, differences, ...){
     if(differences == 0) return(x)
