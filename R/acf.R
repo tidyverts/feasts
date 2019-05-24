@@ -139,7 +139,7 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
     value <- syms(measured_vars(.data)[1:2])
   }
   if(length(value) > 2){
-    warn(sprintf("CCF currently only supports two column, `%s` and `%s` will be used.",
+    warn(sprintf("CCF currently only supports two columns, `%s` and `%s` will be used.",
                  expr_text(value[[1]]), expr_text(value[[2]])))
   }
   if(length(value) == 1){
@@ -205,9 +205,11 @@ c.cf_lag <- function(x, ...) {
 
 #' @export
 format.cf_lag <- function(x, ...){
-  x %>% map_chr(function(.x){
+  out <- x %>% map_chr(function(.x){
     format(add_class(map(attr(x, "interval"), `*`, .x), "interval"))
   })
+  out[out=="?"] <- "0"
+  out
 }
 
 #' @export
