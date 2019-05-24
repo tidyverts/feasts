@@ -4,8 +4,7 @@ specials_seats <- fablelite::new_specials(
   season = function(period = NULL){
     period <- get_frequencies(period, self$data, .auto = "smallest")
     if(!(period %in% c(1, 2, 4, 6, 12))){
-      warning("The X-13ARIMA-SEATS method only supports seasonal patterns with seasonal periods of 1, 2, 4, 6 or 12. Defaulting to `period = 1`.")
-      period <- 1
+      abort("The X-13ARIMA-SEATS method only supports seasonal patterns with seasonal periods of 1, 2, 4, 6 or 12. Defaulting to `period = 1`.")
     }
     period
   },
@@ -20,6 +19,10 @@ specials_seats <- fablelite::new_specials(
 train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
   require_package("seasonal")
   stopifnot(is_tsibble(.data))
+
+  if(!missing(x11) || !missing(x11.mode)){
+    abort("Use `X11()` to perform an X11 decomposition.")
+  }
 
   if(length(specials$season) != 1){
     abort("X-13ARIMA-SEATS only supports one seasonal period.")
