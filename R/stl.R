@@ -48,7 +48,9 @@ estimate_stl <- function(y, trend.args, season.args, lowpass.args,
     abort("STL decomposition does not support series with missing values.")
   }
   deseas <- y
-  seas <- set_names(as.list(rep(0, length(season.args))), paste0("season_", names(season.args)%||%map(season.args, function(x) x[["period"]])))
+  season.args <- Filter(function(x) x[["period"]] > 1, season.args)
+  seas <- set_names(as.list(rep(0, length(season.args))),
+                    sprintf("season_%s", names(season.args)%||%map(season.args, function(x) x[["period"]])))
   if(length(season.args) > 0){
     for (j in seq_len(iterations))
     {
@@ -63,7 +65,7 @@ estimate_stl <- function(y, trend.args, season.args, lowpass.args,
     trend <- fit$time.series[, "trend"]
   }
   else{
-    trend <- stats::supsmu(seq_len(length(y)), y)$y
+    trend <- stats::supsmu(seq_along(y), y)$y
   }
 
   trend <- as.numeric(trend)
@@ -78,12 +80,13 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 
   trend.args <- specials$trend[[1]]
   season.args <- unlist(specials$season, recursive = FALSE)
+  season.args <- Filter(function(x) x[["period"]] > 1, season.args)
   lowpass.args <- specials$lowpass[[1]]
 
   decomposition <- .data %>%
     mutate(!!!estimate_stl(y, trend.args, season.args, lowpass.args, ...))
 
-  seas_cols <- paste0("season_", names(season.args)%||%map(season.args, "period"))
+  seas_cols <- sprintf("season_%s", names(season.args)%||%map(season.args, "period"))
   seasonalities <- lapply(season.args, function(x){
     x["base"] <- 0
     x[c("period", "base")]
