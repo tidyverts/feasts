@@ -86,7 +86,7 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
   decomposition <- .data %>%
     mutate(!!!estimate_stl(y, trend.args, season.args, lowpass.args, ...))
 
-  seas_cols <- sprintf("season_%s", names(season.args)%||%map(season.args, "period"))
+  seas_cols <- sprintf("season_%s", names(season.args)%||%map(season.args, function(x) x[["period"]]))
   seasonalities <- lapply(season.args, function(x){
     x["base"] <- 0
     x[c("period", "base")]
