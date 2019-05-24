@@ -6,6 +6,8 @@
 \alias{feasts-package}
 \title{feasts: Feature Extraction And Statistics for Time Series}
 \description{
+\if{html}{\figure{logo.png}{options: align='right'}}
+
 A collection of tsibble analysis tools.
 }
 \seealso{
