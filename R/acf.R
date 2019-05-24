@@ -129,11 +129,11 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
   }
   value <- enexprs(...)
   if(length(value) == 0){
-    if(length(measured_vars(.data) < 2)){
+    if(length(measured_vars(.data)) < 2){
       abort("CCF requires two columns to be specified.")
     }
     inform(sprintf(
-      "Response variable not specified, automatically selected `%s` and `%s",
+      "Response variable not specified, automatically selected `%s` and `%s`",
       measured_vars(.data)[1], measured_vars(.data)[2]
     ))
     value <- syms(measured_vars(.data)[1:2])
@@ -143,7 +143,7 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
                  expr_text(value[[1]]), expr_text(value[[2]])))
   }
   if(length(value) == 1){
-    abort("CCF requires two columns specified.")
+    abort("CCF requires two columns to be specified.")
   }
   build_cf(.data, compute_ccf, value1=!!value[[1]], value2=!!value[[2]],
            lag.max = lag_max, type = type)
