@@ -16,19 +16,23 @@ train_classical <- function(.data, formula, specials,
 
   type <- match.arg(type)
 
-  y <- .data[[measured_vars(.data)]]
+  resp <- measured_vars(.data)
+  y <- .data[[resp]]
   m <- specials$season[[1]]
 
   dcmp_op <- switch(type,
                     additive = "+",
                     multiplicative = "*")
+  dcmp_op_inv <- switch(type,
+                        additive = "-",
+                        multiplicative = "/")
 
   dcmp <- decompose(ts(y, frequency = m), type = type, ...)[c("trend", "seasonal", "random")]
 
   dcmp <- .data %>%
     mutate(
       !!!map(dcmp, as.numeric),
-      seas_adjust = !!call2(dcmp_op, sym("trend"), sym("random"))
+      seas_adjust = !!call2(dcmp_op_inv, sym(resp), sym("seasonal"))
     )
 
   seasonalities <- list(
@@ -36,12 +40,12 @@ train_classical <- function(.data, formula, specials,
   )
 
   aliases <- list2(
-    !!measured_vars(.data) := reduce(syms(c("trend", "seasonal", "random")),
-                                     function(x,y) call2(dcmp_op, x, y)),
-    seas_adjust = call2(dcmp_op, sym("trend"), sym("random"))
+    !!resp := reduce(syms(c("trend", "seasonal", "random")),
+                     function(x,y) call2(dcmp_op, x, y)),
+    seas_adjust = call2(dcmp_op_inv, sym(resp), sym("seasonal"))
   )
 
-  fablelite::as_dable(dcmp, resp = !!sym(measured_vars(.data)), method = "Classical",
+  fablelite::as_dable(dcmp, resp = !!sym(resp), method = "Classical",
                       seasons = seasonalities, aliases = aliases)
 }
 
