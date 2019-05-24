@@ -63,6 +63,9 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
   }
   value <- enexprs(...)
   if(length(value) == 0){
+    if(is_empty(measured_vars(.data))){
+      abort("There are no variables to compute the ACF.")
+    }
     inform(sprintf(
       "Response variable not specified, automatically selected `var = %s`",
       measured_vars(.data)[1]
@@ -91,6 +94,9 @@ PACF <- function(.data, ..., lag_max = NULL){
   }
   value <- enexprs(...)
   if(length(value) == 0){
+    if(is_empty(measured_vars(.data))){
+      abort("There are no variables to compute the PACF.")
+    }
     inform(sprintf(
       "Response variable not specified, automatically selected `var = %s`",
       measured_vars(.data)[1]
@@ -124,7 +130,7 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
   value <- enexprs(...)
   if(length(value) == 0){
     if(length(measured_vars(.data) < 2)){
-      abort("CCF requires two columns specified.")
+      abort("CCF requires two columns to be specified.")
     }
     inform(sprintf(
       "Response variable not specified, automatically selected `%s` and `%s",
