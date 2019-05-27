@@ -244,3 +244,33 @@ test_that("gg_tsdisplay() plots", {
     list(x = "frequency", y = "spectrum")
   )
 })
+
+test_that("gg_arma() plots", {
+  mdl <- tsbl_co2 %>%
+    fablelite::model(fable::ARIMA(value ~ 0 + pdq(1,1,1) + PDQ(1,1,2)))
+
+  p <- gg_arma(mdl)
+  smmry <- fablelite::glance(mdl)
+  ar_roots <- smmry$ar_roots[[1]]
+  ma_roots <- smmry$ma_roots[[1]]
+
+  expect_equal(
+    ggplot2::layer_data(p, 4)$y,
+    c(Im(1/ar_roots), Im(1/ma_roots))
+  )
+  expect_equal(
+    ggplot2::layer_data(p, 4)$x,
+    c(Re(1/ar_roots), Re(1/ma_roots))
+  )
+  expect_equal(
+    ggplot2::layer_data(p, 4)$PANEL,
+    factor(c(rep_along(ar_roots, 1), rep_along(ma_roots, 2)))
+  )
+
+  p_built <- ggplot2::ggplot_build(p)
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y")],
+    list(x = "Re(root)", y = "Im(root)")
+  )
+})
