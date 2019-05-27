@@ -32,7 +32,7 @@ features.tbl_ts <- function(.tbl, .var = NULL, features = list(), ...){
       "Feature variable not specified, automatically selected `.var = %s`",
       measured_vars(.tbl)[1]
     ))
-    .var <- as_quosure(syms(measured_vars(.tbl)[[1]]), env = empty_env())
+    .var <- as_quosure(sym(measured_vars(.tbl)[[1]]), env = empty_env())
   }
   else if(possibly(compose(is_quosures, eval_tidy), FALSE)(.var)){
     abort("`features()` only supports a single variable. To compute features across multiple variables consider scoped variants like `features_at()`")
