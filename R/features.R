@@ -67,14 +67,7 @@ features_at.tbl_ts <- function(.tbl, .vars = NULL, features = list(), ...){
   features <- map(squash(features), rlang::as_function)
 
   quo_vars <- enquo(.vars)
-  if(quo_is_null(quo_vars)){
-    inform(sprintf(
-      "Feature variable not specified, automatically selected `.vars = %s`",
-      measured_vars(.tbl)[1]
-    ))
-    .vars <- as_quosures(syms(measured_vars(.tbl)[1]), env = empty_env())
-  }
-  else if(!possibly(compose(is_quosures, eval_tidy), FALSE)(.vars)){
+  if(!possibly(compose(is_quosures, eval_tidy), FALSE)(.vars)){
     .vars <- new_quosures(list(quo_vars))
   }
 
