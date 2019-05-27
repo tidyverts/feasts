@@ -130,3 +130,42 @@ test_that("gg_subseries() plots", {
   )
 })
 
+test_that("gg_lag() plots", {
+  p <- gg_lag(tsbl_co2, value)
+
+  expect_equal(
+    ggplot2::layer_data(p, 2)$y,
+    do.call(c, map(seq_len(9), function(i)
+      tsbl_co2$value[seq_len(length(tsbl_co2$value) - i)]))
+  )
+  expect_equivalent(
+    as.numeric(table(ggplot2::layer_data(p, 2)$PANEL)),
+    length(tsbl_co2$value) - seq_len(9)
+  )
+
+  p_built <- ggplot2::ggplot_build(p)
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y")],
+    list(x = "value", y = "lag(value, n)")
+  )
+
+  p <- gg_lag(tsbl_co2, value, lags = c(1, 4, 9))
+
+  expect_equal(
+    ggplot2::layer_data(p, 2)$y,
+    do.call(c, map(c(1, 4, 9),
+                   function(i) tsbl_co2$value[seq_len(length(tsbl_co2$value) - i)]))
+  )
+  expect_equivalent(
+    as.numeric(table(ggplot2::layer_data(p, 2)$PANEL)),
+    length(tsbl_co2$value) - c(1, 4, 9)
+  )
+
+  p_built <- ggplot2::ggplot_build(p)
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y")],
+    list(x = "value", y = "lag(value, n)")
+  )
+})
