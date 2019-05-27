@@ -4,7 +4,7 @@
 \alias{arch_stat}
 \title{ARCH LM Statistic}
 \usage{
-arch_stat(x, lags = 12, demean = TRUE)
+arch_stat(x, lags = 12, demean = TRUE, ...)
 }
 \arguments{
 \item{x}{a univariate time series}
@@ -12,6 +12,8 @@ arch_stat(x, lags = 12, demean = TRUE)
 \item{lags}{Number of lags to use in the test}
 
 \item{demean}{Should data have mean removed before test applied?}
+
+\item{...}{Unused.}
 }
 \value{
 A numeric value.

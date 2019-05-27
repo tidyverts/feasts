@@ -115,9 +115,10 @@ features_if.tbl_ts <- function(.tbl, .predicate, features = list(), ...){
 }
 
 #' @inherit tsfeatures::crossing_points
+#' @param ... Unused.
 #' @importFrom stats median
 #' @export
-crossing_points <- function(x)
+crossing_points <- function(x, ...)
 {
   midline <- median(x, na.rm = TRUE)
   ab <- x <= midline
@@ -129,9 +130,10 @@ crossing_points <- function(x)
 }
 
 #' @inherit tsfeatures::arch_stat
+#' @param ... Unused.
 #' @importFrom stats lm embed
 #' @export
-arch_stat <- function(x, lags = 12, demean = TRUE)
+arch_stat <- function(x, lags = 12, demean = TRUE, ...)
 {
   if (length(x) <= 13) {
     return(c(arch_lm = NA_real_))
@@ -246,7 +248,8 @@ unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "n
 unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "trend"),
                         lags = c("short", "long"), use.lag = NULL, ...) {
   require_package("urca")
-  result <- urca::ur.pp(x, type = type, model = model, lags = lags, use.lag = use.lag)
+  result <- urca::ur.pp(x, type = match.arg(type), model = match.arg(model),
+                        lags = match.arg(lags), use.lag = use.lag)
   pval <- tryCatch(
     stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
     error = function(e){
@@ -332,7 +335,7 @@ unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ stl_features(.,.pe
 #' @return A numeric value.
 #' @author Earo Wang and Rob J Hyndman
 #' @export
-flat_spots <- function(x) {
+flat_spots <- function(x, ...) {
   cutx <- try(cut(x, breaks = 10, include.lowest = TRUE, labels = FALSE),
               silent = TRUE
   )
