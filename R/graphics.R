@@ -7,7 +7,7 @@ format_time <- function(x, format, ...){
     qtr <- 1 + as.numeric(format(as.Date(x), "%m"))%/%3
     out <- split(out, qtr) %>% imap(function(x, rpl) gsub("%q", rpl, x)) %>% unsplit(qtr)
   }
-  out
+  factor(out, levels = unique(out[order(x)]))
 }
 
 tz_units_since <- function(x){
@@ -197,7 +197,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
       !!!key(data)
     ) %>%
     mutate(
-      id = time_identifier(!!idx, period),
+      id = as.character(time_identifier(!!idx, period)),
       !!as_string(idx) := !!idx - period * ((tz_units_since(!!idx) +
         ifelse(inherits(!!idx, "Date"), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
     ) %>%
