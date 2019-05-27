@@ -169,3 +169,78 @@ test_that("gg_lag() plots", {
     list(x = "value", y = "lag(value, n)")
   )
 })
+
+test_that("gg_tsdisplay() plots", {
+  p <- gg_tsdisplay(tsbl_co2, value)
+
+  expect_s3_class(
+    p, "gg_tsdisplay"
+  )
+
+  expect_equal(
+    ggplot2::layer_data(p[[1]], 1)$y,
+    tsbl_co2$value
+  )
+
+  p_built <- ggplot2::ggplot_build(p[[1]])
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y")],
+    list(x = "index", y = "value")
+  )
+
+  p <- p + ggplot2::labs(x = "x", y = "y", title = "title")
+
+  p_built <- ggplot2::ggplot_build(p[[1]])
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y", "title")],
+    list(x = "x", y = "y", title = "title")
+  )
+
+  p_built <- ggplot2::ggplot_build(p[[2]])
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y")],
+    list(x = "lag [1M]", y = "acf")
+  )
+
+  p_built <- ggplot2::ggplot_build(p[[3]])
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y")],
+    list(x = "lag [1M]", y = "pacf")
+  )
+
+  p <- gg_tsdisplay(tsbl_co2, value, plot_type = "histogram")
+
+  p_built <- ggplot2::ggplot_build(p[[3]])
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y")],
+    list(x = "value", y = "count")
+  )
+
+  p <- gg_tsdisplay(tsbl_co2, value, plot_type = "scatter")
+
+  expect_equal(
+    ggplot2::layer_data(p[[3]], 1)$y,
+    tsbl_co2$value[-1]
+  )
+
+  p_built <- ggplot2::ggplot_build(p[[3]])
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y")],
+    list(x = expression(Y[t - 1]), y = expression(Y[t]))
+  )
+
+  p <- gg_tsdisplay(tsbl_co2, value, plot_type = "spectrum")
+
+  p_built <- ggplot2::ggplot_build(p[[3]])
+
+  expect_identical(
+    p_built$plot$labels[c("x", "y")],
+    list(x = "frequency", y = "spectrum")
+  )
+})
