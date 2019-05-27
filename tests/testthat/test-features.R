@@ -123,7 +123,7 @@ test_that("compengine features", {
          sampen_first = 2.4129, sd_deriv_1 = 5.673,
          bootstrap_stationarity_50 = 10.71, bootstrap_stationarity_ac2 = 7.24,
          histogram_mode = 90, outlier_include = 0.44, fluctuation = 0.229),
-    tolerance = 0.01
+    tolerance = 0.1
   )
 })
 
