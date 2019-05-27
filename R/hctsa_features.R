@@ -20,7 +20,7 @@
 #' @author Yangzhuoran Yang
 #'
 #' @export
-compengine <- function(x, ...) {
+compengine_features <- function(x, ...) {
   c(autocorr_features(x), pred_features(x), stationarity_features(x), distribution_features(x), scal_features(x))
 }
 
@@ -37,7 +37,7 @@ compengine <- function(x, ...) {
 #' \code{motiftwo_entro3},
 #' and \code{walker_propcross}.
 #'
-#' @inheritParams compengine
+#' @inheritParams compengine_features
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{embed2_incircle}}
@@ -73,7 +73,7 @@ autocorr_features <- function(x, ...) {
 #' \code{localsimple_lfit_ac},
 #' and \code{sampen_first}.
 #'
-#' @inheritParams compengine
+#' @inheritParams compengine_features
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{localsimple_taures}}
@@ -102,7 +102,7 @@ pred_features <- function(x, ...) {
 #' \code{spreadrandomlocal_meantaul_50},
 #' and \code{spreadrandomlocal_meantaul_ac2}.
 #'
-#' @inheritParams compengine
+#' @inheritParams compengine_features
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{sd_deriv_1}}
@@ -129,7 +129,7 @@ stationarity_features <- function(x, ...) {
 #' Features in this set are \code{histogram_mode_10}
 #' and \code{outlierinclude_mdrmd}.
 #'
-#' @inheritParams compengine
+#' @inheritParams compengine_features
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{histogram_mode}}
@@ -154,7 +154,7 @@ distribution_features <- function(x, ...) {
 #'
 #' Feature in this set is \code{fluctuation_analysis}.
 #'
-#' @inheritParams compengine
+#' @inheritParams compengine_features
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{fluctuation_analysis}}
@@ -173,7 +173,7 @@ scal_features <- function(x, ...) {
 #'
 #' The time lag is set to the first zero crossing of the autocorrelation function.
 #'
-#' @inheritParams compengine
+#' @inheritParams compengine_features
 #' @param boundary the given circular boundary, setting to 1 or 2 in CompEngine. Default to 1.
 #' @param acfv vector of autocorrelation, if exist, used to avoid repeated computation.
 #'
