@@ -8,6 +8,13 @@
 
 <title>Classical Seasonal Decomposition by Moving Averages — classical_decomposition • feasts</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -35,6 +42,8 @@
 <meta property="og:description" content="Decompose a time series into seasonal, trend and irregular components
   using moving averages.  Deals with additive or multiplicative
   seasonal component." />
+
+<meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -172,12 +181,12 @@ season(period = NULL)
 #&gt; # Classical Decomposition: value = trend + seasonal + random
 #&gt;       index value trend seasonal random seas_adjust
 #&gt;       &lt;mth&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;
-#&gt;  1 1973 Jan  9007   NA     -806.   NA           NA 
-#&gt;  2 1973 Feb  8106   NA    -1523.   NA           NA 
-#&gt;  3 1973 Mar  8928   NA     -741.   NA           NA 
-#&gt;  4 1973 Apr  9137   NA     -515.   NA           NA 
-#&gt;  5 1973 May 10017   NA      340.   NA           NA 
-#&gt;  6 1973 Jun 10826   NA      745.   NA           NA 
+#&gt;  1 1973 Jan  9007   NA     -806.   NA         9813.
+#&gt;  2 1973 Feb  8106   NA    -1523.   NA         9629.
+#&gt;  3 1973 Mar  8928   NA     -741.   NA         9669.
+#&gt;  4 1973 Apr  9137   NA     -515.   NA         9652.
+#&gt;  5 1973 May 10017   NA      340.   NA         9677.
+#&gt;  6 1973 Jun 10826   NA      745.   NA        10081.
 #&gt;  7 1973 Jul 11317 9599.    1679.   38.2       9638.
 #&gt;  8 1973 Aug 10744 9500.     986.  258.        9758.
 #&gt;  9 1973 Sep  9713 9416.    -109.  406.        9822.
@@ -189,12 +198,12 @@ season(period = NULL)
 #&gt; # Classical Decomposition: value = trend * seasonal * random
 #&gt;       index value trend seasonal random seas_adjust
 #&gt;       &lt;mth&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;
-#&gt;  1 1973 Jan  9007   NA     0.908 NA             NA 
-#&gt;  2 1973 Feb  8106   NA     0.825 NA             NA 
-#&gt;  3 1973 Mar  8928   NA     0.915 NA             NA 
-#&gt;  4 1973 Apr  9137   NA     0.941 NA             NA 
-#&gt;  5 1973 May 10017   NA     1.04  NA             NA 
-#&gt;  6 1973 Jun 10826   NA     1.09  NA             NA 
+#&gt;  1 1973 Jan  9007   NA     0.908 NA           9922.
+#&gt;  2 1973 Feb  8106   NA     0.825 NA           9829.
+#&gt;  3 1973 Mar  8928   NA     0.915 NA           9762.
+#&gt;  4 1973 Apr  9137   NA     0.941 NA           9713.
+#&gt;  5 1973 May 10017   NA     1.04  NA           9633.
+#&gt;  6 1973 Jun 10826   NA     1.09  NA           9960.
 #&gt;  7 1973 Jul 11317 9599.    1.19   0.989       9491.
 #&gt;  8 1973 Aug 10744 9500.    1.11   1.02        9656.
 #&gt;  9 1973 Sep  9713 9416.    0.987  1.05        9843.
