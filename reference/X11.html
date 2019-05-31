@@ -172,7 +172,8 @@ http://www.seasonal.website/seasonal.html#input</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/tsibbledata/topics/aus_production'>aus_production</a></span> <span class='kw'>%&gt;%</span> <span class='fu'>X11</span>(<span class='no'>Beer</span>)</div><div class='output co'>#&gt; # A dable:           218 x 6 [1Q]
+    <pre class="examples"><div class='input'><span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/tsibbledata/topics/aus_production'>aus_production</a></span> <span class='kw'>%&gt;%</span> <span class='fu'>X11</span>(<span class='no'>Beer</span>)</div><div class='output co'>#&gt; <span class='message'>`unnest()` to a tsibble is deprecated due to the forthcoming `tidyr` release.</span>
+#&gt; <span class='message'>Please use `unnest_tsibble()` instead.</span></div><div class='output co'>#&gt; # A dable:           218 x 6 [1Q]
 #&gt; # X11 Decomposition: Beer = trend + seasonal + irregular
 #&gt;    Quarter  Beer trend seasonal irregular seas_adjust
 #&gt;      &lt;qtr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
