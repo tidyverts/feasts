@@ -109,9 +109,7 @@
 <p><img src="reference/figures/README-graphics-2.png" width="100%"></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="http://lubridate.tidyverse.org/reference/year.html">year</a></span>(Quarter) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1991</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/gg_lag.html">gg_lag</a></span>(Beer)</a></code></pre></div>
 <p><img src="reference/figures/README-graphics-3.png" width="100%"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/ACF.html">ACF</a></span>(Beer) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>()</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; `unnest()` to a tsibble is deprecated due to the forthcoming tidyr release.</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; Please use `unnest_tsibble()` instead.</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/ACF.html">ACF</a></span>(Beer) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>()</a></code></pre></div>
 <p><img src="reference/figures/README-graphics-4.png" width="100%"></p>
 </div>
 <div id="decompositions" class="section level3">
