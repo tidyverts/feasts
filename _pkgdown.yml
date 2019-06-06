@@ -22,3 +22,92 @@ navbar:
   right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverts/feasts
+
+
+reference:
+- title: Graphics
+  desc: >
+    Visualisation is often the first step in understanding the patterns in time series data.
+    The package uses [ggplot2](https://ggplot2.tidyverse.org/) to produce customisable graphics to visualise time series patterns.
+  contents:
+    - autoplot.tbl_cf
+    - gg_season
+    - gg_subseries
+    - gg_tsdisplay
+    - gg_lag
+    - gg_arma
+
+- title: Decompositions
+  desc: >
+    Useful for decomposing a time series into some simpler structural components.
+  contents:
+    - classical_decomposition
+    - STL
+    - X11
+    - SEATS
+
+- title: Features
+  desc: >
+    Extract features and statistics across a large collection of time series to identify unusual/extreme time series, or find clusters of similar behaviour.
+  contents:
+    - features
+    - features_all
+    - features_at
+    - features_if
+
+- title: Unit root tests
+  desc: >
+    Unit root tests for use with `[features()]`.
+  contents:
+    - unitroot_kpss
+    - unitroot_pp
+    - unitroot_ndiffs
+    - unitroot_nsdiffs
+
+- title: Portmanteau tests
+  desc: >
+    Statistical tests for examining the null hypothesis of independence in a given time series.
+  contents:
+    - portmanteau_tests
+    - box_pierce
+    - ljung_box
+
+- title: Tiling window features
+  desc: >
+    Computes feature of a time series based on tiled (non-overlapping) windows.
+  contents:
+    - lumpiness
+    - stability
+
+- title: Sliding window features
+  desc: >
+    Computes feature of a time series based on sliding (overlapping) windows.
+  contents:
+    - max_kl_shift
+    - max_level_shift
+    - max_var_shift
+
+- title: CompEngine features
+  desc: >
+    Calculate the features that have been used in CompEngine database, as implemented in the [hctsa](https://hctsa-users.gitbook.io/hctsa-manual/) library
+  contents:
+    - compengine_features
+    - autocorr_features
+    - pred_features
+    - stationarity_features
+    - distribution_features
+    - scal_features
+
+- title: Other features
+  desc: >
+    Uncategorised features
+  contents:
+    - stl_features
+    - acf_features
+    - pacf_features
+    - arch_stat
+    - crossing_points
+    - entropy
+    - flat_spots
+    - hurst
+    - guerrero
