@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The autocorrelation feature set from software package <code>hctsa</code> — autocorr_features • feasts</title>
+<title>CompEngine feature set — features_compengine • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,10 +37,10 @@
 
 
 
-<meta property="og:title" content="The autocorrelation feature set from software package <code>hctsa</code> — autocorr_features" />
+<meta property="og:title" content="CompEngine feature set — features_compengine" />
 
-<meta property="og:description" content="Calculate the features that grouped as autocorrelation set,
-which have been used in CompEngine database, using method introduced in package hctsa." />
+<meta property="og:description" content="Calculate the features that have been used in CompEngine database, using method introduced in package
+hctsa." />
 
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -106,19 +106,19 @@ which have been used in CompEngine database, using method introduced in package 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>The autocorrelation feature set from software package <code>hctsa</code></h1>
+    <h1>CompEngine feature set</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/hctsa_features.R'><code>R/hctsa_features.R</code></a></small>
-    <div class="hidden name"><code>autocorr_features.Rd</code></div>
+    <div class="hidden name"><code>features_compengine.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Calculate the features that grouped as autocorrelation set,
-which have been used in CompEngine database, using method introduced in package <code>hctsa</code>.</p>
+    <p>Calculate the features that have been used in CompEngine database, using method introduced in package
+<code>hctsa</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>autocorr_features</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>features_compengine</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,17 +131,12 @@ which have been used in CompEngine database, using method introduced in package 
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector with autocorrelation features</p>
+    <p>a vector with CompEngine features</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Features in this set are <code>embed2_incircle_1</code>,
-<code>embed2_incircle_2</code>,
-<code>ac_9</code>,
-<code>firstmin_ac</code>,
-<code>trev_num</code>,
-<code>motiftwo_entro3</code>,
-and <code>walker_propcross</code>.</p>
+    <p>The features involved can be grouped as <code>autocorrelation</code>,
+<code>prediction</code>, <code>stationarity</code>, <code>distribution</code>, and <code>scaling</code>.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -150,11 +145,11 @@ and <code>walker_propcross</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='embed2_incircle.html'>embed2_incircle</a></code></p>
-<p><code><a href='firstmin_ac.html'>firstmin_ac</a></code></p>
-<p><code><a href='trev_num.html'>trev_num</a></code></p>
-<p><code><a href='motiftwo_entro3.html'>motiftwo_entro3</a></code></p>
-<p><code><a href='walker_propcross.html'>walker_propcross</a></code></p></div>
+    <div class='dont-index'><p><code><a href='features_autocorrelation.html'>features_autocorrelation</a></code></p>
+<p><code><a href='features_prediction.html'>features_prediction</a></code></p>
+<p><code><a href='features_stationarity.html'>features_stationarity</a></code></p>
+<p><code><a href='features_distribution.html'>features_distribution</a></code></p>
+<p><code><a href='features_scaling.html'>features_scaling</a></code></p></div>
     
 
   </div>

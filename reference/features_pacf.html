@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CompEngine feature set — compengine_features • feasts</title>
+<title>Partial autocorrelation-based features — features_pacf • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,10 +37,10 @@
 
 
 
-<meta property="og:title" content="CompEngine feature set — compengine_features" />
+<meta property="og:title" content="Partial autocorrelation-based features — features_pacf" />
 
-<meta property="og:description" content="Calculate the features that have been used in CompEngine database, using method introduced in package
-hctsa." />
+<meta property="og:description" content="Computes various measures based on partial autocorrelation coefficients of the
+original series, first-differenced series and second-differenced series." />
 
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -106,50 +106,49 @@ hctsa." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>CompEngine feature set</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/hctsa_features.R'><code>R/hctsa_features.R</code></a></small>
-    <div class="hidden name"><code>compengine_features.Rd</code></div>
+    <h1>Partial autocorrelation-based features</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/features.R'><code>R/features.R</code></a></small>
+    <div class="hidden name"><code>features_pacf.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Calculate the features that have been used in CompEngine database, using method introduced in package
-<code>hctsa</code>.</p>
+    <p>Computes various measures based on partial autocorrelation coefficients of the
+original series, first-differenced series and second-differenced series.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>compengine_features</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>features_pacf</span>(<span class='no'>x</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lag.max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a vector</p></td>
+      <td><p>a univariate time series</p></td>
+    </tr>
+    <tr>
+      <th>.period</th>
+      <td><p>The seasonal period (optional)</p></td>
+    </tr>
+    <tr>
+      <th>lag.max</th>
+      <td><p>maximum lag at which to calculate the acf. The default is
+<code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max(.period, 10L)</a></code> for <code>features_acf</code>, and <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max(.period, 5L)</a></code> for <code>features_pacf</code></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Further arguments passed to <code><a href='https://www.rdocumentation.org/packages/stats/topics/acf'>stats::acf()</a></code> or <code><a href='https://www.rdocumentation.org/packages/stats/topics/acf'>stats::pacf()</a></code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector with CompEngine features</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The features involved can be grouped as <code>autocorrelation</code>,
-<code>prediction</code>, <code>stationarity</code>, <code>distribution</code>, and <code>scaling</code>.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).</p>
-<p>B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='autocorr_features.html'>autocorr_features</a></code></p>
-<p><code><a href='pred_features.html'>pred_features</a></code></p>
-<p><code><a href='stationarity_features.html'>stationarity_features</a></code></p>
-<p><code><a href='distribution_features.html'>distribution_features</a></code></p>
-<p><code><a href='scal_features.html'>scal_features</a></code></p></div>
+    <p>A vector of 3 values: Sum of squared of first 5
+partial autocorrelation coefficients of the original series, first differenced
+series and twice-differenced series.
+For seasonal data, the partial autocorrelation coefficient at the first seasonal
+lag is also returned.</p>
     
 
   </div>
@@ -159,16 +158,10 @@ hctsa." />
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
     <h2>Author</h2>
-    <p>Yangzhuoran Yang</p>
+    <p>Thiyanga Talagala</p>
   </div>
 </div>
 

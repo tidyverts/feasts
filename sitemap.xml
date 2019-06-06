@@ -16,13 +16,7 @@
     <loc>https://feasts.tidyverts.org/reference/X11.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/acf_features.html</loc>
-  </url>
-  <url>
     <loc>https://feasts.tidyverts.org/reference/arch_stat.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/autocorr_features.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/autoplot.tbl_cf.html</loc>
@@ -37,13 +31,7 @@
     <loc>https://feasts.tidyverts.org/reference/classical_decomposition.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/compengine_features.html</loc>
-  </url>
-  <url>
     <loc>https://feasts.tidyverts.org/reference/crossing_points.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/distribution_features.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/embed2_incircle.html</loc>
@@ -53,6 +41,33 @@
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/feasts-package.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/features_acf.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/features_autocorrelation.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/features_compengine.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/features_distribution.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/features_pacf.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/features_prediction.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/features_scaling.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/features_stationarity.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/features_stl.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/firstmin_ac.html</loc>
@@ -103,13 +118,7 @@
     <loc>https://feasts.tidyverts.org/reference/outlier_include.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/pacf_features.html</loc>
-  </url>
-  <url>
     <loc>https://feasts.tidyverts.org/reference/portmanteau_tests.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/pred_features.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/reexports.html</loc>
@@ -121,19 +130,10 @@
     <loc>https://feasts.tidyverts.org/reference/sampenc.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/scal_features.html</loc>
-  </url>
-  <url>
     <loc>https://feasts.tidyverts.org/reference/scale_cf_lag.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/sd_deriv_1.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/stationarity_features.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/stl_features.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/tile_features.html</loc>
