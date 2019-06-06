@@ -91,20 +91,20 @@ series decomposition methods:
 
 ``` r
 aus_production %>% STL(Beer ~ season(window = Inf))
-#> # A dable:           218 x 6 [1Q]
+#> # A dable:           218 x 7 [1Q]
 #> # STL Decomposition: Beer = trend + season_year + remainder
-#>    Quarter  Beer trend season_year remainder seas_adjust
-#>      <qtr> <dbl> <dbl>       <dbl>     <dbl>       <dbl>
-#>  1 1956 Q1   284  272.        2.14     10.1         282.
-#>  2 1956 Q2   213  264.      -42.6      -8.56        256.
-#>  3 1956 Q3   227  258.      -28.5      -2.34        255.
-#>  4 1956 Q4   308  253.       69.0     -14.4         239.
-#>  5 1957 Q1   262  257.        2.14      2.55        260.
-#>  6 1957 Q2   228  261.      -42.6       9.47        271.
-#>  7 1957 Q3   236  263.      -28.5       1.80        264.
-#>  8 1957 Q4   320  264.       69.0     -12.7         251.
-#>  9 1958 Q1   272  266.        2.14      4.32        270.
-#> 10 1958 Q2   233  266.      -42.6       9.72        276.
+#>    lst_data            Quarter  Beer trend season_year remainder seas_adjust
+#>    <list>                <qtr> <dbl> <dbl>       <dbl>     <dbl>       <dbl>
+#>  1 <tsibble [218 × 7]> 1956 Q1   284  272.        2.14     10.1         282.
+#>  2 <tsibble [218 × 7]> 1956 Q2   213  264.      -42.6      -8.56        256.
+#>  3 <tsibble [218 × 7]> 1956 Q3   227  258.      -28.5      -2.34        255.
+#>  4 <tsibble [218 × 7]> 1956 Q4   308  253.       69.0     -14.4         239.
+#>  5 <tsibble [218 × 7]> 1957 Q1   262  257.        2.14      2.55        260.
+#>  6 <tsibble [218 × 7]> 1957 Q2   228  261.      -42.6       9.47        271.
+#>  7 <tsibble [218 × 7]> 1957 Q3   236  263.      -28.5       1.80        264.
+#>  8 <tsibble [218 × 7]> 1957 Q4   320  264.       69.0     -12.7         251.
+#>  9 <tsibble [218 × 7]> 1958 Q1   272  266.        2.14      4.32        270.
+#> 10 <tsibble [218 × 7]> 1958 Q2   233  266.      -42.6       9.72        276.
 #> # … with 208 more rows
 ```
 
@@ -124,7 +124,7 @@ behaviour.
 aus_retail %>% 
   features(Turnover, stl_features)
 #> # A tibble: 152 x 9
-#>    State Industry trend_strength seasonal_streng…   spike linearity curvature seasonal_peak.y…
+#>    State Industry trend_strength seasonal_streng…   spike linearity curvature seasonal_peak_y…
 #>    <chr> <chr>             <dbl>            <dbl>   <dbl>     <dbl>     <dbl>            <dbl>
 #>  1 Aust… Cafes, …          0.989            0.540 6.17e-5     224.      48.5                 0
 #>  2 Aust… Cafes, …          0.993            0.609 1.16e-4     336.      76.1                 0
@@ -136,7 +136,7 @@ aus_retail %>%
 #>  8 Aust… Footwea…          0.978            0.929 7.75e-6      63.0      1.60                9
 #>  9 Aust… Furnitu…          0.979            0.657 4.87e-5     139.     -22.5                 9
 #> 10 Aust… Hardwar…          0.992            0.892 1.56e-5     170.      44.1                 9
-#> # … with 142 more rows, and 1 more variable: seasonal_trough.year <dbl>
+#> # … with 142 more rows, and 1 more variable: seasonal_trough_year <dbl>
 ```
 
 This allows you to visualise the behaviour of many time series (where
@@ -145,7 +145,7 @@ the plotting methods above would show too much information).
 ``` r
 aus_retail %>% 
   features(Turnover, stl_features) %>% 
-  ggplot(aes(x = trend_strength, y = seasonal_strength.year)) +
+  ggplot(aes(x = trend_strength, y = seasonal_strength_year)) +
   geom_point() + 
   facet_wrap(vars(State))
 ```
@@ -160,12 +160,12 @@ It’s also easy to extract the most (and least) seasonal time series.
 ``` r
 extreme_seasonalities <- aus_retail %>% 
   features(Turnover, stl_features) %>% 
-  filter(seasonal_strength.year %in% range(seasonal_strength.year))
+  filter(seasonal_strength_year %in% range(seasonal_strength_year))
 aus_retail %>% 
   right_join(extreme_seasonalities, by = c("State", "Industry")) %>% 
   ggplot(aes(x = Month, y = Turnover)) + 
   geom_line() + 
-  facet_grid(vars(State, Industry, scales::percent(seasonal_strength.year)), 
+  facet_grid(vars(State, Industry, scales::percent(seasonal_strength_year)), 
              scales = "free_y")
 ```
 

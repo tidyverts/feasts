@@ -80,18 +80,21 @@ stl_features <- function(x, .period, s.window = 13, ...){
   seasonal_strength <- map_dbl(seasonalities, function(seas){
     max(0, min(1, 1 - var_e/var(remainder + seas, na.rm = TRUE)))
   })
+  names(seasonal_strength) <- paste0("seasonal_strength_", names(seasonalities))
 
   # Position of peaks and troughs
   seasonal_peak <- map_dbl(seasonalities, function(seas){
     which.max(seas) %% .period
   })
+  names(seasonal_peak) <- paste0("seasonal_peak_", names(seasonalities))
   seasonal_trough <- map_dbl(seasonalities, function(seas){
     which.min(seas) %% .period
   })
+  names(seasonal_trough) <- paste0("seasonal_trough_", names(seasonalities))
 
-  c(trend_strength = trend_strength, seasonal_strength = seasonal_strength,
+  c(trend_strength = trend_strength, seasonal_strength,
     spike = spike, linearity = linearity, curvature = curvature,
-    seasonal_peak = seasonal_peak, seasonal_trough = seasonal_trough)
+    seasonal_peak,  seasonal_trough)
 }
 
 #' Unit root tests
