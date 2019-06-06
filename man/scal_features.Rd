@@ -4,12 +4,10 @@
 \alias{scal_features}
 \title{The scaling feature set from software package \code{hctsa}}
 \usage{
-scal_features(x, ...)
+scal_features(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 a vector with autocorrelation features

@@ -4,12 +4,10 @@
 \alias{walker_propcross}
 \title{Simulates a hypothetical walker moving through the time domain from software package \code{hctsa}}
 \usage{
-walker_propcross(x, ...)
+walker_propcross(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 fraction of time series length that walker crosses time series

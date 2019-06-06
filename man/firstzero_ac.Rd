@@ -5,14 +5,12 @@
 \title{The first zero crossing of the autocorrelation function from software package \code{hctsa}}
 \usage{
 firstzero_ac(x, acfv = stats::acf(x, N - 1, plot = FALSE, na.action =
-  stats::na.pass), ...)
+  stats::na.pass))
 }
 \arguments{
 \item{x}{a vector}
 
 \item{acfv}{vector of autocorrelation, if exist, used to avoid repeated computation.}
-
-\item{...}{Unused.}
 }
 \value{
 The first zero crossing of the autocorrelation function

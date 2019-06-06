@@ -4,14 +4,12 @@
 \alias{bootstrap_stationarity}
 \title{Bootstrap-based stationarity measure from software package \code{hctsa}}
 \usage{
-bootstrap_stationarity(x, segment_length = 50, ...)
+bootstrap_stationarity(x, segment_length = 50)
 }
 \arguments{
 \item{x}{a vector}
 
 \item{segment_length}{the length of local time-series segments to analyse as a positive integer. Can also be a specified character string: "ac2": twice the first zero-crossing of the autocorrelation function}
-
-\item{...}{Unused.}
 }
 \value{
 mean of the first zero-crossings of the autocorrelation function

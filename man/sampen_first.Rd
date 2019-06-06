@@ -4,12 +4,10 @@
 \alias{sampen_first}
 \title{Second Sample Entropy of a time series from software package \code{hctsa}}
 \usage{
-sampen_first(x, ...)
+sampen_first(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \description{
 Modified from the Ben Fulcher's \code{EN_SampEn} which uses code from PhysioNet.

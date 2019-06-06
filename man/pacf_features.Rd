@@ -4,14 +4,17 @@
 \alias{pacf_features}
 \title{Partial autocorrelation-based features}
 \usage{
-pacf_features(x, .period = 1, ...)
+pacf_features(x, .period = 1, lag.max = NULL, ...)
 }
 \arguments{
 \item{x}{a univariate time series}
 
 \item{.period}{The seasonal period (optional)}
 
-\item{...}{Unused.}
+\item{lag.max}{maximum lag at which to calculate the acf. The default is
+\code{max(.period, 10L)} for \code{acf_features}, and \code{max(.period, 5L)} for \code{pacf_features}}
+
+\item{...}{Further arguments passed to \code{\link[stats:acf]{stats::acf()}} or \code{\link[stats:pacf]{stats::pacf()}}}
 }
 \value{
 A vector of 3 values: Sum of squared of first 5

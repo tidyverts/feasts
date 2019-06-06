@@ -4,12 +4,10 @@
 \alias{crossing_points}
 \title{Number of crossing points}
 \usage{
-crossing_points(x, ...)
+crossing_points(x)
 }
 \arguments{
 \item{x}{a univariate time series}
-
-\item{...}{Unused.}
 }
 \value{
 A numeric value.

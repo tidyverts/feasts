@@ -4,13 +4,11 @@
 \alias{hurst}
 \title{Hurst coefficient}
 \usage{
-hurst(x, ...)
+hurst(x)
 }
 \arguments{
 \item{x}{a vector. If missing values are present, the largest
 contiguous portion of the vector is used.}
-
-\item{...}{Unused.}
 }
 \value{
 A numeric value.

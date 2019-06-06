@@ -5,9 +5,9 @@
 \alias{stability}
 \title{Time series features based on tiled windows}
 \usage{
-lumpiness(x, .size = NULL, .period = 1, ...)
+lumpiness(x, .size = NULL, .period = 1)
 
-stability(x, .size = NULL, .period = 1, ...)
+stability(x, .size = NULL, .period = 1)
 }
 \arguments{
 \item{x}{a univariate time series}
@@ -15,8 +15,6 @@ stability(x, .size = NULL, .period = 1, ...)
 \item{.size}{size of sliding window, if NULL \code{.size} will be automatically chosen using \code{.period}}
 
 \item{.period}{The seasonal period (optional)}
-
-\item{...}{Unused.}
 }
 \value{
 A numeric vector of length 2 containing a measure of lumpiness and

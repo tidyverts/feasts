@@ -4,12 +4,10 @@
 \alias{flat_spots}
 \title{Number of flat spots}
 \usage{
-flat_spots(x, ...)
+flat_spots(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 A numeric value.

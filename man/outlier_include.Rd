@@ -4,14 +4,12 @@
 \alias{outlier_include}
 \title{How median depend on distributional outliers from software package \code{hctsa}}
 \usage{
-outlier_include(x, scale = TRUE, ...)
+outlier_include(x, scale = TRUE)
 }
 \arguments{
 \item{x}{a vector}
 
 \item{scale}{Should the data be scaled before computing the statistic.}
-
-\item{...}{Unused.}
 }
 \value{
 median of the median of range indices

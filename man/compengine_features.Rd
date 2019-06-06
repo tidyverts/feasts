@@ -4,12 +4,10 @@
 \alias{compengine_features}
 \title{CompEngine feature set}
 \usage{
-compengine_features(x, ...)
+compengine_features(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 a vector with CompEngine features

@@ -4,12 +4,10 @@
 \alias{trev_num}
 \title{Normalized nonlinear autocorrelation, the numerator of the trev function of a time series from software package \code{hctsa}}
 \usage{
-trev_num(x, ...)
+trev_num(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 the numerator of the trev function of a time series

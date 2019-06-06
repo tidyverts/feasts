@@ -4,12 +4,10 @@
 \alias{pred_features}
 \title{The prediction feature set from software package \code{hctsa}}
 \usage{
-pred_features(x, ...)
+pred_features(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 a vector with autocorrelation features

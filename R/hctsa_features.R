@@ -7,7 +7,6 @@
 #' \code{prediction}, \code{stationarity}, \code{distribution}, and \code{scaling}.
 #'
 #' @param x a vector
-#' @param ... Unused.
 #'
 #' @return a vector with CompEngine features
 #' @seealso \code{\link{autocorr_features}}
@@ -20,7 +19,7 @@
 #' @author Yangzhuoran Yang
 #'
 #' @export
-compengine_features <- function(x, ...) {
+compengine_features <- function(x) {
   c(autocorr_features(x), pred_features(x), stationarity_features(x), distribution_features(x), scal_features(x))
 }
 
@@ -50,7 +49,7 @@ compengine_features <- function(x, ...) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-autocorr_features <- function(x, ...) {
+autocorr_features <- function(x) {
   acfv <- stats::acf(x, length(x) - 1, plot = FALSE, na.action = stats::na.pass)
   output <- c(
     embed2_incircle(x, 1, acfv = acfv),
@@ -83,7 +82,7 @@ autocorr_features <- function(x, ...) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-pred_features <- function(x, ...) {
+pred_features <- function(x) {
   output <- c(
     localsimple_taures(x, "mean"),
     localsimple_taures(x, "lfit"),
@@ -112,7 +111,7 @@ pred_features <- function(x, ...) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-stationarity_features <- function(x, ...) {
+stationarity_features <- function(x) {
   output <- c(
     sd_deriv_1(x),
     bootstrap_stationarity(x, 50),
@@ -139,7 +138,7 @@ stationarity_features <- function(x, ...) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-distribution_features <- function(x, ...) {
+distribution_features <- function(x) {
   output <- c(
     histogram_mode(x),
     outlier_include(x)
@@ -163,7 +162,7 @@ distribution_features <- function(x, ...) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-scal_features <- function(x, ...) {
+scal_features <- function(x) {
   output <- c(fluctuation_analysis(x))
   return(output)
 }
@@ -183,7 +182,7 @@ scal_features <- function(x, ...) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-embed2_incircle <- function(x, boundary = NULL, acfv = stats::acf(x, length(x) - 1, plot = FALSE, na.action = stats::na.pass), ...) {
+embed2_incircle <- function(x, boundary = NULL, acfv = stats::acf(x, length(x) - 1, plot = FALSE, na.action = stats::na.pass)) {
   if (is.null(boundary)) {
     warn("`embed2_incircle()` using `boundary = 1`. Set value with `boundary`.")
     boundary <- 1
@@ -210,7 +209,7 @@ embed2_incircle <- function(x, boundary = NULL, acfv = stats::acf(x, length(x) -
 #' @author Yangzhuoran Yang
 #'
 #' @export
-firstzero_ac <- function(x, acfv = stats::acf(x, N - 1, plot = FALSE, na.action = stats::na.pass), ...) {
+firstzero_ac <- function(x, acfv = stats::acf(x, N - 1, plot = FALSE, na.action = stats::na.pass)) {
   N <- length(x)
   tau <- which(acfv$acf[-1] < 0)
   if(length(tau)==0L) # Nothing to see here
@@ -237,7 +236,7 @@ firstzero_ac <- function(x, acfv = stats::acf(x, N - 1, plot = FALSE, na.action 
 #' firstmin_ac(WWWusage)
 #'
 #' @export
-firstmin_ac <- function(x, acfv = stats::acf(x, lag.max = N - 1, plot = FALSE, na.action = stats::na.pass), ...) {
+firstmin_ac <- function(x, acfv = stats::acf(x, lag.max = N - 1, plot = FALSE, na.action = stats::na.pass)) {
   # hctsa uses autocorr in MatLab to calculate autocorrelation
   N <- length(x)
   # getting acf for all lags
@@ -275,7 +274,7 @@ firstmin_ac <- function(x, acfv = stats::acf(x, lag.max = N - 1, plot = FALSE, n
 #' trev_num(WWWusage)
 #'
 #' @export
-trev_num <- function(x, ...) {
+trev_num <- function(x) {
   yn <- x[1:(length(x) - 1)]
   yn1 <- x[2:length(x)]
   c(trev_num = mean((yn1 - yn)^3, na.rm = TRUE))
@@ -299,7 +298,7 @@ trev_num <- function(x, ...) {
 #' motiftwo_entro3(WWWusage)
 #'
 #' @export
-motiftwo_entro3 <- function(x, ...) {
+motiftwo_entro3 <- function(x) {
   yBin <- binarize_mean(x)
   N <- length(yBin)
   if (N < 5) warning("Time series too short")
@@ -356,7 +355,7 @@ f_entropy <- function(x) {
 #' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
 #' @author Yangzhuoran Yang
 #' @export
-binarize_mean <- function(x, ...) {
+binarize_mean <- function(x) {
   x <- x - mean(x)
   Y <- numeric(length(x))
   Y[x > 0] <- 1
@@ -378,7 +377,7 @@ binarize_mean <- function(x, ...) {
 #' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
 #' @author Yangzhuoran Yang
 #' @export
-walker_propcross <- function(x, ...) {
+walker_propcross <- function(x) {
   N <- length(x)
   p <- 0.1
   #   walker starts at zero and narrows the gap between its position
@@ -410,7 +409,7 @@ walker_propcross <- function(x, ...) {
 #' @return The first zero crossing of the autocorrelation function of the residuals
 #'
 #' @export
-localsimple_taures <- function(x, fc_method = c("mean", "lfit"), train_length = NULL, ...) {
+localsimple_taures <- function(x, fc_method = c("mean", "lfit"), train_length = NULL) {
   fc_method <- match.arg(fc_method)
   if(is.null(train_length)){
     train_length <- switch(fc_method, mean = 1, lfit = firstzero_ac(x))
@@ -457,7 +456,7 @@ localsimple_taures <- function(x, fc_method = c("mean", "lfit"), train_length = 
 #' @author Yangzhuoran Yang
 #'
 #' @export
-sampen_first <- function(x, ...) {
+sampen_first <- function(x) {
   M <- 5
   r <- 0.3
   c(sampen_first = sampenc(x, M + 1, r))
@@ -483,7 +482,7 @@ sampen_first <- function(x, ...) {
 #' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
 #' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
 #' @author Yangzhuoran Yang
-sampenc <- function(x, M = 6, r = 0.3, ...) {
+sampenc <- function(x, M = 6, r = 0.3) {
   N <- length(x)
   lastrun <- numeric(N) # zeros(1,N)
   run <- numeric(N) # zeros(1,N)
@@ -531,7 +530,7 @@ sampenc <- function(x, M = 6, r = 0.3, ...) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-sd_deriv_1 <- function(x, ...) {
+sd_deriv_1 <- function(x) {
   if (length(x) < 2) stop("Time series is too short to compute differences")
   c(sd_deriv_1 = sd(diff(x), na.rm = TRUE))
 }
@@ -552,7 +551,7 @@ sd_deriv_1 <- function(x, ...) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-bootstrap_stationarity <- function(x, segment_length = 50, ...) {
+bootstrap_stationarity <- function(x, segment_length = 50) {
   seg_input <- segment_length
   if (segment_length == "ac2") segment_length <- 2 * firstzero_ac(x)
   if (!is.numeric(segment_length)) abort("`segment_length` must be either 'ac2' or an integer.")
@@ -593,7 +592,7 @@ bootstrap_stationarity <- function(x, segment_length = 50, ...) {
 #' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
 #'
 #' @export
-histogram_mode <- function(x, bins = 10, ...) {
+histogram_mode <- function(x, bins = 10) {
   # Compute the histogram from the data:
   if (!is.numeric(bins)) {
     abort("The number of bins for `histogram_mode()` must be a number.")
@@ -631,7 +630,7 @@ histogram_mode <- function(x, bins = 10, ...) {
 #'
 #' @export
 #' @importFrom stats ts tsp sd
-outlier_include <- function(x, scale = TRUE, ...) {
+outlier_include <- function(x, scale = TRUE) {
   if (identical(x, rep(x[1], length(x)))) {
     stop("The vector is constant!")
   }
@@ -696,7 +695,7 @@ outlier_include <- function(x, scale = TRUE, ...) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-fluctuation_analysis <- function(x, ...) {
+fluctuation_analysis <- function(x) {
   q <- 2
   tauStep <- 50
   k <- 1

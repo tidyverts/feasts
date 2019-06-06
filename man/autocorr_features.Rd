@@ -4,12 +4,10 @@
 \alias{autocorr_features}
 \title{The autocorrelation feature set from software package \code{hctsa}}
 \usage{
-autocorr_features(x, ...)
+autocorr_features(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 a vector with autocorrelation features

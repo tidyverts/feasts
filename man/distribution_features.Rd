@@ -4,12 +4,10 @@
 \alias{distribution_features}
 \title{The distribution feature set from software package \code{hctsa}}
 \usage{
-distribution_features(x, ...)
+distribution_features(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 a vector with autocorrelation features

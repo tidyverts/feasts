@@ -4,12 +4,10 @@
 \alias{binarize_mean}
 \title{Converts an input vector into a binarized version from software package \code{hctsa}}
 \usage{
-binarize_mean(x, ...)
+binarize_mean(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 Time-series values above its mean are given 1, and those below the mean are 0.

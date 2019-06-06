@@ -4,12 +4,10 @@
 \alias{stationarity_features}
 \title{The stationarity feature set from software package \code{hctsa}}
 \usage{
-stationarity_features(x, ...)
+stationarity_features(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 a vector with autocorrelation features

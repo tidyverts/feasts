@@ -4,12 +4,10 @@
 \alias{entropy}
 \title{Spectral entropy of a time series}
 \usage{
-entropy(x, ...)
+entropy(x)
 }
 \arguments{
 \item{x}{a univariate time series}
-
-\item{...}{Unused.}
 }
 \value{
 A numeric value.

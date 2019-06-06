@@ -5,7 +5,7 @@
 \title{Points inside a given circular boundary in a 2-d embedding space from software package \code{hctsa}}
 \usage{
 embed2_incircle(x, boundary = NULL, acfv = stats::acf(x, length(x) - 1,
-  plot = FALSE, na.action = stats::na.pass), ...)
+  plot = FALSE, na.action = stats::na.pass))
 }
 \arguments{
 \item{x}{a vector}
@@ -13,8 +13,6 @@ embed2_incircle(x, boundary = NULL, acfv = stats::acf(x, length(x) - 1,
 \item{boundary}{the given circular boundary, setting to 1 or 2 in CompEngine. Default to 1.}
 
 \item{acfv}{vector of autocorrelation, if exist, used to avoid repeated computation.}
-
-\item{...}{Unused.}
 }
 \value{
 the proportion of points inside a given circular boundary

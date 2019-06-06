@@ -4,14 +4,12 @@
 \alias{histogram_mode}
 \title{Mode of a data vector from software package \code{hctsa}}
 \usage{
-histogram_mode(x, bins = 10, ...)
+histogram_mode(x, bins = 10)
 }
 \arguments{
 \item{x}{a vector}
 
 \item{bins}{the number of bins to use.}
-
-\item{...}{Unused.}
 }
 \value{
 the mode

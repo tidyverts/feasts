@@ -6,10 +6,10 @@
 \title{Unit root tests}
 \usage{
 unitroot_kpss(x, type = c("mu", "tau"), lags = c("short", "long",
-  "nil"), use.lag = NULL, ...)
+  "nil"), ...)
 
 unitroot_pp(x, type = c("Z-tau", "Z-alpha"), model = c("constant",
-  "trend"), lags = c("short", "long"), use.lag = NULL, ...)
+  "trend"), lags = c("short", "long"), ...)
 }
 \arguments{
 \item{x}{A vector to be tested for the unit root.}
@@ -18,9 +18,7 @@ unitroot_pp(x, type = c("Z-tau", "Z-alpha"), model = c("constant",
 
 \item{lags}{Maximum number of lags used for error term correction.}
 
-\item{use.lag}{User specified number of lags.}
-
-\item{...}{Unused.}
+\item{...}{Arguments passed to unit root test function.}
 
 \item{model}{Determines the deterministic part in the test regression.}
 }

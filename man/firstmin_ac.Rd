@@ -5,14 +5,12 @@
 \title{Time of first minimum in the autocorrelation function from software package \code{hctsa}}
 \usage{
 firstmin_ac(x, acfv = stats::acf(x, lag.max = N - 1, plot = FALSE,
-  na.action = stats::na.pass), ...)
+  na.action = stats::na.pass))
 }
 \arguments{
 \item{x}{a vector}
 
 \item{acfv}{vector of autocorrelation, if exist, used to avoid repeated computation.}
-
-\item{...}{Unused.}
 }
 \value{
 The lag of the first minimum

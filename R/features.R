@@ -1,8 +1,7 @@
 #' @inherit tsfeatures::crossing_points
-#' @param ... Unused.
 #' @importFrom stats median
 #' @export
-crossing_points <- function(x, ...)
+crossing_points <- function(x)
 {
   midline <- median(x, na.rm = TRUE)
   ab <- x <= midline
@@ -14,10 +13,9 @@ crossing_points <- function(x, ...)
 }
 
 #' @inherit tsfeatures::arch_stat
-#' @param ... Unused.
 #' @importFrom stats lm embed
 #' @export
-arch_stat <- function(x, lags = 12, demean = TRUE, ...)
+arch_stat <- function(x, lags = 12, demean = TRUE)
 {
   if (length(x) <= 13) {
     return(c(arch_lm = NA_real_))
@@ -107,16 +105,15 @@ stl_features <- function(x, .period, s.window = 13, ...){
 #'
 #' @param x A vector to be tested for the unit root.
 #' @inheritParams urca::ur.kpss
-#' @param ... Unused.
+#' @param ... Arguments passed to unit root test function.
 #'
 #' @seealso [urca::ur.kpss()]
 #'
 #' @rdname unitroot
 #' @export
-unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "nil"),
-                          use.lag = NULL, ...) {
+unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "nil"), ...) {
   require_package("urca")
-  result <- urca::ur.kpss(x, type = type, lags = lags, use.lag = use.lag)
+  result <- urca::ur.kpss(x, type = type, lags = lags, ...)
   pval <- tryCatch(
     stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
     error = function(e){
@@ -133,10 +130,10 @@ unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "n
 #'
 #' @export
 unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "trend"),
-                        lags = c("short", "long"), use.lag = NULL, ...) {
+                        lags = c("short", "long"), ...) {
   require_package("urca")
   result <- urca::ur.pp(x, type = match.arg(type), model = match.arg(model),
-                        lags = match.arg(lags), use.lag = use.lag)
+                        lags = match.arg(lags), ...)
   pval <- tryCatch(
     stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
     error = function(e){
@@ -218,11 +215,10 @@ unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ stl_features(.,.pe
 #'
 #' Number of flat spots in a time series
 #' @param x a vector
-#' @param ... Unused.
 #' @return A numeric value.
 #' @author Earo Wang and Rob J Hyndman
 #' @export
-flat_spots <- function(x, ...) {
+flat_spots <- function(x) {
   cutx <- try(cut(x, breaks = 10, include.lowest = TRUE, labels = FALSE),
               silent = TRUE
   )
@@ -240,12 +236,11 @@ flat_spots <- function(x, ...) {
 #'
 #' @param x a vector. If missing values are present, the largest
 #' contiguous portion of the vector is used.
-#' @param ... Unused.
 #' @return A numeric value.
 #' @author Rob J Hyndman
 #'
 #' @export
-hurst <- function(x, ...) {
+hurst <- function(x) {
   require_package("fracdiff")
   # Hurst=d+0.5 where d is fractional difference.
   return(c(hurst = suppressWarnings(fracdiff::fracdiff(na.contiguous(x), 0, 0)[["d"]] + 0.5)))
@@ -263,13 +258,12 @@ hurst <- function(x, ...) {
 #' @param x a univariate time series
 #' @param .size size of sliding window, if NULL `.size` will be automatically chosen using `.period`
 #' @param .period The seasonal period (optional)
-#' @param ... Unused.
 #' @return A vector of 2 values: the size of the shift, and the time index of the shift.
 #'
 #' @author Earo Wang, Rob J Hyndman and Mitchell O'Hara-Wild
 #'
 #' @export
-max_level_shift <- function(x, .size = NULL, .period = 1, ...) {
+max_level_shift <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -295,7 +289,7 @@ max_level_shift <- function(x, .size = NULL, .period = 1, ...) {
 
 #' @rdname max_level_shift
 #' @export
-max_var_shift <- function(x, .size = NULL, .period = 1, ...) {
+max_var_shift <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -322,7 +316,7 @@ max_var_shift <- function(x, .size = NULL, .period = 1, ...) {
 
 #' @rdname max_level_shift
 #' @export
-max_kl_shift <- function(x, .size = NULL, .period = 1, ...) {
+max_kl_shift <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -372,7 +366,7 @@ max_kl_shift <- function(x, .size = NULL, .period = 1, ...) {
 #' @return A numeric value.
 #' @author Rob J Hyndman
 #' @export
-entropy <- function(x, ...) {
+entropy <- function(x) {
   require_package("ForeCA")
   entropy <- try(ForeCA::spectral_entropy(na.contiguous(x))[1L], silent = TRUE)
   if (class(entropy) == "try-error") {
@@ -396,7 +390,7 @@ entropy <- function(x, ...) {
 #'
 #' @importFrom stats var
 #' @export
-lumpiness <- function(x, .size = NULL, .period = 1, ...) {
+lumpiness <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -414,7 +408,7 @@ lumpiness <- function(x, .size = NULL, .period = 1, ...) {
 
 #' @rdname tile_features
 #' @export
-stability <- function(x, .size = NULL, .period = 1, ...) {
+stability <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -436,6 +430,9 @@ stability <- function(x, .size = NULL, .period = 1, ...) {
 #' original series, first-differenced series and second-differenced series
 #'
 #' @inheritParams stability
+#' @param lag.max maximum lag at which to calculate the acf. The default is
+#' `max(.period, 10L)` for `acf_features`, and `max(.period, 5L)` for `pacf_features`
+#' @param ... Further arguments passed to [`stats::acf()`] or [`stats::pacf()`]
 #'
 #' @return A vector of 6 values: first autocorrelation coefficient and sum of squared of
 #' first ten autocorrelation coefficients of original series, first-differenced series,
@@ -445,10 +442,10 @@ stability <- function(x, .size = NULL, .period = 1, ...) {
 #'
 #' @author Thiyanga Talagala
 #' @export
-acf_features <- function(x, .period = 1, ...) {
-  acfx <- stats::acf(x, lag.max = max(.period, 10L), plot = FALSE, na.action = stats::na.pass)
-  acfdiff1x <- stats::acf(diff(x, differences = 1), lag.max = 10L, plot = FALSE, na.action = stats::na.pass)
-  acfdiff2x <- stats::acf(diff(x, differences = 2), lag.max = 10L, plot = FALSE, na.action = stats::na.pass)
+acf_features <- function(x, .period = 1, lag.max = NULL, ...) {
+  acfx <- stats::acf(x, lag.max = lag.max%||%max(.period, 10L), plot = FALSE, na.action = stats::na.pass ,...)
+  acfdiff1x <- stats::acf(diff(x, differences = 1), lag.max = lag.max%||%10L, plot = FALSE, na.action = stats::na.pass)
+  acfdiff2x <- stats::acf(diff(x, differences = 2), lag.max = lag.max%||%10L, plot = FALSE, na.action = stats::na.pass)
 
   # first autocorrelation coefficient
   acf_1 <- acfx$acf[2L]
@@ -498,16 +495,21 @@ acf_features <- function(x, .period = 1, ...) {
 #' lag is also returned.
 #' @author Thiyanga Talagala
 #' @export
-pacf_features <- function(x, .period = 1, ...) {
-  pacfx <- stats::pacf(x, lag.max = max(5L, .period), plot = FALSE)$acf
+pacf_features <- function(x, .period = 1, lag.max = NULL, ...) {
+  pacfx <- stats::pacf(x, lag.max = lag.max%||%max(.period, 5L),
+                       plot = FALSE, ...)$acf
   # Sum of squared of first 5 partial autocorrelation coefficients
   pacf_5 <- sum((pacfx[seq(5L)])^2)
 
   # Sum of squared of first 5 partial autocorrelation coefficients of difference series
-  diff1_pacf_5 <- sum((stats::pacf(diff(x, differences = 1), lag.max = 5L, plot = FALSE)$acf)^2)
+  diff1_pacf_5 <- sum((stats::pacf(diff(x, differences = 1),
+                                   lag.max = lag.max%||%max(.period, 5L),
+                                   plot = FALSE, ...)$acf)^2)
 
   # Sum of squared of first 5 partial autocorrelation coefficients of twice differenced series
-  diff2_pacf_5 <- sum((stats::pacf(diff(x, differences = 2), lag.max = 5L, plot = FALSE)$acf)^2)
+  diff2_pacf_5 <- sum((stats::pacf(diff(x, differences = 2),
+                                   lag.max = lag.max%||%max(.period, 5L),
+                                   plot = FALSE, ...)$acf)^2)
 
   output <- c(
     x_pacf5 = unname(pacf_5),

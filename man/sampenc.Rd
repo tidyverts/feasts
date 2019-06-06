@@ -4,7 +4,7 @@
 \alias{sampenc}
 \title{Second Sample Entropy from software package \code{hctsa}}
 \usage{
-sampenc(x, M = 6, r = 0.3, ...)
+sampenc(x, M = 6, r = 0.3)
 }
 \arguments{
 \item{x}{a vector}
@@ -12,8 +12,6 @@ sampenc(x, M = 6, r = 0.3, ...)
 \item{M}{embedding dimension}
 
 \item{r}{threshold}
-
-\item{...}{Unused.}
 }
 \description{
 Modified from the Ben Fulcher version of original code sampenc.m from

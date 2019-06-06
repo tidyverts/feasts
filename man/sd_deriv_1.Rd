@@ -4,12 +4,10 @@
 \alias{sd_deriv_1}
 \title{Standard deviation of the first derivative of the time series from software package \code{hctsa}}
 \usage{
-sd_deriv_1(x, ...)
+sd_deriv_1(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 Standard deviation of the first derivative of the time series.

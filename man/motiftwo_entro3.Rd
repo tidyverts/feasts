@@ -4,12 +4,10 @@
 \alias{motiftwo_entro3}
 \title{Local motifs in a binary symbolization of the time series from software package \code{hctsa}}
 \usage{
-motiftwo_entro3(x, ...)
+motiftwo_entro3(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \value{
 Entropy of words in the binary alphabet of length 3.

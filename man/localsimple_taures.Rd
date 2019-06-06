@@ -5,7 +5,7 @@
 \title{The first zero crossing of the autocorrelation function of the residuals from simple local time-series forecasting from software package \code{hctsa}}
 \usage{
 localsimple_taures(x, fc_method = c("mean", "lfit"),
-  train_length = NULL, ...)
+  train_length = NULL)
 }
 \arguments{
 \item{x}{a vector}
@@ -17,8 +17,6 @@ localsimple_taures(x, fc_method = c("mean", "lfit"),
 \item{train_length}{the number of values to use to forecast the next value.
 Default to 1 when using method \code{mean} and the first zero auto-correlation
 (via \code{\link[=firstzero_ac]{firstzero_ac()}} when using method \code{lfit}.}
-
-\item{...}{Unused.}
 }
 \value{
 The first zero crossing of the autocorrelation function of the residuals

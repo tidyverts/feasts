@@ -4,12 +4,10 @@
 \alias{fluctuation_analysis}
 \title{Implements fluctuation analysis from software package \code{hctsa}}
 \usage{
-fluctuation_analysis(x, ...)
+fluctuation_analysis(x)
 }
 \arguments{
 \item{x}{a vector}
-
-\item{...}{Unused.}
 }
 \description{
 Fits a polynomial of order 1 and then returns the
