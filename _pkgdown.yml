@@ -56,15 +56,6 @@ reference:
     - acf_features
     - pacf_features
 
-- title: Features
-  desc: >
-    Extract features and statistics across a large collection of time series to identify unusual/extreme time series, or find clusters of similar behaviour.
-  contents:
-    - features
-    - features_all
-    - features_at
-    - features_if
-
 - title: Unit root tests
   desc: >
     Unit root tests for use with [`features()`](https://feasts.tidyverts.org/reference/features.html).
