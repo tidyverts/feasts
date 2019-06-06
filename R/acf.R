@@ -170,7 +170,7 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
     group_by(!!!syms(key_vars(.data))) %>%
     nest %>%
     mutate(data = map(!!sym("data"), cf_fn, na.action = na.action, ...)) %>%
-    unnest(!!sym("data")) %>%
+    unnest_tbl("data") %>%
     mutate(lag = as_lag(!!sym("lag"), interval = interval)) %>%
     as_tsibble(index = !!sym("lag"), key = key_vars(.data)) %>%
     new_tsibble(num_obs = lens, class = "tbl_cf")

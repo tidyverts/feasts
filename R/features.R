@@ -47,7 +47,7 @@ features.tbl_ts <- function(.tbl, .var = NULL, features = list(), ...){
     dplyr::summarise(
       .funs = tbl_features(features)(!!.var, !!!dots),
     ) %>%
-    unnest(!!sym(".funs")) %>%
+    unnest_tbl(".funs") %>%
     dplyr::ungroup()
 }
 
@@ -82,9 +82,7 @@ features_at.tbl_ts <- function(.tbl, .vars = NULL, features = list(), ...){
       .funs = tbl_features(features),
       !!!dots
     ) %>%
-    unnest(., !!!syms(setdiff(colnames(.),
-                              c(key_vars(.tbl), dplyr::group_vars(.tbl)))),
-           .sep = "_") %>%
+    unnest_tbl(., setdiff(colnames(.), c(key_vars(.tbl), dplyr::group_vars(.tbl)))) %>%
     dplyr::ungroup()
 }
 
