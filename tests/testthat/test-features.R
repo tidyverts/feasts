@@ -6,12 +6,12 @@ lung_deaths_wide <- as_tsibble(cbind(mdeaths, fdeaths), pivot_longer = FALSE)
 
 test_that("features()", {
   expect_error(
-    features(lung_deaths_wide, vars(mdeaths, fdeaths), acf_features),
+    features(lung_deaths_wide, vars(mdeaths, fdeaths), features_acf),
     "only supports a single variable"
   )
 
   expect_message(
-    features(lung_deaths_wide, features = list(guerrero, acf_features)),
+    features(lung_deaths_wide, features = list(guerrero, features_acf)),
     "Feature variable not specified, automatically selected \\`.var = mdeaths\\`"
   ) %>%
     colnames() %>%
@@ -20,16 +20,16 @@ test_that("features()", {
 })
 
 test_that("Scoped variants of features()", {
-  ft_at <- features_at(lung_deaths_wide, vars(mdeaths:fdeaths), acf_features)
+  ft_at <- features_at(lung_deaths_wide, vars(mdeaths:fdeaths), features_acf)
   expect_equal(
     substr(colnames(ft_at), 1, 7),
     c(rep("mdeaths", 7), rep("fdeaths", 7))
   )
-  ft_if <- features_if(lung_deaths_wide, is.numeric, acf_features)
+  ft_if <- features_if(lung_deaths_wide, is.numeric, features_acf)
   expect_identical(
     ft_at, ft_if
   )
-  ft_all <- features_all(lung_deaths_wide, acf_features)
+  ft_all <- features_all(lung_deaths_wide, features_acf)
   expect_identical(
     ft_if, ft_all
   )
@@ -50,7 +50,7 @@ test_that("unit root features", {
   expect_equal(ft$kpss_pval < 0.05, as_logical(ft$ndiffs))
   expect_equal(ft$pp_pval, 0.1)
 
-  ft <- features(lung_deaths_long, value, list(stl_features, unitroot_nsdiffs))
+  ft <- features(lung_deaths_long, value, list(features_stl, unitroot_nsdiffs))
   expect_equal(ft$seasonal_strength_year >= 0.64, as_logical(ft$nsdiffs))
 })
 
@@ -66,7 +66,7 @@ test_that("basic features", {
 
 
 test_that("*cf features", {
-  cf_features <- list(acf_features, pacf_features)
+  cf_features <- list(features_acf, features_pacf)
   ft <- features(www_usage, value, cf_features)
   expect_equivalent(
     as_list(ft),
@@ -92,7 +92,7 @@ test_that("*shift features", {
 })
 
 test_that("model based features", {
-  model_features <- list(arch_stat, hurst, stl_features)
+  model_features <- list(arch_stat, hurst, features_stl)
   ft <- features(www_usage, value, model_features)
   expect_equivalent(
     as_list(ft),
@@ -102,7 +102,7 @@ test_that("model based features", {
     tolerance = 0.01
   )
 
-  ft <- features(lung_deaths_wide, fdeaths, stl_features)
+  ft <- features(lung_deaths_wide, fdeaths, features_stl)
   expect_equivalent(
     as_list(ft),
     list(trend_strength = 0.118, seasonal_strength_year = 0.881,
@@ -113,7 +113,7 @@ test_that("model based features", {
 })
 
 test_that("compengine features", {
-  ft <- features(www_usage, value, compengine_features)
+  ft <- features(www_usage, value, features_compengine)
   expect_equivalent(
     as_list(ft),
     list(embed2_incircle_1 = 0, embed2_incircle_1 = 0,

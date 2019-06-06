@@ -78,14 +78,14 @@ Extract features and statistics across a large collection of time series to iden
 
 ```{r features}
 aus_retail %>% 
-  features(Turnover, stl_features)
+  features(Turnover, features_stl)
 ```
 
 This allows you to visualise the behaviour of many time series (where the plotting methods above would show too much information).
 
 ```{r features-plot}
 aus_retail %>% 
-  features(Turnover, stl_features) %>% 
+  features(Turnover, features_stl) %>% 
   ggplot(aes(x = trend_strength, y = seasonal_strength_year)) +
   geom_point() + 
   facet_wrap(vars(State))
@@ -97,7 +97,7 @@ It's also easy to extract the most (and least) seasonal time series.
 
 ```{r extreme}
 extreme_seasonalities <- aus_retail %>% 
-  features(Turnover, stl_features) %>% 
+  features(Turnover, features_stl) %>% 
   filter(seasonal_strength_year %in% range(seasonal_strength_year))
 aus_retail %>% 
   right_join(extreme_seasonalities, by = c("State", "Industry")) %>% 

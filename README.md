@@ -122,7 +122,7 @@ behaviour.
 
 ``` r
 aus_retail %>% 
-  features(Turnover, stl_features)
+  features(Turnover, features_stl)
 #> # A tibble: 152 x 9
 #>    State Industry trend_strength seasonal_streng…   spike linearity curvature seasonal_peak_y…
 #>    <chr> <chr>             <dbl>            <dbl>   <dbl>     <dbl>     <dbl>            <dbl>
@@ -144,7 +144,7 @@ the plotting methods above would show too much information).
 
 ``` r
 aus_retail %>% 
-  features(Turnover, stl_features) %>% 
+  features(Turnover, features_stl) %>% 
   ggplot(aes(x = trend_strength, y = seasonal_strength_year)) +
   geom_point() + 
   facet_wrap(vars(State))
@@ -159,7 +159,7 @@ It’s also easy to extract the most (and least) seasonal time series.
 
 ``` r
 extreme_seasonalities <- aus_retail %>% 
-  features(Turnover, stl_features) %>% 
+  features(Turnover, features_stl) %>% 
   filter(seasonal_strength_year %in% range(seasonal_strength_year))
 aus_retail %>% 
   right_join(extreme_seasonalities, by = c("State", "Industry")) %>% 

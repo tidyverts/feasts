@@ -9,18 +9,19 @@
 #' @param x a vector
 #'
 #' @return a vector with CompEngine features
-#' @seealso \code{\link{autocorr_features}}
-#' @seealso \code{\link{pred_features}}
-#' @seealso \code{\link{stationarity_features}}
-#' @seealso \code{\link{distribution_features}}
-#' @seealso \code{\link{scal_features}}
+#' @seealso \code{\link{features_autocorrelation}}
+#' @seealso \code{\link{features_prediction}}
+#' @seealso \code{\link{features_stationarity}}
+#' @seealso \code{\link{features_distribution}}
+#' @seealso \code{\link{features_scaling}}
 #' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
 #' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
 #' @author Yangzhuoran Yang
 #'
 #' @export
-compengine_features <- function(x) {
-  c(autocorr_features(x), pred_features(x), stationarity_features(x), distribution_features(x), scal_features(x))
+features_compengine <- function(x) {
+  c(features_autocorrelation(x), features_prediction(x),
+    features_stationarity(x), features_distribution(x), features_scaling(x))
 }
 
 #' The autocorrelation feature set from software package \code{hctsa}
@@ -36,7 +37,7 @@ compengine_features <- function(x) {
 #' \code{motiftwo_entro3},
 #' and \code{walker_propcross}.
 #'
-#' @inheritParams compengine_features
+#' @inheritParams features_compengine
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{embed2_incircle}}
@@ -49,7 +50,7 @@ compengine_features <- function(x) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-autocorr_features <- function(x) {
+features_autocorrelation <- function(x) {
   acfv <- stats::acf(x, length(x) - 1, plot = FALSE, na.action = stats::na.pass)
   output <- c(
     embed2_incircle(x, 1, acfv = acfv),
@@ -72,7 +73,7 @@ autocorr_features <- function(x) {
 #' \code{localsimple_lfit_ac},
 #' and \code{sampen_first}.
 #'
-#' @inheritParams compengine_features
+#' @inheritParams features_compengine
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{localsimple_taures}}
@@ -82,7 +83,7 @@ autocorr_features <- function(x) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-pred_features <- function(x) {
+features_prediction <- function(x) {
   output <- c(
     localsimple_taures(x, "mean"),
     localsimple_taures(x, "lfit"),
@@ -101,7 +102,7 @@ pred_features <- function(x) {
 #' \code{spreadrandomlocal_meantaul_50},
 #' and \code{spreadrandomlocal_meantaul_ac2}.
 #'
-#' @inheritParams compengine_features
+#' @inheritParams features_compengine
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{sd_deriv_1}}
@@ -111,7 +112,7 @@ pred_features <- function(x) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-stationarity_features <- function(x) {
+features_stationarity <- function(x) {
   output <- c(
     sd_deriv_1(x),
     bootstrap_stationarity(x, 50),
@@ -128,7 +129,7 @@ stationarity_features <- function(x) {
 #' Features in this set are \code{histogram_mode_10}
 #' and \code{outlierinclude_mdrmd}.
 #'
-#' @inheritParams compengine_features
+#' @inheritParams features_compengine
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{histogram_mode}}
@@ -138,7 +139,7 @@ stationarity_features <- function(x) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-distribution_features <- function(x) {
+features_distribution <- function(x) {
   output <- c(
     histogram_mode(x),
     outlier_include(x)
@@ -153,7 +154,7 @@ distribution_features <- function(x) {
 #'
 #' Feature in this set is \code{fluctuation_analysis}.
 #'
-#' @inheritParams compengine_features
+#' @inheritParams features_compengine
 #'
 #' @return a vector with autocorrelation features
 #' @seealso \code{\link{fluctuation_analysis}}
@@ -162,7 +163,7 @@ distribution_features <- function(x) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-scal_features <- function(x) {
+features_scaling <- function(x) {
   output <- c(fluctuation_analysis(x))
   return(output)
 }
@@ -172,7 +173,7 @@ scal_features <- function(x) {
 #'
 #' The time lag is set to the first zero crossing of the autocorrelation function.
 #'
-#' @inheritParams compengine_features
+#' @inheritParams features_compengine
 #' @param boundary the given circular boundary, setting to 1 or 2 in CompEngine. Default to 1.
 #' @param acfv vector of autocorrelation, if exist, used to avoid repeated computation.
 #'
@@ -398,7 +399,7 @@ walker_propcross <- function(x) {
 #' Simple predictors using the past `train_length` values of the time series to
 #' predict its next value.
 #'
-#' @inheritParams pred_features
+#' @inheritParams features_prediction
 #' @param fc_method the forecasting method, default to \code{mean}.
 #' \code{mean}: local mean prediction using the past `train_length` values.
 #' \code{lfit}: local linear prediction using the past `train_length` values.
@@ -472,7 +473,7 @@ sampen_first <- function(x) {
 #' http://www.physionet.org/physiotools/sampen/matlab/1.1/sampenc.m
 #' Code by DK Lake (dlake@virginia.edu), JR Moorman and Cao Hanqing.
 #'
-#' @inheritParams pred_features
+#' @inheritParams features_prediction
 #' @param M embedding dimension
 #' @param r threshold
 #'
@@ -521,7 +522,7 @@ sampenc <- function(x, M = 6, r = 0.3) {
 #'
 #' Modified from \code{SY_StdNthDer} in \code{hctsa}. Based on an idea by Vladimir Vassilevsky.
 #'
-#' @inheritParams stationarity_features
+#' @inheritParams features_stationarity
 #'
 #' @return Standard deviation of the first derivative of the time series.
 #' @references cf. http://www.mathworks.de/matlabcentral/newsreader/view_thread/136539
@@ -542,7 +543,7 @@ sd_deriv_1 <- function(x) {
 #' 100 time-series segments of length \code{l} are selected at random from the time series and
 #' the mean of the first zero-crossings of the autocorrelation function in each segment is calculated.
 #'
-#' @inheritParams stationarity_features
+#' @inheritParams features_stationarity
 #' @param segment_length the length of local time-series segments to analyse as a positive integer. Can also be a specified character string: "ac2": twice the first zero-crossing of the autocorrelation function
 #'
 #' @return mean of the first zero-crossings of the autocorrelation function
@@ -584,7 +585,7 @@ bootstrap_stationarity <- function(x, segment_length = 50) {
 #' Measures the mode of the data vector binned by the specified number of bins.
 #' The value calculated is different from \code{hctsa} and \code{CompEngine} as the histogram edges are calculated differently.
 #'
-#' @inheritParams distribution_features
+#' @inheritParams features_distribution
 #' @param bins the number of bins to use.
 #'
 #' @return the mode
@@ -620,7 +621,7 @@ histogram_mode <- function(x, bins = 10) {
 #'
 #' Outliers are defined as furthest from the mean.
 #'
-#' @inheritParams distribution_features
+#' @inheritParams features_distribution
 #' @param scale Should the data be scaled before computing the statistic.
 #'
 #' @return median of the median of range indices
@@ -688,7 +689,7 @@ outlier_include <- function(x, scale = TRUE) {
 #' range. The order of fluctuations is 2, corresponding to root mean
 #' square fluctuations.
 #'
-#' @inheritParams distribution_features
+#' @inheritParams features_distribution
 #'
 #' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
 #' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).

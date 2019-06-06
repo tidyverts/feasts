@@ -191,7 +191,7 @@ unitroot_ndiffs <- function(x, alpha = 0.05, unitroot_fn = ~ unitroot_kpss(.)["k
 #' @param .period The period of the seasonality.
 #'
 #' @export
-unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ stl_features(.,.period)[2]<0.64,
+unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ features_stl(.,.period)[2]<0.64,
                              differences = 0:2, .period = 1, ...) {
   if(.period == 1) return(c(nsdiffs = min(differences)))
 
@@ -439,7 +439,7 @@ stability <- function(x, .size = NULL, .period = 1) {
 #'
 #' @inheritParams stability
 #' @param lag.max maximum lag at which to calculate the acf. The default is
-#' `max(.period, 10L)` for `acf_features`, and `max(.period, 5L)` for `pacf_features`
+#' `max(.period, 10L)` for `features_acf`, and `max(.period, 5L)` for `features_pacf`
 #' @param ... Further arguments passed to [`stats::acf()`] or [`stats::pacf()`]
 #'
 #' @return A vector of 6 values: first autocorrelation coefficient and sum of squared of
@@ -450,7 +450,7 @@ stability <- function(x, .size = NULL, .period = 1) {
 #'
 #' @author Thiyanga Talagala
 #' @export
-acf_features <- function(x, .period = 1, lag.max = NULL, ...) {
+features_acf <- function(x, .period = 1, lag.max = NULL, ...) {
   acfx <- stats::acf(x, lag.max = lag.max%||%max(.period, 10L), plot = FALSE, na.action = stats::na.pass ,...)
   acfdiff1x <- stats::acf(diff(x, differences = 1), lag.max = lag.max%||%10L, plot = FALSE, na.action = stats::na.pass)
   acfdiff2x <- stats::acf(diff(x, differences = 2), lag.max = lag.max%||%10L, plot = FALSE, na.action = stats::na.pass)
@@ -494,7 +494,7 @@ acf_features <- function(x, .period = 1, lag.max = NULL, ...) {
 #' Computes various measures based on partial autocorrelation coefficients of the
 #' original series, first-differenced series and second-differenced series.
 #'
-#' @inheritParams acf_features
+#' @inheritParams features_acf
 #'
 #' @return A vector of 3 values: Sum of squared of first 5
 #' partial autocorrelation coefficients of the original series, first differenced
@@ -503,7 +503,7 @@ acf_features <- function(x, .period = 1, lag.max = NULL, ...) {
 #' lag is also returned.
 #' @author Thiyanga Talagala
 #' @export
-pacf_features <- function(x, .period = 1, lag.max = NULL, ...) {
+features_pacf <- function(x, .period = 1, lag.max = NULL, ...) {
   pacfx <- stats::pacf(x, lag.max = lag.max%||%max(.period, 5L),
                        plot = FALSE, ...)$acf
   # Sum of squared of first 5 partial autocorrelation coefficients

@@ -53,8 +53,8 @@ reference:
     - ACF
     - PACF
     - CCF
-    - acf_features
-    - pacf_features
+    - features_acf
+    - features_pacf
 
 - title: Unit root tests
   desc: >
@@ -92,18 +92,18 @@ reference:
   desc: >
     Calculate the features that have been used in CompEngine database, as implemented in the [hctsa](https://hctsa-users.gitbook.io/hctsa-manual/) library
   contents:
-    - compengine_features
-    - autocorr_features
-    - pred_features
-    - stationarity_features
-    - distribution_features
-    - scal_features
+    - features_compengine
+    - features_autocorrelation
+    - features_prediction
+    - features_stationarity
+    - features_distribution
+    - features_scaling
 
 - title: Other features
   desc: >
     Uncategorised features
   contents:
-    - stl_features
+    - features_stl
     - arch_stat
     - crossing_points
     - entropy
