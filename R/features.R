@@ -24,10 +24,7 @@ arch_stat <- function(x, lags = 12, demean = TRUE)
     x <- x - mean(x, na.rm = TRUE)
   }
   mat <- embed(x^2, lags + 1)
-  fit <- try(lm(mat[, 1] ~ mat[, -1]), silent = TRUE)
-  if ("try-error" %in% class(fit)) {
-    return(c(arch_lm = NA_real_))
-  }
+  fit <- lm(mat[, 1] ~ mat[, -1])
   arch.lm <- summary(fit)
   c(arch_lm = arch.lm$r.squared)
 }
@@ -122,12 +119,7 @@ stl_features <- function(x, .period, s.window = 13, ...){
 unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "nil"), ...) {
   require_package("urca")
   result <- urca::ur.kpss(x, type = type, lags = lags, ...)
-  pval <- tryCatch(
-    stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
-    error = function(e){
-      NA
-    }
-  )
+  pval <- stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y
   c(kpss_stat = result@teststat, kpss_pval = pval)
 }
 
@@ -142,12 +134,7 @@ unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "
   require_package("urca")
   result <- urca::ur.pp(x, type = match.arg(type), model = match.arg(model),
                         lags = match.arg(lags), ...)
-  pval <- tryCatch(
-    stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y,
-    error = function(e){
-      NA
-    }
-  )
+  pval <- stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y
   c(pp_stat = result@teststat, pp_pval = pval)
 }
 
@@ -227,12 +214,7 @@ unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ features_stl(.,.pe
 #' @author Earo Wang and Rob J Hyndman
 #' @export
 flat_spots <- function(x) {
-  cutx <- try(cut(x, breaks = 10, include.lowest = TRUE, labels = FALSE),
-              silent = TRUE
-  )
-  if (class(cutx) == "try-error") {
-    return(c(flat_spots = NA))
-  }
+  cutx <- cut(x, breaks = 10, include.lowest = TRUE, labels = FALSE)
   rlex <- rle(cutx)
   return(c(flat_spots = max(rlex$lengths)))
 }
@@ -376,10 +358,7 @@ max_kl_shift <- function(x, .size = NULL, .period = 1) {
 #' @export
 entropy <- function(x) {
   require_package("ForeCA")
-  entropy <- try(ForeCA::spectral_entropy(na.contiguous(x))[1L], silent = TRUE)
-  if (class(entropy) == "try-error") {
-    entropy <- NA
-  }
+  entropy <- ForeCA::spectral_entropy(na.contiguous(x))[1L]
   return(c(entropy = entropy))
 }
 
