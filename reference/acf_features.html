@@ -118,7 +118,7 @@ original series, first-differenced series and second-differenced series</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>acf_features</span>(<span class='no'>x</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>acf_features</span>(<span class='no'>x</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lag.max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -132,8 +132,13 @@ original series, first-differenced series and second-differenced series</p>
       <td><p>The seasonal period (optional)</p></td>
     </tr>
     <tr>
+      <th>lag.max</th>
+      <td><p>maximum lag at which to calculate the acf. The default is
+<code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max(.period, 10L)</a></code> for <code>acf_features</code>, and <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max(.period, 5L)</a></code> for <code>pacf_features</code></p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>Unused.</p></td>
+      <td><p>Further arguments passed to <code><a href='https://www.rdocumentation.org/packages/stats/topics/acf'>stats::acf()</a></code> or <code><a href='https://www.rdocumentation.org/packages/stats/topics/acf'>stats::pacf()</a></code></p></td>
     </tr>
     </table>
     
