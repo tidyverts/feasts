@@ -51,7 +51,7 @@ test_that("unit root features", {
   expect_equal(ft$pp_pval, 0.1)
 
   ft <- features(lung_deaths_long, value, list(stl_features, unitroot_nsdiffs))
-  expect_equal(ft$seasonal_strength.year >= 0.64, as_logical(ft$nsdiffs))
+  expect_equal(ft$seasonal_strength_year >= 0.64, as_logical(ft$nsdiffs))
 })
 
 test_that("basic features", {
@@ -105,9 +105,9 @@ test_that("model based features", {
   ft <- features(lung_deaths_wide, fdeaths, stl_features)
   expect_equivalent(
     as_list(ft),
-    list(trend_strength = 0.118, seasonal_strength.year = 0.881,
+    list(trend_strength = 0.118, seasonal_strength_year = 0.881,
          spike = 24526, linearity = -148, cuvature = 11.6,
-         seasonal_peak.year = 1, seasonal_trough.year = 8),
+         seasonal_peak_year = 1, seasonal_trough_year = 8),
     tolerance = 0.01
   )
 })
