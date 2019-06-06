@@ -12,7 +12,7 @@ check_regular <- function(x){
 
 check_ordered <- function(x){
   if (!is_ordered(x)) {
-    abort(sprintf("%s is an unordered time series. To use this model, you first must sort the data in time order using `dplyr::arrange(%s, %s)`",
+    abort(sprintf("%s is an unordered time series. To use this decomposition, you first must sort the data in time order using `dplyr::arrange(%s, %s)`",
                   deparse(substitute(x)), paste(c(deparse(substitute(x)), key_vars(x)), collapse = ", "), as_string(index(x))))
   }
 }
@@ -22,6 +22,6 @@ all_tsbl_checks <- function(.data){
   check_regular(.data)
   check_ordered(.data)
   if(NROW(.data) == 0){
-    abort("There is no data to decompose Please provide a dataset with at least one observation.")
+    abort("There is no data to decompose. Please provide a dataset with at least one observation.")
   }
 }
