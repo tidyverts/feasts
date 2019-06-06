@@ -544,7 +544,7 @@ print.gg_tsdisplay <- function(x, ...){
 #' Only models which compute ARMA roots can be visualised with this function.
 #' That is to say, the `glance()` of the model contains `ar_roots` and `ma_roots`.
 #'
-#' @param mbl A mable containing models with AR and/or MA roots.
+#' @param data A mable containing models with AR and/or MA roots.
 #'
 #' @examples
 #' library(fable)
@@ -560,10 +560,14 @@ print.gg_tsdisplay <- function(x, ...){
 #'   gg_arma()
 #'
 #' @export
-gg_arma <- function(mbl){
-  fcts <- c(key(mbl), sym(".model"))
+gg_arma <- function(data){
+  if(!fablelite::is_mable(data)){
+    abort("gg_arma() must be used with a mable containing models that compute ARMA roots")
+  }
 
-  mbl <- mbl %>%
+  fcts <- c(key(data), sym(".model"))
+
+  data <- data %>%
     fablelite::glance() %>%
     gather("type", "root", !!sym("ar_roots"), !!sym("ma_roots")) %>%
     unnest(!!sym("root")) %>%
@@ -574,7 +578,7 @@ gg_arma <- function(mbl){
            UnitCircle = factor(abs(!!sym("root")) > 1, levels = c(TRUE, FALSE),
                                labels = c("Outside", "Within")))
 
-  ggplot(mbl, aes(x = Re(!!sym("root")), y = Im(!!sym("root")),
+  ggplot(data, aes(x = Re(!!sym("root")), y = Im(!!sym("root")),
                   colour = !!sym("UnitCircle"))) +
     ggplot2::annotate(
       "path", x = cos(seq(0, 2 * pi, length.out = 100)),

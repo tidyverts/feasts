@@ -4,10 +4,10 @@
 \alias{gg_arma}
 \title{Plot characteristic ARMA roots}
 \usage{
-gg_arma(mbl)
+gg_arma(data)
 }
 \arguments{
-\item{mbl}{A mable containing models with AR and/or MA roots.}
+\item{data}{A mable containing models with AR and/or MA roots.}
 }
 \description{
 Produces a plot of the inverse AR and MA roots of an ARIMA model.
