@@ -570,7 +570,7 @@ gg_arma <- function(data){
   data <- data %>%
     fablelite::glance() %>%
     gather("type", "root", !!sym("ar_roots"), !!sym("ma_roots")) %>%
-    unnest(!!sym("root")) %>%
+    unnest_tbl("root") %>%
     filter(!is.na(!!sym("root"))) %>%
     mutate(root = 1/!!sym("root"),
            type = factor(!!sym("type"), levels = c("ar_roots", "ma_roots"),

@@ -27,12 +27,20 @@ lag <- function(x, n){
   out
 }
 
-unnest_tbl <- function(.data, tbl_col, .sep = "_"){
+unnest_tbl <- function(.data, tbl_col, .sep = NULL){
   row_indices <- rep.int(seq_len(NROW(.data)), map_int(.data[[tbl_col[[1]]]], NROW))
 
-  nested_cols <- map(tbl_col, function(x) dplyr::bind_rows(!!!.data[[x]]))
+  nested_cols <- map(tbl_col, function(x){
+    lst_col <- .data[[x]]
+    if(is.data.frame(lst_col[[1]])){
+      dplyr::bind_rows(!!!set_names(lst_col, rep(x, length(lst_col))))
+    }
+    else{
+      list2(!!x := unlist(lst_col))
+    }
+  })
 
-  if(length(tbl_col) > 1){
+  if(!is.null(.sep)){
     nested_cols <- map2(
       nested_cols, tbl_col,
       function(x, nm) set_names(x, paste(nm, colnames(x), sep = .sep))
@@ -41,7 +49,7 @@ unnest_tbl <- function(.data, tbl_col, .sep = "_"){
 
   dplyr::bind_cols(
     .data[row_indices, setdiff(names(.data), tbl_col)], # Parent cols
-   !!!nested_cols # Nested cols
+    !!!nested_cols # Nested cols
   )
 }
 
