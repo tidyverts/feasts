@@ -172,21 +172,20 @@ http://www.seasonal.website/seasonal.html#input</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/tsibbledata/topics/aus_production'>aus_production</a></span> <span class='kw'>%&gt;%</span> <span class='fu'>X11</span>(<span class='no'>Beer</span>)</div><div class='output co'>#&gt; <span class='message'>`unnest()` to a tsibble is deprecated due to the forthcoming `tidyr` release.</span>
-#&gt; <span class='message'>Please use `unnest_tsibble()` instead.</span></div><div class='output co'>#&gt; # A dable:           218 x 6 [1Q]
+    <pre class="examples"><div class='input'><span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/tsibbledata/topics/aus_production'>aus_production</a></span> <span class='kw'>%&gt;%</span> <span class='fu'>X11</span>(<span class='no'>Beer</span>)</div><div class='output co'>#&gt; # A dable:           218 x 7 [1Q]
 #&gt; # X11 Decomposition: Beer = trend + seasonal + irregular
-#&gt;    Quarter  Beer trend seasonal irregular seas_adjust
-#&gt;      &lt;qtr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-#&gt;  1 1956 Q1   284  272.     6.36      5.66        278.
-#&gt;  2 1956 Q2   213  255.   -35.7      -6.71        249.
-#&gt;  3 1956 Q3   227  249.   -23.7       1.62        251.
-#&gt;  4 1956 Q4   308  252.    53.0       2.56        255.
-#&gt;  5 1957 Q1   262  257.     6.69     -2.18        255.
-#&gt;  6 1957 Q2   228  261.   -36.4       3.92        264.
-#&gt;  7 1957 Q3   236  263.   -22.8      -4.00        259.
-#&gt;  8 1957 Q4   320  265.    52.3       2.25        268.
-#&gt;  9 1958 Q1   272  267.     7.11     -1.94        265.
-#&gt; 10 1958 Q2   233  266.   -37.3       4.00        270.
+#&gt;    lst_data            Quarter  Beer trend seasonal irregular seas_adjust
+#&gt;    &lt;list&gt;                &lt;qtr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+#&gt;  1 &lt;tsibble [218 × 7]&gt; 1956 Q1   284  272.     6.36      5.66        278.
+#&gt;  2 &lt;tsibble [218 × 7]&gt; 1956 Q2   213  255.   -35.7      -6.71        249.
+#&gt;  3 &lt;tsibble [218 × 7]&gt; 1956 Q3   227  249.   -23.7       1.62        251.
+#&gt;  4 &lt;tsibble [218 × 7]&gt; 1956 Q4   308  252.    53.0       2.56        255.
+#&gt;  5 &lt;tsibble [218 × 7]&gt; 1957 Q1   262  257.     6.69     -2.18        255.
+#&gt;  6 &lt;tsibble [218 × 7]&gt; 1957 Q2   228  261.   -36.4       3.92        264.
+#&gt;  7 &lt;tsibble [218 × 7]&gt; 1957 Q3   236  263.   -22.8      -4.00        259.
+#&gt;  8 &lt;tsibble [218 × 7]&gt; 1957 Q4   320  265.    52.3       2.25        268.
+#&gt;  9 &lt;tsibble [218 × 7]&gt; 1958 Q1   272  267.     7.11     -1.94        265.
+#&gt; 10 &lt;tsibble [218 × 7]&gt; 1958 Q2   233  266.   -37.3       4.00        270.
 #&gt; # … with 208 more rows</div><div class='input'>
 </div></pre>
   </div>
