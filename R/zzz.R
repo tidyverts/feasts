@@ -4,6 +4,9 @@
   register_s3_method("pillar", "obj_sum", "cf_lag")
   register_s3_method("pillar", "type_sum", "cf_lag")
 
+  fablelite::register_feature(features_stl, "decomposition")
+  fablelite::register_feature(features_acf, "autocorrelation")
+  fablelite::register_feature(features_pacf, "autocorrelation")
   invisible()
 }
 
