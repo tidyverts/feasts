@@ -77,36 +77,25 @@ reference:
   desc: >
     Computes feature of a time series based on tiled (non-overlapping) windows.
   contents:
-    - lumpiness
-    - stability
+    - roll_lumpiness
+    - roll_stability
 
 - title: Sliding window features
   desc: >
     Computes feature of a time series based on sliding (overlapping) windows.
   contents:
-    - max_kl_shift
-    - max_level_shift
-    - max_var_shift
-
-- title: CompEngine features
-  desc: >
-    Calculate the features that have been used in CompEngine database, as implemented in the [hctsa](https://hctsa-users.gitbook.io/hctsa-manual/) library
-  contents:
-    - features_compengine
-    - features_autocorrelation
-    - features_prediction
-    - features_stationarity
-    - features_distribution
-    - features_scaling
+    - shift_level_max
+    - shift_var_max
+    - shift_kl_max
 
 - title: Other features
   desc: >
     Uncategorised features
   contents:
     - features_stl
-    - arch_stat
+    - stat_arch_lm
     - crossing_points
-    - entropy
+    - features_spectral
     - flat_spots
-    - hurst
+    - coef_hurst
     - guerrero
