@@ -145,7 +145,7 @@ That is to say, the <code>glance()</code> of the model contains <code>ar_roots</
     <span class='no'>State</span> <span class='kw'>==</span> <span class='st'>"Victoria"</span>,
     <span class='no'>Industry</span> <span class='kw'>==</span> <span class='st'>"Cafes, restaurants and catering services"</span>
   ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://fable.tidyverts.org/reference/reexports.html'>model</a></span>(<span class='fu'><a href='https://fable.tidyverts.org/reference/ARIMA.html'>ARIMA</a></span>(<span class='no'>Turnover</span> ~ <span class='fu'>pdq</span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>) + <span class='fu'>PDQ</span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>))) <span class='kw'>%&gt;%</span>
+  <span class='fu'>model</span>(<span class='fu'><a href='https://fable.tidyverts.org/reference/ARIMA.html'>ARIMA</a></span>(<span class='no'>Turnover</span> ~ <span class='fu'>pdq</span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>) + <span class='fu'>PDQ</span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>))) <span class='kw'>%&gt;%</span>
   <span class='fu'>gg_arma</span>()</div><div class='img'><img src='gg_arma-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
