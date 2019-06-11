@@ -146,7 +146,7 @@
 <a href="#feature-extraction-and-statistics" class="anchor"></a>Feature extraction and statistics</h3>
 <p>Extract features and statistics across a large collection of time series to identify unusual/extreme time series, or find clusters of similar behaviour.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">aus_retail <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">features</span>(Turnover, features_stl)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">features</span>(Turnover, feat_stl)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; # A tibble: 152 x 9</span></a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;    State Industry trend_strength seasonal_streng…   spike linearity curvature seasonal_peak_y…</span></a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;</span></a>
@@ -163,7 +163,7 @@
 <a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; # … with 142 more rows, and 1 more variable: seasonal_trough_year &lt;dbl&gt;</span></a></code></pre></div>
 <p>This allows you to visualise the behaviour of many time series (where the plotting methods above would show too much information).</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">aus_retail <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">features</span>(Turnover, features_stl) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">features</span>(Turnover, feat_stl) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> trend_strength, <span class="dt">y =</span> seasonal_strength_year)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_point">geom_point</a></span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span>(State))</a></code></pre></div>
@@ -171,7 +171,7 @@
 <p>Most of Australian’s retail industries are highly trended and seasonal for all states.</p>
 <p>It’s also easy to extract the most (and least) seasonal time series.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">extreme_seasonalities &lt;-<span class="st"> </span>aus_retail <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw">features</span>(Turnover, features_stl) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw">features</span>(Turnover, feat_stl) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(seasonal_strength_year <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/range">range</a></span>(seasonal_strength_year))</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">aus_retail <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/join.html">right_join</a></span>(extreme_seasonalities, <span class="dt">by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"State"</span>, <span class="st">"Industry"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>

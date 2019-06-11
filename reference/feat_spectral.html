@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Autocorrelation-based features — features_acf • feasts</title>
+<title>Spectral features of a time series — feat_spectral • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,10 +37,9 @@
 
 
 
-<meta property="og:title" content="Autocorrelation-based features — features_acf" />
+<meta property="og:title" content="Spectral features of a time series — feat_spectral" />
 
-<meta property="og:description" content="Computes various measures based on autocorrelation coefficients of the
-original series, first-differenced series and second-differenced series" />
+<meta property="og:description" content="Computes the spectral entropy of a time series" />
 
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -106,19 +105,18 @@ original series, first-differenced series and second-differenced series" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Autocorrelation-based features</h1>
+    <h1>Spectral features of a time series</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/features.R'><code>R/features.R</code></a></small>
-    <div class="hidden name"><code>features_acf.Rd</code></div>
+    <div class="hidden name"><code>feat_spectral.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Computes various measures based on autocorrelation coefficients of the
-original series, first-differenced series and second-differenced series</p>
+    <p>Computes the spectral entropy of a time series</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>features_acf</span>(<span class='no'>x</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>feat_spectral</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,27 +126,14 @@ original series, first-differenced series and second-differenced series</p>
       <td><p>a univariate time series</p></td>
     </tr>
     <tr>
-      <th>.period</th>
-      <td><p>The seasonal period (optional)</p></td>
-    </tr>
-    <tr>
-      <th>lag_max</th>
-      <td><p>maximum lag at which to calculate the acf. The default is
-<code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max(.period, 10L)</a></code> for <code>features_acf</code>, and <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max(.period, 5L)</a></code> for <code>features_pacf</code></p></td>
-    </tr>
-    <tr>
       <th>...</th>
-      <td><p>Further arguments passed to <code><a href='https://www.rdocumentation.org/packages/stats/topics/acf'>stats::acf()</a></code> or <code><a href='https://www.rdocumentation.org/packages/stats/topics/acf'>stats::pacf()</a></code></p></td>
+      <td><p>Further arguments for <code><a href='https://www.rdocumentation.org/packages/ForeCA/topics/spectral_entropy'>ForeCA::spectral_entropy()</a></code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector of 6 values: first autocorrelation coefficient and sum of squared of
-first ten autocorrelation coefficients of original series, first-differenced series,
-and twice-differenced series.
-For seasonal data, the autocorrelation coefficient at the first seasonal lag is
-also returned.</p>
+    <p>A numeric value.</p>
     
 
   </div>
@@ -161,7 +146,7 @@ also returned.</p>
           </ul>
 
     <h2>Author</h2>
-    <p>Thiyanga Talagala</p>
+    <p>Rob J Hyndman</p>
   </div>
 </div>
 
