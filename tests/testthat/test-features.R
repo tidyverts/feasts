@@ -67,7 +67,7 @@ test_that("model based features", {
   expect_equivalent(
     as_list(ft),
     list(arch_lm = 0.990, hurst = 0.998,
-         trend_strength = 0.985, spike = 0.0772,
+         trend_strength = 0.985, spikiness = 0.0772,
          linearity = 178, cuvature = 44),
     tolerance = 0.01
   )
@@ -76,7 +76,7 @@ test_that("model based features", {
   expect_equivalent(
     as_list(ft),
     list(trend_strength = 0.118, seasonal_strength_year = 0.881,
-         spike = 24526, linearity = -148, cuvature = 11.6,
+         spikiness = 24526, linearity = -148, cuvature = 11.6,
          seasonal_peak_year = 1, seasonal_trough_year = 8),
     tolerance = 0.01
   )

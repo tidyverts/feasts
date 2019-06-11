@@ -60,10 +60,10 @@ feat_stl <- function(x, .period, s.window = 13, ...){
   var_e <- var(remainder, na.rm = TRUE)
   n <- length(x)
 
-  # Spike
+  # Spikiness
   d <- (remainder - mean(remainder, na.rm = TRUE))^2
   var_loo <- (var_e * (n - 1) - d)/(n - 2)
-  spike <- var(var_loo, na.rm = TRUE)
+  spikiness <- var(var_loo, na.rm = TRUE)
 
   # Linearity & curvature
   tren.coef <- coef(lm(trend ~ poly(seq(n), degree = 2L)))[2L:3L]
@@ -88,7 +88,7 @@ feat_stl <- function(x, .period, s.window = 13, ...){
   names(seasonal_trough) <- sprintf("seasonal_trough_%s", names(seasonalities))
 
   c(trend_strength = trend_strength, seasonal_strength,
-    spike = spike, linearity = linearity, curvature = curvature,
+    spikiness = spikiness, linearity = linearity, curvature = curvature,
     seasonal_peak,  seasonal_trough)
 }
 
