@@ -15,7 +15,7 @@ crossing_points <- function(x)
 #' @inherit tsfeatures::arch_stat
 #' @importFrom stats lm embed
 #' @export
-arch_stat <- function(x, lags = 12, demean = TRUE)
+stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 {
   if (length(x) <= 13) {
     return(c(arch_lm = NA_real_))
@@ -230,18 +230,18 @@ flat_spots <- function(x) {
 #' @author Rob J Hyndman
 #'
 #' @export
-hurst <- function(x) {
+coef_hurst <- function(x) {
   require_package("fracdiff")
   # Hurst=d+0.5 where d is fractional difference.
-  return(c(hurst = suppressWarnings(fracdiff::fracdiff(na.contiguous(x), 0, 0)[["d"]] + 0.5)))
+  return(c(coef_hurst = suppressWarnings(fracdiff::fracdiff(na.contiguous(x), 0, 0)[["d"]] + 0.5)))
 }
 
 #' Sliding window features
 #'
 #' Computes feature of a time series based on sliding (overlapping) windows.
-#' \code{max_level_shift} finds the largest mean shift between two consecutive windows.
-#' \code{max_var_shift} finds the largest var shift between two consecutive windows.
-#' \code{max_kl_shift} finds the largest shift in Kulback-Leibler divergence between
+#' \code{shift_level_max} finds the largest mean shift between two consecutive windows.
+#' \code{shift_var_max} finds the largest var shift between two consecutive windows.
+#' \code{shift_kl_max} finds the largest shift in Kulback-Leibler divergence between
 #' two consecutive windows.
 #'
 #' Computes the largest level shift and largest variance shift in sliding mean calculations
@@ -253,7 +253,7 @@ hurst <- function(x) {
 #' @author Earo Wang, Rob J Hyndman and Mitchell O'Hara-Wild
 #'
 #' @export
-max_level_shift <- function(x, .size = NULL, .period = 1) {
+shift_level_max <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -274,12 +274,12 @@ max_level_shift <- function(x, .size = NULL, .period = 1) {
     maxidx <- which.max(means) + 1L
   }
 
-  return(c(level_shift_max = maxmeans, level_shift_index = maxidx))
+  return(c(shift_level_max = maxmeans, shift_level_index = maxidx))
 }
 
-#' @rdname max_level_shift
+#' @rdname shift_level_max
 #' @export
-max_var_shift <- function(x, .size = NULL, .period = 1) {
+shift_var_max <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -301,12 +301,12 @@ max_var_shift <- function(x, .size = NULL, .period = 1) {
     maxidx <- which.max(vars) + 1L
   }
 
-  return(c(var_shift_max = maxvar, var_shift_index = maxidx))
+  return(c(shift_var_max = maxvar, shift_var_index = maxidx))
 }
 
-#' @rdname max_level_shift
+#' @rdname shift_level_max
 #' @export
-max_kl_shift <- function(x, .size = NULL, .period = 1) {
+shift_kl_max <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -318,7 +318,7 @@ max_kl_shift <- function(x, .size = NULL, .period = 1) {
   bw <- stats::bw.nrd0(tmpx)
   lenx <- length(x)
   if (lenx <= (2 * .size)) {
-    return(c(max_kl_shift = NA_real_, time_kl_shift = NA_real_))
+    return(c(shift_kl_max = NA_real_, time_kl_shift = NA_real_))
   }
 
   densities <- map(xgrid, function(xgrid) stats::dnorm(xgrid, mean = x, sd = bw))
@@ -344,22 +344,22 @@ max_kl_shift <- function(x, .size = NULL, .period = 1) {
   else {
     maxidx <- which.max(diffkl) + 1L
   }
-  return(c(kl_shift_max = max(diffkl, na.rm = TRUE), kl_shift_index = maxidx))
+  return(c(shift_kl_max = max(diffkl, na.rm = TRUE), shift_kl_index = maxidx))
 }
 
-#' Spectral entropy of a time series
+#' Spectral features of a time series
 #'
 #' Computes the spectral entropy of a time series
 #'
-#' @inheritParams max_level_shift
+#' @inheritParams shift_level_max
 #'
 #' @return A numeric value.
 #' @author Rob J Hyndman
 #' @export
-entropy <- function(x) {
+features_spectral <- function(x, ...) {
   require_package("ForeCA")
-  entropy <- ForeCA::spectral_entropy(na.contiguous(x))[1L]
-  return(c(entropy = entropy))
+  entropy <- ForeCA::spectral_entropy(na.contiguous(x), ...)[1L]
+  return(c(spectral_entropy = entropy))
 }
 
 #' Time series features based on tiled windows
@@ -368,7 +368,7 @@ entropy <- function(x) {
 #' Means or variances are produced for all tiled windows. Then stability is
 #' the variance of the means, while lumpiness is the variance of the variances.
 #'
-#' @inheritParams max_level_shift
+#' @inheritParams shift_level_max
 #' @return A numeric vector of length 2 containing a measure of lumpiness and
 #' a measure of stability.
 #' @author Earo Wang and Rob J Hyndman
@@ -377,7 +377,7 @@ entropy <- function(x) {
 #'
 #' @importFrom stats var
 #' @export
-lumpiness <- function(x, .size = NULL, .period = 1) {
+roll_lumpiness <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -395,7 +395,7 @@ lumpiness <- function(x, .size = NULL, .period = 1) {
 
 #' @rdname tile_features
 #' @export
-stability <- function(x, .size = NULL, .period = 1) {
+roll_stability <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -416,7 +416,7 @@ stability <- function(x, .size = NULL, .period = 1) {
 #' Computes various measures based on autocorrelation coefficients of the
 #' original series, first-differenced series and second-differenced series
 #'
-#' @inheritParams stability
+#' @inheritParams roll_stability
 #' @param lag.max maximum lag at which to calculate the acf. The default is
 #' `max(.period, 10L)` for `features_acf`, and `max(.period, 5L)` for `features_pacf`
 #' @param ... Further arguments passed to [`stats::acf()`] or [`stats::pacf()`]
