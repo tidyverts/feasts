@@ -174,7 +174,7 @@ features_scaling <- function(x) {
 #' The time lag is set to the first zero crossing of the autocorrelation function.
 #'
 #' @inheritParams features_compengine
-#' @param boundary the given circular boundary, setting to 1 or 2 in CompEngine. Default to 1.
+#' @param boundary the given circular boundary, setting to 1 or 2 in CompEngine. Default to both.
 #' @param acfv vector of autocorrelation, if exist, used to avoid repeated computation.
 #'
 #' @return the proportion of points inside a given circular boundary
@@ -183,18 +183,17 @@ features_scaling <- function(x) {
 #' @author Yangzhuoran Yang
 #'
 #' @export
-embed2_incircle <- function(x, boundary = NULL, acfv = stats::acf(x, length(x) - 1, plot = FALSE, na.action = stats::na.pass)) {
-  if (is.null(boundary)) {
-    warn("`embed2_incircle()` using `boundary = 1`. Set value with `boundary`.")
-    boundary <- 1
-  }
+embed2_incircle <- function(x, boundary = 1:2, acfv = stats::acf(x, length(x) - 1, plot = FALSE, na.action = stats::na.pass)) {
   tau <- firstzero_ac(x, acfv)
   xt <- x[1:(length(x) - tau)] # part of the time series
   xtp <- x[(1 + tau):length(x)] # time-lagged time series
   N <- length(x) - tau # Length of each time series subsegment
 
   # CIRCLES (points inside a given circular boundary)
-  set_names(sum(xtp^2 + xt^2 < boundary, na.rm = TRUE) / N, paste0("embed2_incircle_", boundary))
+  set_names(
+    map_dbl(boundary, function(b) sum(xtp^2 + xt^2 < b, na.rm = TRUE) / N),
+    paste0("embed2_incircle_", boundary)
+  )
 }
 
 # CO_firstzero_ac

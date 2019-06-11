@@ -4,13 +4,13 @@
 \alias{embed2_incircle}
 \title{Points inside a given circular boundary in a 2-d embedding space from software package \code{hctsa}}
 \usage{
-embed2_incircle(x, boundary = NULL, acfv = stats::acf(x, length(x) - 1,
+embed2_incircle(x, boundary = 1:2, acfv = stats::acf(x, length(x) - 1,
   plot = FALSE, na.action = stats::na.pass))
 }
 \arguments{
 \item{x}{a vector}
 
-\item{boundary}{the given circular boundary, setting to 1 or 2 in CompEngine. Default to 1.}
+\item{boundary}{the given circular boundary, setting to 1 or 2 in CompEngine. Default to both.}
 
 \item{acfv}{vector of autocorrelation, if exist, used to avoid repeated computation.}
 }
