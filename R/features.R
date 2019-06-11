@@ -418,7 +418,7 @@ roll_stability <- function(x, .size = NULL, .period = 1) {
 #' original series, first-differenced series and second-differenced series
 #'
 #' @inheritParams roll_stability
-#' @param lag.max maximum lag at which to calculate the acf. The default is
+#' @param lag_max maximum lag at which to calculate the acf. The default is
 #' `max(.period, 10L)` for `features_acf`, and `max(.period, 5L)` for `features_pacf`
 #' @param ... Further arguments passed to [`stats::acf()`] or [`stats::pacf()`]
 #'
@@ -430,10 +430,10 @@ roll_stability <- function(x, .size = NULL, .period = 1) {
 #'
 #' @author Thiyanga Talagala
 #' @export
-features_acf <- function(x, .period = 1, lag.max = NULL, ...) {
-  acfx <- stats::acf(x, lag.max = lag.max%||%max(.period, 10L), plot = FALSE, na.action = stats::na.pass ,...)
-  acfdiff1x <- stats::acf(diff(x, differences = 1), lag.max = lag.max%||%10L, plot = FALSE, na.action = stats::na.pass)
-  acfdiff2x <- stats::acf(diff(x, differences = 2), lag.max = lag.max%||%10L, plot = FALSE, na.action = stats::na.pass)
+features_acf <- function(x, .period = 1, lag_max = NULL, ...) {
+  acfx <- stats::acf(x, lag.max = lag_max%||%max(.period, 10L), plot = FALSE, na.action = stats::na.pass ,...)
+  acfdiff1x <- stats::acf(diff(x, differences = 1), lag.max = lag_max%||%10L, plot = FALSE, na.action = stats::na.pass)
+  acfdiff2x <- stats::acf(diff(x, differences = 2), lag.max = lag_max%||%10L, plot = FALSE, na.action = stats::na.pass)
 
   # first autocorrelation coefficient
   acf_1 <- acfx$acf[2L]
@@ -483,26 +483,26 @@ features_acf <- function(x, .period = 1, lag.max = NULL, ...) {
 #' lag is also returned.
 #' @author Thiyanga Talagala
 #' @export
-features_pacf <- function(x, .period = 1, lag.max = NULL, ...) {
-  pacfx <- stats::pacf(x, lag.max = lag.max%||%max(.period, 5L),
+features_pacf <- function(x, .period = 1, lag_max = NULL, ...) {
+  pacfx <- stats::pacf(x, lag.max = lag_max%||%max(.period, 5L),
                        plot = FALSE, ...)$acf
   # Sum of squared of first 5 partial autocorrelation coefficients
   pacf_5 <- sum((pacfx[seq(5L)])^2)
 
   # Sum of squared of first 5 partial autocorrelation coefficients of difference series
   diff1_pacf_5 <- sum((stats::pacf(diff(x, differences = 1),
-                                   lag.max = lag.max%||%max(.period, 5L),
+                                   lag.max = lag_max%||%max(.period, 5L),
                                    plot = FALSE, ...)$acf)^2)
 
   # Sum of squared of first 5 partial autocorrelation coefficients of twice differenced series
   diff2_pacf_5 <- sum((stats::pacf(diff(x, differences = 2),
-                                   lag.max = lag.max%||%max(.period, 5L),
+                                   lag.max = lag_max%||%max(.period, 5L),
                                    plot = FALSE, ...)$acf)^2)
 
   output <- c(
     pacf5 = unname(pacf_5),
-    diff1x_pacf5 = unname(diff1_pacf_5),
-    diff2x_pacf5 = unname(diff2_pacf_5)
+    diff1_pacf5 = unname(diff1_pacf_5),
+    diff2_pacf5 = unname(diff2_pacf_5)
   )
   if (.period > 1) {
     output <- c(output, seas_pacf = pacfx[.period])
