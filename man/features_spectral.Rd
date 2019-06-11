@@ -8,6 +8,8 @@ features_spectral(x, ...)
 }
 \arguments{
 \item{x}{a univariate time series}
+
+\item{...}{Further arguments for \code{\link[ForeCA:spectral_entropy]{ForeCA::spectral_entropy()}}}
 }
 \value{
 A numeric value.

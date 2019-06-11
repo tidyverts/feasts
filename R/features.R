@@ -352,6 +352,7 @@ shift_kl_max <- function(x, .size = NULL, .period = 1) {
 #' Computes the spectral entropy of a time series
 #'
 #' @inheritParams shift_level_max
+#' @param ... Further arguments for [`ForeCA::spectral_entropy()`]
 #'
 #' @return A numeric value.
 #' @author Rob J Hyndman
