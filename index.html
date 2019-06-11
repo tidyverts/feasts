@@ -148,18 +148,18 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">aus_retail <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">features</span>(Turnover, feat_stl)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; # A tibble: 152 x 9</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;    State Industry trend_strength seasonal_streng…   spike linearity curvature seasonal_peak_y…</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;  1 Aust… Cafes, …          0.989            0.540 6.17e-5     224.      48.5                 0</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;  2 Aust… Cafes, …          0.993            0.609 1.16e-4     336.      76.1                 0</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;  3 Aust… Clothin…          0.990            0.914 4.93e-6     129.      16.8                 9</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt;  4 Aust… Clothin…          0.991            0.947 2.60e-5     192.      18.4                 9</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt;  5 Aust… Departm…          0.975            0.977 2.85e-5     130.     -42.8                 9</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;  6 Aust… Electri…          0.991            0.925 3.19e-5     232.      -8.24                9</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;  7 Aust… Food re…          0.999            0.874 2.50e-4    1247.     197.                  9</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;  8 Aust… Footwea…          0.978            0.929 7.75e-6      63.0      1.60                9</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt;  9 Aust… Furnitu…          0.979            0.657 4.87e-5     139.     -22.5                 9</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; 10 Aust… Hardwar…          0.992            0.892 1.56e-5     170.      44.1                 9</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;    State Industry trend_strength seasonal_streng… spikiness linearity curvature seasonal_peak_y…</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;  1 Aust… Cafes, …          0.989            0.540   6.17e-5     224.      48.5                 0</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;  2 Aust… Cafes, …          0.993            0.609   1.16e-4     336.      76.1                 0</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;  3 Aust… Clothin…          0.990            0.914   4.93e-6     129.      16.8                 9</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt;  4 Aust… Clothin…          0.991            0.947   2.60e-5     192.      18.4                 9</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt;  5 Aust… Departm…          0.975            0.977   2.85e-5     130.     -42.8                 9</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;  6 Aust… Electri…          0.991            0.925   3.19e-5     232.      -8.24                9</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;  7 Aust… Food re…          0.999            0.874   2.50e-4    1247.     197.                  9</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;  8 Aust… Footwea…          0.978            0.929   7.75e-6      63.0      1.60                9</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt;  9 Aust… Furnitu…          0.979            0.657   4.87e-5     139.     -22.5                 9</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; 10 Aust… Hardwar…          0.992            0.892   1.56e-5     170.      44.1                 9</span></a>
 <a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; # … with 142 more rows, and 1 more variable: seasonal_trough_year &lt;dbl&gt;</span></a></code></pre></div>
 <p>This allows you to visualise the behaviour of many time series (where the plotting methods above would show too much information).</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">aus_retail <span class="op">%&gt;%</span><span class="st"> </span></a>
