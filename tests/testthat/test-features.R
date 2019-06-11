@@ -80,19 +80,3 @@ test_that("model based features", {
     tolerance = 0.01
   )
 })
-
-test_that("compengine features", {
-  ft <- features(www_usage, value, features_compengine)
-  expect_equivalent(
-    as_list(ft),
-    list(embed2_incircle_1 = 0, embed2_incircle_2 = 0,
-         firstmin_ac = 21, trev_num = 109.1515,
-         motiftwo_entro3 = 1.201, walker_propcross = 0.0404,
-         localsimple_mean_ac = 13, localsimple_lfit_ac = 6,
-         sampen_first = 2.4129, sd_deriv_1 = 5.673,
-         bootstrap_stationarity_50 = 10.71, bootstrap_stationarity_ac2 = 7.24,
-         histogram_mode = 90, outlier_include = 0.44, fluctuation = 0.229),
-    tolerance = 0.1
-  )
-})
-
