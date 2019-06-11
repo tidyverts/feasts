@@ -260,7 +260,7 @@
       <tr>
         
         <td>
-          <p><code><a href="tile_features.html">lumpiness()</a></code> <code><a href="tile_features.html">stability()</a></code> </p>
+          <p><code><a href="tile_features.html">roll_lumpiness()</a></code> <code><a href="tile_features.html">roll_stability()</a></code> </p>
         </td>
         <td><p>Time series features based on tiled windows</p></td>
       </tr>
@@ -274,53 +274,9 @@
       <tr>
         
         <td>
-          <p><code><a href="max_level_shift.html">max_level_shift()</a></code> <code><a href="max_level_shift.html">max_var_shift()</a></code> <code><a href="max_level_shift.html">max_kl_shift()</a></code> </p>
+          <p><code><a href="shift_level_max.html">shift_level_max()</a></code> <code><a href="shift_level_max.html">shift_var_max()</a></code> <code><a href="shift_level_max.html">shift_kl_max()</a></code> </p>
         </td>
         <td><p>Sliding window features</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-compengine-features" class="hasAnchor"><a href="#section-compengine-features" class="anchor"></a>CompEngine features</h2>
-          <p class="section-desc"><p>Calculate the features that have been used in CompEngine database, as implemented in the <a href="https://hctsa-users.gitbook.io/hctsa-manual/">hctsa</a> library</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="features_compengine.html">features_compengine()</a></code> </p>
-        </td>
-        <td><p>CompEngine feature set</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="features_autocorrelation.html">features_autocorrelation()</a></code> </p>
-        </td>
-        <td><p>The autocorrelation feature set from software package <code>hctsa</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="features_prediction.html">features_prediction()</a></code> </p>
-        </td>
-        <td><p>The prediction feature set from software package <code>hctsa</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="features_stationarity.html">features_stationarity()</a></code> </p>
-        </td>
-        <td><p>The stationarity feature set from software package <code>hctsa</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="features_distribution.html">features_distribution()</a></code> </p>
-        </td>
-        <td><p>The distribution feature set from software package <code>hctsa</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="features_scaling.html">features_scaling()</a></code> </p>
-        </td>
-        <td><p>The scaling feature set from software package <code>hctsa</code></p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -338,7 +294,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="arch_stat.html">arch_stat()</a></code> </p>
+          <p><code><a href="stat_arch_lm.html">stat_arch_lm()</a></code> </p>
         </td>
         <td><p>ARCH LM Statistic</p></td>
       </tr><tr>
@@ -350,9 +306,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="entropy.html">entropy()</a></code> </p>
+          <p><code><a href="features_spectral.html">features_spectral()</a></code> </p>
         </td>
-        <td><p>Spectral entropy of a time series</p></td>
+        <td><p>Spectral features of a time series</p></td>
       </tr><tr>
         
         <td>
@@ -362,7 +318,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="hurst.html">hurst()</a></code> </p>
+          <p><code><a href="coef_hurst.html">coef_hurst()</a></code> </p>
         </td>
         <td><p>Hurst coefficient</p></td>
       </tr><tr>
@@ -386,7 +342,6 @@
       <li><a href="#section-portmanteau-tests">Portmanteau tests</a></li>
       <li><a href="#section-tiling-window-features">Tiling window features</a></li>
       <li><a href="#section-sliding-window-features">Sliding window features</a></li>
-      <li><a href="#section-compengine-features">CompEngine features</a></li>
       <li><a href="#section-other-features">Other features</a></li>
     </ul>
   </div>

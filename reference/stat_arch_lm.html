@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Converts an input vector into a binarized version from software package <code>hctsa</code> — binarize_mean • feasts</title>
+<title>ARCH LM Statistic — stat_arch_lm • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,9 +37,12 @@
 
 
 
-<meta property="og:title" content="Converts an input vector into a binarized version from software package <code>hctsa</code> — binarize_mean" />
+<meta property="og:title" content="ARCH LM Statistic — stat_arch_lm" />
 
-<meta property="og:description" content="Converts an input vector into a binarized version from software package hctsa" />
+<meta property="og:description" content="Computes a statistic based on the Lagrange Multiplier (LM) test of Engle (1982) for
+autoregressive conditional heteroscedasticity (ARCH). The statistic returned is
+the \(R^2\) value of an autoregressive model of order lags applied
+to \(x^2\)." />
 
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -105,36 +108,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Converts an input vector into a binarized version from software package <code>hctsa</code></h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/hctsa_features.R'><code>R/hctsa_features.R</code></a></small>
-    <div class="hidden name"><code>binarize_mean.Rd</code></div>
+    <h1>ARCH LM Statistic</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/features.R'><code>R/features.R</code></a></small>
+    <div class="hidden name"><code>stat_arch_lm.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Converts an input vector into a binarized version from software package <code>hctsa</code></p>
+    <p>Computes a statistic based on the Lagrange Multiplier (LM) test of Engle (1982) for
+autoregressive conditional heteroscedasticity (ARCH). The statistic returned is
+the \(R^2\) value of an autoregressive model of order <code>lags</code> applied
+to \(x^2\).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>binarize_mean</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>stat_arch_lm</span>(<span class='no'>x</span>, <span class='kw'>lags</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>demean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a vector</p></td>
+      <td><p>a univariate time series</p></td>
+    </tr>
+    <tr>
+      <th>lags</th>
+      <td><p>Number of lags to use in the test</p></td>
+    </tr>
+    <tr>
+      <th>demean</th>
+      <td><p>Should data have mean removed before test applied?</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Time-series values above its mean are given 1, and those below the mean are 0.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).</p>
-<p>B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).</p>
+    <p>A numeric value.</p>
     
 
   </div>
@@ -144,12 +153,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#references">References</a></li>
           </ul>
 
-    <h2>Author</h2>
-    <p>Yangzhuoran Yang</p>
   </div>
 </div>
 

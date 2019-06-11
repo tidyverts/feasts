@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CompEngine feature set — features_compengine • feasts</title>
+<title>Hurst coefficient — coef_hurst • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,10 +37,10 @@
 
 
 
-<meta property="og:title" content="CompEngine feature set — features_compengine" />
+<meta property="og:title" content="Hurst coefficient — coef_hurst" />
 
-<meta property="og:description" content="Calculate the features that have been used in CompEngine database, using method introduced in package
-hctsa." />
+<meta property="og:description" content="Computes the Hurst coefficient indicating the level of fractional differencing
+of a time series." />
 
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -106,50 +106,33 @@ hctsa." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>CompEngine feature set</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/hctsa_features.R'><code>R/hctsa_features.R</code></a></small>
-    <div class="hidden name"><code>features_compengine.Rd</code></div>
+    <h1>Hurst coefficient</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/features.R'><code>R/features.R</code></a></small>
+    <div class="hidden name"><code>coef_hurst.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Calculate the features that have been used in CompEngine database, using method introduced in package
-<code>hctsa</code>.</p>
+    <p>Computes the Hurst coefficient indicating the level of fractional differencing
+of a time series.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>features_compengine</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>coef_hurst</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a vector</p></td>
+      <td><p>a vector. If missing values are present, the largest
+contiguous portion of the vector is used.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector with CompEngine features</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The features involved can be grouped as <code>autocorrelation</code>,
-<code>prediction</code>, <code>stationarity</code>, <code>distribution</code>, and <code>scaling</code>.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).</p>
-<p>B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='features_autocorrelation.html'>features_autocorrelation</a></code></p>
-<p><code><a href='features_prediction.html'>features_prediction</a></code></p>
-<p><code><a href='features_stationarity.html'>features_stationarity</a></code></p>
-<p><code><a href='features_distribution.html'>features_distribution</a></code></p>
-<p><code><a href='features_scaling.html'>features_scaling</a></code></p></div>
+    <p>A numeric value.</p>
     
 
   </div>
@@ -159,16 +142,10 @@ hctsa." />
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
           </ul>
 
     <h2>Author</h2>
-    <p>Yangzhuoran Yang</p>
+    <p>Rob J Hyndman</p>
   </div>
 </div>
 

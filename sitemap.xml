@@ -16,28 +16,16 @@
     <loc>https://feasts.tidyverts.org/reference/X11.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/arch_stat.html</loc>
-  </url>
-  <url>
     <loc>https://feasts.tidyverts.org/reference/autoplot.tbl_cf.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/binarize_mean.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/bootstrap_stationarity.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/classical_decomposition.html</loc>
   </url>
   <url>
+    <loc>https://feasts.tidyverts.org/reference/coef_hurst.html</loc>
+  </url>
+  <url>
     <loc>https://feasts.tidyverts.org/reference/crossing_points.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/embed2_incircle.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/entropy.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/feasts-package.html</loc>
@@ -46,40 +34,16 @@
     <loc>https://feasts.tidyverts.org/reference/features_acf.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/features_autocorrelation.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/features_compengine.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/features_distribution.html</loc>
-  </url>
-  <url>
     <loc>https://feasts.tidyverts.org/reference/features_pacf.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/features_prediction.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/features_scaling.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/features_stationarity.html</loc>
+    <loc>https://feasts.tidyverts.org/reference/features_spectral.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/features_stl.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/firstmin_ac.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/firstzero_ac.html</loc>
-  </url>
-  <url>
     <loc>https://feasts.tidyverts.org/reference/flat_spots.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/fluctuation_analysis.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/gg_arma.html</loc>
@@ -100,54 +64,27 @@
     <loc>https://feasts.tidyverts.org/reference/guerrero.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/histogram_mode.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/hurst.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/localsimple_taures.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/max_level_shift.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/motiftwo_entro3.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/outlier_include.html</loc>
-  </url>
-  <url>
     <loc>https://feasts.tidyverts.org/reference/portmanteau_tests.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/sampen_first.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/sampenc.html</loc>
-  </url>
-  <url>
     <loc>https://feasts.tidyverts.org/reference/scale_cf_lag.html</loc>
   </url>
   <url>
-    <loc>https://feasts.tidyverts.org/reference/sd_deriv_1.html</loc>
+    <loc>https://feasts.tidyverts.org/reference/shift_level_max.html</loc>
+  </url>
+  <url>
+    <loc>https://feasts.tidyverts.org/reference/stat_arch_lm.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/tile_features.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/trev_num.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/unitroot.html</loc>
   </url>
   <url>
     <loc>https://feasts.tidyverts.org/reference/unitroot_ndiffs.html</loc>
-  </url>
-  <url>
-    <loc>https://feasts.tidyverts.org/reference/walker_propcross.html</loc>
   </url>
 </urlset>
