@@ -8,8 +8,6 @@ localsimple_taures(x, fc_method = c("mean", "lfit"),
   train_length = NULL)
 }
 \arguments{
-\item{x}{a vector}
-
 \item{fc_method}{the forecasting method, default to \code{mean}.
 \code{mean}: local mean prediction using the past \code{train_length} values.
 \code{lfit}: local linear prediction using the past \code{train_length} values.}

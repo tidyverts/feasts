@@ -7,8 +7,6 @@
 sampenc(x, M = 6, r = 0.3)
 }
 \arguments{
-\item{x}{a vector}
-
 \item{M}{embedding dimension}
 
 \item{r}{threshold}

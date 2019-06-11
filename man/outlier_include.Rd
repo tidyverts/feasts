@@ -7,8 +7,6 @@
 outlier_include(x, scale = TRUE)
 }
 \arguments{
-\item{x}{a vector}
-
 \item{scale}{Should the data be scaled before computing the statistic.}
 }
 \value{

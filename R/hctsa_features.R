@@ -1,173 +1,3 @@
-#' CompEngine feature set
-#'
-#' Calculate the features that have been used in CompEngine database, using method introduced in package
-#' \code{hctsa}.
-#'
-#' The features involved can be grouped as \code{autocorrelation},
-#' \code{prediction}, \code{stationarity}, \code{distribution}, and \code{scaling}.
-#'
-#' @param x a vector
-#'
-#' @return a vector with CompEngine features
-#' @seealso \code{\link{features_autocorrelation}}
-#' @seealso \code{\link{features_prediction}}
-#' @seealso \code{\link{features_stationarity}}
-#' @seealso \code{\link{features_distribution}}
-#' @seealso \code{\link{features_scaling}}
-#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
-#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
-#' @author Yangzhuoran Yang
-#'
-#' @export
-features_compengine <- function(x) {
-  c(features_autocorrelation(x), features_prediction(x),
-    features_stationarity(x), features_distribution(x), features_scaling(x))
-}
-
-#' The autocorrelation feature set from software package \code{hctsa}
-#'
-#' Calculate the features that grouped as autocorrelation set,
-#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
-#'
-#' Features in this set are \code{embed2_incircle_1},
-#' \code{embed2_incircle_2},
-#' \code{ac_9},
-#' \code{firstmin_ac},
-#' \code{trev_num},
-#' \code{motiftwo_entro3},
-#' and \code{walker_propcross}.
-#'
-#' @inheritParams features_compengine
-#'
-#' @return a vector with autocorrelation features
-#' @seealso \code{\link{embed2_incircle}}
-#' @seealso \code{\link{firstmin_ac}}
-#' @seealso \code{\link{trev_num}}
-#' @seealso \code{\link{motiftwo_entro3}}
-#' @seealso \code{\link{walker_propcross}}
-#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
-#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
-#' @author Yangzhuoran Yang
-#'
-#' @export
-features_autocorrelation <- function(x) {
-  acfv <- stats::acf(x, length(x) - 1, plot = FALSE, na.action = stats::na.pass)
-  output <- c(
-    embed2_incircle(x, 1, acfv = acfv),
-    embed2_incircle(x, 2, acfv = acfv),
-    firstmin_ac(x, acfv),
-    trev_num(x),
-    motiftwo_entro3(x),
-    walker_propcross(x)
-  )
-  return(output)
-}
-
-
-#' The prediction feature set from software package \code{hctsa}
-#'
-#' Calculate the features that grouped as prediction set,
-#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
-#'
-#' Features in this set are \code{localsimple_mean_ac},
-#' \code{localsimple_lfit_ac},
-#' and \code{sampen_first}.
-#'
-#' @inheritParams features_compengine
-#'
-#' @return a vector with autocorrelation features
-#' @seealso \code{\link{localsimple_taures}}
-#' @seealso \code{\link{sampen_first}}
-#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
-#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
-#' @author Yangzhuoran Yang
-#'
-#' @export
-features_prediction <- function(x) {
-  output <- c(
-    localsimple_taures(x, "mean"),
-    localsimple_taures(x, "lfit"),
-    sampen_first(x)
-  )
-  return(output)
-}
-
-
-#' The stationarity feature set from software package \code{hctsa}
-#'
-#' Calculate the features that grouped as stationarity set,
-#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
-#'
-#' Features in this set are \code{sd_deriv_1},
-#' \code{spreadrandomlocal_meantaul_50},
-#' and \code{spreadrandomlocal_meantaul_ac2}.
-#'
-#' @inheritParams features_compengine
-#'
-#' @return a vector with autocorrelation features
-#' @seealso \code{\link{sd_deriv_1}}
-#' @seealso \code{\link{bootstrap_stationarity}}
-#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
-#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
-#' @author Yangzhuoran Yang
-#'
-#' @export
-features_stationarity <- function(x) {
-  output <- c(
-    sd_deriv_1(x),
-    bootstrap_stationarity(x, 50),
-    bootstrap_stationarity(x, "ac2")
-  )
-  return(output)
-}
-
-#' The distribution feature set from software package \code{hctsa}
-#'
-#' Calculate the features that grouped as distribution set,
-#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
-#'
-#' Features in this set are \code{histogram_mode_10}
-#' and \code{outlierinclude_mdrmd}.
-#'
-#' @inheritParams features_compengine
-#'
-#' @return a vector with autocorrelation features
-#' @seealso \code{\link{histogram_mode}}
-#' @seealso \code{\link{outlier_include}}
-#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
-#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
-#' @author Yangzhuoran Yang
-#'
-#' @export
-features_distribution <- function(x) {
-  output <- c(
-    histogram_mode(x),
-    outlier_include(x)
-  )
-  return(output)
-}
-
-#' The scaling feature set from software package \code{hctsa}
-#'
-#' Calculate the features that grouped as scaling set,
-#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
-#'
-#' Feature in this set is \code{fluctuation_analysis}.
-#'
-#' @inheritParams features_compengine
-#'
-#' @return a vector with autocorrelation features
-#' @seealso \code{\link{fluctuation_analysis}}
-#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
-#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
-#' @author Yangzhuoran Yang
-#'
-#' @export
-features_scaling <- function(x) {
-  output <- c(fluctuation_analysis(x))
-  return(output)
-}
-
 # CO_Embed2_Basic_tau_incircle_1
 #' Points inside a given circular boundary in a 2-d embedding space from software package \code{hctsa}
 #'
@@ -771,3 +601,148 @@ fluctuation_analysis <- function(x) {
   prop_r1 <- length(r1) / ntt
   c(fluctuation = prop_r1)
 }
+
+#' The autocorrelation feature set from software package \code{hctsa}
+#'
+#' Calculate the features that grouped as autocorrelation set,
+#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
+#'
+#' Features in this set are \code{embed2_incircle_1},
+#' \code{embed2_incircle_2},
+#' \code{ac_9},
+#' \code{firstmin_ac},
+#' \code{trev_num},
+#' \code{motiftwo_entro3},
+#' and \code{walker_propcross}.
+#'
+#' @inheritParams features_compengine
+#'
+#' @return a vector with autocorrelation features
+#' @seealso \code{\link{embed2_incircle}}
+#' @seealso \code{\link{firstmin_ac}}
+#' @seealso \code{\link{trev_num}}
+#' @seealso \code{\link{motiftwo_entro3}}
+#' @seealso \code{\link{walker_propcross}}
+#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
+#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
+#' @author Yangzhuoran Yang
+#'
+#' @export
+features_autocorrelation <- list(
+  embed2_incircle, firstmin_ac, trev_num, motiftwo_entro3, walker_propcross
+)
+
+#' The prediction feature set from software package \code{hctsa}
+#'
+#' Calculate the features that grouped as prediction set,
+#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
+#'
+#' Features in this set are \code{localsimple_mean_ac},
+#' \code{localsimple_lfit_ac},
+#' and \code{sampen_first}.
+#'
+#' @inheritParams features_compengine
+#'
+#' @return a vector with autocorrelation features
+#' @seealso \code{\link{localsimple_taures}}
+#' @seealso \code{\link{sampen_first}}
+#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
+#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
+#' @author Yangzhuoran Yang
+#'
+#' @export
+features_prediction <- list(
+  ~ localsimple_taures(., "mean"),
+  ~ localsimple_taures(., "lfit"),
+  sampen_first
+)
+
+#' The stationarity feature set from software package \code{hctsa}
+#'
+#' Calculate the features that grouped as stationarity set,
+#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
+#'
+#' Features in this set are \code{sd_deriv_1},
+#' \code{spreadrandomlocal_meantaul_50},
+#' and \code{spreadrandomlocal_meantaul_ac2}.
+#'
+#' @inheritParams features_compengine
+#'
+#' @return a vector with autocorrelation features
+#' @seealso \code{\link{sd_deriv_1}}
+#' @seealso \code{\link{bootstrap_stationarity}}
+#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
+#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
+#' @author Yangzhuoran Yang
+#'
+#' @export
+features_stationarity <- list(
+  sd_deriv_1, bootstrap_stationarity, ~ bootstrap_stationarity(., "ac2")
+)
+
+#' The distribution feature set from software package \code{hctsa}
+#'
+#' Calculate the features that grouped as distribution set,
+#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
+#'
+#' Features in this set are \code{histogram_mode_10}
+#' and \code{outlierinclude_mdrmd}.
+#'
+#' @inheritParams features_compengine
+#'
+#' @return a vector with autocorrelation features
+#' @seealso \code{\link{histogram_mode}}
+#' @seealso \code{\link{outlier_include}}
+#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
+#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
+#' @author Yangzhuoran Yang
+#'
+#' @export
+features_distribution <- list(
+  histogram_mode,
+  outlier_include
+)
+
+#' The scaling feature set from software package \code{hctsa}
+#'
+#' Calculate the features that grouped as scaling set,
+#' which have been used in CompEngine database, using method introduced in package \code{hctsa}.
+#'
+#' Feature in this set is \code{fluctuation_analysis}.
+#'
+#' @inheritParams features_compengine
+#'
+#' @return a vector with autocorrelation features
+#' @seealso \code{\link{fluctuation_analysis}}
+#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
+#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
+#' @author Yangzhuoran Yang
+#'
+#' @export
+features_scaling <- list(fluctuation_analysis)
+
+#' CompEngine feature set
+#'
+#' Calculate the features that have been used in CompEngine database, using method introduced in package
+#' \code{hctsa}.
+#'
+#' The features involved can be grouped as \code{autocorrelation},
+#' \code{prediction}, \code{stationarity}, \code{distribution}, and \code{scaling}.
+#'
+#' @param x a vector
+#'
+#' @return a vector with CompEngine features
+#' @seealso \code{\link{features_autocorrelation}}
+#' @seealso \code{\link{features_prediction}}
+#' @seealso \code{\link{features_stationarity}}
+#' @seealso \code{\link{features_distribution}}
+#' @seealso \code{\link{features_scaling}}
+#' @references B.D. Fulcher and N.S. Jones. hctsa: A computational framework for automated time-series phenotyping using massive feature extraction. Cell Systems 5, 527 (2017).
+#' @references B.D. Fulcher, M.A. Little, N.S. Jones Highly comparative time-series analysis: the empirical structure of time series and their methods. J. Roy. Soc. Interface 10, 83 (2013).
+#' @author Yangzhuoran Yang
+#'
+#' @export
+features_compengine <- list(
+  features_autocorrelation, features_prediction,
+  features_stationarity, features_distribution, features_scaling
+)

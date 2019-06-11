@@ -6,9 +6,6 @@
 \usage{
 sampen_first(x)
 }
-\arguments{
-\item{x}{a vector}
-}
 \description{
 Modified from the Ben Fulcher's \code{EN_SampEn} which uses code from PhysioNet.
 The publicly-available PhysioNet Matlab code, sampenc (renamed here to

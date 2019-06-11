@@ -6,9 +6,6 @@
 \usage{
 fluctuation_analysis(x)
 }
-\arguments{
-\item{x}{a vector}
-}
 \description{
 Fits a polynomial of order 1 and then returns the
 range. The order of fluctuations is 2, corresponding to root mean

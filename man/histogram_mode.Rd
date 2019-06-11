@@ -7,8 +7,6 @@
 histogram_mode(x, bins = 10)
 }
 \arguments{
-\item{x}{a vector}
-
 \item{bins}{the number of bins to use.}
 }
 \value{
