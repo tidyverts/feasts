@@ -91,20 +91,20 @@ series decomposition methods:
 
 ``` r
 aus_production %>% STL(Beer ~ season(window = Inf))
-#> # A dable:           218 x 7 [1Q]
+#> # A dable:           218 x 6 [1Q]
 #> # STL Decomposition: Beer = trend + season_year + remainder
-#>    lst_data            Quarter  Beer trend season_year remainder seas_adjust
-#>    <list>                <qtr> <dbl> <dbl>       <dbl>     <dbl>       <dbl>
-#>  1 <tsibble [218 × 7]> 1956 Q1   284  272.        2.14     10.1         282.
-#>  2 <tsibble [218 × 7]> 1956 Q2   213  264.      -42.6      -8.56        256.
-#>  3 <tsibble [218 × 7]> 1956 Q3   227  258.      -28.5      -2.34        255.
-#>  4 <tsibble [218 × 7]> 1956 Q4   308  253.       69.0     -14.4         239.
-#>  5 <tsibble [218 × 7]> 1957 Q1   262  257.        2.14      2.55        260.
-#>  6 <tsibble [218 × 7]> 1957 Q2   228  261.      -42.6       9.47        271.
-#>  7 <tsibble [218 × 7]> 1957 Q3   236  263.      -28.5       1.80        264.
-#>  8 <tsibble [218 × 7]> 1957 Q4   320  264.       69.0     -12.7         251.
-#>  9 <tsibble [218 × 7]> 1958 Q1   272  266.        2.14      4.32        270.
-#> 10 <tsibble [218 × 7]> 1958 Q2   233  266.      -42.6       9.72        276.
+#>    Quarter  Beer trend season_year remainder season_adjust
+#>      <qtr> <dbl> <dbl>       <dbl>     <dbl>         <dbl>
+#>  1 1956 Q1   284  272.        2.14     10.1           282.
+#>  2 1956 Q2   213  264.      -42.6      -8.56          256.
+#>  3 1956 Q3   227  258.      -28.5      -2.34          255.
+#>  4 1956 Q4   308  253.       69.0     -14.4           239.
+#>  5 1957 Q1   262  257.        2.14      2.55          260.
+#>  6 1957 Q2   228  261.      -42.6       9.47          271.
+#>  7 1957 Q3   236  263.      -28.5       1.80          264.
+#>  8 1957 Q4   320  264.       69.0     -12.7           251.
+#>  9 1958 Q1   272  266.        2.14      4.32          270.
+#> 10 1958 Q2   233  266.      -42.6       9.72          276.
 #> # … with 208 more rows
 ```
 
