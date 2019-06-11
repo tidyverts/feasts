@@ -24,7 +24,8 @@ test_that("unit root features", {
 })
 
 test_that("basic features", {
-  basic_features <- list(crossing_points, flat_spots, entropy, lumpiness, stability)
+  basic_features <- list(crossing_points, flat_spots, features_spectral,
+                         roll_lumpiness, roll_stability)
   ft <- features(www_usage, value, basic_features)
   expect_equivalent(
     as_list(ft),
@@ -39,29 +40,29 @@ test_that("*cf features", {
   ft <- features(www_usage, value, cf_features)
   expect_equivalent(
     as_list(ft),
-    list(x_acf1 = 0.960, x_acf10 = 4.19,
+    list(acf1 = 0.960, acf10 = 4.19,
          diff1_acf1 = 0.792, diff1_acf10 = 1.41,
          diff2_acf1 = 0.174, diff2_acf10 = 0.334,
-         x_pacf5 = 1.04, diff1x_pacf5 = 0.802, diff2x_pacf5 = 0.222),
+         pacf5 = 1.04, diff1x_pacf5 = 0.802, diff2x_pacf5 = 0.222),
     tolerance = 0.01
   )
 })
 
 
 test_that("*shift features", {
-  shift_features <- list(max_level_shift, max_var_shift, max_kl_shift)
+  shift_features <- list(shift_level_max, shift_var_max, shift_kl_max)
   ft <- features(www_usage, value, shift_features)
   expect_equivalent(
     as_list(ft),
-    list(level_shift_max = 71.7, level_shift_index = 84,
-         var_shift_max = 749, var_shift_index = 54,
-         kl_shift_max = 1.44, kl_shift_index = 57),
+    list(shift_level_max = 71.7, shift_level_index = 84,
+         shift_var_max = 749, shift_var_index = 54,
+         shift_kl_max = 1.44, shift_kl_index = 57),
     tolerance = 0.01
   )
 })
 
 test_that("model based features", {
-  model_features <- list(arch_stat, hurst, features_stl)
+  model_features <- list(stat_arch_lm, coef_hurst, features_stl)
   ft <- features(www_usage, value, model_features)
   expect_equivalent(
     as_list(ft),
