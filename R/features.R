@@ -318,7 +318,7 @@ shift_kl_max <- function(x, .size = NULL, .period = 1) {
   bw <- stats::bw.nrd0(tmpx)
   lenx <- length(x)
   if (lenx <= (2 * .size)) {
-    return(c(shift_kl_max = NA_real_, time_kl_shift = NA_real_))
+    abort("length of `x` is too short for `.size`")
   }
 
   densities <- map(xgrid, function(xgrid) stats::dnorm(xgrid, mean = x, sd = bw))
