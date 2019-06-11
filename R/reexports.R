@@ -1,6 +1,6 @@
-#' @importFrom fablelite %>%
+#' @importFrom dplyr %>%
 #' @export
-fablelite::`%>%`
+dplyr::`%>%`
 
 #' @export
 tsibble::as_tsibble
@@ -12,7 +12,3 @@ ggplot2::autoplot
 #' @importFrom ggplot2 autolayer
 #' @export
 ggplot2::autolayer
-
-#' @importFrom fablelite components
-#' @export
-fablelite::components

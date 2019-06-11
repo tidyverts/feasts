@@ -7,7 +7,6 @@
 \alias{as_tsibble}
 \alias{autoplot}
 \alias{autolayer}
-\alias{components}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -15,7 +14,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{fablelite}{\code{\link[fablelite]{\%>\%}}, \code{\link[fablelite]{components}}}
+  \item{dplyr}{\code{\link[dplyr]{\%>\%}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{autoplot}}, \code{\link[ggplot2]{autolayer}}}
 
