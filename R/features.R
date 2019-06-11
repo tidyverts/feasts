@@ -26,7 +26,7 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
   mat <- embed(x^2, lags + 1)
   fit <- lm(mat[, 1] ~ mat[, -1])
   arch.lm <- summary(fit)
-  c(arch_lm = arch.lm$r.squared)
+  c(stat_arch_lm = arch.lm$r.squared)
 }
 
 #' STL features
