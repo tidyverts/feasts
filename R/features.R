@@ -378,7 +378,7 @@ feat_spectral <- function(x, ...) {
 #'
 #' @importFrom stats var
 #' @export
-roll_lumpiness <- function(x, .size = NULL, .period = 1) {
+var_tiled_var <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -391,12 +391,12 @@ roll_lumpiness <- function(x, .size = NULL, .period = 1) {
   } else {
     lumpiness <- var(varx, na.rm = TRUE)
   }
-  return(c(lumpiness = lumpiness))
+  return(c(var_tiled_var = lumpiness))
 }
 
 #' @rdname tile_features
 #' @export
-roll_stability <- function(x, .size = NULL, .period = 1) {
+var_tiled_mean <- function(x, .size = NULL, .period = 1) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -409,7 +409,7 @@ roll_stability <- function(x, .size = NULL, .period = 1) {
   } else {
     stability <- var(meanx, na.rm = TRUE)
   }
-  return(c(stability = stability))
+  return(c(var_tiled_mean = stability))
 }
 
 #' Autocorrelation-based features
@@ -417,7 +417,7 @@ roll_stability <- function(x, .size = NULL, .period = 1) {
 #' Computes various measures based on autocorrelation coefficients of the
 #' original series, first-differenced series and second-differenced series
 #'
-#' @inheritParams roll_stability
+#' @inheritParams var_tiled_var
 #' @param lag_max maximum lag at which to calculate the acf. The default is
 #' `max(.period, 10L)` for `feat_acf`, and `max(.period, 5L)` for `feat_pacf`
 #' @param ... Further arguments passed to [`stats::acf()`] or [`stats::pacf()`]

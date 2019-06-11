@@ -77,8 +77,8 @@ reference:
   desc: >
     Computes feature of a time series based on tiled (non-overlapping) windows.
   contents:
-    - roll_lumpiness
-    - roll_stability
+    - var_tiled_var
+    - var_tiled_mean
 
 - title: Sliding window features
   desc: >
