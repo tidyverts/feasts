@@ -16,7 +16,7 @@
 #' @export
 ljung_box <- function(x, lag = 1, dof = 0, ...){
   out <- stats::Box.test(x, lag = lag, type = "Ljung-Box", fitdf = dof)
-  c(lb_stat = unname(out$statistic), lb_pval = out$p.value)
+  c(lb_stat = unname(out$statistic), lb_pvalue = out$p.value)
 }
 
 #' @rdname portmanteau_tests
@@ -25,7 +25,7 @@ ljung_box <- function(x, lag = 1, dof = 0, ...){
 #' @export
 box_pierce <- function(x, lag = 1, dof = 0, ...){
   out <- stats::Box.test(x, lag = lag, type = "Box-Pierce", fitdf = dof)
-  c(bp_stat = unname(out$statistic), bp_pval = out$p.value)
+  c(bp_stat = unname(out$statistic), bp_pvalue = out$p.value)
 }
 
 #' @rdname portmanteau_tests

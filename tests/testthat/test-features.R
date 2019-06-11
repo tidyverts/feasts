@@ -16,27 +16,27 @@ test_that("guerrero()", {
 
 test_that("unit root features", {
   ft <- features(www_usage, value, list(unitroot_kpss, unitroot_pp, unitroot_ndiffs))
-  expect_equal(ft$kpss_pval < 0.05, as_logical(ft$ndiffs))
-  expect_equal(ft$pp_pval, 0.1)
+  expect_equal(ft$kpss_pvalue < 0.05, as_logical(ft$ndiffs))
+  expect_equal(ft$pp_pvalue, 0.1)
 
-  ft <- features(lung_deaths_long, value, list(features_stl, unitroot_nsdiffs))
+  ft <- features(lung_deaths_long, value, list(feat_stl, unitroot_nsdiffs))
   expect_equal(ft$seasonal_strength_year >= 0.64, as_logical(ft$nsdiffs))
 })
 
 test_that("basic features", {
-  basic_features <- list(crossing_points, flat_spots, features_spectral,
+  basic_features <- list(n_crossing_points, n_flat_spots, feat_spectral,
                          roll_lumpiness, roll_stability)
   ft <- features(www_usage, value, basic_features)
   expect_equivalent(
     as_list(ft),
-    list(crossing_points = 7L, flat_spots = 13L, entropy = 0.561, lumpiness = 0.0139, stability = 0.988),
+    list(n_crossing_points = 7L, n_flat_spots = 13L, entropy = 0.561, lumpiness = 0.0139, stability = 0.988),
     tolerance = 0.01
   )
 })
 
 
 test_that("*cf features", {
-  cf_features <- list(features_acf, features_pacf)
+  cf_features <- list(feat_acf, feat_pacf)
   ft <- features(www_usage, value, cf_features)
   expect_equivalent(
     as_list(ft),
@@ -62,7 +62,7 @@ test_that("*shift features", {
 })
 
 test_that("model based features", {
-  model_features <- list(stat_arch_lm, coef_hurst, features_stl)
+  model_features <- list(stat_arch_lm, coef_hurst, feat_stl)
   ft <- features(www_usage, value, model_features)
   expect_equivalent(
     as_list(ft),
@@ -72,7 +72,7 @@ test_that("model based features", {
     tolerance = 0.01
   )
 
-  ft <- features(lung_deaths_wide, fdeaths, features_stl)
+  ft <- features(lung_deaths_wide, fdeaths, feat_stl)
   expect_equivalent(
     as_list(ft),
     list(trend_strength = 0.118, seasonal_strength_year = 0.881,

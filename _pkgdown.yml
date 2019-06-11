@@ -53,8 +53,8 @@ reference:
     - ACF
     - PACF
     - CCF
-    - features_acf
-    - features_pacf
+    - feat_acf
+    - feat_pacf
 
 - title: Unit root tests
   desc: >
@@ -92,10 +92,10 @@ reference:
   desc: >
     Uncategorised features
   contents:
-    - features_stl
+    - feat_stl
+    - feat_spectral
     - stat_arch_lm
-    - crossing_points
-    - features_spectral
-    - flat_spots
+    - n_crossing_points
+    - n_flat_spots
     - coef_hurst
     - guerrero

@@ -1,7 +1,7 @@
 #' @inherit tsfeatures::crossing_points
 #' @importFrom stats median
 #' @export
-crossing_points <- function(x)
+n_crossing_points <- function(x)
 {
   midline <- median(x, na.rm = TRUE)
   ab <- x <= midline
@@ -9,7 +9,7 @@ crossing_points <- function(x)
   p1 <- ab[1:(lenx - 1)]
   p2 <- ab[2:lenx]
   cross <- (p1 & !p2) | (p2 & !p1)
-  c(crossing_points = sum(cross, na.rm = TRUE))
+  c(n_crossing_points = sum(cross, na.rm = TRUE))
 }
 
 #' @inherit tsfeatures::arch_stat
@@ -46,7 +46,7 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 #'
 #' @importFrom stats var coef
 #' @export
-features_stl <- function(x, .period, s.window = 13, ...){
+feat_stl <- function(x, .period, s.window = 13, ...){
   dots <- dots_list(...)
   dots <- dots[names(dots) %in% names(formals(stats::stl))]
   season.args <- list2(!!(names(.period)%||%as.character(.period)) :=
@@ -96,8 +96,8 @@ features_stl <- function(x, .period, s.window = 13, ...){
 
 #' @export
 stl_features <- function(x, .period, s.window = 13, ...){
-  .Deprecated("features_stl")
-  features_stl(x, .period, s.window, ...)
+  .Deprecated("feat_stl")
+  feat_stl(x, .period, s.window, ...)
 }
 
 #' Unit root tests
@@ -120,7 +120,7 @@ unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "n
   require_package("urca")
   result <- urca::ur.kpss(x, type = type, lags = lags, ...)
   pval <- stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y
-  c(kpss_stat = result@teststat, kpss_pval = pval)
+  c(kpss_stat = result@teststat, kpss_pvalue = pval)
 }
 
 #' @inheritParams urca::ur.pp
@@ -135,7 +135,7 @@ unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "
   result <- urca::ur.pp(x, type = match.arg(type), model = match.arg(model),
                         lags = match.arg(lags), ...)
   pval <- stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y
-  c(pp_stat = result@teststat, pp_pval = pval)
+  c(pp_stat = result@teststat, pp_pvalue = pval)
 }
 
 #' Number of differences required for a stationary series
@@ -150,7 +150,7 @@ unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "
 #' @param ... Additional arguments passed to the `unitroot_fn` function
 #'
 #' @export
-unitroot_ndiffs <- function(x, alpha = 0.05, unitroot_fn = ~ unitroot_kpss(.)["kpss_pval"],
+unitroot_ndiffs <- function(x, alpha = 0.05, unitroot_fn = ~ unitroot_kpss(.)["kpss_pvalue"],
                             differences = 0:2, ...) {
   unitroot_fn <- as_function(unitroot_fn)
 
@@ -178,7 +178,7 @@ unitroot_ndiffs <- function(x, alpha = 0.05, unitroot_fn = ~ unitroot_kpss(.)["k
 #' @param .period The period of the seasonality.
 #'
 #' @export
-unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ features_stl(.,.period)[2]<0.64,
+unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ feat_stl(.,.period)[2]<0.64,
                              differences = 0:2, .period = 1, ...) {
   if(.period == 1) return(c(nsdiffs = min(differences)))
 
@@ -213,10 +213,10 @@ unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ features_stl(.,.pe
 #' @return A numeric value.
 #' @author Earo Wang and Rob J Hyndman
 #' @export
-flat_spots <- function(x) {
+n_flat_spots <- function(x) {
   cutx <- cut(x, breaks = 10, include.lowest = TRUE, labels = FALSE)
   rlex <- rle(cutx)
-  return(c(flat_spots = max(rlex$lengths)))
+  return(c(n_flat_spots = max(rlex$lengths)))
 }
 
 #' Hurst coefficient
@@ -357,7 +357,7 @@ shift_kl_max <- function(x, .size = NULL, .period = 1) {
 #' @return A numeric value.
 #' @author Rob J Hyndman
 #' @export
-features_spectral <- function(x, ...) {
+feat_spectral <- function(x, ...) {
   require_package("ForeCA")
   entropy <- ForeCA::spectral_entropy(na.contiguous(x), ...)[1L]
   return(c(spectral_entropy = entropy))
@@ -419,7 +419,7 @@ roll_stability <- function(x, .size = NULL, .period = 1) {
 #'
 #' @inheritParams roll_stability
 #' @param lag_max maximum lag at which to calculate the acf. The default is
-#' `max(.period, 10L)` for `features_acf`, and `max(.period, 5L)` for `features_pacf`
+#' `max(.period, 10L)` for `feat_acf`, and `max(.period, 5L)` for `feat_pacf`
 #' @param ... Further arguments passed to [`stats::acf()`] or [`stats::pacf()`]
 #'
 #' @return A vector of 6 values: first autocorrelation coefficient and sum of squared of
@@ -430,7 +430,7 @@ roll_stability <- function(x, .size = NULL, .period = 1) {
 #'
 #' @author Thiyanga Talagala
 #' @export
-features_acf <- function(x, .period = 1, lag_max = NULL, ...) {
+feat_acf <- function(x, .period = 1, lag_max = NULL, ...) {
   acfx <- stats::acf(x, lag.max = lag_max%||%max(.period, 10L), plot = FALSE, na.action = stats::na.pass ,...)
   acfdiff1x <- stats::acf(diff(x, differences = 1), lag.max = lag_max%||%10L, plot = FALSE, na.action = stats::na.pass)
   acfdiff2x <- stats::acf(diff(x, differences = 2), lag.max = lag_max%||%10L, plot = FALSE, na.action = stats::na.pass)
@@ -463,7 +463,7 @@ features_acf <- function(x, .period = 1, lag_max = NULL, ...) {
   )
 
   if (.period > 1) {
-    output <- c(output, seas_acf1 = unname(acfx$acf[.period + 1L]))
+    output <- c(output, season_acf1 = unname(acfx$acf[.period + 1L]))
   }
 
   return(output)
@@ -474,7 +474,7 @@ features_acf <- function(x, .period = 1, lag_max = NULL, ...) {
 #' Computes various measures based on partial autocorrelation coefficients of the
 #' original series, first-differenced series and second-differenced series.
 #'
-#' @inheritParams features_acf
+#' @inheritParams feat_acf
 #'
 #' @return A vector of 3 values: Sum of squared of first 5
 #' partial autocorrelation coefficients of the original series, first differenced
@@ -483,7 +483,7 @@ features_acf <- function(x, .period = 1, lag_max = NULL, ...) {
 #' lag is also returned.
 #' @author Thiyanga Talagala
 #' @export
-features_pacf <- function(x, .period = 1, lag_max = NULL, ...) {
+feat_pacf <- function(x, .period = 1, lag_max = NULL, ...) {
   pacfx <- stats::pacf(x, lag.max = lag_max%||%max(.period, 5L),
                        plot = FALSE, ...)$acf
   # Sum of squared of first 5 partial autocorrelation coefficients
@@ -505,7 +505,7 @@ features_pacf <- function(x, .period = 1, lag_max = NULL, ...) {
     diff2_pacf5 = unname(diff2_pacf_5)
   )
   if (.period > 1) {
-    output <- c(output, seas_pacf = pacfx[.period])
+    output <- c(output, season_pacf = pacfx[.period])
   }
 
   return(output)
