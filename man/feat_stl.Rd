@@ -2,7 +2,6 @@
 % Please edit documentation in R/features.R
 \name{feat_stl}
 \alias{feat_stl}
-\alias{stl_features}
 \title{STL features}
 \usage{
 feat_stl(x, .period, s.window = 13, ...)

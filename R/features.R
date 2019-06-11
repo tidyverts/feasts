@@ -34,8 +34,6 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 #' Computes a variety of measures extracted from an STL decomposition of the
 #' time series. This includes details about the strength of trend and seasonality.
 #'
-#' @aliases stl_features
-#'
 #' @param x A vector to extract features from.
 #' @param .period The period of the seasonality.
 #' @param s.window The seasonal window of the data (passed to [`stats::stl()`])
@@ -92,12 +90,6 @@ feat_stl <- function(x, .period, s.window = 13, ...){
   c(trend_strength = trend_strength, seasonal_strength,
     spike = spike, linearity = linearity, curvature = curvature,
     seasonal_peak,  seasonal_trough)
-}
-
-#' @export
-stl_features <- function(x, .period, s.window = 13, ...){
-  .Deprecated("feat_stl")
-  feat_stl(x, .period, s.window, ...)
 }
 
 #' Unit root tests
