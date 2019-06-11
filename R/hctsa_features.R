@@ -74,9 +74,8 @@ firstmin_ac <- function(x, acfv = stats::acf(x, lag.max = N - 1, plot = FALSE, n
   autoCorr <- numeric(N - 1)
   autoCorr[1:(N - 1)] <- acfv$acf[-1]
   for (i in 1:length(autoCorr)) {
-    if (is.na(autoCorr[i])) {
-      warning("No minimum was found.")
-      return(c(firstmin_ac = NA))
+    if(is.na(autoCorr[i])){
+      abort("No minimum was found.")
     }
     if (i == 2 && autoCorr[2] > autoCorr[1]) {
       return(c(firstmin_ac = 1))
