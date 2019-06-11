@@ -41,6 +41,6 @@ test_that("X-13ARIMA-SEATS decomposition", {
   )
   expect_equal(
     dcmp$value / dcmp$seasonal,
-    dcmp$seas_adjust
+    dcmp$season_adjust
   )
 })

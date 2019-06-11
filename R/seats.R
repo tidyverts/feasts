@@ -39,7 +39,7 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
       trend = dcmp[,"trend"],
       seasonal = dcmp[,"adjustfac"],
       irregular = dcmp[,"irregular"],
-      seas_adjust = !!sym("trend") * !!sym("irregular")
+      season_adjust = !!sym("trend") * !!sym("irregular")
     )
 
   seasonalities <- list(
@@ -49,7 +49,7 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
   aliases <- list2(
     !!measured_vars(.data) := reduce(syms(c("trend", "seasonal", "irregular")),
                                      function(x,y) call2("*", x, y)),
-    seas_adjust = call2("*", sym("trend"), sym("irregular"))
+    season_adjust = call2("*", sym("trend"), sym("irregular"))
   )
 
   fablelite::as_dable(dcmp, resp = !!sym(measured_vars(.data)),

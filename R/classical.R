@@ -32,7 +32,7 @@ train_classical <- function(.data, formula, specials,
   dcmp <- .data %>%
     mutate(
       !!!map(dcmp, as.numeric),
-      seas_adjust = !!call2(dcmp_op_inv, sym(resp), sym("seasonal"))
+      season_adjust = !!call2(dcmp_op_inv, sym(resp), sym("seasonal"))
     )
 
   seasonalities <- list(
@@ -42,7 +42,7 @@ train_classical <- function(.data, formula, specials,
   aliases <- list2(
     !!resp := reduce(syms(c("trend", "seasonal", "random")),
                      function(x,y) call2(dcmp_op, x, y)),
-    seas_adjust = call2(dcmp_op_inv, sym(resp), sym("seasonal"))
+    season_adjust = call2(dcmp_op_inv, sym(resp), sym("seasonal"))
   )
 
   fablelite::as_dable(dcmp, resp = !!sym(resp), method = "Classical",

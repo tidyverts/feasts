@@ -36,7 +36,7 @@ test_that("Additive X11 decomposition", {
   )
   expect_equal(
     dcmp$value - dcmp$seasonal,
-    dcmp$seas_adjust
+    dcmp$season_adjust
   )
 })
 
@@ -60,6 +60,6 @@ test_that("Multiplicative X11 decomposition", {
   )
   expect_equal(
     dcmp$value / dcmp$seasonal,
-    dcmp$seas_adjust
+    dcmp$season_adjust
   )
 })

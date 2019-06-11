@@ -70,7 +70,7 @@ estimate_stl <- function(y, trend.args, season.args, lowpass.args,
 
   trend <- as.numeric(trend)
   deseas <- as.numeric(deseas)
-  list2(trend = trend, !!!seas, remainder = deseas - trend, seas_adjust = deseas)
+  list2(trend = trend, !!!seas, remainder = deseas - trend, season_adjust = deseas)
 }
 
 train_stl <- function(.data, formula, specials, iterations = 2, ...){
@@ -96,7 +96,7 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
   aliases <- list2(
     !!measured_vars(.data) := reduce(syms(c("trend", seas_cols, "remainder")),
                                    function(x,y) call2("+", x, y)),
-    seas_adjust = call2("+", sym("trend"), sym("remainder"))
+    season_adjust = call2("+", sym("trend"), sym("remainder"))
   )
 
   fablelite::as_dable(decomposition, resp = !!sym(measured_vars(.data)),

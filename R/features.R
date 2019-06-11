@@ -55,7 +55,7 @@ features_stl <- function(x, .period, s.window = 13, ...){
                     season.args = season.args, lowpass.args = list(), !!!dots)))
   trend <- dcmp[["trend"]]
   remainder <- dcmp[["remainder"]]
-  seas_adjust <- dcmp[["seas_adjust"]]
+  season_adjust <- dcmp[["season_adjust"]]
   seasonalities <- dcmp[seq_len(length(dcmp) - 3) + 1]
   names(seasonalities) <- sub("season_", "", names(seasonalities))
 
@@ -73,7 +73,7 @@ features_stl <- function(x, .period, s.window = 13, ...){
   curvature <- tren.coef[[2L]]
 
   # Strength of terms
-  trend_strength <- max(0, min(1, 1 - var_e/var(seas_adjust, na.rm = TRUE)))
+  trend_strength <- max(0, min(1, 1 - var_e/var(season_adjust, na.rm = TRUE)))
   seasonal_strength <- map_dbl(seasonalities, function(seas){
     max(0, min(1, 1 - var_e/var(remainder + seas, na.rm = TRUE)))
   })

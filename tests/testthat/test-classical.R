@@ -19,7 +19,7 @@ test_that("Additive classical decomposition", {
   )
   expect_equal(
     dcmp$value - dcmp$seasonal,
-    dcmp$seas_adjust
+    dcmp$season_adjust
   )
 })
 
@@ -42,6 +42,6 @@ test_that("Multiplicative classical decomposition", {
   )
   expect_equal(
     dcmp$value / dcmp$seasonal,
-    dcmp$seas_adjust
+    dcmp$season_adjust
   )
 })

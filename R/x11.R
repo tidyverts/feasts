@@ -39,7 +39,7 @@ train_X11 <- function(.data, formula, specials, type, ...){
       trend = dcmp[,"trend"],
       seasonal = dcmp[,"adjustfac"],
       irregular = dcmp[,"irregular"],
-      seas_adjust = !!call2(op, !!!syms(c("trend", "irregular")))
+      season_adjust = !!call2(op, !!!syms(c("trend", "irregular")))
     )
 
   seasonalities <- list(
@@ -49,7 +49,7 @@ train_X11 <- function(.data, formula, specials, type, ...){
   aliases <- list2(
     !!measured_vars(.data) := reduce(syms(c("trend", "seasonal", "irregular")),
                                      function(x,y) call2(op, x, y)),
-    seas_adjust = call2(op, sym("trend"), sym("irregular"))
+    season_adjust = call2(op, sym("trend"), sym("irregular"))
   )
 
   fablelite::as_dable(dcmp, resp = !!sym(measured_vars(.data)),

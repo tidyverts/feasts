@@ -19,7 +19,7 @@ test_that("Seasonal STL", {
   )
   expect_equal(
     dcmp$value - dcmp$season_year,
-    dcmp$seas_adjust
+    dcmp$season_adjust
   )
 })
 
@@ -39,7 +39,7 @@ test_that("Non-seasonal STL", {
   )
   expect_equal(
     dcmp$value,
-    dcmp$seas_adjust
+    dcmp$season_adjust
   )
 })
 
@@ -72,7 +72,7 @@ test_that("Multiple seasonality STL", {
   )
   expect_equal(
     dcmp$y - dcmp$season_4 - dcmp$season_7,
-    dcmp$seas_adjust
+    dcmp$season_adjust
   ) %>%
     expect_equal(
       dcmp$trend + dcmp$remainder
