@@ -1,7 +1,7 @@
 Package: feasts
 Version: 0.0.0.9001
 Title: Feature Extraction And Statistics for Time Series
-Description: A collection of tsibble analysis tools.
+Description: Provides a collection of features, decompositions, statistical summaries and graphics functions for the analysing tidy time series data. The package name 'feasts' is an acryonym comprising of its key features: Feature Extraction And Statistics for Time Series.
 Authors@R: c(
     person("Mitchell", "O'Hara-Wild", email = "mail@mitchelloharawild.com", role = c("aut", "cre")),
     person("Rob", "Hyndman", role = c("aut")),
@@ -39,7 +39,7 @@ Remotes:
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL-3
-URL: https://github.com/tidyverts/feasts
+URL: http://feasts.tidyverts.org/
 BugReports: https://github.com/tidyverts/feasts/issues
 Encoding: UTF-8
 LazyData: true

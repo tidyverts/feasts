@@ -8,12 +8,12 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right'}}
 
-A collection of tsibble analysis tools.
+Provides a collection of features, decompositions, statistical summaries and graphics functions for the analysing tidy time series data. The package name 'feasts' is an acryonym comprising of its key features: Feature Extraction And Statistics for Time Series.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/tidyverts/feasts}
+  \item \url{http://feasts.tidyverts.org/}
   \item Report bugs at \url{https://github.com/tidyverts/feasts/issues}
 }
 
