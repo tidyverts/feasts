@@ -17,8 +17,7 @@ Imports:
     ggplot2 (>= 3.0.0),
     dplyr (>= 0.8.0),
     tidyr (>= 0.8.3),
-    scales,
-    R6
+    scales
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),
