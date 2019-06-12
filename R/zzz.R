@@ -4,9 +4,9 @@
   register_s3_method("pillar", "obj_sum", "cf_lag")
   register_s3_method("pillar", "type_sum", "cf_lag")
 
-  fablelite::register_feature(feat_stl, c("trend", "seasonal", "decomposition"))
-  fablelite::register_feature(feat_acf, "autocorrelation")
-  fablelite::register_feature(feat_pacf, "autocorrelation")
+  fablelite::register_feature(feat_stl, c("stl", "trend", "seasonal", "decomposition"))
+  fablelite::register_feature(feat_acf, c("acf", "autocorrelation"))
+  fablelite::register_feature(feat_pacf, c("pacf", "autocorrelation"))
   fablelite::register_feature(guerrero, c("optimisation", "boxcox"))
   fablelite::register_feature(unitroot_kpss, c("test", "unitroot"))
   fablelite::register_feature(unitroot_pp, c("test", "unitroot"))
