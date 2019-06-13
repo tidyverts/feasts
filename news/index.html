@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lag plots — gg_lag • feasts</title>
+<title>Changelog • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,10 +37,7 @@
 
 
 
-<meta property="og:title" content="Lag plots — gg_lag" />
-
-<meta property="og:description" content="A lag plot shows the time series against lags of itself. It is often coloured
-the seasonal period to identify how each season correlates with others." />
+<meta property="og:title" content="Changelog" />
 
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -60,7 +57,7 @@ the seasonal period to identify how each season correlates with others." />
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -106,72 +103,35 @@ the seasonal period to identify how each season correlates with others." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lag plots</h1>
-    
-    <div class="hidden name"><code>gg_lag.Rd</code></div>
+      <h1>Changelog <small></small></h1>
+      
     </div>
 
-    <div class="ref-description">
-    
-    <p>A lag plot shows the time series against lags of itself. It is often coloured
-the seasonal period to identify how each season correlates with others.</p>
-    
-    </div>
-
-    <pre class="usage"><span class='fu'>gg_lag</span>(<span class='no'>data</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lags</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>9</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"path"</span>,
-  <span class='st'>"point"</span>), <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>A tidy time series object (tsibble)</p></td>
-    </tr>
-    <tr>
-      <th>y</th>
-      <td><p>The variable to plot (a bare expression). If NULL, it will
-automatically selected from the data.</p></td>
-    </tr>
-    <tr>
-      <th>period</th>
-      <td><p>The seasonal period to display.</p></td>
-    </tr>
-    <tr>
-      <th>lags</th>
-      <td><p>A vector of lags to display as facets.</p></td>
-    </tr>
-    <tr>
-      <th>geom</th>
-      <td><p>The geometry used to display the data.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments passed to the geom.</p></td>
-    </tr>
-    </table>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>tsibble</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://tsibbledata.tidyverts.org/reference/aus_retail.html'>aus_retail</a></span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(
-    <span class='no'>State</span> <span class='kw'>==</span> <span class='st'>"Victoria"</span>,
-    <span class='no'>Industry</span> <span class='kw'>==</span> <span class='st'>"Cafes, restaurants and catering services"</span>
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'>gg_lag</span>(<span class='no'>Turnover</span>)</div><div class='img'><img src='gg_lag-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <div id="feasts-0-1-0" class="section level1">
+<h1 class="page-header">
+<a href="#feasts-0-1-0" class="anchor"></a>feasts 0.1.0</h1>
+<ul>
+<li>First release.</li>
+<li>Added support for graphical analysis of tidy temporal data and models, with <code>gg_season</code>, <code>gg_subseries</code>, <code>gg_lag</code>, <code>gg_tsdisplay</code>, <code>gg_arma</code>.</li>
+<li>Added support for autocorrelation functions and plots, with <code>ACF</code>, <code>PACF</code>, <code>CCF</code>, and <code>autoplot.tbl_cf</code>
+</li>
+<li>Added a collection of features to be used with <code><a href="https://www.rdocumentation.org/packages/fablelite/topics/features">fablelite::features()</a></code>: <code>feat_stl</code>, <code>feat_acf</code>, <code>feat_pacf</code>, <code>guerrero</code>, <code>unitroot_kpss</code>, <code>unitroot_pp</code>, <code>unitroot_ndiffs</code>, <code>unitroot_nsdiffs</code>, <code>box_pierce</code>, <code>ljung_box</code>, <code>var_tiled_var</code>, <code>var_tiled_mean</code>, <code>shift_level_max</code>, <code>shift_var_max</code>, <code>shift_kl_max</code>, <code>feat_spectral</code>, <code>n_crossing_points</code>, <code>n_flat_spots</code>, <code>coef_hurst</code>, <code>stat_arch_lm</code>
+</li>
+<li>Added support for four decomposition methods: <code>classical_decomposition</code>, <code>STL</code>, <code>X11</code>, <code>SEATS</code>
+</li>
+</ul>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#feasts-0-1-0">0.1.0</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>

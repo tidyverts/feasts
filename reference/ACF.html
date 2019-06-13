@@ -206,36 +206,34 @@ Time Series Analysis</em>, 31(6), 471-482.</p>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
-<span class='no'>aus_elec</span> <span class='kw'>%&gt;%</span> <span class='fu'>ACF</span>(<span class='no'>Temperature</span>)</div><div class='output co'>#&gt; # A tsibble: 235 x 3 [30m]
-#&gt; # Key:       State [5]
-#&gt;    State             lag   acf
-#&gt;    &lt;chr&gt;           &lt;lag&gt; &lt;dbl&gt;
-#&gt;  1 New South Wales   30m 0.992
-#&gt;  2 New South Wales   60m 0.978
-#&gt;  3 New South Wales   90m 0.959
-#&gt;  4 New South Wales  120m 0.935
-#&gt;  5 New South Wales  150m 0.908
-#&gt;  6 New South Wales  180m 0.878
-#&gt;  7 New South Wales  210m 0.847
-#&gt;  8 New South Wales  240m 0.814
-#&gt;  9 New South Wales  270m 0.781
-#&gt; 10 New South Wales  300m 0.748
-#&gt; # … with 225 more rows</div><div class='input'>
-<span class='no'>aus_elec</span> <span class='kw'>%&gt;%</span> <span class='fu'>PACF</span>(<span class='no'>Temperature</span>)</div><div class='output co'>#&gt; # A tsibble: 235 x 3 [30m]
-#&gt; # Key:       State [5]
-#&gt;    State             lag      pacf
-#&gt;    &lt;chr&gt;           &lt;lag&gt;     &lt;dbl&gt;
-#&gt;  1 New South Wales   30m  0.992   
-#&gt;  2 New South Wales   60m -0.444   
-#&gt;  3 New South Wales   90m -0.202   
-#&gt;  4 New South Wales  120m -0.116   
-#&gt;  5 New South Wales  150m -0.0657  
-#&gt;  6 New South Wales  180m -0.0309  
-#&gt;  7 New South Wales  210m  0.000787
-#&gt;  8 New South Wales  240m  0.0180  
-#&gt;  9 New South Wales  270m  0.0102  
-#&gt; 10 New South Wales  300m  0.0179  
-#&gt; # … with 225 more rows</div><div class='input'>
+<span class='no'>vic_elec</span> <span class='kw'>%&gt;%</span> <span class='fu'>ACF</span>(<span class='no'>Temperature</span>)</div><div class='output co'>#&gt; # A tsibble: 47 x 2 [30m]
+#&gt;      lag   acf
+#&gt;    &lt;lag&gt; &lt;dbl&gt;
+#&gt;  1   30m 0.994
+#&gt;  2   60m 0.982
+#&gt;  3   90m 0.967
+#&gt;  4  120m 0.948
+#&gt;  5  150m 0.925
+#&gt;  6  180m 0.901
+#&gt;  7  210m 0.873
+#&gt;  8  240m 0.845
+#&gt;  9  270m 0.815
+#&gt; 10  300m 0.785
+#&gt; # … with 37 more rows</div><div class='input'>
+<span class='no'>vic_elec</span> <span class='kw'>%&gt;%</span> <span class='fu'>PACF</span>(<span class='no'>Temperature</span>)</div><div class='output co'>#&gt; # A tsibble: 47 x 2 [30m]
+#&gt;      lag    pacf
+#&gt;    &lt;lag&gt;   &lt;dbl&gt;
+#&gt;  1   30m  0.994 
+#&gt;  2   60m -0.395 
+#&gt;  3   90m -0.220 
+#&gt;  4  120m -0.141 
+#&gt;  5  150m -0.0911
+#&gt;  6  180m -0.0610
+#&gt;  7  210m -0.0252
+#&gt;  8  240m -0.0101
+#&gt;  9  270m  0.0151
+#&gt; 10  300m  0.0170
+#&gt; # … with 37 more rows</div><div class='input'>
 <span class='no'>global_economy</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Country</span> <span class='kw'>==</span> <span class='st'>"Australia"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>CCF</span>(<span class='no'>GDP</span>, <span class='no'>Population</span>)</div><div class='output co'>#&gt; # A tsibble: 29 x 3 [1Y]
