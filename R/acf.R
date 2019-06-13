@@ -44,7 +44,7 @@
 #' library(tsibbledata)
 #' library(dplyr)
 #'
-#' aus_elec %>% ACF(Temperature)
+#' vic_elec %>% ACF(Temperature)
 #'
 #' @importFrom tibble tibble
 #' @importFrom stats as.ts frequency
@@ -82,7 +82,7 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
 
 #' @rdname ACF
 #' @examples
-#' aus_elec %>% PACF(Temperature)
+#' vic_elec %>% PACF(Temperature)
 #'
 #' @export
 PACF <- function(.data, ..., lag_max = NULL){

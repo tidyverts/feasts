@@ -57,9 +57,9 @@ library(tsibble)
 library(tsibbledata)
 library(dplyr)
 
-aus_elec \%>\% ACF(Temperature)
+vic_elec \%>\% ACF(Temperature)
 
-aus_elec \%>\% PACF(Temperature)
+vic_elec \%>\% PACF(Temperature)
 
 global_economy \%>\%
   filter(Country == "Australia") \%>\%
