@@ -161,12 +161,12 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 #' USAccDeaths %>% as_tsibble %>% STL(value ~ trend(window = 10))
 #'
 #' @importFrom stats ts stl
-#' @importFrom fablelite new_decomposition_class new_decomposition
+#' @importFrom fablelite new_decomposition_class new_decomposition_definition
 #' @export
 STL <- function(.data, formula, iterations = 2, ...){
   dcmp <- new_decomposition_class("STL",
                                   train = train_stl, specials = specials_stl,
                                   check = all_tsbl_checks)
-  new_decomposition(dcmp, .data, !!enquo(formula), iterations = iterations, ...)
+  new_decomposition_definition(dcmp, .data, !!enquo(formula), iterations = iterations, ...)
 }
 

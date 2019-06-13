@@ -82,11 +82,11 @@ train_classical <- function(.data, formula, specials,
 #'   classical_decomposition(value ~ season(12), type = "mult")
 #'
 #' @importFrom stats ts decompose
-#' @importFrom fablelite new_decomposition_class new_decomposition
+#' @importFrom fablelite new_decomposition_class new_decomposition_definition
 #' @export
 classical_decomposition <- function(.data, formula, type = c("additive", "multiplicative"), ...){
   dcmp <- new_decomposition_class("Classical decomposition",
                                   train = train_classical, specials = specials_classical,
                                   check = all_tsbl_checks)
-  new_decomposition(dcmp, .data, !!enquo(formula), type = type, ...)
+  new_decomposition_definition(dcmp, .data, !!enquo(formula), type = type, ...)
 }
