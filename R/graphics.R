@@ -346,17 +346,11 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
     group_by(id, !!!keys) %>%
     mutate(.yint = mean(!!sym(".yint"), na.rm = TRUE))
 
+  fct_labeller <- if(inherits(data[["id"]], c("POSIXt", "Date"))) within_time_identifier else ggplot2::label_value
   p <- ggplot(data, aes(x = !!idx, y = !!y)) +
     geom_line(...) +
-    facet_grid(rows = vars(!!!keys), cols = vars(!!sym("id")), scales = "free_y",
-               labeller = function(dt){
-                 map(dt, function(x) {
-                   if(inherits(x, c("POSIXt", "Date")))
-                     as.character(within_time_identifier(x))
-                   else
-                     ggplot2::label_value(x)
-                 })
-               }) +
+    facet_grid(rows = vars(!!!keys), cols = vars(fct_labeller(!!sym("id"))),
+               scales = "free_y") +
     geom_hline(aes(yintercept = !!sym(".yint")), colour = "blue")
 
   if(inherits(data[[expr_text(idx)]], "Date")){
