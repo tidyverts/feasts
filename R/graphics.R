@@ -566,13 +566,12 @@ gg_arma <- function(data){
     gather("type", "root", !!sym("ar_roots"), !!sym("ma_roots")) %>%
     unnest_tbl("root") %>%
     filter(!is.na(!!sym("root"))) %>%
-    mutate(root = 1/!!sym("root"),
-           type = factor(!!sym("type"), levels = c("ar_roots", "ma_roots"),
+    mutate(type = factor(!!sym("type"), levels = c("ar_roots", "ma_roots"),
                          labels = c("AR roots", "MA roots")),
-           UnitCircle = factor(abs(!!sym("root")) > 1, levels = c(TRUE, FALSE),
+           UnitCircle = factor(abs(1/!!sym("root")) > 1, levels = c(TRUE, FALSE),
                                labels = c("Outside", "Within")))
 
-  ggplot(data, aes(x = Re(!!sym("root")), y = Im(!!sym("root")),
+  ggplot(data, aes(x = Re(1/!!sym("root")), y = Im(1/!!sym("root")),
                   colour = !!sym("UnitCircle"))) +
     ggplot2::annotate(
       "path", x = cos(seq(0, 2 * pi, length.out = 100)),

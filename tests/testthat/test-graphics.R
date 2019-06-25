@@ -271,6 +271,6 @@ test_that("gg_arma() plots", {
 
   expect_identical(
     p_built$plot$labels[c("x", "y")],
-    list(x = "Re(root)", y = "Im(root)")
+    list(x = "Re(1/root)", y = "Im(1/root)")
   )
 })
