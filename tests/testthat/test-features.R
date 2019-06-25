@@ -16,11 +16,11 @@ test_that("guerrero()", {
 
 test_that("unit root features", {
   ft <- features(www_usage, value, list(unitroot_kpss, unitroot_pp, unitroot_ndiffs))
-  expect_equal(ft$kpss_pvalue < 0.05, as_logical(ft$ndiffs))
+  expect_equal(ft$kpss_pvalue < 0.05, as.logical(ft$ndiffs))
   expect_equal(ft$pp_pvalue, 0.1)
 
   ft <- features(lung_deaths_long, value, list(feat_stl, unitroot_nsdiffs))
-  expect_equal(ft$seasonal_strength_year >= 0.64, as_logical(ft$nsdiffs))
+  expect_equal(ft$seasonal_strength_year >= 0.64, as.logical(ft$nsdiffs))
 })
 
 test_that("basic features", {
@@ -28,7 +28,7 @@ test_that("basic features", {
                          var_tiled_var, var_tiled_mean)
   ft <- features(www_usage, value, basic_features)
   expect_equivalent(
-    as_list(ft),
+    as.list(ft),
     list(n_crossing_points = 7L, n_flat_spots = 13L, entropy = 0.561, var_tiled_var = 0.0139, var_tiled_mean = 0.988),
     tolerance = 0.01
   )
@@ -39,7 +39,7 @@ test_that("*cf features", {
   cf_features <- list(feat_acf, feat_pacf)
   ft <- features(www_usage, value, cf_features)
   expect_equivalent(
-    as_list(ft),
+    as.list(ft),
     list(acf1 = 0.960, acf10 = 4.19,
          diff1_acf1 = 0.792, diff1_acf10 = 1.41,
          diff2_acf1 = 0.174, diff2_acf10 = 0.334,
@@ -53,7 +53,7 @@ test_that("*shift features", {
   shift_features <- list(shift_level_max, shift_var_max, shift_kl_max)
   ft <- features(www_usage, value, shift_features)
   expect_equivalent(
-    as_list(ft),
+    as.list(ft),
     list(shift_level_max = 71.7, shift_level_index = 84,
          shift_var_max = 749, shift_var_index = 54,
          shift_kl_max = 1.44, shift_kl_index = 57),
@@ -65,7 +65,7 @@ test_that("model based features", {
   model_features <- list(stat_arch_lm, coef_hurst, feat_stl)
   ft <- features(www_usage, value, model_features)
   expect_equivalent(
-    as_list(ft),
+    as.list(ft),
     list(arch_lm = 0.990, hurst = 0.998,
          trend_strength = 0.985, spikiness = 0.0772,
          linearity = 178, cuvature = 44),
@@ -74,7 +74,7 @@ test_that("model based features", {
 
   ft <- features(lung_deaths_wide, fdeaths, feat_stl)
   expect_equivalent(
-    as_list(ft),
+    as.list(ft),
     list(trend_strength = 0.118, seasonal_strength_year = 0.881,
          spikiness = 24526, linearity = -148, cuvature = 11.6,
          seasonal_peak_year = 1, seasonal_trough_year = 8),
