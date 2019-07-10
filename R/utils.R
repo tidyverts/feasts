@@ -48,7 +48,7 @@ unnest_tbl <- function(.data, tbl_col, .sep = NULL){
   }
 
   dplyr::bind_cols(
-    .data[row_indices, setdiff(names(.data), tbl_col)], # Parent cols
+    .data[row_indices, setdiff(names(.data), tbl_col), drop = FALSE], # Parent cols
     !!!nested_cols # Nested cols
   )
 }
