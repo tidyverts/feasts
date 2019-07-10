@@ -5,6 +5,8 @@
 
 [![Travis build
 status](https://travis-ci.org/tidyverts/feasts.svg?branch=master)](https://travis-ci.org/tidyverts/feasts)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/feasts?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverts/feasts)
 [![Coverage
 status](https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverts/feasts?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/feasts)](https://cran.r-project.org/package=feasts)
@@ -124,18 +126,18 @@ behaviour.
 aus_retail %>% 
   features(Turnover, feat_stl)
 #> # A tibble: 152 x 9
-#>    State Industry trend_strength seasonal_streng…   spike linearity curvature seasonal_peak_y…
-#>    <chr> <chr>             <dbl>            <dbl>   <dbl>     <dbl>     <dbl>            <dbl>
-#>  1 Aust… Cafes, …          0.989            0.540 6.17e-5     224.      48.5                 0
-#>  2 Aust… Cafes, …          0.993            0.609 1.16e-4     336.      76.1                 0
-#>  3 Aust… Clothin…          0.990            0.914 4.93e-6     129.      16.8                 9
-#>  4 Aust… Clothin…          0.991            0.947 2.60e-5     192.      18.4                 9
-#>  5 Aust… Departm…          0.975            0.977 2.85e-5     130.     -42.8                 9
-#>  6 Aust… Electri…          0.991            0.925 3.19e-5     232.      -8.24                9
-#>  7 Aust… Food re…          0.999            0.874 2.50e-4    1247.     197.                  9
-#>  8 Aust… Footwea…          0.978            0.929 7.75e-6      63.0      1.60                9
-#>  9 Aust… Furnitu…          0.979            0.657 4.87e-5     139.     -22.5                 9
-#> 10 Aust… Hardwar…          0.992            0.892 1.56e-5     170.      44.1                 9
+#>    State Industry trend_strength seasonal_streng… spikiness linearity curvature seasonal_peak_y…
+#>    <chr> <chr>             <dbl>            <dbl>     <dbl>     <dbl>     <dbl>            <dbl>
+#>  1 Aust… Cafes, …          0.989            0.537   6.15e-5     227.      48.6                 0
+#>  2 Aust… Cafes, …          0.993            0.610   1.12e-4     342.      77.9                 0
+#>  3 Aust… Clothin…          0.990            0.918   4.77e-6     131.      17.4                 9
+#>  4 Aust… Clothin…          0.992            0.952   2.06e-5     195.      19.4                 9
+#>  5 Aust… Departm…          0.975            0.977   2.79e-5     130.     -43.9                 9
+#>  6 Aust… Electri…          0.991            0.929   3.03e-5     233.      -9.08                9
+#>  7 Aust… Food re…          0.999            0.882   2.74e-4    1264.     199.                  9
+#>  8 Aust… Footwea…          0.980            0.937   5.54e-6      64.0      1.98                9
+#>  9 Aust… Furnitu…          0.980            0.669   4.66e-5     141.     -21.6                 9
+#> 10 Aust… Hardwar…          0.992            0.895   1.47e-5     173.      45.2                 9
 #> # … with 142 more rows, and 1 more variable: seasonal_trough_year <dbl>
 ```
 
