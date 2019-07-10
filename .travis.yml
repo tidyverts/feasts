@@ -23,6 +23,27 @@ after_script: R -q -e 'tic::after_script()'
 
 # Custom parts:
 
+#stages: test, full
+stages:
+  - name: test
+  - name: full
+    if: branch = master
+
+#jobs
+jobs:
+  include:
+  - r: devel
+    env:
+    - DEV_VERSIONS=true
+  - r: 3.4
+  - stage: full
+    os: osx
+  - r: release
+    env:
+    - BUILD_PKGDOWN=true
+  - r: 3.5
+  fast_finish: true
+
 # Header
 language: r
 sudo: false
