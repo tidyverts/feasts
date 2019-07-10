@@ -3,6 +3,7 @@
 ^feasts\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
+^appveyor\.yml$
 ^\.travis\.yml$
 ^tic\.R$
 ^codecov\.yml$
