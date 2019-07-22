@@ -81,15 +81,16 @@ aus_production %>% ACF(Beer) %>% autoplot()
 ### Decompositions
 
 A common task in time series analysis is decomposing a time series into
-some simpler components. The feasts package supports four common time
+some simpler components. The feasts package supports two common time
 series decomposition methods:
 
   - Classical decomposition
   - STL decomposition
-  - X11 decomposition
-  - X-13ARIMA-SEATS decomposition
 
-<!-- end list -->
+<!--
+* X11 decomposition
+* X-13ARIMA-SEATS decomposition
+-->
 
 ``` r
 aus_production %>% STL(Beer ~ season(window = Inf))

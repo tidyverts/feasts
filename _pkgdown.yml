@@ -43,8 +43,6 @@ reference:
   contents:
     - classical_decomposition
     - STL
-    - X11
-    - SEATS
 
 - title: Autocorrelation analysis
   desc: >
