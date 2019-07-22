@@ -162,7 +162,7 @@ http://www.seasonal.website/seasonal.html</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://tsibbledata.tidyverts.org/reference/aus_production.html'>aus_production</a></span> <span class='kw'>%&gt;%</span> <span class='fu'>SEATS</span>(<span class='no'>Beer</span>)</div><div class='output co'>#&gt; <span class='message'>Model used in SEATS is different: (0 1 1)(0 1 1)</span></div><div class='output co'>#&gt; # A dable:                       218 x 6 [1Q]
+    <pre class="examples"><div class='input'><span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://tsibbledata.tidyverts.org/reference/aus_production.html'>aus_production</a></span> <span class='kw'>%&gt;%</span> <span class='kw pkg'>feasts</span><span class='kw ns'>:::</span><span class='fu'><a href='https://feasts.tidyverts.org/reference/SEATS.html'>SEATS</a></span>(<span class='no'>Beer</span>)</div><div class='output co'>#&gt; <span class='message'>Model used in SEATS is different: (0 1 1)(0 1 1)</span></div><div class='output co'>#&gt; # A dable:                       218 x 6 [1Q]
 #&gt; # X-13ARIMA-SEATS Decomposition: Beer = trend * seasonal * irregular
 #&gt;    Quarter  Beer trend seasonal irregular season_adjust
 #&gt;      &lt;qtr&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
