@@ -50,6 +50,17 @@ feat_stl <- function(x, .period, s.window = 13, ...){
   season.args <- list2(!!(names(.period)%||%as.character(.period)) :=
                          list(period = .period, s.window = s.window))
 
+  rle_na <- rle(!is.na(x))
+  if(any(!rle_na$values)){
+    rle_window <- which(rle_na$values)[which.max(rle_na$lengths[rle_na$values])]
+    rle_idx <- cumsum(rle_na$lengths)
+    rle_window <- c(rle_idx[max(1, rle_window - 1)] + (rle_window > 1), rle_idx[rle_window])
+    x <- x[seq(rle_window[1], rle_window[2])]
+  }
+  else{
+    rle_window <- c(1, length(x))
+  }
+
   dcmp <- eval_tidy(quo(estimate_stl(x, trend.args = list(),
                     season.args = season.args, lowpass.args = list(), !!!dots)))
   trend <- dcmp[["trend"]]
@@ -80,11 +91,11 @@ feat_stl <- function(x, .period, s.window = 13, ...){
 
   # Position of peaks and troughs
   seasonal_peak <- map_dbl(seasonalities, function(seas){
-    which.max(seas) %% .period
+    (which.max(seas) + rle_window[1] - 1) %% .period
   })
   names(seasonal_peak) <- sprintf("seasonal_peak_%s", names(seasonalities))
   seasonal_trough <- map_dbl(seasonalities, function(seas){
-    which.min(seas) %% .period
+    (which.min(seas) + rle_window[1] - 1) %% .period
   })
   names(seasonal_trough) <- sprintf("seasonal_trough_%s", names(seasonalities))
 
