@@ -93,7 +93,6 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
 #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
 #'
 #' @importFrom fablelite new_decomposition_class new_decomposition_definition
-#' @export
 SEATS <- function(.data, formula, ...){
   dcmp <- new_decomposition_class("SEATS", train = train_seats,
                                   specials = specials_seats, check = all_tsbl_checks)

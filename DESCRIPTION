@@ -32,7 +32,6 @@ Suggests:
     fable,
     ForeCA
 Remotes:
-    tidyverts/tsibbledata,
     tidyverts/fable,
     tidyverts/fablelite
 ByteCompile: true

@@ -97,7 +97,6 @@ train_X11 <- function(.data, formula, specials, type, ...){
 #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
 #'
 #' @importFrom fablelite new_decomposition_class new_decomposition_definition
-#' @export
 X11 <- function(.data, formula, type = c("additive", "multiplicative"), ...){
   type <- match.arg(type)
   dcmp <- new_decomposition_class("X11",
