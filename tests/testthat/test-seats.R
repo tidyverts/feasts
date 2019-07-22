@@ -6,25 +6,25 @@ test_that("Bad inputs for seats decomposition", {
     tsibble::pedestrian %>%
       filter(Sensor == "Southern Cross Station",
              Date == as.Date("2015-01-01")) %>%
-      SEATS(Count),
+      feasts:::SEATS(Count),
     "The X-13ARIMA-SEATS method only supports seasonal patterns"
   )
 
   expect_error(
     tsbl_co2 %>%
-      SEATS(value ~ seq_along(value)),
+      feasts:::SEATS(value ~ seq_along(value)),
     "Exogenous regressors are not supported for X-13ARIMA-SEATS decompositions"
   )
 
   expect_error(
     tsbl_co2 %>%
-      SEATS(value, x11=""),
+      feasts:::SEATS(value, x11=""),
     "Use \\`X11\\(\\)\\` to perform an X11 decomposition"
   )
 })
 
 test_that("X-13ARIMA-SEATS decomposition", {
-  dcmp <- tsbl_co2 %>% SEATS(value)
+  dcmp <- tsbl_co2 %>% feasts:::SEATS(value)
   seas_dcmp <- seasonal::seas(co2)
 
   expect_equivalent(

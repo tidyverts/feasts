@@ -82,7 +82,7 @@ train_X11 <- function(.data, formula, specials, type, ...){
 #'
 #'
 #' @examples
-#' tsibbledata::aus_production %>% X11(Beer)
+#' tsibbledata::aus_production %>% feasts:::X11(Beer)
 #'
 #' @seealso [seasonal::seas()]
 #'

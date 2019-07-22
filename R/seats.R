@@ -78,7 +78,7 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
 #' }
 #'
 #' @examples
-#' tsibbledata::aus_production %>% SEATS(Beer)
+#' tsibbledata::aus_production %>% feasts:::SEATS(Beer)
 #'
 #' @seealso [seasonal::seas()]
 #'

@@ -32,7 +32,7 @@ season(period = NULL)
 }
 
 \examples{
-tsibbledata::aus_production \%>\% SEATS(Beer)
+tsibbledata::aus_production \%>\% feasts:::SEATS(Beer)
 
 }
 \references{

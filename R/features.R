@@ -49,6 +49,7 @@ feat_stl <- function(x, .period, s.window = 13, ...){
   dots <- dots[names(dots) %in% names(formals(stats::stl))]
   season.args <- list2(!!(names(.period)%||%as.character(.period)) :=
                          list(period = .period, s.window = s.window))
+
   dcmp <- eval_tidy(quo(estimate_stl(x, trend.args = list(),
                     season.args = season.args, lowpass.args = list(), !!!dots)))
   trend <- dcmp[["trend"]]

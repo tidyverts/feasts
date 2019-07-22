@@ -5,20 +5,20 @@ test_that("Bad inputs for X11 decomposition", {
     tsibble::pedestrian %>%
       filter(Sensor == "Southern Cross Station",
              Date == as.Date("2015-01-01")) %>%
-      X11(Count),
+      feasts:::X11(Count),
     "The X11 method only supports monthly"
   )
 
   expect_error(
     as_tsibble(co2) %>%
-      X11(value ~ seq_along(value)),
+      feasts:::X11(value ~ seq_along(value)),
     "Exogenous regressors are not supported for X11 decompositions"
   )
 })
 
 test_that("Additive X11 decomposition", {
   tsbl_co2 <- as_tsibble(co2)
-  dcmp <- tsbl_co2 %>% X11(value)
+  dcmp <- tsbl_co2 %>% feasts:::X11(value)
   seas_dcmp <- seasonal::seas(co2, x11="", x11.mode = "add",
                               transform.function = "none")
 
@@ -42,7 +42,7 @@ test_that("Additive X11 decomposition", {
 
 test_that("Multiplicative X11 decomposition", {
   tsbl_uad <- as_tsibble(USAccDeaths)
-  dcmp <- tsbl_uad %>% X11(value, type = "multiplicative")
+  dcmp <- tsbl_uad %>% feasts:::X11(value, type = "multiplicative")
   seas_dcmp <- seasonal::seas(USAccDeaths, x11="", x11.mode = "mult",
                               transform.function = "log")
 
