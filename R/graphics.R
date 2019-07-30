@@ -555,14 +555,14 @@ print.gg_tsdisplay <- function(x, ...){
 #'
 #' @export
 gg_arma <- function(data){
-  if(!fablelite::is_mable(data)){
+  if(!fabletools::is_mable(data)){
     abort("gg_arma() must be used with a mable containing models that compute ARMA roots")
   }
 
   fcts <- c(key(data), sym(".model"))
 
   data <- data %>%
-    fablelite::glance() %>%
+    fabletools::glance() %>%
     gather("type", "root", !!sym("ar_roots"), !!sym("ma_roots")) %>%
     unnest_tbl("root") %>%
     filter(!is.na(!!sym("root"))) %>%

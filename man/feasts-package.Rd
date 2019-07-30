@@ -27,5 +27,10 @@ Authors:
   \item Earo Wang
 }
 
+Other contributors:
+\itemize{
+  \item Di Cook [contributor]
+}
+
 }
 \keyword{package}

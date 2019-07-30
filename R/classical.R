@@ -1,4 +1,4 @@
-specials_classical <- fablelite::new_specials(
+specials_classical <- fabletools::new_specials(
   season = function(period = NULL){
     period <- get_frequencies(period, self$data, .auto = "smallest")
 
@@ -45,7 +45,7 @@ train_classical <- function(.data, formula, specials,
     season_adjust = call2(dcmp_op_inv, sym(resp), sym("seasonal"))
   )
 
-  fablelite::as_dable(dcmp, resp = !!sym(resp), method = "Classical",
+  fabletools::as_dable(dcmp, resp = !!sym(resp), method = "Classical",
                       seasons = seasonalities, aliases = aliases)
 }
 
@@ -82,7 +82,7 @@ train_classical <- function(.data, formula, specials,
 #'   classical_decomposition(value ~ season(12), type = "mult")
 #'
 #' @importFrom stats ts decompose
-#' @importFrom fablelite new_decomposition_class new_decomposition_definition
+#' @importFrom fabletools new_decomposition_class new_decomposition_definition
 #' @export
 classical_decomposition <- function(.data, formula, type = c("additive", "multiplicative"), ...){
   dcmp <- new_decomposition_class("Classical decomposition",

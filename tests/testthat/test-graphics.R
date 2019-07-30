@@ -247,10 +247,10 @@ test_that("gg_tsdisplay() plots", {
 
 test_that("gg_arma() plots", {
   mdl <- tsbl_co2 %>%
-    fablelite::model(fable::ARIMA(value ~ 0 + pdq(1,1,1) + PDQ(1,1,2)))
+    fabletools::model(fable::ARIMA(value ~ 0 + pdq(1,1,1) + PDQ(1,1,2)))
 
   p <- gg_arma(mdl)
-  smmry <- fablelite::glance(mdl)
+  smmry <- fabletools::glance(mdl)
   ar_roots <- smmry$ar_roots[[1]]
   ma_roots <- smmry$ma_roots[[1]]
 

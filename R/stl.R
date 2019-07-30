@@ -1,6 +1,6 @@
 globalVariables("self")
 
-specials_stl <- fablelite::new_specials(
+specials_stl <- fabletools::new_specials(
   trend = function(window, degree, jump){
     args <- map(call_args(match.call()), eval_tidy)
     if(isFALSE(is.finite(args$window)) && sign(args$window) == 1){
@@ -99,7 +99,7 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
     season_adjust = call2("+", sym("trend"), sym("remainder"))
   )
 
-  fablelite::as_dable(decomposition, resp = !!sym(measured_vars(.data)),
+  fabletools::as_dable(decomposition, resp = !!sym(measured_vars(.data)),
                       method = "STL", seasons = seasonalities, aliases = aliases)
 }
 
@@ -161,7 +161,7 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 #' USAccDeaths %>% as_tsibble %>% STL(value ~ trend(window = 10))
 #'
 #' @importFrom stats ts stl
-#' @importFrom fablelite new_decomposition_class new_decomposition_definition
+#' @importFrom fabletools new_decomposition_class new_decomposition_definition
 #' @export
 STL <- function(.data, formula, iterations = 2, ...){
   dcmp <- new_decomposition_class("STL",

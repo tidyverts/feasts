@@ -10,7 +10,7 @@ Authors@R: c(
     )
 Depends:
     R (>= 3.5.0),
-    fablelite
+    fabletools
 Imports: 
     rlang (>= 0.2.0),
     tibble (>= 1.4.1),

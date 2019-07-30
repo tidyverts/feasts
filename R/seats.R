@@ -1,6 +1,6 @@
 globalVariables("self")
 
-specials_seats <- fablelite::new_specials(
+specials_seats <- fabletools::new_specials(
   season = function(period = NULL){
     period <- get_frequencies(period, self$data, .auto = "smallest")
     if(!(period %in% c(1, 2, 4, 6, 12))){
@@ -52,7 +52,7 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
     season_adjust = call2("*", sym("trend"), sym("irregular"))
   )
 
-  fablelite::as_dable(dcmp, resp = !!sym(measured_vars(.data)),
+  fabletools::as_dable(dcmp, resp = !!sym(measured_vars(.data)),
                       method = "X-13ARIMA-SEATS", seasons = seasonalities, aliases = aliases)
 }
 
@@ -92,7 +92,7 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
 #'
 #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
 #'
-#' @importFrom fablelite new_decomposition_class new_decomposition_definition
+#' @importFrom fabletools new_decomposition_class new_decomposition_definition
 SEATS <- function(.data, formula, ...){
   dcmp <- new_decomposition_class("SEATS", train = train_seats,
                                   specials = specials_seats, check = all_tsbl_checks)
