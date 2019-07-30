@@ -4,8 +4,9 @@ Title: Feature Extraction And Statistics for Time Series
 Description: Provides a collection of features, decompositions, statistical summaries and graphics functions for the analysing tidy time series data. The package name 'feasts' is an acryonym comprising of its key features: Feature Extraction And Statistics for Time Series.
 Authors@R: c(
     person("Mitchell", "O'Hara-Wild", email = "mail@mitchelloharawild.com", role = c("aut", "cre")),
-    person("Rob", "Hyndman", role = c("aut")),
-    person("Earo", "Wang", role = "aut")
+    person("Rob", "Hyndman", role = "aut"),
+    person("Earo", "Wang", role = "aut"),
+    person("Di", "Cook", role = "ctb")
     )
 Depends:
     R (>= 3.5.0),
