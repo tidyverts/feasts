@@ -34,7 +34,7 @@ Suggests:
     ForeCA
 Remotes:
     tidyverts/fable,
-    tidyverts/fablelite
+    tidyverts/fabletools
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL-3
