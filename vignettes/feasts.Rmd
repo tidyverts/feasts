@@ -1,0 +1,99 @@
+---
+title: "Introduction to feasts"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{feasts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(feasts)
+library(tsibble)
+library(dplyr)
+```
+
+The feasts package provides a smorgasbord of tools for analysing tidy temporal data in the tsibble format. The package name is an acronym of its primary functionality: *Feature Extraction and Statistics for Time Series*.
+
+Suppose we wanted to analyse seasonal patterns in the number of people travel domestically to Melbourne, Australia. In the `tsibble::tourism` dataset, this can be further broken down into 4 reasons of travel: "business", "holiday", "visiting friends and relatives" and "other reasons". The first observation from each series are shown below.
+
+```{r data}
+tourism_melb <- tourism %>%
+  filter(Region == "Melbourne")
+tourism_melb %>% 
+  group_by(Purpose) %>% 
+  slice(1)
+```
+
+A useful first look of a time series is with a standard time series plot.
+
+```{r}
+tourism_melb %>% 
+  autoplot(Trips)
+```
+
+```{r}
+tourism_melb %>% 
+  gg_season(Trips)
+```
+
+
+```{r}
+tourism_melb %>% 
+  gg_subseries(Trips)
+```
+
+
+```{r}
+tourism_melb %>% 
+  ACF(Trips)
+```
+
+
+```{r}
+tourism_melb %>% 
+  ACF(Trips) %>% 
+  autoplot()
+```
+
+```{r}
+tourism_melb %>% 
+  STL(Trips ~ season(window = "periodic"))
+```
+
+```{r}
+tourism_melb %>% 
+  STL(Trips ~ season(window = "periodic")) %>% 
+  autoplot()
+```
+
+```{r}
+library(ggplot2)
+tourism_melb %>% 
+  features(Trips, feat_stl) %>% 
+  ggplot(aes(x = trend_strength, y = seasonal_strength_year, colour = Purpose)) + 
+  geom_point() + 
+  coord_equal() + 
+  lims(x = c(0,1), y = c(0,1))
+```
+
+```{r}
+library(ggplot2)
+tourism_melb %>% 
+  features(Trips, feat_stl) %>% 
+  ggplot(aes(x = trend_strength, y = seasonal_strength_year, colour = Purpose)) + 
+  geom_point(data = features(tourism, Trips, feat_stl), alpha = 0.3) + 
+  geom_point() + 
+  coord_equal() + 
+  lims(x = c(0,1), y = c(0,1))
+```
+
+
+More information about time series analysis using the feasts package can be found in [*Forecasting: Principles and Practices (3rd Ed.)*](https://otexts.com/fpp3/) and in the [*pkgdown site*](feasts.tidyverts.org/).
