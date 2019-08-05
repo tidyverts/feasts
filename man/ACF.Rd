@@ -48,9 +48,8 @@ differences are that \code{ACF} does not plot a spike at lag 0 when
 \code{type=="correlation"} (which is redundant) and the horizontal axes show
 lags in time units rather than seasonal units.
 
-The tapered versions implement the ACF and PACF estimates and plots
-described in Hyndman (2015), based on the banded and tapered estimates of
-autocovariance proposed by McMurry and Politis (2010).
+The resulting tables from these functions can also be plotted using
+\code{\link[=autoplot.tbl_cf]{autoplot.tbl_cf()}}.
 }
 \examples{
 library(tsibble)
@@ -59,11 +58,20 @@ library(dplyr)
 
 vic_elec \%>\% ACF(Temperature)
 
+vic_elec \%>\% ACF(Temperature) \%>\% autoplot()
+
 vic_elec \%>\% PACF(Temperature)
+
+vic_elec \%>\% PACF(Temperature) \%>\% autoplot()
 
 global_economy \%>\%
   filter(Country == "Australia") \%>\%
   CCF(GDP, Population)
+
+global_economy \%>\%
+  filter(Country == "Australia") \%>\%
+  CCF(GDP, Population) \%>\%
+  autoplot()
 
 }
 \references{

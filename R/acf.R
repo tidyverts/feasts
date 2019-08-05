@@ -12,9 +12,12 @@
 #' \code{type=="correlation"} (which is redundant) and the horizontal axes show
 #' lags in time units rather than seasonal units.
 #'
-#' The tapered versions implement the ACF and PACF estimates and plots
-#' described in Hyndman (2015), based on the banded and tapered estimates of
-#' autocovariance proposed by McMurry and Politis (2010).
+#' The resulting tables from these functions can also be plotted using
+#' [`autoplot.tbl_cf()`].
+#'
+# The tapered versions implement the ACF and PACF estimates and plots
+# described in Hyndman (2015), based on the banded and tapered estimates of
+# autocovariance proposed by McMurry and Politis (2010).
 #'
 #' @param .data A tsibble
 #' @param ... The column(s) from the tsibble used to compute the ACF, PACF or CCF.
@@ -45,6 +48,8 @@
 #' library(dplyr)
 #'
 #' vic_elec %>% ACF(Temperature)
+#'
+#' vic_elec %>% ACF(Temperature) %>% autoplot()
 #'
 #' @importFrom tibble tibble
 #' @importFrom stats as.ts frequency
@@ -84,6 +89,8 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
 #' @examples
 #' vic_elec %>% PACF(Temperature)
 #'
+#' vic_elec %>% PACF(Temperature) %>% autoplot()
+#'
 #' @export
 PACF <- function(.data, ..., lag_max = NULL){
   compute_pacf <- function(.data, value, ...){
@@ -115,6 +122,11 @@ PACF <- function(.data, ..., lag_max = NULL){
 #' global_economy %>%
 #'   filter(Country == "Australia") %>%
 #'   CCF(GDP, Population)
+#'
+#' global_economy %>%
+#'   filter(Country == "Australia") %>%
+#'   CCF(GDP, Population) %>%
+#'   autoplot()
 #'
 #' @export
 CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance")){
