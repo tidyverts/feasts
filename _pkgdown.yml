@@ -3,6 +3,10 @@ url: https://feasts.tidyverts.org
 template:
   params:
     bootswatch: cosmo
+    ganalytics: UA-145121339-1
+
+development:
+  mode: auto
 
 authors:
   Mitchell O'Hara-Wild:
@@ -19,6 +23,10 @@ navbar:
     href: reference/index.html
   - text: Changelog
     href: news/index.html
+  - text: Vignettes
+    menu:
+    - text: Introduction to feasts
+      href: articles/feasts.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverts/feasts
