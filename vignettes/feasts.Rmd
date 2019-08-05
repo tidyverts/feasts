@@ -10,11 +10,13 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.height = 4,
+  fig.width = 7
 )
 ```
 
-```{r setup}
+```{r setup, message=FALSE}
 library(feasts)
 library(tsibble)
 library(dplyr)
@@ -34,66 +36,100 @@ tourism_melb %>%
 
 A useful first look of a time series is with a standard time series plot.
 
-```{r}
+```{r plot}
 tourism_melb %>% 
   autoplot(Trips)
 ```
 
-```{r}
+This plot reveals that each of the reasons for visiting Melbourne follow a similar pattern, and that in recent years the amount of tourism is increasing. It is also clear that most people travel to Melbourne for one of three reasons (Business, Holiday or Visiting), and much less travellers report other travel purposes.
+
+While this plot reveals many useful large scale features of the data, it can be difficult to identify specifics about the seasonal pattern (other than its existance). Which quarter has the most tourism travel in Melbourne? To find out we will need to investigate other plot types.
+
+```{r season-plot}
 tourism_melb %>% 
   gg_season(Trips)
 ```
 
+The seasonal plot (`gg_season()`) wraps a seasonal period (in this case, years) over the x axis, allowing you to see how each quarter varies. In particular, it is apparent that Q3 is a low point for people visiting friends and relatives, which noticably increases with the holidays in Q4. Similarly Q2 and Q3 are the time periods with the most business travel.
 
-```{r}
+The trend of recent years can also be seen in the spread between the lines. The more recent years (purple/pink) are higher than the previous years. This also reveals that the drop in visiting tourism in Q3 was far less extreme in the most recent two years.
+
+```{r subseries-plot}
 tourism_melb %>% 
   gg_subseries(Trips)
 ```
 
+An alternative visualisation of seasonal patterns is the subseries plot (`gg_subseries()`), which isolates seasonal periods into separate plots. The blue lines indicate the average number of trips in each quarter, making the increase in visiting tourism from Q3 to Q4 more obvious. This plot style is especially useful in seeing how seasonality changes over time. Focusing on the visiting tourism (last row of facets), the number of tourists in Q3 and Q4 are increasing much more than in Q1 and Q2 (suggesting that the trend may vary between seasons).
 
-```{r}
+A look at the correlations in each series could reveal structures which is difficult to identify in the above plots.
+
+```{r acf}
 tourism_melb %>% 
   ACF(Trips)
 ```
 
+The above code computes autocorrelations (`ACF()`), however it is also possible to compute partial autocorrelations (`PACF()`) and cross-correlations (`CCF()`).
 
-```{r}
+```{r acf-plot}
 tourism_melb %>% 
   ACF(Trips) %>% 
   autoplot()
 ```
 
-```{r}
+The tables given from these correlation functions also have a nice `autoplot()` method, which will show the correlations along with a threshold for significance (controllable with the `level` argument).
+
+Another helpful strategy in investigating the components of a time series is to decompose the components of interest. A useful decomposition for this is the STL decomposition, which allows you to extract multiple seasonal patterns with any seasonal period.
+
+```{r stl}
 tourism_melb %>% 
   STL(Trips ~ season(window = "periodic"))
 ```
 
-```{r}
+The above call to `STL()` has decomposed the `Trips` variable into three components such that `Trips = trend + season_year + remainder`. By setting `season(window = "periodic")`, we have imposed that the seasonal pattern will not change - you can control how quickly the seasonal pattern can change by setting this to some number.
+
+```{r stl-plot}
 tourism_melb %>% 
-  STL(Trips ~ season(window = "periodic")) %>% 
+  STL(Trips ~ season(window = 6)) %>% 
   autoplot()
 ```
 
-```{r}
+Much like the table from `ACF()`, decompositions can also be plotted with `autoplot()`. This gives the expected facetted plot of the components extracted from the measured variable. The plot shows that each purpose of travel has a different seasonal pattern, and that the strength and structure of this pattern has changed over time. As these components are often on different scales, this plot includes a set of scale bars which are of equal scaled size across all plots.
+
+The above plots and analysis are useful for if you're looking at a few series, but what can be done if you needed to look at and compare more time series? Extracting features from a collection of time series is a scalable approach to analysing many datasets. Each feature is a numerical summary of the dataset's defining characteristics, and a set of features can be created using `feature_set()`.
+
+```{r features}
+tourism_melb_features <- tourism_melb %>% 
+  features(Trips, feature_set(tags = "stl"))
+tourism_melb_features
+```
+
+In the example above, the components from the STL decomposition has been used to summarise the strength of trend and seasonality components of each series.
+
+These features are particularly useful to show on a plot.
+
+```{r featutes-plot}
 library(ggplot2)
-tourism_melb %>% 
-  features(Trips, feat_stl) %>% 
+tourism_melb_features %>% 
   ggplot(aes(x = trend_strength, y = seasonal_strength_year, colour = Purpose)) + 
   geom_point() + 
   coord_equal() + 
   lims(x = c(0,1), y = c(0,1))
 ```
 
-```{r}
-library(ggplot2)
-tourism_melb %>% 
-  features(Trips, feat_stl) %>% 
-  ggplot(aes(x = trend_strength, y = seasonal_strength_year, colour = Purpose)) + 
-  geom_point(data = features(tourism, Trips, feat_stl), alpha = 0.3) + 
-  geom_point() + 
+When analysing just four series, a plot of the features does not look very exciting. It is worth noting that a lot of the individuality seen in the previous analysis have been lost when each series is summarised down to just two values. However recall that the analysis has been working from a very small subset of the complete `tourism` dataset. Let's see how Melbourne compares with the other regions in the data.
+
+```{r features-all-plot}
+tourism_features <- tourism %>% 
+  features(Trips, feat_stl)
+
+ggplot(mapping = aes(x = trend_strength, y = seasonal_strength_year, colour = Purpose)) + 
+  geom_point(data = tourism_features, alpha = 0.3) + 
+  geom_point(data = tourism_melb_features, size = 2) + 
   coord_equal() + 
+  facet_wrap(vars(Purpose)) + 
   lims(x = c(0,1), y = c(0,1))
 ```
 
+Looks like Melbourne is one of the *trendiest* places around Australia.
 
 More information about time series analysis using the feasts package can be found in [*Forecasting: Principles and Practices (3rd Ed.)*](https://otexts.com/fpp3/) and in the [*pkgdown site*](feasts.tidyverts.org/).
