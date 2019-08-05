@@ -174,9 +174,8 @@ of class "tbl_cf", which is a tibble containing the correlations computed.</p>
 differences are that <code>ACF</code> does not plot a spike at lag 0 when
 <code>type=="correlation"</code> (which is redundant) and the horizontal axes show
 lags in time units rather than seasonal units.</p>
-<p>The tapered versions implement the ACF and PACF estimates and plots
-described in Hyndman (2015), based on the banded and tapered estimates of
-autocovariance proposed by McMurry and Politis (2010).</p>
+<p>The resulting tables from these functions can also be plotted using
+<code><a href='autoplot.tbl_cf.html'>autoplot.tbl_cf()</a></code>.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -220,6 +219,7 @@ Time Series Analysis</em>, 31(6), 471-482.</p>
 #&gt;  9  270m 0.815
 #&gt; 10  300m 0.785
 #&gt; # … with 37 more rows</div><div class='input'>
+<span class='no'>vic_elec</span> <span class='kw'>%&gt;%</span> <span class='fu'>ACF</span>(<span class='no'>Temperature</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>()</div><div class='img'><img src='ACF-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>vic_elec</span> <span class='kw'>%&gt;%</span> <span class='fu'>PACF</span>(<span class='no'>Temperature</span>)</div><div class='output co'>#&gt; # A tsibble: 47 x 2 [30m]
 #&gt;      lag    pacf
 #&gt;    &lt;lag&gt;   &lt;dbl&gt;
@@ -234,6 +234,7 @@ Time Series Analysis</em>, 31(6), 471-482.</p>
 #&gt;  9  270m  0.0151
 #&gt; 10  300m  0.0170
 #&gt; # … with 37 more rows</div><div class='input'>
+<span class='no'>vic_elec</span> <span class='kw'>%&gt;%</span> <span class='fu'>PACF</span>(<span class='no'>Temperature</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>()</div><div class='img'><img src='ACF-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>global_economy</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Country</span> <span class='kw'>==</span> <span class='st'>"Australia"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>CCF</span>(<span class='no'>GDP</span>, <span class='no'>Population</span>)</div><div class='output co'>#&gt; # A tsibble: 29 x 3 [1Y]
@@ -251,6 +252,10 @@ Time Series Analysis</em>, 31(6), 471-482.</p>
 #&gt;  9 Australia   -6Y 0.472 
 #&gt; 10 Australia   -5Y 0.563 
 #&gt; # … with 19 more rows</div><div class='input'>
+<span class='no'>global_economy</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Country</span> <span class='kw'>==</span> <span class='st'>"Australia"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>CCF</span>(<span class='no'>GDP</span>, <span class='no'>Population</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>()</div><div class='img'><img src='ACF-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
