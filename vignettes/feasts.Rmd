@@ -132,4 +132,4 @@ ggplot(mapping = aes(x = trend_strength, y = seasonal_strength_year, colour = Pu
 
 Looks like Melbourne is one of the *trendiest* places around Australia!
 
-More information about time series analysis using the feasts package can be found in [*Forecasting: Principles and Practices (3rd Ed.)*](https://otexts.com/fpp3/) and in the [*pkgdown site*](feasts.tidyverts.org/).
+More information about time series analysis using the feasts package can be found in [*Forecasting: Principles and Practices (3rd Ed.)*](https://otexts.com/fpp3/) and in the [*pkgdown site*](https://feasts.tidyverts.org/).
