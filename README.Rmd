@@ -23,7 +23,7 @@ options(width = 100)
 
 ## Overview
 
-feasts provides a collection of tools for the analysis of time series data. The package name is an acryonym comprising of its key features: *Feature Extraction And Statistics for Time Series*.
+feasts provides a collection of tools for the analysis of time series data. The package name is an acronym comprising of its key features: *Feature Extraction And Statistics for Time Series*.
 
 The package works with tidy temporal data provided by the [tsibble](https://github.com/tidyverts/tsibble) package to produce time series features, decompositions, statistical summaries and convenient visualisations. These features are useful in understanding the behaviour of time series data, and closely integrates with the tidy forecasting workflow used in the [fable](https://github.com/tidyverts/fable) package.
 

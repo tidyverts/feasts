@@ -1,7 +1,7 @@
 Package: feasts
 Version: 0.1.0
 Title: Feature Extraction And Statistics for Time Series
-Description: Provides a collection of features, decompositions, statistical summaries and graphics functions for the analysing tidy time series data. The package name 'feasts' is an acryonym comprising of its key features: Feature Extraction And Statistics for Time Series.
+Description: Provides a collection of features, decompositions, statistical summaries and graphics functions for the analysing tidy time series data. The package name 'feasts' is an acronym comprising of its key features: Feature Extraction And Statistics for Time Series.
 Authors@R: c(
     person("Mitchell", "O'Hara-Wild", email = "mail@mitchelloharawild.com", role = c("aut", "cre")),
     person("Rob", "Hyndman", role = "aut"),
@@ -41,3 +41,4 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
+Language: en-GB

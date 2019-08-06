@@ -16,7 +16,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 ## Overview
 
 feasts provides a collection of tools for the analysis of time series
-data. The package name is an acryonym comprising of its key features:
+data. The package name is an acronym comprising of its key features:
 *Feature Extraction And Statistics for Time Series*.
 
 The package works with tidy temporal data provided by the
