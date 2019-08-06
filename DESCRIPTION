@@ -32,9 +32,6 @@ Suggests:
     fracdiff,
     fable,
     ForeCA
-Remotes:
-    tidyverts/fable,
-    tidyverts/fabletools
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL-3
