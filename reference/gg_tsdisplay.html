@@ -140,8 +140,8 @@ graphic of either a PACF, histogram, lagged scatterplot or spectral density.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>gg_tsdisplay</span>(<span class='no'>data</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"partial"</span>, <span class='st'>"histogram"</span>,
-  <span class='st'>"scatter"</span>, <span class='st'>"spectrum"</span>), <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_tsdisplay</span>(<span class='no'>data</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"partial"</span>, <span class='st'>"season"</span>,
+  <span class='st'>"histogram"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spectrum"</span>), <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,7 +157,9 @@ automatically selected from the data.</p></td>
     </tr>
     <tr>
       <th>plot_type</th>
-      <td><p>type of plot to include in lower right corner.</p></td>
+      <td><p>type of plot to include in lower right corner. By default
+(<code>"auto"</code>), a season plot will be shown for seasonal data, and a spectrum plot
+will be shown for non-seasonal data.</p></td>
     </tr>
     <tr>
       <th>lag_max</th>
