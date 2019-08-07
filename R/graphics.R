@@ -438,7 +438,9 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' Plots a time series along with its ACF along with an customisable third
 #' graphic of either a PACF, histogram, lagged scatterplot or spectral density.
 #'
-#' @param plot_type type of plot to include in lower right corner.
+#' @param plot_type type of plot to include in lower right corner. By default
+#' (`"auto"`), a season plot will be shown for seasonal data, and a spectrum plot
+#' will be shown for non-seasonal data.
 #' @inheritParams gg_season
 #' @inheritParams ACF
 #'
@@ -465,19 +467,28 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
 #' @importFrom stats na.exclude complete.cases
 #' @export
-gg_tsdisplay <- function(data, y = NULL, plot_type = c("partial", "histogram", "scatter", "spectrum"),
+gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "season", "histogram", "scatter", "spectrum"),
                          lag_max = NULL){
   if(n_keys(data) > 1){
     abort("The data provided to contains more than one time series. Please filter a single time series to use `gg_tsdisplay()`")
   }
-
   require_package("grid")
+
+  plot_type <- match.arg(plot_type)
+  if(plot_type == "auto"){
+    period <- get_frequencies(NULL, data, .auto = "all")
+    if(all(period <= 1)){
+      plot_type <- "spectrum"
+    }
+    else{
+      plot_type <- "season"
+    }
+  }
 
   # Set up grid for plots
   grid::grid.newpage()
   grid::pushViewport(grid::viewport(layout = grid::grid.layout(2, 2)))
 
-  plot_type <- match.arg(plot_type)
   y <- guess_plot_var(data, !!enquo(y))
 
   p1 <- ggplot(data, aes(x = !!index(data), y = !!y)) +
@@ -495,6 +506,8 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("partial", "histogram", "
     yrange <- range(c(p2_yrange, p3_yrange))
     p2 <- p2 + ylim(yrange)
     p3 <- p3 + ylim(yrange)
+  } else if(plot_type == "season"){
+    p3 <- gg_season(data, !!y)
   } else if(plot_type == "histogram"){
     p3 <- ggplot(data, aes(x = !!y)) +
       geom_histogram(bins = min(500, grDevices::nclass.FD(na.exclude(data[[expr_text(y)]])))) +
@@ -514,17 +527,17 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("partial", "histogram", "
       ggplot2::scale_y_log10()
   }
 
-  structure(list(p1, p2, p3), class = c("gg_tsdisplay", "gg"))
+  structure(list(p1, p2, p3), class = c("gg_tsensemble", "gg"))
 }
 
 #' @export
-`+.gg_tsdisplay` <- function(e1, e2){
+`+.gg_tsensemble` <- function(e1, e2){
   e1[[1]] <- e1[[1]] + e2
   e1
 }
 
 #' @export
-print.gg_tsdisplay <- function(x, ...){
+print.gg_tsensemble <- function(x, ...){
   print(x[[1]], vp = grid::viewport(layout.pos.row = c(1, 1), layout.pos.col = c(1, 2)))
   print(x[[2]], vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 1))
   print(x[[3]], vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 2))

@@ -4,8 +4,8 @@
 \alias{gg_tsdisplay}
 \title{Ensemble of time series displays}
 \usage{
-gg_tsdisplay(data, y = NULL, plot_type = c("partial", "histogram",
-  "scatter", "spectrum"), lag_max = NULL)
+gg_tsdisplay(data, y = NULL, plot_type = c("auto", "partial", "season",
+  "histogram", "scatter", "spectrum"), lag_max = NULL)
 }
 \arguments{
 \item{data}{A tidy time series object (tsibble)}
@@ -13,7 +13,9 @@ gg_tsdisplay(data, y = NULL, plot_type = c("partial", "histogram",
 \item{y}{The variable to plot (a bare expression). If NULL, it will
 automatically selected from the data.}
 
-\item{plot_type}{type of plot to include in lower right corner.}
+\item{plot_type}{type of plot to include in lower right corner. By default
+(\code{"auto"}), a season plot will be shown for seasonal data, and a spectrum plot
+will be shown for non-seasonal data.}
 
 \item{lag_max}{maximum lag at which to calculate the acf. Default is 10*log10(N/m)
 where N is the number of observations and m the number of series. Will be
