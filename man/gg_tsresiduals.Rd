@@ -15,11 +15,13 @@ gg_tsresiduals(data, ...)
 Plots the residuals using a time series plot, ACF and histogram.
 }
 \examples{
+if (requireNamespace("fable", quietly = TRUE)) {
 library(fable)
 
 tsibbledata::aus_production \%>\%
   model(ETS(Beer)) \%>\%
   gg_tsresiduals()
+}
 
 }
 \references{

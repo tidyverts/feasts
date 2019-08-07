@@ -544,11 +544,13 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 #' \url{https://OTexts.org/fpp3/}
 #'
 #' @examples
+#' if (requireNamespace("fable", quietly = TRUE)) {
 #' library(fable)
 #'
 #' tsibbledata::aus_production %>%
 #'   model(ETS(Beer)) %>%
 #'   gg_tsresiduals()
+#' }
 #'
 #' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
 #' @importFrom stats na.exclude complete.cases
