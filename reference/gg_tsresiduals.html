@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Seasonal plot — gg_season • feasts</title>
+<title>Ensemble of time series residual diagnostic plots — gg_tsresiduals • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,12 +37,9 @@
 
 
 
-<meta property="og:title" content="Seasonal plot — gg_season" />
+<meta property="og:title" content="Ensemble of time series residual diagnostic plots — gg_tsresiduals" />
 
-<meta property="og:description" content="Produces a time series seasonal plot. A seasonal plot is similar to a regular
-time series plot, except the x-axis shows data from within each season. This
-plot type allows the underlying seasonal pattern to be seen more clearly,
-and is especially useful in identifying years in which the pattern changes." />
+<meta property="og:description" content="Plots the residuals using a time series plot, ACF and histogram." />
 
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -130,80 +127,49 @@ and is especially useful in identifying years in which the pattern changes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Seasonal plot</h1>
+    <h1>Ensemble of time series residual diagnostic plots</h1>
     
-    <div class="hidden name"><code>gg_season.Rd</code></div>
+    <div class="hidden name"><code>gg_tsresiduals.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Produces a time series seasonal plot. A seasonal plot is similar to a regular
-time series plot, except the x-axis shows data from within each season. This
-plot type allows the underlying seasonal pattern to be seen more clearly,
-and is especially useful in identifying years in which the pattern changes.</p>
+    <p>Plots the residuals using a time series plot, ACF and histogram.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>gg_season</span>(<span class='no'>data</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>facet_period</span>, <span class='kw'>max_col</span> <span class='kw'>=</span> <span class='fl'>15</span>,
-  <span class='kw'>polar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"both"</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_tsresiduals</span>(<span class='no'>data</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A tidy time series object (tsibble)</p></td>
-    </tr>
-    <tr>
-      <th>y</th>
-      <td><p>The variable to plot (a bare expression). If NULL, it will
-automatically selected from the data.</p></td>
-    </tr>
-    <tr>
-      <th>period</th>
-      <td><p>The seasonal period to display.</p></td>
-    </tr>
-    <tr>
-      <th>facet_period</th>
-      <td><p>A secondary seasonal period to facet by
-(typically smaller than period).</p></td>
-    </tr>
-    <tr>
-      <th>max_col</th>
-      <td><p>The maximum number of colours to display on the plot. If the
-number of seasonal periods in the data is larger than <code>max_col</code>, the plot
-will not include a colour. Use <code>max_col = 0</code> to never colour the lines, or Inf
-to always colour the lines. If labels are used, then max_col will be ignored.</p></td>
-    </tr>
-    <tr>
-      <th>polar</th>
-      <td><p>If TRUE, the season plot will be shown on polar coordinates.</p></td>
-    </tr>
-    <tr>
-      <th>labels</th>
-      <td><p>Position of the labels for seasonal period identifier.</p></td>
+      <td><p>A mable containing one model with residuals.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to geom_line()</p></td>
+      <td><p>Additional arguments passed to <code><a href='gg_tsdisplay.html'>gg_tsdisplay()</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Hyndman and Athanasopoulos (2019) Forecasting: principles and practice,
-3rd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp3/</p>
+    <p>Hyndman and Athanasopoulos (2019) <em>Forecasting: principles
+and practice</em>, 3rd edition, OTexts: Melbourne, Australia.
+<a href='https://OTexts.org/fpp3/'>https://OTexts.org/fpp3/</a></p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='gg_tsdisplay.html'>gg_tsdisplay()</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>tsibble</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://tsibbledata.tidyverts.org/reference/aus_retail.html'>aus_retail</a></span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(
-    <span class='no'>State</span> <span class='kw'>==</span> <span class='st'>"Victoria"</span>,
-    <span class='no'>Industry</span> <span class='kw'>==</span> <span class='st'>"Cafes, restaurants and catering services"</span>
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'>gg_season</span>(<span class='no'>Turnover</span>)</div><div class='img'><img src='gg_season-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>fable</span>)
+
+<span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://tsibbledata.tidyverts.org/reference/aus_production.html'>aus_production</a></span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>model</span>(<span class='fu'><a href='https://fable.tidyverts.org/reference/ETS.html'>ETS</a></span>(<span class='no'>Beer</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'>gg_tsresiduals</span>()</div><div class='img'><img src='gg_tsresiduals-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -212,6 +178,8 @@ to always colour the lines. If labels are used, then max_col will be ignored.</p
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#references">References</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
