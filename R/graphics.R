@@ -145,8 +145,8 @@ guess_plot_var <- function(x, y){
 #' @param ... Additional arguments passed to geom_line()
 #'
 #' @references
-#' Hyndman and Athanasopoulos (2018) Forecasting: principles and practice,
-#'  2nd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp2/
+#' Hyndman and Athanasopoulos (2019) Forecasting: principles and practice,
+#'  3rd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp3/
 #'
 #' @examples
 #' library(tsibble)
@@ -307,8 +307,8 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 #' @inheritParams gg_season
 #'
 #' @references
-#' Hyndman and Athanasopoulos (2018) Forecasting: principles and practice,
-#'  2nd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp2/
+#' Hyndman and Athanasopoulos (2019) Forecasting: principles and practice,
+#'  3rd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp3/
 #'
 #' @examples
 #' library(tsibble)
@@ -450,9 +450,9 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' @seealso \code{\link[stats]{plot.ts}}, \code{\link{ACF}},
 #' \code{\link[stats]{spec.ar}}
 #'
-#' @references Hyndman and Athanasopoulos (2018) \emph{Forecasting: principles
-#' and practice}, 2nd edition, OTexts: Melbourne, Australia.
-#' \url{https://OTexts.org/fpp2/}
+#' @references Hyndman and Athanasopoulos (2019) \emph{Forecasting: principles
+#' and practice}, 3rd edition, OTexts: Melbourne, Australia.
+#' \url{https://OTexts.org/fpp3/}
 #'
 #' @examples
 #' library(tsibble)
@@ -528,6 +528,41 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
   }
 
   structure(list(p1, p2, p3), class = c("gg_tsensemble", "gg"))
+}
+
+#' Ensemble of time series residual diagnostic plots
+#'
+#' Plots the residuals using a time series plot, ACF and histogram.
+#'
+#' @param data A mable containing one model with residuals.
+#'
+#' @seealso [`gg_tsdisplay()`]
+#'
+#' @references Hyndman and Athanasopoulos (2019) \emph{Forecasting: principles
+#' and practice}, 3rd edition, OTexts: Melbourne, Australia.
+#' \url{https://OTexts.org/fpp3/}
+#'
+#' @examples
+#' library(fable)
+#'
+#' tsibbledata::aus_production %>%
+#'   model(ETS(Beer)) %>%
+#'   gg_tsresiduals()
+#'
+#' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
+#' @importFrom stats na.exclude complete.cases
+#' @export
+gg_tsresiduals <- function(data, ...){
+  if(!fabletools::is_mable(data)){
+    abort("gg_tsresiduals() must be used with a mable containing only one model.")
+  }
+
+  data <- residuals(data)
+  if(n_keys(data) > 1){
+    abort("gg_tsresiduals() must be used with a mable containing only one model.")
+  }
+
+  gg_tsdisplay(data, !!sym(".resid"), plot_type = "histogram", ...)
 }
 
 #' @export

@@ -47,6 +47,6 @@ tsibbledata::aus_retail \%>\%
 
 }
 \references{
-Hyndman and Athanasopoulos (2018) Forecasting: principles and practice,
-2nd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp2/
+Hyndman and Athanasopoulos (2019) Forecasting: principles and practice,
+3rd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp3/
 }
