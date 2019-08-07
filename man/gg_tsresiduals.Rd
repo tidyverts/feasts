@@ -8,6 +8,8 @@ gg_tsresiduals(data, ...)
 }
 \arguments{
 \item{data}{A mable containing one model with residuals.}
+
+\item{...}{Additional arguments passed to \code{\link[=gg_tsdisplay]{gg_tsdisplay()}}.}
 }
 \description{
 Plots the residuals using a time series plot, ACF and histogram.

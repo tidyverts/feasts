@@ -535,6 +535,7 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 #' Plots the residuals using a time series plot, ACF and histogram.
 #'
 #' @param data A mable containing one model with residuals.
+#' @param ... Additional arguments passed to [`gg_tsdisplay()`].
 #'
 #' @seealso [`gg_tsdisplay()`]
 #'
@@ -557,7 +558,7 @@ gg_tsresiduals <- function(data, ...){
     abort("gg_tsresiduals() must be used with a mable containing only one model.")
   }
 
-  data <- residuals(data)
+  data <- stats::residuals(data)
   if(n_keys(data) > 1){
     abort("gg_tsresiduals() must be used with a mable containing only one model.")
   }
