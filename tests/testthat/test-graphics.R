@@ -174,7 +174,7 @@ test_that("gg_tsdisplay() plots", {
   p <- gg_tsdisplay(tsbl_co2, value)
 
   expect_s3_class(
-    p, "gg_tsdisplay"
+    p, "gg_tsensemble"
   )
 
   expect_equal(
@@ -209,7 +209,7 @@ test_that("gg_tsdisplay() plots", {
 
   expect_identical(
     p_built$plot$labels[c("x", "y")],
-    list(x = "lag [1M]", y = "pacf")
+    list(x = "index", y = "value")
   )
 
   p <- gg_tsdisplay(tsbl_co2, value, plot_type = "histogram")
