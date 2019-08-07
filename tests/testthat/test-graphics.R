@@ -246,6 +246,7 @@ test_that("gg_tsdisplay() plots", {
 })
 
 test_that("gg_arma() plots", {
+  skip_if_not_installed("fable")
   mdl <- tsbl_co2 %>%
     fabletools::model(fable::ARIMA(value ~ 0 + pdq(1,1,1) + PDQ(1,1,2)))
 

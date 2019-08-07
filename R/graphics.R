@@ -541,6 +541,7 @@ print.gg_tsdisplay <- function(x, ...){
 #' @param data A mable containing models with AR and/or MA roots.
 #'
 #' @examples
+#' if (requireNamespace("fable", quietly = TRUE)) {
 #' library(fable)
 #' library(tsibble)
 #' library(dplyr)
@@ -552,7 +553,7 @@ print.gg_tsdisplay <- function(x, ...){
 #'   ) %>%
 #'   model(ARIMA(Turnover ~ pdq(0,1,1) + PDQ(0,1,1))) %>%
 #'   gg_arma()
-#'
+#' }
 #' @export
 gg_arma <- function(data){
   if(!fabletools::is_mable(data)){
