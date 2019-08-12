@@ -29,12 +29,20 @@ The package works with tidy temporal data provided by the [tsibble](https://gith
 
 ## Installation
 
-You can install the development version from [GitHub](https://github.com/) with:
+The v0.1.0 **pre-release** can be installed using:
 
-``` r
-# install.packages("devtools")
-devtools::install_github("tidyverts/feasts")
+```{r prerelease-installation, eval = FALSE}
+install.packages("feasts", repos = "https://tidyverts.org/")
 ```
+
+You can install the **development** version from
+[GitHub](https://github.com/tidyverts/feasts) with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("remotes")
+remotes::install_github("tidyverts/feasts")
+```
+
 
 ## Usage
 

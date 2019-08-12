@@ -29,12 +29,18 @@ package.
 
 ## Installation
 
-You can install the development version from
-[GitHub](https://github.com/) with:
+The v0.1.0 **pre-release** can be installed using:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("tidyverts/feasts")
+install.packages("feasts", repos = "https://tidyverts.org/")
+```
+
+You can install the **development** version from
+[GitHub](https://github.com/tidyverts/feasts) with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("tidyverts/feasts")
 ```
 
 ## Usage
