@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -165,11 +165,13 @@ and practice</em>, 3rd edition, OTexts: Melbourne, Australia.
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>fable</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ns-load'>requireNamespace</a></span>(<span class='st'>"fable"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>fable</span>)
 
 <span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://tsibbledata.tidyverts.org/reference/aus_production.html'>aus_production</a></span> <span class='kw'>%&gt;%</span>
   <span class='fu'>model</span>(<span class='fu'><a href='https://fable.tidyverts.org/reference/ETS.html'>ETS</a></span>(<span class='no'>Beer</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'>gg_tsresiduals</span>()</div><div class='img'><img src='gg_tsresiduals-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>gg_tsresiduals</span>()
+}</div><div class='img'><img src='gg_tsresiduals-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
