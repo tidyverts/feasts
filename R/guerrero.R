@@ -31,6 +31,8 @@ guer.cv <- function(lam, x, .period = 2) {
 #' @param upper The upper bound for lambda.
 #' @param .period The seasonal period of the time series.
 #'
+#' @return A Box Cox lambda value chosen by Guerrero's method.
+#'
 #' @importFrom stats optimize
 #'
 #' @export

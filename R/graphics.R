@@ -144,6 +144,8 @@ guess_plot_var <- function(x, y){
 #' @param labels Position of the labels for seasonal period identifier.
 #' @param ... Additional arguments passed to geom_line()
 #'
+#' @return A ggplot object showing a seasonal plot of a time series.
+#'
 #' @references
 #' Hyndman and Athanasopoulos (2019) Forecasting: principles and practice,
 #'  3rd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp3/
@@ -306,6 +308,8 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 #'
 #' @inheritParams gg_season
 #'
+#' @return A ggplot object showing a seasonal subseries plot of a time series.
+#'
 #' @references
 #' Hyndman and Athanasopoulos (2019) Forecasting: principles and practice,
 #'  3rd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp3/
@@ -372,6 +376,8 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
 #' @param lags A vector of lags to display as facets.
 #' @param geom The geometry used to display the data.
 #' @param ... Additional arguments passed to the geom.
+#'
+#' @return A ggplot object showing a lag plot of a time series.
 #'
 #' @examples
 #' library(tsibble)
@@ -444,7 +450,9 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' @inheritParams gg_season
 #' @inheritParams ACF
 #'
-#' @return A ggplot2 plot.
+
+#' @return A list of ggplot objects showing useful plots of a time series.
+#'
 #' @author Rob J Hyndman & Mitchell O'Hara-Wild
 #'
 #' @seealso \code{\link[stats]{plot.ts}}, \code{\link{ACF}},
@@ -537,6 +545,8 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 #' @param data A mable containing one model with residuals.
 #' @param ... Additional arguments passed to [`gg_tsdisplay()`].
 #'
+#' @return A list of ggplot objects showing a useful plots of a time series model's residuals.
+#'
 #' @seealso [`gg_tsdisplay()`]
 #'
 #' @references Hyndman and Athanasopoulos (2019) \emph{Forecasting: principles
@@ -590,6 +600,8 @@ print.gg_tsensemble <- function(x, ...){
 #' That is to say, the `glance()` of the model contains `ar_roots` and `ma_roots`.
 #'
 #' @param data A mable containing models with AR and/or MA roots.
+#'
+#' @return A ggplot object the characteristic roots from ARMA components.
 #'
 #' @examples
 #' if (requireNamespace("fable", quietly = TRUE)) {

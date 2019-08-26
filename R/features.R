@@ -42,6 +42,8 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 #' @seealso
 #' [Forecasting Principle and Practices: Measuring strength of trend and seasonality](https://otexts.com/fpp3/seasonal-strength.html)
 #'
+#' @return A vector of numeric features from a STL decomposition.
+#'
 #' @importFrom stats var coef
 #' @export
 feat_stl <- function(x, .period, s.window = 13, ...){
@@ -116,6 +118,8 @@ feat_stl <- function(x, .period, s.window = 13, ...){
 #' @inheritParams urca::ur.kpss
 #' @param ... Arguments passed to unit root test function.
 #'
+#' @return A vector of numeric features for the test's statistic and p-value.
+#'
 #' @seealso [urca::ur.kpss()]
 #'
 #' @rdname unitroot
@@ -152,6 +156,8 @@ unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "
 #' @param unitroot_fn A function (or lambda) that provides a p-value for a unit root test.
 #' @param differences The possible differences to consider.
 #' @param ... Additional arguments passed to the `unitroot_fn` function
+#'
+#' @return A numeric corresponding to the minimum required differences for stationarity.
 #'
 #' @export
 unitroot_ndiffs <- function(x, alpha = 0.05, unitroot_fn = ~ unitroot_kpss(.)["kpss_pvalue"],

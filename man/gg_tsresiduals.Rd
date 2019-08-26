@@ -11,6 +11,9 @@ gg_tsresiduals(data, ...)
 
 \item{...}{Additional arguments passed to \code{\link[=gg_tsdisplay]{gg_tsdisplay()}}.}
 }
+\value{
+A list of ggplot objects showing a useful plots of a time series model's residuals.
+}
 \description{
 Plots the residuals using a time series plot, ACF and histogram.
 }

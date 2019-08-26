@@ -13,6 +13,9 @@
 
 \item{...}{Unused.}
 }
+\value{
+A ggplot object showing the correlations.
+}
 \description{
 Produces an appropriate plot for the result of  \code{\link[=ACF]{ACF()}}, \code{\link[=PACF]{PACF()}}, or \code{\link[=CCF]{CCF()}}.
 }

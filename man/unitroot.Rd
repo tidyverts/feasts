@@ -22,6 +22,9 @@ unitroot_pp(x, type = c("Z-tau", "Z-alpha"), model = c("constant",
 
 \item{model}{Determines the deterministic part in the test regression.}
 }
+\value{
+A vector of numeric features for the test's statistic and p-value.
+}
 \description{
 Performs a test for the existence of a unit root in the vector.
 }

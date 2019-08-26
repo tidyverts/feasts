@@ -15,6 +15,9 @@ feat_stl(x, .period, s.window = 13, ...)
 
 \item{...}{Further arguments passed to \code{\link[stats:stl]{stats::stl()}}}
 }
+\value{
+A vector of numeric features from a STL decomposition.
+}
 \description{
 Computes a variety of measures extracted from an STL decomposition of the
 time series. This includes details about the strength of trend and seasonality.

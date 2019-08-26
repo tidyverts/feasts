@@ -27,7 +27,7 @@
 #' @inheritParams stats::acf
 #'
 #' @return The `ACF`, `PACF` and `CCF` functions return objects
-#' of class "tbl_cf", which is a tibble containing the correlations computed.
+#' of class "tbl_cf", which is a tsibble containing the correlations computed.
 #'
 #' @author Mitchell O'Hara-Wild and Rob J Hyndman
 #'
@@ -243,6 +243,8 @@ is_vector_s3.cf_lag <- function(x) {
 #' @param object A tbl_cf object (the result [`ACF()`], [`PACF()`], or [`CCF()`]).
 #' @param level The level of confidence for the blue dashed lines.
 #' @param ... Unused.
+#'
+#' @return A ggplot object showing the correlations.
 #'
 #' @importFrom ggplot2 ggplot geom_hline xlab ylab ggtitle vars
 #' @importFrom stats qnorm

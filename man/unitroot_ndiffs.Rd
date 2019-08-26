@@ -25,6 +25,9 @@ unitroot_nsdiffs(x, alpha = 0.05, unitroot_fn = ~feat_stl(.,
 
 \item{.period}{The period of the seasonality.}
 }
+\value{
+A numeric corresponding to the minimum required differences for stationarity.
+}
 \description{
 Use a unit root function to determine the minimum number of differences
 necessary to obtain a stationary time series.

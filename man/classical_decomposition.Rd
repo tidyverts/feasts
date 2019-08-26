@@ -16,6 +16,10 @@ classical_decomposition(.data, formula, type = c("additive",
 
 \item{...}{Other arguments passed to \code{\link[stats]{decompose}}.}
 }
+\value{
+A \code{\link[fabletools:dable]{fabletools::dable()}} containing the decomposed trend, seasonality
+and remainder from the classical decomposition.
+}
 \description{
 Decompose a time series into seasonal, trend and irregular components
   using moving averages.  Deals with additive or multiplicative

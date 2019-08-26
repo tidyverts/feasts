@@ -16,6 +16,9 @@ automatically selected from the data.}
 
 \item{...}{Additional arguments passed to geom_line()}
 }
+\value{
+A ggplot object showing a seasonal subseries plot of a time series.
+}
 \description{
 A seasonal subseries plot facets the time series by each season in the
 seasonal period. These facets form smaller time series plots consisting of

@@ -9,6 +9,9 @@ gg_arma(data)
 \arguments{
 \item{data}{A mable containing models with AR and/or MA roots.}
 }
+\value{
+A ggplot object the characteristic roots from ARMA components.
+}
 \description{
 Produces a plot of the inverse AR and MA roots of an ARIMA model.
 Inverse roots outside the unit circle are shown in red.

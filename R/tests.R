@@ -7,6 +7,8 @@
 #' @param dof Degrees of freedom of the fitted model (useful if x is a series of residuals).
 #' @param  ... Unused.
 #'
+#' @return A vector of numeric features for the test's statistic and p-value.
+#'
 #' @seealso [stats::Box.test()]
 #'
 #' @examples

@@ -111,6 +111,8 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 #' @param iterations Number of iterations to use to refine the seasonal component.
 #' @param ... Other arguments passed to [stats::stl()].
 #'
+#' @return A [`fabletools::dable()`] containing the decomposed trend, seasonality
+#' and remainder from the STL decomposition.
 #'
 #' @section Specials:
 #'

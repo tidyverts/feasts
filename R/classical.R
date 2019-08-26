@@ -58,6 +58,8 @@ train_classical <- function(.data, formula, specials,
 #' @param ... Other arguments passed to `\link[stats]{decompose}`.
 #' @inheritParams stats::decompose
 #'
+#' @return A [`fabletools::dable()`] containing the decomposed trend, seasonality
+#' and remainder from the classical decomposition.
 #'
 #' @section Specials:
 #'

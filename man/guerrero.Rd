@@ -16,6 +16,9 @@ parameter lambda.}
 
 \item{.period}{The seasonal period of the time series.}
 }
+\value{
+A Box Cox lambda value chosen by Guerrero's method.
+}
 \description{
 Applies Guerrero's (1993) method to select the lambda which minimises the
 coefficient of variation for subseries x.

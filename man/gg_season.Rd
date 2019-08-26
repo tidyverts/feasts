@@ -29,6 +29,9 @@ to always colour the lines. If labels are used, then max_col will be ignored.}
 
 \item{...}{Additional arguments passed to geom_line()}
 }
+\value{
+A ggplot object showing a seasonal plot of a time series.
+}
 \description{
 Produces a time series seasonal plot. A seasonal plot is similar to a regular
 time series plot, except the x-axis shows data from within each season. This

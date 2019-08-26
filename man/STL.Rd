@@ -15,6 +15,10 @@ STL(.data, formula, iterations = 2, ...)
 
 \item{...}{Other arguments passed to \code{\link[stats:stl]{stats::stl()}}.}
 }
+\value{
+A \code{\link[fabletools:dable]{fabletools::dable()}} containing the decomposed trend, seasonality
+and remainder from the STL decomposition.
+}
 \description{
 Decompose a time series into seasonal, trend and remainder components.
 Seasonal components are estimated iteratively using STL. Multiple seasonal periods are

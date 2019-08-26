@@ -32,7 +32,7 @@ automatically limited to one less than the number of observations in the series.
 }
 \value{
 The \code{ACF}, \code{PACF} and \code{CCF} functions return objects
-of class "tbl_cf", which is a tibble containing the correlations computed.
+of class "tbl_cf", which is a tsibble containing the correlations computed.
 }
 \description{
 The function \code{ACF} computes an estimate of the autocorrelation function

@@ -22,7 +22,7 @@ where N is the number of observations and m the number of series. Will be
 automatically limited to one less than the number of observations in the series.}
 }
 \value{
-A ggplot2 plot.
+A list of ggplot objects showing useful plots of a time series.
 }
 \description{
 Plots a time series along with its ACF along with an customisable third

@@ -23,6 +23,9 @@ portmanteau_tests
 
 \item{...}{Unused.}
 }
+\value{
+A vector of numeric features for the test's statistic and p-value.
+}
 \description{
 Compute the Box–Pierce or Ljung–Box test statistic for examining the null hypothesis of independence in a given time series. These are sometimes known as ‘portmanteau’ tests.
 }

@@ -21,6 +21,9 @@ automatically selected from the data.}
 
 \item{...}{Additional arguments passed to the geom.}
 }
+\value{
+A ggplot object showing a lag plot of a time series.
+}
 \description{
 A lag plot shows the time series against lags of itself. It is often coloured
 the seasonal period to identify how each season correlates with others.
