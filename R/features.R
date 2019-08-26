@@ -432,7 +432,6 @@ var_tiled_mean <- function(x, .size = NULL, .period = 1) {
 #' For seasonal data, the autocorrelation coefficient at the first seasonal lag is
 #' also returned.
 #'
-#' @author Thiyanga Talagala
 #' @export
 feat_acf <- function(x, .period = 1, lag_max = NULL, ...) {
   acfx <- stats::acf(x, lag.max = lag_max%||%max(.period, 10L), plot = FALSE, na.action = stats::na.pass ,...)

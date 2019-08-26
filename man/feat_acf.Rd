@@ -27,6 +27,3 @@ also returned.
 Computes various measures based on autocorrelation coefficients of the
 original series, first-differenced series and second-differenced series
 }
-\author{
-Thiyanga Talagala
-}

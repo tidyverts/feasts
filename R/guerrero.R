@@ -1,7 +1,5 @@
 # This R script contains code for extracting the Box-Cox
 # parameter, lambda, using Guerrero's method (1993).
-# Written by Leanne Chhay
-# Adapted for usage with features() by Mitchell O'Hara-Wild
 
 # guer.cv computes the coefficient of variation
 # Input:
