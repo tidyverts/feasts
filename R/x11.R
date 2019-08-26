@@ -56,47 +56,47 @@ train_X11 <- function(.data, formula, specials, type, ...){
                       method = "X11", seasons = seasonalities, aliases = aliases)
 }
 
-#' X11 seasonal decomposition
-#'
-#' Applies a seasonal adjustment by an enhanced version of the methodology of the
-#' Census Bureau X-11 and X-11Q programs. The type of seasonal decomposition
-#' (additive or multiplicative) can be controlled using the `type` argument.
-#'
-#' @param .data A tsibble.
-#' @param formula Decomposition specification.
-#' @param type The type of decomposition: additive or multiplicative
-#' @param ... Other arguments passed to [seasonal::seas()].
-#'
-#' @section Specials:
-#'
-#' \subsection{season}{
-#' The `season` special is used to specify seasonal attributes of the decomposition.
-#' \preformatted{
-#' season(period = NULL)
-#' }
-#'
-#' \tabular{ll}{
-#'   `period`   \tab The periodic nature of the seasonality. X11 decompositions only support monthly (`period = 12`) and quarterly (`period = 4`) seasonal patterns.
-#' }
-#' }
-#'
-#'
-#' @examples
-#' tsibbledata::aus_production %>% feasts:::X11(Beer)
-#'
-#' @seealso [seasonal::seas()]
-#'
-#' @references
-#'
-#' Dagum, E. B., & Bianconcini, S. (2016) "Seasonal adjustment methods and real
-#' time trend-cycle estimation". \emph{Springer}.
-#'
-#' X11 Documentation from the seasonal package's website:
-#' http://www.seasonal.website/seasonal.html#input
-#'
-#' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
-#'
-#' @importFrom fabletools new_decomposition_class new_decomposition_definition
+# #' X11 seasonal decomposition
+# #'
+# #' Applies a seasonal adjustment by an enhanced version of the methodology of the
+# #' Census Bureau X-11 and X-11Q programs. The type of seasonal decomposition
+# #' (additive or multiplicative) can be controlled using the `type` argument.
+# #'
+# #' @param .data A tsibble.
+# #' @param formula Decomposition specification.
+# #' @param type The type of decomposition: additive or multiplicative
+# #' @param ... Other arguments passed to [seasonal::seas()].
+# #'
+# #' @section Specials:
+# #'
+# #' \subsection{season}{
+# #' The `season` special is used to specify seasonal attributes of the decomposition.
+# #' \preformatted{
+# #' season(period = NULL)
+# #' }
+# #'
+# #' \tabular{ll}{
+# #'   `period`   \tab The periodic nature of the seasonality. X11 decompositions only support monthly (`period = 12`) and quarterly (`period = 4`) seasonal patterns.
+# #' }
+# #' }
+# #'
+# #'
+# #' @examples
+# #' tsibbledata::aus_production %>% feasts:::X11(Beer)
+# #'
+# #' @seealso [seasonal::seas()]
+# #'
+# #' @references
+# #'
+# #' Dagum, E. B., & Bianconcini, S. (2016) "Seasonal adjustment methods and real
+# #' time trend-cycle estimation". \emph{Springer}.
+# #'
+# #' X11 Documentation from the seasonal package's website:
+# #' http://www.seasonal.website/seasonal.html#input
+# #'
+# #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
+# #'
+# #' @importFrom fabletools new_decomposition_class new_decomposition_definition
 X11 <- function(.data, formula, type = c("additive", "multiplicative"), ...){
   type <- match.arg(type)
   dcmp <- new_decomposition_class("X11",
