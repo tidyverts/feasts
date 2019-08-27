@@ -33,6 +33,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Di Cook [contributor]
+  \item Thiyanga Talagala (Correlation features) [contributor]
 }
 
 }
