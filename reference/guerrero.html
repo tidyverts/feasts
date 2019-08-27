@@ -42,7 +42,7 @@
 <meta property="og:title" content="Guerrero's method for Box Cox lambda selection — guerrero" />
 
 <meta property="og:description" content="Applies Guerrero's (1993) method to select the lambda which minimises the
-coefficient of variation for subseries x." />
+coefficient of variation for subseries of x." />
 
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -140,11 +140,11 @@ coefficient of variation for subseries x." />
     <div class="ref-description">
     
     <p>Applies Guerrero's (1993) method to select the lambda which minimises the
-coefficient of variation for subseries x.</p>
+coefficient of variation for subseries of x.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>guerrero</span>(<span class='no'>x</span>, <span class='kw'>lower</span> <span class='kw'>=</span> -<span class='fl'>1</span>, <span class='kw'>upper</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>.period</span>)</pre>
+    <pre class="usage"><span class='fu'>guerrero</span>(<span class='no'>x</span>, <span class='kw'>lower</span> <span class='kw'>=</span> -<span class='fl'>1</span>, <span class='kw'>upper</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>2L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,13 +164,19 @@ parameter lambda.</p></td>
     </tr>
     <tr>
       <th>.period</th>
-      <td><p>The seasonal period of the time series.</p></td>
+      <td><p>The length of each subseries (usually the length of seasonal
+period). Subseries length must be at least 2.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A Box Cox lambda value chosen by Guerrero's method.</p>
+    <p>A Box Cox transformation parameter (lambda) chosen by Guerrero's method.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. JRSS B 26 211–246.</p>
+<p>Guerrero, V.M. (1993) Time-series analysis supported by power transformations. Journal of Forecasting, 12, 37–48.</p>
     
 
   </div>
@@ -180,6 +186,8 @@ parameter lambda.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#references">References</a></li>
           </ul>
 
   </div>
