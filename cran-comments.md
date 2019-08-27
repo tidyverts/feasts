@@ -16,7 +16,7 @@
 
 * Fixed URL in vignette.
 * Updated tests and examples to conditionally depend on fable.
-* Resolved authorship issues.
 * Added missing value section to .Rd files.
 * Fixed usage of unexported functions in .Rd files.
 * Added references for Guerrero's method.
+* Resolved authorship issues.

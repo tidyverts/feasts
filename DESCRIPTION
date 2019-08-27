@@ -10,7 +10,8 @@ Authors@R: c(
     person("Rob", "Hyndman", role = "aut"),
     person("Earo", "Wang", role = "aut"),
     person("Di", "Cook", role = "ctb"),
-    person("Thiyanga", "Talagala", role = "ctb", comment = "Correlation features")
+    person("Thiyanga", "Talagala", role = "ctb", comment = "Correlation features"),
+    person("Leanne", "Chhay", role = "ctb", comment = "Guerrero's method")
     )
 Depends:
     R (>= 3.5.0),
