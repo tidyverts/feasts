@@ -1,7 +1,7 @@
 # #' @param lambda Box-cox transformation parameter
 # #' @param x A vector
 # #' @param .period The length of each subseries (usually the length of seasonal period)
-# #' @importFrom stats sd
+#' @importFrom stats sd
 lambda_coef_var <- function(lambda, x, .period = 2) {
   if(all(x == x[1])) return(1)
   x <- split(x, (seq_along(x)-1)%/%.period)
