@@ -19,3 +19,4 @@
 * Resolved authorship issues.
 * Added missing value section to .Rd files.
 * Fixed usage of unexported functions in .Rd files.
+* Added references for Guerrero's method.

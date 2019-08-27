@@ -1,45 +1,42 @@
-# This R script contains code for extracting the Box-Cox
-# parameter, lambda, using Guerrero's method (1993).
-
-# guer.cv computes the coefficient of variation
-# Input:
-# 	lam = lambda
-# 	x = original time series as a time series object
-# Output: coefficient of variation
-#' @importFrom stats sd
-guer.cv <- function(lam, x, .period = 2) {
+# #' @param lambda Box-cox transformation parameter
+# #' @param x A vector
+# #' @param .period The length of each subseries (usually the length of seasonal period)
+# #' @importFrom stats sd
+lambda_coef_var <- function(lambda, x, .period = 2) {
   if(all(x == x[1])) return(1)
-  nobsf <- length(x)
-  nyr <- floor(nobsf / .period)
-  nobst <- floor(nyr * .period)
-  x.mat <- matrix(x[(nobsf - nobst + 1):nobsf], .period, nyr)
-  x.mean <- apply(x.mat, 2, mean, na.rm = TRUE)
-  x.sd <- apply(x.mat, 2, sd, na.rm = TRUE)
-  x.rat <- x.sd / x.mean ^ (1 - lam)
-  res <- sd(x.rat, na.rm = TRUE) / mean(x.rat, na.rm = TRUE)
-  res
+  x <- split(x, (seq_along(x)-1)%/%.period)
+  mu_h <- map_dbl(x, mean, na.rm = TRUE)
+  sig_h <- map_dbl(x, sd, na.rm = TRUE)
+  rat <- sig_h / mu_h ^ (1 - lambda)
+  sd(rat, na.rm = TRUE) / mean(rat, na.rm = TRUE)
 }
 
 #' Guerrero's method for Box Cox lambda selection
 #'
 #' Applies Guerrero's (1993) method to select the lambda which minimises the
-#' coefficient of variation for subseries x.
+#' coefficient of variation for subseries of x.
 #'
 #' @param x A numeric vector. The data used to identify the transformation
 #' parameter lambda.
 #' @param lower The lower bound for lambda.
 #' @param upper The upper bound for lambda.
-#' @param .period The seasonal period of the time series.
+#' @param .period The length of each subseries (usually the length of seasonal
+#' period). Subseries length must be at least 2.
 #'
-#' @return A Box Cox lambda value chosen by Guerrero's method.
+#' @return A Box Cox transformation parameter (lambda) chosen by Guerrero's method.
 #'
-#' @importFrom stats optimize
+#' @importFrom stats optimise
+#'
+#' @references
+#'
+#' Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. JRSS B 26 211–246.
+#'
+#' Guerrero, V.M. (1993) Time-series analysis supported by power transformations. Journal of Forecasting, 12, 37–48.
 #'
 #' @export
-guerrero <- function(x, lower=-1, upper=2, .period) {
-  lambda <- optimize(
-    guer.cv, c(lower, upper), x = x,
-    .period = max(2, .period)
-  )$minimum
-  c(lambda_guerrero = lambda)
+guerrero <- function(x, lower = -1, upper = 2, .period = 2L) {
+  c(lambda_guerrero = optimise(
+    lambda_coef_var, c(lower, upper), x = x,
+    .period = max(.period, 2)
+  )$minimum)
 }

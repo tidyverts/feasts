@@ -4,7 +4,7 @@
 \alias{guerrero}
 \title{Guerrero's method for Box Cox lambda selection}
 \usage{
-guerrero(x, lower = -1, upper = 2, .period)
+guerrero(x, lower = -1, upper = 2, .period = 2L)
 }
 \arguments{
 \item{x}{A numeric vector. The data used to identify the transformation
@@ -14,12 +14,18 @@ parameter lambda.}
 
 \item{upper}{The upper bound for lambda.}
 
-\item{.period}{The seasonal period of the time series.}
+\item{.period}{The length of each subseries (usually the length of seasonal
+period). Subseries length must be at least 2.}
 }
 \value{
-A Box Cox lambda value chosen by Guerrero's method.
+A Box Cox transformation parameter (lambda) chosen by Guerrero's method.
 }
 \description{
 Applies Guerrero's (1993) method to select the lambda which minimises the
-coefficient of variation for subseries x.
+coefficient of variation for subseries of x.
+}
+\references{
+Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. JRSS B 26 211–246.
+
+Guerrero, V.M. (1993) Time-series analysis supported by power transformations. Journal of Forecasting, 12, 37–48.
 }
