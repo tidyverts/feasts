@@ -29,10 +29,10 @@ The package works with tidy temporal data provided by the [tsibble](https://gith
 
 ## Installation
 
-The v0.1.0 **pre-release** can be installed using:
+You could install the **stable** version from [CRAN](https://cran.r-project.org/package=fabletools):
 
-```{r prerelease-installation, eval = FALSE}
-install.packages("feasts", repos = "https://tidyverts.org/")
+```{r, eval = FALSE}
+install.packages("feasts")
 ```
 
 You can install the **development** version from
@@ -42,7 +42,6 @@ You can install the **development** version from
 # install.packages("remotes")
 remotes::install_github("tidyverts/feasts")
 ```
-
 
 ## Usage
 

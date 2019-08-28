@@ -29,10 +29,11 @@ package.
 
 ## Installation
 
-The v0.1.0 **pre-release** can be installed using:
+You could install the **stable** version from
+[CRAN](https://cran.r-project.org/package=fabletools):
 
 ``` r
-install.packages("feasts", repos = "https://tidyverts.org/")
+install.packages("feasts")
 ```
 
 You can install the **development** version from
