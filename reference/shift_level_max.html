@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,16 +41,16 @@
 
 
 
-<meta property="og:title" content="Sliding window features — shift_level_max" />
 
+<meta property="og:title" content="Sliding window features — shift_level_max" />
 <meta property="og:description" content="Computes feature of a time series based on sliding (overlapping) windows.
 shift_level_max finds the largest mean shift between two consecutive windows.
 shift_var_max finds the largest var shift between two consecutive windows.
 shift_kl_max finds the largest shift in Kulback-Leibler divergence between
 two consecutive windows." />
-
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -114,7 +116,6 @@ two consecutive windows." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/feasts">
@@ -141,13 +142,11 @@ two consecutive windows." />
     </div>
 
     <div class="ref-description">
-    
     <p>Computes feature of a time series based on sliding (overlapping) windows.
 <code>shift_level_max</code> finds the largest mean shift between two consecutive windows.
 <code>shift_var_max</code> finds the largest var shift between two consecutive windows.
 <code>shift_kl_max</code> finds the largest shift in Kulback-Leibler divergence between
 two consecutive windows.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>shift_level_max</span>(<span class='no'>x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>)
@@ -155,7 +154,7 @@ two consecutive windows.</p>
 <span class='fu'>shift_var_max</span>(<span class='no'>x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='fu'>shift_kl_max</span>(<span class='no'>x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -172,26 +171,22 @@ two consecutive windows.</p>
       <td><p>The seasonal period (optional)</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A vector of 2 values: the size of the shift, and the time index of the shift.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Computes the largest level shift and largest variance shift in sliding mean calculations</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-          </ul>
+    </ul>
 
     <h2>Author</h2>
     <p>Earo Wang, Rob J Hyndman and Mitchell O'Hara-Wild</p>

@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,14 +41,14 @@
 
 
 
-<meta property="og:title" content="Time series features based on tiled windows — var_tiled_var" />
 
+<meta property="og:title" content="Time series features based on tiled windows — var_tiled_var" />
 <meta property="og:description" content="Computes feature of a time series based on tiled (non-overlapping) windows.
 Means or variances are produced for all tiled windows. Then stability is
 the variance of the means, while lumpiness is the variance of the variances." />
-
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -112,7 +114,6 @@ the variance of the means, while lumpiness is the variance of the variances." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/feasts">
@@ -139,17 +140,15 @@ the variance of the means, while lumpiness is the variance of the variances." />
     </div>
 
     <div class="ref-description">
-    
     <p>Computes feature of a time series based on tiled (non-overlapping) windows.
 Means or variances are produced for all tiled windows. Then stability is
 the variance of the means, while lumpiness is the variance of the variances.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>var_tiled_var</span>(<span class='no'>x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='fu'>var_tiled_mean</span>(<span class='no'>x</span>, <span class='kw'>.size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -166,21 +165,19 @@ the variance of the means, while lumpiness is the variance of the variances.</p>
       <td><p>The seasonal period (optional)</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A numeric vector of length 2 containing a measure of lumpiness and
 a measure of stability.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-          </ul>
+    </ul>
 
     <h2>Author</h2>
     <p>Earo Wang and Rob J Hyndman</p>

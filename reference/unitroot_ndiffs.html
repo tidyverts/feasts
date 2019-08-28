@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,13 +41,13 @@
 
 
 
-<meta property="og:title" content="Number of differences required for a stationary series — unitroot_ndiffs" />
 
+<meta property="og:title" content="Number of differences required for a stationary series — unitroot_ndiffs" />
 <meta property="og:description" content="Use a unit root function to determine the minimum number of differences
 necessary to obtain a stationary time series." />
-
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -111,7 +113,6 @@ necessary to obtain a stationary time series." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/feasts">
@@ -138,10 +139,8 @@ necessary to obtain a stationary time series." />
     </div>
 
     <div class="ref-description">
-    
     <p>Use a unit root function to determine the minimum number of differences
 necessary to obtain a stationary time series.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>unitroot_ndiffs</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
@@ -150,7 +149,7 @@ necessary to obtain a stationary time series.</p>
 
 <span class='fu'>unitroot_nsdiffs</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>unitroot_fn</span> <span class='kw'>=</span> ~<span class='fu'><a href='feat_stl.html'>feat_stl</a></span>(<span class='no'>.</span>,
   <span class='no'>.period</span>)[<span class='fl'>2</span>] <span class='kw'>&lt;</span> <span class='fl'>0.64</span>, <span class='kw'>differences</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>2</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -179,20 +178,18 @@ necessary to obtain a stationary time series.</p>
       <td><p>The period of the seasonality.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A numeric corresponding to the minimum required differences for stationarity.</p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-          </ul>
+    </ul>
 
   </div>
 </div>

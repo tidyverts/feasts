@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,15 +41,15 @@
 
 
 
-<meta property="og:title" content="Seasonal plot — gg_season" />
 
+<meta property="og:title" content="Seasonal plot — gg_season" />
 <meta property="og:description" content="Produces a time series seasonal plot. A seasonal plot is similar to a regular
 time series plot, except the x-axis shows data from within each season. This
 plot type allows the underlying seasonal pattern to be seen more clearly,
 and is especially useful in identifying years in which the pattern changes." />
-
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -113,7 +115,6 @@ and is especially useful in identifying years in which the pattern changes." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/feasts">
@@ -140,17 +141,15 @@ and is especially useful in identifying years in which the pattern changes." />
     </div>
 
     <div class="ref-description">
-    
     <p>Produces a time series seasonal plot. A seasonal plot is similar to a regular
 time series plot, except the x-axis shows data from within each season. This
 plot type allows the underlying seasonal pattern to be seen more clearly,
 and is especially useful in identifying years in which the pattern changes.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>gg_season</span>(<span class='no'>data</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>facet_period</span>, <span class='kw'>max_col</span> <span class='kw'>=</span> <span class='fl'>15</span>,
   <span class='kw'>polar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"both"</span>), <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -192,16 +191,14 @@ to always colour the lines. If labels are used, then max_col will be ignored.</p
       <td><p>Additional arguments passed to geom_line()</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A ggplot object showing a seasonal plot of a time series.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Hyndman and Athanasopoulos (2019) Forecasting: principles and practice,
 3rd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp3/</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tsibble</span>)
@@ -218,11 +215,8 @@ to always colour the lines. If labels are used, then max_col will be ignored.</p
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

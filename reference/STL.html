@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,8 +41,8 @@
 
 
 
-<meta property="og:title" content="Multiple seasonal decomposition by Loess — STL" />
 
+<meta property="og:title" content="Multiple seasonal decomposition by Loess — STL" />
 <meta property="og:description" content="Decompose a time series into seasonal, trend and remainder components.
 Seasonal components are estimated iteratively using STL. Multiple seasonal periods are
 allowed. The trend component is computed for the last iteration of STL.
@@ -48,9 +50,9 @@ Non-seasonal time series are decomposed into trend and remainder only.
 In this case, supsmu is used to estimate the trend.
 Optionally, the time series may be Box-Cox transformed before decomposition.
 Unlike stl, mstl is completely automated." />
-
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -116,7 +118,6 @@ Unlike stl, mstl is completely automated." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/feasts">
@@ -143,7 +144,6 @@ Unlike stl, mstl is completely automated." />
     </div>
 
     <div class="ref-description">
-    
     <p>Decompose a time series into seasonal, trend and remainder components.
 Seasonal components are estimated iteratively using STL. Multiple seasonal periods are
 allowed. The trend component is computed for the last iteration of STL.
@@ -151,11 +151,10 @@ Non-seasonal time series are decomposed into trend and remainder only.
 In this case, <code><a href='https://rdrr.io/r/stats/supsmu.html'>supsmu</a></code> is used to estimate the trend.
 Optionally, the time series may be Box-Cox transformed before decomposition.
 Unlike <code><a href='https://rdrr.io/r/stats/stl.html'>stl</a></code>, <code>mstl</code> is completely automated.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>STL</span>(<span class='no'>.data</span>, <span class='no'>formula</span>, <span class='kw'>iterations</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -176,21 +175,18 @@ Unlike <code><a href='https://rdrr.io/r/stats/stl.html'>stl</a></code>, <code>ms
       <td><p>Other arguments passed to <code><a href='https://rdrr.io/r/stats/stl.html'>stats::stl()</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code><a href='https://fabletools.tidyverts.org/reference/dable.html'>fabletools::dable()</a></code> containing the decomposed trend, seasonality
 and remainder from the STL decomposition.</p>
-    
     <h2 class="hasAnchor" id="specials"><a class="anchor" href="#specials"></a>Specials</h2>
 
     
 
 
 <h3>trend</h3>
-
-The <code>trend</code> special is used to specify the trend extraction parameters.
-<pre>
+<p>The <code>trend</code> special is used to specify the trend extraction parameters.</p><pre>
 trend(window, degree, jump)
 </pre>
 
@@ -203,9 +199,7 @@ trend(window, degree, jump)
 
 
 <h3>season</h3>
-
-The <code>season</code> special is used to specify the season extraction parameters.
-<pre>
+<p>The <code>season</code> special is used to specify the season extraction parameters.</p><pre>
 season(period = NULL, window = 13, degree, jump)
 </pre>
 
@@ -219,9 +213,7 @@ season(period = NULL, window = 13, degree, jump)
 
 
 <h3>lowpass</h3>
-
-The <code>lowpass</code> special is used to specify the low-pass filter parameters.
-<pre>
+<p>The <code>lowpass</code> special is used to specify the low-pass filter parameters.</p><pre>
 lowpass(window, degree, jump)
 </pre>
 
@@ -233,15 +225,12 @@ lowpass(window, degree, jump)
 
 
 
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>R. B. Cleveland, W. S. Cleveland, J.E. McRae, and I. Terpenning (1990) STL: A Seasonal-Trend Decomposition Procedure Based on Loess. Journal of Official Statistics, 6, 3–73.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/stl.html'>stl</a></code>, <code><a href='https://rdrr.io/r/stats/supsmu.html'>supsmu</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>USAccDeaths</span> <span class='kw'>%&gt;%</span> <span class='no'>as_tsibble</span> <span class='kw'>%&gt;%</span> <span class='fu'>STL</span>(<span class='no'>value</span> ~ <span class='fu'>trend</span>(<span class='kw'>window</span> <span class='kw'>=</span> <span class='fl'>10</span>))</div><div class='output co'>#&gt; # A dable:           72 x 6 [1M]
@@ -265,15 +254,10 @@ lowpass(window, degree, jump)
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#specials">Specials</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

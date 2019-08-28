@@ -15,10 +15,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -39,14 +41,14 @@
 
 
 
-<meta property="og:title" content="Classical Seasonal Decomposition by Moving Averages — classical_decomposition" />
 
+<meta property="og:title" content="Classical Seasonal Decomposition by Moving Averages — classical_decomposition" />
 <meta property="og:description" content="Decompose a time series into seasonal, trend and irregular components
   using moving averages.  Deals with additive or multiplicative
   seasonal component." />
-
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -112,7 +114,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/feasts">
@@ -139,16 +140,14 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Decompose a time series into seasonal, trend and irregular components
   using moving averages.  Deals with additive or multiplicative
   seasonal component.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>classical_decomposition</span>(<span class='no'>.data</span>, <span class='no'>formula</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"additive"</span>,
   <span class='st'>"multiplicative"</span>), <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -169,12 +168,11 @@
       <td><p>Other arguments passed to <code><a href='https://rdrr.io/r/stats/decompose.html'>decompose</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code><a href='https://fabletools.tidyverts.org/reference/dable.html'>fabletools::dable()</a></code> containing the decomposed trend, seasonality
 and remainder from the classical decomposition.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The additive model used is:
@@ -190,16 +188,13 @@ and remainder from the classical decomposition.</p>
   (recycled as needed) from the original time series.</p>
 <p>This only works well if <code>x</code> covers an integer number of complete
   periods.</p>
-    
     <h2 class="hasAnchor" id="specials"><a class="anchor" href="#specials"></a>Specials</h2>
 
     
 
 
 <h3>season</h3>
-
-The <code>season</code> special is used to specify seasonal attributes of the decomposition.
-<pre>
+<p>The <code>season</code> special is used to specify seasonal attributes of the decomposition.</p><pre>
 season(period = NULL)
 </pre>
 
@@ -209,7 +204,6 @@ season(period = NULL)
 
 
 
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>USAccDeaths</span> <span class='kw'>%&gt;%</span>
@@ -252,13 +246,9 @@ season(period = NULL)
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#specials">Specials</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
