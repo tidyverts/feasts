@@ -23,7 +23,9 @@ specials_stl <- fabletools::new_specials(
     }
     args <- set_names(args, paste0("s.", names(args)))
 
+    nm <- period
     period <- get_frequencies(period, self$data, .auto = "all")
+    if(is.null(names(period))) names(period) <- nm
     period <- period[NROW(self$data)/period >= 2]
     if(!is.null(period)){
       map(period, function(.x) c(period = .x, args))
