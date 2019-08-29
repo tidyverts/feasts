@@ -172,7 +172,7 @@ and practice</em>, 3rd edition, OTexts: Melbourne, Australia.
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"fable"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>fable</span>)
 
-<span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://tsibbledata.tidyverts.org/reference/aus_production.html'>aus_production</a></span> <span class='kw'>%&gt;%</span>
+<span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/tsibbledata/man/aus_production.html'>aus_production</a></span> <span class='kw'>%&gt;%</span>
   <span class='fu'>model</span>(<span class='fu'><a href='https://fable.tidyverts.org/reference/ETS.html'>ETS</a></span>(<span class='no'>Beer</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'>gg_tsresiduals</span>()
 }</div><div class='img'><img src='gg_tsresiduals-1.png' alt='' width='700' height='433' /></div><div class='input'>
