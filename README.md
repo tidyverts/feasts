@@ -30,7 +30,7 @@ package.
 ## Installation
 
 You could install the **stable** version from
-[CRAN](https://cran.r-project.org/package=fabletools):
+[CRAN](https://cran.r-project.org/package=feasts):
 
 ``` r
 install.packages("feasts")
@@ -131,7 +131,7 @@ to identify unusual/extreme time series, or find clusters of similar
 behaviour.
 
 ``` r
-aus_retail %>% 
+aus_retail %>%
   features(Turnover, feat_stl)
 #> # A tibble: 152 x 9
 #>    State Industry trend_strength seasonal_streng… spikiness linearity curvature seasonal_peak_y…
@@ -153,10 +153,10 @@ This allows you to visualise the behaviour of many time series (where
 the plotting methods above would show too much information).
 
 ``` r
-aus_retail %>% 
-  features(Turnover, feat_stl) %>% 
+aus_retail %>%
+  features(Turnover, feat_stl) %>%
   ggplot(aes(x = trend_strength, y = seasonal_strength_year)) +
-  geom_point() + 
+  geom_point() +
   facet_wrap(vars(State))
 ```
 
@@ -168,14 +168,14 @@ for all states.
 It’s also easy to extract the most (and least) seasonal time series.
 
 ``` r
-extreme_seasonalities <- aus_retail %>% 
-  features(Turnover, feat_stl) %>% 
+extreme_seasonalities <- aus_retail %>%
+  features(Turnover, feat_stl) %>%
   filter(seasonal_strength_year %in% range(seasonal_strength_year))
-aus_retail %>% 
-  right_join(extreme_seasonalities, by = c("State", "Industry")) %>% 
-  ggplot(aes(x = Month, y = Turnover)) + 
-  geom_line() + 
-  facet_grid(vars(State, Industry, scales::percent(seasonal_strength_year)), 
+aus_retail %>%
+  right_join(extreme_seasonalities, by = c("State", "Industry")) %>%
+  ggplot(aes(x = Month, y = Turnover)) +
+  geom_line() +
+  facet_grid(vars(State, Industry, scales::percent(seasonal_strength_year)),
              scales = "free_y")
 ```
 
