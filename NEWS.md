@@ -1,4 +1,9 @@
-# feasts (development version)
+# feasts 0.1.1
+
+## Improvements
+
+* Better naming of seasonal columns in STL decomposition when seasonal period is specified.
+* Fixes issues with running tests on unsupported systems.
 
 # feasts 0.1.0
 

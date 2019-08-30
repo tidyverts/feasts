@@ -9,14 +9,8 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
 * Package suggested but not available for checking: 'fable' (included in Additional_repositories and also awaiting CRAN acceptance).
 
-## Re-submission
+## CRAN check fixes
 
-* Fixed URL in vignette.
-* Updated tests and examples to conditionally depend on fable.
-* Added missing value section to .Rd files.
-* Fixed usage of unexported functions in .Rd files.
-* Added references for Guerrero's method.
-* Resolved authorship issues.
+This submission should resolve CRAN check errors relating to X13 binaries on solaris and osx.
