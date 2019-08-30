@@ -36,7 +36,7 @@
 </script>
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -91,12 +91,7 @@
       
 
       </header><div class="row">
-  <div class="col-md-9 contents">
-    
-
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+  <div class="contents col-md-9">
 <div id="feasts" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#feasts" class="anchor"></a>feasts <a href="https://feasts.tidyverts.org"><img src="reference/figures/logo.png" align="right" height="138.5"></a>
@@ -129,13 +124,13 @@
 <h3 class="hasAnchor">
 <a href="#graphics" class="anchor"></a>Graphics</h3>
 <p>Visualisation is often the first step in understanding the patterns in time series data. The package uses <a href="https://github.com/tidyverse/ggplot2">ggplot2</a> to produce customisable graphics to visualise time series patterns.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/gg_season.html">gg_season</a></span>(Beer)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/gg_season.html">gg_season</a></span>(Beer)</a></code></pre></div>
 <p><img src="reference/figures/README-graphics-1.png" width="100%"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/gg_subseries.html">gg_subseries</a></span>(Beer)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/gg_subseries.html">gg_subseries</a></span>(Beer)</a></code></pre></div>
 <p><img src="reference/figures/README-graphics-2.png" width="100%"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="http://lubridate.tidyverse.org/reference/year.html">year</a></span>(Quarter) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1991</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/gg_lag.html">gg_lag</a></span>(Beer)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw"><a href="http://lubridate.tidyverse.org/reference/year.html">year</a></span>(Quarter) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1991</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/gg_lag.html">gg_lag</a></span>(Beer)</a></code></pre></div>
 <p><img src="reference/figures/README-graphics-3.png" width="100%"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/ACF.html">ACF</a></span>(Beer) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/ACF.html">ACF</a></span>(Beer) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/reexports.html">autoplot</a></span>()</a></code></pre></div>
 <p><img src="reference/figures/README-graphics-4.png" width="100%"></p>
 </div>
 <div id="decompositions" class="section level3">
@@ -149,7 +144,7 @@
 <!--
 * X11 decomposition
 * X-13ARIMA-SEATS decomposition
---><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/STL.html">STL</a></span>(Beer <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="ot">Inf</span>))</a>
+--><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/STL.html">STL</a></span>(Beer <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="ot">Inf</span>))</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; # A dable:           218 x 6 [1Q]</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; # STL Decomposition: Beer = trend + season_year + remainder</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;    Quarter  Beer trend season_year remainder season_adjust</span></a>
@@ -165,7 +160,7 @@
 <a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  9 1958 Q1   272  266.        2.14      4.32          270.</span></a>
 <a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; 10 1958 Q2   233  266.      -42.6       9.72          276.</span></a>
 <a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; # … with 208 more rows</span></a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/STL.html">STL</a></span>(Beer <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="ot">Inf</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">aus_production <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/STL.html">STL</a></span>(Beer <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="ot">Inf</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/reexports.html">autoplot</a></span>()</a></code></pre></div>
 <p><img src="reference/figures/README-dcmp-plot-1.png" width="100%"></p>
 </div>
 <div id="feature-extraction-and-statistics" class="section level3">
@@ -241,8 +236,7 @@
 </ul>
 </div>
 
-
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/tidyverts/feasts"><img src="https://travis-ci.org/tidyverts/feasts.svg?branch=master" alt="Travis build status"></a></li>
@@ -253,9 +247,7 @@
 </ul>
 </div>
 </div>
-
 </div>
-
 
 
       <footer><div class="copyright">
