@@ -1,6 +1,7 @@
 context("test-x11")
 
 skip_if(!is.null(safely(seasonal::checkX13)(fail = TRUE)$error))
+skip_if(!x13binary::supportedPlatform() || Sys.info()["sysname"] == "Darwin")
 
 test_that("Bad inputs for X11 decomposition", {
   expect_error(
