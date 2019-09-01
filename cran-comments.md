@@ -7,9 +7,10 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 2 notes
 
 * Package suggested but not available for checking: 'fable' (included in Additional_repositories and also awaiting CRAN acceptance).
+* Days since last update: 5 (resolves existing CRAN check issues, requested submission ASAP).
 
 ## CRAN check fixes
 
