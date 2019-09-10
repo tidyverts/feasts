@@ -56,7 +56,10 @@ feat_stl <- function(x, .period, s.window = 13, ...){
   if(any(!rle_na$values)){
     rle_window <- which(rle_na$values)[which.max(rle_na$lengths[rle_na$values])]
     rle_idx <- cumsum(rle_na$lengths)
-    rle_window <- c(rle_idx[max(1, rle_window - 1)] + (rle_window > 1), rle_idx[rle_window])
+    rle_window <- c(
+      if(rle_window == 1) 1 else rle_idx[max(1, rle_window - 1)] + (rle_window > 1),
+      rle_idx[rle_window]
+    )
     x <- x[seq(rle_window[1], rle_window[2])]
   }
   else{
