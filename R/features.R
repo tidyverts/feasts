@@ -367,9 +367,10 @@ shift_kl_max <- function(x, .size = NULL, .period = 1) {
 #' @return A numeric value.
 #' @author Rob J Hyndman
 #' @export
-feat_spectral <- function(x, ...) {
+feat_spectral <- function(x, .period = 1, ...) {
   require_package("ForeCA")
-  entropy <- ForeCA::spectral_entropy(na.contiguous(x), ...)[1L]
+  x <- na.contiguous(ts(x, frequency = .period))
+  entropy <- ForeCA::spectral_entropy(x, ...)[1L]
   return(c(spectral_entropy = entropy))
 }
 
