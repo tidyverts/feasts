@@ -5,6 +5,10 @@
 * Better naming of seasonal columns in STL decomposition when seasonal period is specified.
 * Fixes issues with running tests on unsupported systems.
 
+## Bug fixes
+
+* `var_tiled_var()` no longer includes partial tile windows in the computation.
+
 # feasts 0.1.0
 
 * First release.

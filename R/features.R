@@ -399,7 +399,7 @@ var_tiled_var <- function(x, .size = NULL, .period = 1) {
 
   x <- scale(x, center = TRUE, scale = TRUE)
   varx <- tsibble::tile_dbl(x, var, na.rm = TRUE, .size = .size)
-
+  varx <- varx[seq_len(length(x)/.size)]
   if (length(x) < 2 * .size) {
     lumpiness <- 0
   } else {
