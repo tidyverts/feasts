@@ -104,9 +104,15 @@ feat_stl <- function(x, .period, s.window = 13, ...){
   })
   names(seasonal_trough) <- sprintf("seasonal_trough_%s", names(seasonalities))
 
-  c(trend_strength = trend_strength, seasonal_strength,
+  acf_resid <- stats::acf(remainder, lag.max = max(.period),
+                     plot = FALSE, na.action = stats::na.pass ,...)$acf
+
+  c(
+    trend_strength = trend_strength, seasonal_strength,
+    seasonal_peak,  seasonal_trough,
     spikiness = spikiness, linearity = linearity, curvature = curvature,
-    seasonal_peak,  seasonal_trough)
+    stl_e_acf1 = acf_resid[2L], stl_e_acf10 = sum((acf_resid[2L:11L])^2)
+  )
 }
 
 #' Unit root tests
