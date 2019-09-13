@@ -104,7 +104,7 @@ feat_stl <- function(x, .period, s.window = 13, ...){
   })
   names(seasonal_trough) <- sprintf("seasonal_trough_%s", names(seasonalities))
 
-  acf_resid <- stats::acf(remainder, lag.max = max(.period),
+  acf_resid <- stats::acf(remainder, lag.max = max(c(10, .period)),
                      plot = FALSE, na.action = stats::na.pass ,...)$acf
 
   c(
