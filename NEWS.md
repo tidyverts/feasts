@@ -4,10 +4,12 @@
 
 * `var_tiled_var()` no longer includes partial tile windows in the computation.
 * Added residual acf features to `feat_stl()`
+* Performance improvements
 
 ## Bug fixes
 
 * Fixed bug with `feat_spectral()` not showing results.
+* Fix warning in `ACF()`, `PACF()` and `CCF()` for tidyr change.
 
 # feasts 0.1.1
 

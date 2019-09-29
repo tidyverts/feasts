@@ -179,8 +179,7 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
     )
 
   .data %>%
-    group_by(!!!syms(key_vars(.data))) %>%
-    nest %>%
+    nest_keys() %>%
     mutate(data = map(!!sym("data"), cf_fn, na.action = na.action, ...)) %>%
     unnest_tbl("data") %>%
     mutate(lag = as_lag(!!sym("lag"), interval = interval)) %>%
