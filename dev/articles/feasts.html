@@ -45,12 +45,15 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../articles/feasts.html">Introduction</a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -59,13 +62,17 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Vignettes
+    News
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/feasts.html">Introduction to feasts</a>
+<li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.mitchelloharawild.com/blog/feasts/">Version 0.1.0</a>
+    </li>
+    <li>
+      <a href="../news/index.html">Change log</a>
     </li>
   </ul>
 </li>
@@ -110,7 +117,7 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3">tourism_melb <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Purpose) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 4 x 5 [?]</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 4 x 5 [1Q]</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; # Key:       Region, State, Purpose [4]</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; # Groups:    Purpose [4]</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;   Quarter Region    State    Purpose  Trips</span></a>
@@ -187,15 +194,15 @@
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">tourism_melb_features &lt;-<span class="st"> </span>tourism_melb <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">features</span>(Trips, <span class="kw">feature_set</span>(<span class="dt">tags =</span> <span class="st">"stl"</span>))</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">tourism_melb_features</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 10</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;   Region State Purpose trend_strength seasonal_streng… spikiness linearity</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 1 Melbo… Vict… Busine…          0.776            0.541     564.       349.</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; 2 Melbo… Vict… Holiday          0.860            0.283     692.       794.</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 3 Melbo… Vict… Other            0.819            0.132      13.2      200.</span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; 4 Melbo… Vict… Visiti…          0.751            0.448     968.       458.</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; # … with 3 more variables: curvature &lt;dbl&gt;, seasonal_peak_year &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; #   seasonal_trough_year &lt;dbl&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 12</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;   Region State Purpose trend_strength seasonal_streng… seasonal_peak_y…</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 1 Melbo… Vict… Busine…          0.776            0.541                3</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; 2 Melbo… Vict… Holiday          0.860            0.283                1</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 3 Melbo… Vict… Other            0.819            0.132                3</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; 4 Melbo… Vict… Visiti…          0.751            0.448                0</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; # … with 6 more variables: seasonal_trough_year &lt;dbl&gt;, spikiness &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; #   linearity &lt;dbl&gt;, curvature &lt;dbl&gt;, stl_e_acf1 &lt;dbl&gt;, stl_e_acf10 &lt;dbl&gt;</span></a></code></pre></div>
 <p>In the example above, the components from the STL decomposition has been used to summarise the strength of trend and seasonality components of each series.</p>
 <p>These features are particularly useful to show on a plot.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
@@ -233,7 +240,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
 
       </footer>
