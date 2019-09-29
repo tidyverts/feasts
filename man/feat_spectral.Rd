@@ -4,10 +4,12 @@
 \alias{feat_spectral}
 \title{Spectral features of a time series}
 \usage{
-feat_spectral(x, ...)
+feat_spectral(x, .period = 1, ...)
 }
 \arguments{
 \item{x}{a univariate time series}
+
+\item{.period}{The seasonal period.}
 
 \item{...}{Further arguments for \code{\link[ForeCA:spectral_entropy]{ForeCA::spectral_entropy()}}}
 }
