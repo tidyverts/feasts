@@ -445,8 +445,9 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' graphic of either a PACF, histogram, lagged scatterplot or spectral density.
 #'
 #' @param plot_type type of plot to include in lower right corner. By default
-#' (`"auto"`), a season plot will be shown for seasonal data, and a spectrum plot
-#' will be shown for non-seasonal data.
+#' (`"auto"`) a season plot will be shown for seasonal data, a spectrum plot
+#' will be shown for non-seasonal data without missing values, and a PACF will
+#' be shown otherwise.
 #' @inheritParams gg_season
 #' @inheritParams ACF
 #'
@@ -482,11 +483,13 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
   }
   require_package("grid")
 
+  y <- guess_plot_var(data, !!enquo(y))
+
   plot_type <- match.arg(plot_type)
   if(plot_type == "auto"){
     period <- get_frequencies(NULL, data, .auto = "all")
     if(all(period <= 1)){
-      plot_type <- "spectrum"
+      plot_type <- if(any(is.na(data[[expr_text(y)]]))) "partial" else "spectrum"
     }
     else{
       plot_type <- "season"
@@ -496,8 +499,6 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
   # Set up grid for plots
   grid::grid.newpage()
   grid::pushViewport(grid::viewport(layout = grid::grid.layout(2, 2)))
-
-  y <- guess_plot_var(data, !!enquo(y))
 
   p1 <- ggplot(data, aes(x = !!index(data), y = !!y)) +
     geom_line() +

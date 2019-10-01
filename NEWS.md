@@ -3,13 +3,14 @@
 ## Improvements
 
 * `var_tiled_var()` no longer includes partial tile windows in the computation.
-* Added residual acf features to `feat_stl()`
-* Performance improvements
+* Added residual acf features to `feat_stl()`.
+* Performance improvements.
 
 ## Bug fixes
 
 * Fixed bug with `feat_spectral()` not showing results.
 * Fix warning in `ACF()`, `PACF()` and `CCF()` for tidyr change.
+* `gg_tsdisplay()` will no longer fail on non-seasonal data with missing values. The last plot will instead show a PACF in this case (#76)
 
 # feasts 0.1.1
 
