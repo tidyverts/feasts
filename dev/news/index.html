@@ -152,9 +152,8 @@
 <ul>
 <li>
 <code>var_tiled_var()</code> no longer includes partial tile windows in the computation.</li>
-<li>Added residual acf features to <code>feat_stl()</code>
-</li>
-<li>Performance improvements</li>
+<li>Added residual acf features to <code>feat_stl()</code>.</li>
+<li>Performance improvements.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -163,6 +162,8 @@
 <ul>
 <li>Fixed bug with <code>feat_spectral()</code> not showing results.</li>
 <li>Fix warning in <code>ACF()</code>, <code>PACF()</code> and <code>CCF()</code> for tidyr change.</li>
+<li>
+<code>gg_tsdisplay()</code> will no longer fail on non-seasonal data with missing values. The last plot will instead show a PACF in this case (#76)</li>
 </ul>
 </div>
 </div>
