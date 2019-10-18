@@ -151,7 +151,7 @@ the seasonal period to identify how each season correlates with others.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gg_lag</span>(<span class='no'>data</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lags</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>9</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"path"</span>,
-  <span class='st'>"point"</span>), <span class='no'>...</span>)</pre>
+  <span class='st'>"point"</span>), <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,6 +176,12 @@ automatically selected from the data.</p></td>
     <tr>
       <th>geom</th>
       <td><p>The geometry used to display the data.</p></td>
+    </tr>
+    <tr>
+      <th>arrow</th>
+      <td><p>Arrow specification to show the direction in the lag path. If
+TRUE, an appropriate default arrow will be used. Alternatively, a user
+controllable arrow created with <code><a href='https://rdrr.io/r/grid/arrow.html'>grid::arrow()</a></code> can be used.</p></td>
     </tr>
     <tr>
       <th>...</th>
