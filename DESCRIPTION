@@ -23,7 +23,8 @@ Imports:
     ggplot2 (>= 3.0.0),
     dplyr (>= 0.8.0),
     tidyr (>= 0.8.3),
-    scales
+    scales,
+    grid
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),
@@ -31,7 +32,6 @@ Suggests:
     rmarkdown,
     testthat,
     covr,
-    grid,
     seasonal,
     urca,
     fracdiff,

@@ -392,10 +392,18 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
 #' @importFrom ggplot2 ggplot aes geom_path geom_abline facet_wrap
 #' @export
 gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
-                   geom = c("path", "point"), ...){
+                   geom = c("path", "point"),
+                   arrow = FALSE, ...){
+  if(isTRUE(arrow)){
+    arrow <- grid::arrow(length = grid::unit(0.05, "npc"))
+  }
+  else if (isFALSE(arrow)){
+    arrow <- NULL
+  }
+
   y <- guess_plot_var(data, !!enquo(y))
   geom <- match.arg(geom)
-  lag_geom <- switch(geom, path = geom_path, point = geom_point)
+  lag_geom <- switch(geom, path = geom_path, point = function(..., arrow) geom_point(...))
 
   if(n_keys(data) > 1){
     abort("The data provided to contains more than one time series. Please filter a single time series to use `gg_lag()`")
@@ -434,7 +442,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
   data %>%
     ggplot(mapping) +
     geom_abline(colour = "gray", linetype = "dashed") +
-    lag_geom(...) +
+    lag_geom(..., arrow = arrow) +
     facet_wrap(~ .lag) +
     ylab(paste0("lag(", as_string(y), ", n)"))
 }
