@@ -1,11 +1,16 @@
 format_time <- function(x, format, ...){
-  if(format == "%Y W%V"){
-    return(format(yearweek(x)))
+  if(is.numeric(x)){
+    out <- format(x)
   }
-  out <- format(x, format = format)
-  if (grepl("%q", format)) {
-    qtr <- 1 + as.numeric(format(as.Date(x), "%m"))%/%3
-    out <- split(out, qtr) %>% imap(function(x, rpl) gsub("%q", rpl, x)) %>% unsplit(qtr)
+  else{
+    if(format == "%Y W%V"){
+      return(format(yearweek(x)))
+    }
+    out <- format(x, format = format)
+    if (grepl("%q", format)) {
+      qtr <- 1 + as.numeric(format(as.Date(x), "%m"))%/%3
+      out <- split(out, qtr) %>% imap(function(x, rpl) gsub("%q", rpl, x)) %>% unsplit(qtr)
+    }
   }
   factor(out, levels = unique(out[order(x)]))
 }
@@ -350,7 +355,15 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
     group_by(id, !!!keys) %>%
     mutate(.yint = mean(!!sym(".yint"), na.rm = TRUE))
 
-  fct_labeller <- if(inherits(data[["id"]], c("POSIXt", "Date"))) within_time_identifier else ggplot2::label_value
+  fct_labeller <- if(inherits(data[["id"]], c("POSIXt", "Date"))){
+    within_time_identifier
+  } else if(is.numeric(data[["id"]])) {
+    function(x) x - 1969
+  }
+  else {
+    identity
+  }
+
   p <- ggplot(data, aes(x = !!idx, y = !!y)) +
     geom_line(...) +
     facet_grid(rows = vars(!!!keys), cols = vars(fct_labeller(!!sym("id"))),
