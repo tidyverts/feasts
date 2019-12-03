@@ -6,8 +6,13 @@
 \alias{CCF}
 \title{(Partial) Autocorrelation and Cross-Correlation Function Estimation}
 \usage{
-ACF(.data, ..., lag_max = NULL, demean = TRUE,
-  type = c("correlation", "covariance", "partial"))
+ACF(
+  .data,
+  ...,
+  lag_max = NULL,
+  demean = TRUE,
+  type = c("correlation", "covariance", "partial")
+)
 
 PACF(.data, ..., lag_max = NULL)
 

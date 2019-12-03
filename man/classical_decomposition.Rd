@@ -4,17 +4,14 @@
 \alias{classical_decomposition}
 \title{Classical Seasonal Decomposition by Moving Averages}
 \usage{
-classical_decomposition(.data, formula, type = c("additive",
-  "multiplicative"), ...)
+classical_decomposition(formula, type = c("additive", "multiplicative"), ...)
 }
 \arguments{
-\item{.data}{A tsibble.}
-
 \item{formula}{Decomposition specification (see "Specials" section).}
 
 \item{type}{The type of seasonal component. Can be abbreviated.}
 
-\item{...}{Other arguments passed to \code{\link[stats]{decompose}}.}
+\item{...}{Other arguments passed to \verb{\link[stats]\{decompose\}}.}
 }
 \value{
 A \code{\link[fabletools:dable]{fabletools::dable()}} containing the decomposed trend, seasonality
@@ -58,12 +55,10 @@ season(period = NULL)
 }
 
 \examples{
-USAccDeaths \%>\%
-  as_tsibble \%>\%
-  classical_decomposition(value)
+as_tsibble(USAccDeaths) \%>\%
+  decompose(classical_decomposition(value))
 
-USAccDeaths \%>\%
-  as_tsibble \%>\%
-  classical_decomposition(value ~ season(12), type = "mult")
+as_tsibble(USAccDeaths) \%>\%
+  decompose(classical_decomposition(value ~ season(12), type = "mult"))
 
 }

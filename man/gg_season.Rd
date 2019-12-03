@@ -4,8 +4,16 @@
 \alias{gg_season}
 \title{Seasonal plot}
 \usage{
-gg_season(data, y = NULL, period = NULL, facet_period, max_col = 15,
-  polar = FALSE, labels = c("none", "left", "right", "both"), ...)
+gg_season(
+  data,
+  y = NULL,
+  period = NULL,
+  facet_period,
+  max_col = 15,
+  polar = FALSE,
+  labels = c("none", "left", "right", "both"),
+  ...
+)
 }
 \arguments{
 \item{data}{A tidy time series object (tsibble)}

@@ -4,8 +4,15 @@
 \alias{gg_lag}
 \title{Lag plots}
 \usage{
-gg_lag(data, y = NULL, period = NULL, lags = 1:9, geom = c("path",
-  "point"), arrow = FALSE, ...)
+gg_lag(
+  data,
+  y = NULL,
+  period = NULL,
+  lags = 1:9,
+  geom = c("path", "point"),
+  arrow = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{A tidy time series object (tsibble)}

@@ -22,3 +22,6 @@ autoregressive conditional heteroscedasticity (ARCH). The statistic returned is
 the \eqn{R^2}{R^2} value of an autoregressive model of order \code{lags} applied
 to \eqn{x^2}{x^2}.
 }
+\author{
+Yanfei Kang
+}

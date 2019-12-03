@@ -16,7 +16,7 @@ below to see their documentation.
 \describe{
   \item{dplyr}{\code{\link[dplyr]{\%>\%}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{autoplot}}, \code{\link[ggplot2]{autolayer}}}
+  \item{ggplot2}{\code{\link[ggplot2]{autolayer}}, \code{\link[ggplot2]{autoplot}}}
 
   \item{tsibble}{\code{\link[tsibble]{as_tsibble}}}
 }}

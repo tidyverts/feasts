@@ -6,7 +6,7 @@
 \alias{feasts-package}
 \title{feasts: Feature Extraction And Statistics for Time Series}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Provides a collection of features, decompositions, statistical
     summaries and graphics functions for the analysing tidy time series data.

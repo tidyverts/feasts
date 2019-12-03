@@ -7,8 +7,6 @@
 STL(.data, formula, iterations = 2, ...)
 }
 \arguments{
-\item{.data}{A tsibble.}
-
 \item{formula}{Decomposition specification (see "Specials" section).}
 
 \item{iterations}{Number of iterations to use to refine the seasonal component.}

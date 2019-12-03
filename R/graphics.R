@@ -375,6 +375,9 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
 #' @inheritParams gg_season
 #' @param lags A vector of lags to display as facets.
 #' @param geom The geometry used to display the data.
+#' @param arrow Arrow specification to show the direction in the lag path. If
+#' TRUE, an appropriate default arrow will be used. Alternatively, a user
+#' controllable arrow created with [`grid::arrow()`] can be used.
 #' @param ... Additional arguments passed to the geom.
 #'
 #' @return A ggplot object showing a lag plot of a time series.

@@ -15,3 +15,6 @@ A numeric value.
 \description{
 Computes the number of times a time series crosses the median.
 }
+\author{
+Earo Wang and Rob J Hyndman
+}

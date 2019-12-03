@@ -5,11 +5,15 @@
 \alias{unitroot_pp}
 \title{Unit root tests}
 \usage{
-unitroot_kpss(x, type = c("mu", "tau"), lags = c("short", "long",
-  "nil"), ...)
+unitroot_kpss(x, type = c("mu", "tau"), lags = c("short", "long", "nil"), ...)
 
-unitroot_pp(x, type = c("Z-tau", "Z-alpha"), model = c("constant",
-  "trend"), lags = c("short", "long"), ...)
+unitroot_pp(
+  x,
+  type = c("Z-tau", "Z-alpha"),
+  model = c("constant", "trend"),
+  lags = c("short", "long"),
+  ...
+)
 }
 \arguments{
 \item{x}{A vector to be tested for the unit root.}
