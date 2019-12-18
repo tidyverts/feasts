@@ -94,3 +94,11 @@ unnest_tsbl <- function(.data, tsbl_col, parent_key = NULL, interval = NULL){
                 index2 = !!index2(tsbl), ordered = is_ordered(tsbl),
                 interval = interval%||%interval(tsbl))
 }
+
+interval_to_period <- function(interval){
+  with(interval, lubridate::years(year) +
+         lubridate::period(3*quarter + month, units = "month") + lubridate::weeks(week) +
+         lubridate::days(day) + lubridate::hours(hour) + lubridate::minutes(minute) +
+         lubridate::seconds(second) + lubridate::milliseconds(millisecond) +
+         lubridate::microseconds(microsecond) + lubridate::nanoseconds(nanosecond))
+}

@@ -1,16 +1,11 @@
 format_time <- function(x, format, ...){
-  if(is.numeric(x)){
-    out <- format(x)
+  if(format == "%Y W%V"){
+    return(format(yearweek(x)))
   }
-  else{
-    if(format == "%Y W%V"){
-      return(format(yearweek(x)))
-    }
-    out <- format(x, format = format)
-    if (grepl("%q", format)) {
-      qtr <- 1 + as.numeric(format(as.Date(x), "%m"))%/%3
-      out <- split(out, qtr) %>% imap(function(x, rpl) gsub("%q", rpl, x)) %>% unsplit(qtr)
-    }
+  out <- format(x, format = format)
+  if (grepl("%q", format)) {
+    qtr <- 1 + as.numeric(format(as.Date(x), "%m"))%/%3
+    out <- split(out, qtr) %>% imap(function(x, rpl) gsub("%q", rpl, x)) %>% unsplit(qtr)
   }
   factor(out, levels = unique(out[order(x)]))
 }
@@ -27,22 +22,13 @@ tz_units_since <- function(x){
 # 2. Return if descriptor is distinct across groups
 # 3. If descriptor varies across groups, add it to list
 # 4. Go to next largest descriptor and repeat from 2.
-time_identifier <- function(idx, time_units){
-  if(is.null(time_units)){
+time_identifier <- function(idx, period){
+  if(is.null(period)){
     return(rep(NA, length(idx)))
   }
 
-  if(inherits(idx, "yearweek") && time_units == 52){
-    grps <- format(idx, "%Y")
-  }
-  else{
-    grps <- tz_units_since(idx) %/% time_units
-  }
-  idx_grp <- split(idx, grps)
-
-  # Different origin for weeks
-  wk_grps <- (ifelse(inherits(idx, "Date"), 3, 60*60*24*3) + tz_units_since(idx)) %/% time_units
-  wk_idx_grp <- split(idx, wk_grps)
+  grps <- lubridate::floor_date(idx, period)
+  fmt_idx_grp <- split(idx, grps)
 
   formats <- list(
     Weekday = "%A",
@@ -63,7 +49,7 @@ time_identifier <- function(idx, time_units){
 
   found_format <- FALSE
   for(fmt in formats){
-    fmt_idx_grp <- if(grepl("W%V", fmt)) wk_idx_grp else idx_grp
+    # fmt_idx_grp <- if(grepl("W%V", fmt)) wk_idx_grp else idx_grp
     if(length(unique(format_time(fmt_idx_grp[[1]], format = fmt))) == 1){
       ids <- map(fmt_idx_grp, function(x) unique(format_time(x, format = fmt)))
       if(all(map_lgl(ids, function(x) length(x) == 1)) && length(unique(ids)) == length(fmt_idx_grp)){
@@ -167,9 +153,9 @@ guess_plot_var <- function(x, y){
 #'
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
-gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
-                      polar = FALSE, labels = c("none", "left", "right", "both"),
-                      ...){
+gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
+                      max_col = 15, polar = FALSE,
+                      labels = c("none", "left", "right", "both"), ...){
   y <- guess_plot_var(data, !!enquo(y))
 
   labels <- match.arg(labels)
@@ -178,24 +164,28 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
   idx_class <- class(data[[as_string(idx)]])
   n_key <- n_keys(data)
   keys <- key(data)
-  ts_interval <- interval(data)
-  ts_unit <- time_unit(ts_interval)
+  ts_interval <- interval_to_period(interval(data))
 
-  period <- get_frequencies(period, data, .auto = "largest")
-  if(period <= 1){
+  if(is.null(period)){
+    period <- names(get_frequencies(period, data, .auto = "largest"))
+  }
+  if(is.numeric(period)){
+    period <- period*ts_interval
+  }
+  period <- lubridate::as.period(period)
+  if(period <= ts_interval){
     abort("The data must contain at least one observation per seasonal period.")
   }
-  period <- period*ts_unit
 
-  if(!is_missing(facet_period)){
-    facet_period <- get_frequencies(facet_period, data, .auto = "smallest")
-    if(facet_period <= 1){
+  if(!is.null(facet_period)){
+    if(is.numeric(facet_period)){
+      facet_period <- facet_period*ts_interval
+    }
+    facet_period <- lubridate::as.period(facet_period)
+
+    if(facet_period <= ts_interval){
       abort("The data must contain at least one observation per seasonal period.")
     }
-    facet_period <- facet_period*ts_unit
-  }
-  else{
-    facet_period <- NULL
   }
 
   data <- as_tibble(data) %>%
@@ -204,9 +194,8 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period, max_col = 15,
       !!!key(data)
     ) %>%
     mutate(
-      id = as.character(time_identifier(!!idx, period)),
-      !!as_string(idx) := !!idx - period * ((tz_units_since(!!idx) +
-        ifelse(inherits(!!idx, "Date"), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period)
+      id = time_identifier(!!idx, period),
+      !!as_string(idx) := !!idx - lubridate::floor_date(!!idx, period)
     ) %>%
     ungroup() %>%
     mutate(id = ordered(!!sym("id")))
@@ -217,7 +206,7 @@ This issue will be resolved once vctrs is integrated into dplyr.")
     extra_x <- data %>%
       group_by(!!sym("facet_id"), !!sym("id")) %>%
       summarise(
-        !!expr_text(idx) := max(!!idx) + ts_unit - .Machine$double.eps,
+        !!expr_text(idx) := max(!!idx) + ts_interval - .Machine$double.eps,
         !!expr_text(y) := (!!y)[[which.min(!!idx)]]
       ) %>%
       group_by(!!sym("facet_id")) %>%
@@ -233,8 +222,8 @@ This issue will be resolved once vctrs is integrated into dplyr.")
   p <- ggplot(data, mapping) +
     geom_line(...) +
     ggplot2::scale_color_gradientn(colours = scales::hue_pal()(9),
-                          breaks = if (num_ids < max_col) seq_len(num_ids) else ggplot2::waiver(),
-                          labels = function(idx) levels(data$id)[idx]) +
+                                   breaks = if (num_ids < max_col) seq_len(num_ids) else ggplot2::waiver(),
+                                   labels = function(idx) levels(data$id)[idx]) +
     ggplot2::labs(colour = NULL)
 
   if(num_ids < max_col){
@@ -252,13 +241,14 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 
   if(inherits(data[[expr_text(idx)]], "Date")){
     p <- p + ggplot2::scale_x_date(breaks = function(limit){
-        limit <- add_class(limit, idx_class) # Fix dropped class from group_by+mutate
-        if(period/ts_unit <= 12){
-          seq(limit[1], length.out = ceiling(period)+1, by = ts_unit)
-        } else{
-          ggplot2::scale_x_date()$trans$breaks(limit)
-        }
-      }, labels = within_time_identifier)
+      limit <- add_class(limit, idx_class) # Fix dropped class from group_by+mutate
+      suppressMessages(period/ts_interval)
+      if(suppressMessages(period/ts_interval) <= 12){
+        seq(limit[1], length.out = ceiling(period)+1, by = ts_interval)
+      } else{
+        ggplot2::scale_x_date()$trans$breaks(limit)
+      }
+    }, labels = within_time_identifier)
   } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(breaks = function(limit){
       if(period == 7*60*60*24){
