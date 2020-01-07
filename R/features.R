@@ -17,7 +17,7 @@ n_crossing_points <- function(x)
 #' @export
 stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 {
-  if (length(x) <= 13) {
+  if (length(x) <= lags + 1) {
     return(c(arch_lm = NA_real_))
   }
   if (demean) {
@@ -25,8 +25,8 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
   }
   mat <- embed(x^2, lags + 1)
   fit <- lm(mat[, 1] ~ mat[, -1])
-  arch.lm <- summary(fit)
-  c(stat_arch_lm = arch.lm$r.squared)
+  stat_arch_lm <- summary(fit)$r.squared
+  c(stat_arch_lm = if(is.nan(stat_arch_lm)) 1 else stat_arch_lm)
 }
 
 #' STL features

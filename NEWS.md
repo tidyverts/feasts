@@ -11,6 +11,7 @@
 * Fixed bug with `feat_spectral()` not showing results.
 * Fix warning in `ACF()`, `PACF()` and `CCF()` for tidyr change.
 * `gg_tsdisplay()` will no longer fail on non-seasonal data with missing values. The last plot will instead show a PACF in this case (#76)
+* Better handling of perfect fits in `stat_arch_lm()` (#85)
 
 # feasts 0.1.1
 
