@@ -103,8 +103,31 @@ interval_to_period <- function(interval){
          lubridate::microseconds(microsecond) + lubridate::nanoseconds(nanosecond))
 }
 
-floor_tsibble_date <- function(x, ...){
-  f_x <- lubridate::floor_date(x, ...)
+round_period <- function(period){
+  if(!is.null(attr(period, "second"))){
+    attr(period, "minute") <- attr(period, "minute")%||%0 + attr(period, "second")%/%60
+    attr(period, "second") <- attr(period, "second")%%60
+  }
+
+  if(!is.null(attr(period, "minute"))){
+    attr(period, "hour") <- attr(period, "hour")%||%0 + attr(period, "minute")%/%60
+    attr(period, "minute") <- attr(period, "minute")%%60
+  }
+
+  if(!is.null(attr(period, "hour"))){
+    attr(period, "day") <- attr(period, "day") + attr(period, "hour")%/%24
+    attr(period, "hour") <- attr(period, "hour")%%24
+  }
+
+  if(!is.null(attr(period, "month"))){
+    attr(period, "year") <- attr(period, "year") + attr(period, "month")%/%12
+    attr(period, "month") <- attr(period, "month")%%12
+  }
+  period
+}
+
+floor_tsibble_date <- function(x, unit, ...){
+  f_x <- lubridate::floor_date(x, round_period(unit), ...)
   if (inherits(x, "yearweek")) tsibble::yearweek(f_x)
   else if (inherits(x, "yearmonth")) tsibble::yearmonth(f_x)
   else if (inherits(x, "yearquarter")) tsibble::yearquarter(f_x)

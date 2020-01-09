@@ -27,7 +27,7 @@ time_identifier <- function(idx, period){
     return(rep(NA, length(idx)))
   }
 
-  grps <- lubridate::floor_date(idx, period)
+  grps <- floor_tsibble_date(idx, period)
   fmt_idx_grp <- split(idx, grps)
 
   formats <- list(
