@@ -79,10 +79,10 @@ test_that("gg_season() facets", {
     as.numeric(table(ggplot2::layer_data(p)$colour)),
     rep(12, 39)
   )
-  # expect_equal( Issue #49
-  #   ggplot2::layer_data(p,2)$label,
-  #   ordered(rep(1959:1997, each = 2))
-  # )
+  expect_equal(
+    ggplot2::layer_data(p,2)$label,
+    ordered(rep(1959:1997, each = 2))
+  )
 
   p_built <- ggplot2::ggplot_build(p)
 

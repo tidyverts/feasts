@@ -102,3 +102,22 @@ interval_to_period <- function(interval){
          lubridate::seconds(second) + lubridate::milliseconds(millisecond) +
          lubridate::microseconds(microsecond) + lubridate::nanoseconds(nanosecond))
 }
+
+floor_tsibble_date <- function(x, ...){
+  f_x <- lubridate::floor_date(x, ...)
+  if (inherits(x, "yearweek")) tsibble::yearweek(f_x)
+  else if (inherits(x, "yearmonth")) tsibble::yearmonth(f_x)
+  else if (inherits(x, "yearquarter")) tsibble::yearquarter(f_x)
+  else f_x
+}
+
+time_origin <- function(x){
+  # Set origin at 1973-01-01 for weekday starting on Monday
+  origin <- structure(94694400, class = c("POSIXct", "POSIXt"), tzone = "UTC")
+
+  if (inherits(x, "yearweek")) tsibble::yearweek(origin)
+  else if (inherits(x, "yearmonth")) tsibble::yearmonth(origin)
+  else if (inherits(x, "yearquarter")) tsibble::yearquarter(origin)
+  else if (inherits(x, "Date")) as.Date(origin)
+  else origin
+}

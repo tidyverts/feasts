@@ -64,7 +64,7 @@ time_identifier <- function(idx, period){
   }
   else{
     # Default to time ranges
-    map(idx_grp, function(x) rep(paste0(c(min(x), max(x)), collapse = " - "), length(x))) %>%
+    map(fmt_idx_grp, function(x) rep(paste0(c(min(x), max(x)), collapse = " - "), length(x))) %>%
       unsplit(grps)
   }
 }
@@ -155,7 +155,7 @@ guess_plot_var <- function(x, y){
 #' @export
 gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
                       max_col = 15, polar = FALSE,
-                      labels = c("none", "left", "right", "both"), ...){
+                      labels = c("none", "left", "right", "both"),  ...){
   y <- guess_plot_var(data, !!enquo(y))
 
   labels <- match.arg(labels)
@@ -189,15 +189,11 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
   }
 
   data <- as_tibble(data) %>%
-    group_by(
-      facet_id = time_identifier(!!idx, facet_period) %empty% NA,
-      !!!key(data)
-    ) %>%
     mutate(
+      facet_id = time_identifier(!!idx, facet_period) %empty% NA,
       id = time_identifier(!!idx, period),
-      !!as_string(idx) := !!idx - lubridate::floor_date(!!idx, period)
+      !!as_string(idx) := time_origin(!!idx) + (!!idx - floor_tsibble_date(!!idx, period, week_start = week_start))
     ) %>%
-    ungroup() %>%
     mutate(id = ordered(!!sym("id")))
 
   if(polar){
@@ -241,19 +237,16 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 
   if(inherits(data[[expr_text(idx)]], "Date")){
     p <- p + ggplot2::scale_x_date(breaks = function(limit){
-      limit <- add_class(limit, idx_class) # Fix dropped class from group_by+mutate
-      suppressMessages(period/ts_interval)
-      if(suppressMessages(period/ts_interval) <= 12){
-        seq(limit[1], length.out = ceiling(period)+1, by = ts_interval)
+      if(suppressMessages(len <- period/ts_interval) <= 12){
+        ggplot2::scale_x_date()$trans$breaks(limit, n = len)
       } else{
         ggplot2::scale_x_date()$trans$breaks(limit)
       }
     }, labels = within_time_identifier)
   } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(breaks = function(limit){
-      if(period == 7*60*60*24){
-        limit <- limit - as.numeric(limit)%%(60*60*24)
-        seq(as.POSIXct(as.Date(limit[1])), length.out = 8, by = "day")
+      if(period == lubridate::weeks(1)){
+        ggplot2::scale_x_datetime()$trans$breaks(limit, n = 7)
       }
       else{
         ggplot2::scale_x_datetime()$trans$breaks(limit)
@@ -328,18 +321,20 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
   check_gaps(data)
   idx <- index(data)
 
-  period <- get_frequencies(period, data, .auto = "smallest")
+  if(is.null(period)){
+    period <- names(get_frequencies(period, data, .auto = "largest"))
+  }
+  if(is.numeric(period)){
+    period <- period*ts_interval
+  }
+  period <- lubridate::as.period(period)
   if(period <= 1){
     abort("The data must contain at least one observation per seasonal period.")
   }
-  period <- period*time_unit(interval(data))
 
   data <- as_tibble(data) %>%
-    group_by(!!!keys) %>%
     mutate(
-      id = time_identifier(!!idx, period),
-      id = !!idx - period * ((tz_units_since(!!idx) +
-        ifelse(inherits(!!idx, "Date"), 3, 60*60*24*3)*grepl("\\d{4} W\\d{2}|W\\d{2}",id[1])) %/% period),
+      id = time_origin(!!idx) + (!!idx - floor_tsibble_date(!!idx, period, week_start = week_start)),
       .yint = !!y
     ) %>%
     group_by(id, !!!keys) %>%
