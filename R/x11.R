@@ -52,8 +52,23 @@ train_X11 <- function(.data, formula, specials, type, ...){
     season_adjust = call2(op, sym("trend"), sym("irregular"))
   )
 
-  fabletools::as_dable(dcmp, resp = !!sym(measured_vars(.data)),
-                      method = "X11", seasons = seasonalities, aliases = aliases)
+  structure(
+    list(decomposition = dcmp,
+         response = measured_vars(.data), method = "X11",
+         seasons = seasonalities, aliases = aliases
+    ),
+    class = "x11_decomposition"
+  )
+}
+
+components.x11_decomposition <- function(object, ...){
+  as_dable(object[["decomposition"]], response = !!sym(object[["response"]]),
+           method = object[["method"]], seasons = object[["seasons"]],
+           aliases = object[["aliases"]])
+}
+
+model_sum.x11_decomposition <- function(x){
+  "X11"
 }
 
 # #' X11 seasonal decomposition
@@ -97,11 +112,11 @@ train_X11 <- function(.data, formula, specials, type, ...){
 # #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
 # #'
 # #' @importFrom fabletools new_decomposition_class new_decomposition_definition
-X11 <- function(.data, formula, type = c("additive", "multiplicative"), ...){
+X11 <- function(formula, type = c("additive", "multiplicative"), ...){
   type <- match.arg(type)
-  dcmp <- new_decomposition_class("X11",
-                                  train = train_X11, specials = specials_X11,
-                                  check = all_tsbl_checks)
-  new_decomposition_definition(dcmp, .data, !!enquo(formula), type = type, ...)
+  dcmp <- new_model_class("X11",
+                          train = train_X11, specials = specials_X11,
+                          check = all_tsbl_checks)
+  new_model_definition(dcmp, !!enquo(formula), type = type, ...)
 }
 
