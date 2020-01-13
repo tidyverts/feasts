@@ -2,7 +2,7 @@ context("test-classical")
 
 test_that("Additive classical decomposition", {
   tsbl_co2 <- as_tsibble(co2)
-  dcmp <- tsbl_co2 %>% classical_decomposition(value)
+  dcmp <- tsbl_co2 %>% model(classical_decomposition(value)) %>% components()
   stats_dcmp <- stats::decompose(co2)
 
   expect_equivalent(
@@ -25,7 +25,7 @@ test_that("Additive classical decomposition", {
 
 test_that("Multiplicative classical decomposition", {
   tsbl_uad <- as_tsibble(USAccDeaths)
-  dcmp <- tsbl_uad %>% classical_decomposition(value, type = "multiplicative")
+  dcmp <- tsbl_uad %>% model(classical_decomposition(value, type = "multiplicative")) %>% components()
   stats_dcmp <- stats::decompose(USAccDeaths, type = "multiplicative")
 
   expect_equivalent(

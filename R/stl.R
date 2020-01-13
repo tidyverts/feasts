@@ -101,8 +101,25 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
     season_adjust = call2("+", sym("trend"), sym("remainder"))
   )
 
-  fabletools::as_dable(decomposition, resp = !!sym(measured_vars(.data)),
-                      method = "STL", seasons = seasonalities, aliases = aliases)
+  structure(
+    list(decomposition = decomposition,
+         response = measured_vars(.data), method = "STL",
+         seasons = seasonalities, aliases = aliases
+    ),
+    class = "stl_decomposition"
+  )
+}
+
+#' @export
+components.stl_decomposition <- function(object, ...){
+  as_dable(object[["decomposition"]], response = !!sym(object[["response"]]),
+           method = object[["method"]], seasons = object[["seasons"]],
+           aliases = object[["aliases"]])
+}
+
+#' @export
+model_sum.stl_decomposition <- function(x){
+  "STL"
 }
 
 #' Multiple seasonal decomposition by Loess
@@ -162,15 +179,17 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
 #' R. B. Cleveland, W. S. Cleveland, J.E. McRae, and I. Terpenning (1990) STL: A Seasonal-Trend Decomposition Procedure Based on Loess. Journal of Official Statistics, 6, 3–73.
 #'
 #' @examples
-#' USAccDeaths %>% as_tsibble %>% STL(value ~ trend(window = 10))
+#' as_tsibble(USAccDeaths) %>%
+#'   model(STL(value ~ trend(window = 10))) %>%
+#'   components()
 #'
 #' @importFrom stats ts stl
 #' @importFrom fabletools new_decomposition_class new_decomposition_definition
 #' @export
-STL <- function(.data, formula, iterations = 2, ...){
-  dcmp <- new_decomposition_class("STL",
-                                  train = train_stl, specials = specials_stl,
-                                  check = all_tsbl_checks)
-  new_decomposition_definition(dcmp, .data, !!enquo(formula), iterations = iterations, ...)
+STL <- function(formula, iterations = 2, ...){
+  dcmp <- new_model_class("STL",
+                          train = train_stl, specials = specials_stl,
+                          check = all_tsbl_checks)
+  new_model_definition(dcmp, !!enquo(formula), iterations = iterations, ...)
 }
 

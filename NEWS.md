@@ -6,6 +6,13 @@
 * Added residual acf features to `feat_stl()`.
 * Performance improvements.
 
+## Breaking changes
+
+* Decompositions are now treated as models. 
+  To access the decomposed values, you will now have to use `components()`.
+  For example, `tourism %>% STL(Trips)` is now `tourism %>% model(STL(Trips)) %>% components()`.
+  This change allows for more flexible decomposition specifications, and better interfaces for decomposition modelling.
+
 ## Bug fixes
 
 * Fixed bug with `feat_spectral()` not showing results.

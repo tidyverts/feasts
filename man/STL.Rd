@@ -4,7 +4,7 @@
 \alias{STL}
 \title{Multiple seasonal decomposition by Loess}
 \usage{
-STL(.data, formula, iterations = 2, ...)
+STL(formula, iterations = 2, ...)
 }
 \arguments{
 \item{formula}{Decomposition specification (see "Specials" section).}
@@ -71,7 +71,9 @@ lowpass(window, degree, jump)
 }
 
 \examples{
-USAccDeaths \%>\% as_tsibble \%>\% STL(value ~ trend(window = 10))
+as_tsibble(USAccDeaths) \%>\%
+  model(STL(value ~ trend(window = 10))) \%>\%
+  components()
 
 }
 \references{

@@ -56,9 +56,11 @@ season(period = NULL)
 
 \examples{
 as_tsibble(USAccDeaths) \%>\%
-  decompose(classical_decomposition(value))
+  model(classical_decomposition(value)) \%>\%
+  components()
 
 as_tsibble(USAccDeaths) \%>\%
-  decompose(classical_decomposition(value ~ season(12), type = "mult"))
+  model(classical_decomposition(value ~ season(12), type = "mult")) \%>\%
+  components()
 
 }

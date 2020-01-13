@@ -45,15 +45,31 @@ train_classical <- function(.data, formula, specials,
     season_adjust = call2(dcmp_op_inv, sym(resp), sym("seasonal"))
   )
 
-  fabletools::as_dable(dcmp, resp = !!sym(resp), method = "Classical",
-                      seasons = seasonalities, aliases = aliases)
+  structure(
+    list(decomposition = dcmp,
+         response = resp, method = "Classical",
+         seasons = seasonalities, aliases = aliases
+    ),
+    class = "classical_decomposition"
+  )
+}
+
+#' @export
+components.classical_decomposition <- function(object, ...){
+  as_dable(object[["decomposition"]], response = !!sym(object[["response"]]),
+           method = object[["method"]], seasons = object[["seasons"]],
+           aliases = object[["aliases"]])
+}
+
+#' @export
+model_sum.classical_decomposition <- function(x){
+  "DECOMPOSITION"
 }
 
 #' Classical Seasonal Decomposition by Moving Averages
 #'
 #' @inherit stats::decompose description details
 #'
-#' @param .data A tsibble.
 #' @param formula Decomposition specification (see "Specials" section).
 #' @param ... Other arguments passed to `\link[stats]{decompose}`.
 #' @inheritParams stats::decompose
@@ -75,20 +91,20 @@ train_classical <- function(.data, formula, specials,
 #' }
 #'
 #' @examples
-#' USAccDeaths %>%
-#'   as_tsibble %>%
-#'   classical_decomposition(value)
+#' as_tsibble(USAccDeaths) %>%
+#'   model(classical_decomposition(value)) %>%
+#'   components()
 #'
-#' USAccDeaths %>%
-#'   as_tsibble %>%
-#'   classical_decomposition(value ~ season(12), type = "mult")
+#' as_tsibble(USAccDeaths) %>%
+#'   model(classical_decomposition(value ~ season(12), type = "mult")) %>%
+#'   components()
 #'
 #' @importFrom stats ts decompose
 #' @importFrom fabletools new_decomposition_class new_decomposition_definition
 #' @export
-classical_decomposition <- function(.data, formula, type = c("additive", "multiplicative"), ...){
-  dcmp <- new_decomposition_class("Classical decomposition",
+classical_decomposition <- function(formula, type = c("additive", "multiplicative"), ...){
+  dcmp <- new_model_class("Classical decomposition",
                                   train = train_classical, specials = specials_classical,
                                   check = all_tsbl_checks)
-  new_decomposition_definition(dcmp, .data, !!enquo(formula), type = type, ...)
+  new_model_definition(dcmp, !!enquo(formula), type = type, ...)
 }
