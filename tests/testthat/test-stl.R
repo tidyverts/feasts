@@ -2,7 +2,7 @@ context("test-stl")
 
 test_that("Seasonal STL", {
   tsbl_uad <- as_tsibble(USAccDeaths)
-  dcmp <- tsbl_uad %>% STL(value)
+  dcmp <- tsbl_uad %>% model(STL(value)) %>% components()
   stats_dcmp <- stats::stl(USAccDeaths, s.window = 13)
 
   expect_equivalent(
@@ -26,7 +26,7 @@ test_that("Seasonal STL", {
 
 test_that("Non-seasonal STL", {
   tsbl_www <- as_tsibble(WWWusage)
-  dcmp <- tsbl_www %>% STL(value)
+  dcmp <- tsbl_www %>% model(STL(value)) %>% components()
   stats_dcmp <- stats::supsmu(seq_along(WWWusage), WWWusage)
 
   expect_equivalent(
@@ -48,7 +48,7 @@ test_that("Multiple seasonality STL", {
   dt <- tsibble(idx = seq_len(100),
                 y = rep(1:4, length.out = 100) + rep(1:7, length.out = 100),
                 index = idx)
-  dcmp <- dt %>% STL(y ~ season(4) + season(7))
+  dcmp <- dt %>% model(STL(y ~ season(4) + season(7))) %>% components()
 
   expect_equal(
     dcmp$trend,
