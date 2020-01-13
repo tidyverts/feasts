@@ -108,9 +108,9 @@ model_sum.x13_decomposition <- function(x){
 # #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
 # #'
 # #' @importFrom fabletools new_model_class new_model_definition
-SEATS <- function(.data, formula, ...){
+SEATS <- function(formula, ...){
   dcmp <- new_model_class("SEATS", train = train_seats,
                           specials = specials_seats, check = all_tsbl_checks)
-  new_model_definition(dcmp, .data, !!enquo(formula), ...)
+  new_model_definition(dcmp, !!enquo(formula), ...)
 }
 
