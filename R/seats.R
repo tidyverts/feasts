@@ -61,6 +61,7 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
   )
 }
 
+#' @export
 components.x13_decomposition <- function(object, ...){
   as_dable(object[["decomposition"]], response = !!sym(object[["response"]]),
            method = object[["method"]], seasons = object[["seasons"]],
