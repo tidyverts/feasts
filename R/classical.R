@@ -100,7 +100,7 @@ model_sum.classical_decomposition <- function(x){
 #'   components()
 #'
 #' @importFrom stats ts decompose
-#' @importFrom fabletools new_decomposition_class new_decomposition_definition
+#' @importFrom fabletools new_model_class new_model_definition
 #' @export
 classical_decomposition <- function(formula, type = c("additive", "multiplicative"), ...){
   dcmp <- new_model_class("Classical decomposition",

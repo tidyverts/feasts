@@ -111,7 +111,7 @@ model_sum.x11_decomposition <- function(x){
 # #'
 # #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
 # #'
-# #' @importFrom fabletools new_decomposition_class new_decomposition_definition
+# #' @importFrom fabletools new_model_class new_model_definition
 X11 <- function(formula, type = c("additive", "multiplicative"), ...){
   type <- match.arg(type)
   dcmp <- new_model_class("X11",

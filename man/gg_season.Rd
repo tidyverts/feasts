@@ -8,7 +8,7 @@ gg_season(
   data,
   y = NULL,
   period = NULL,
-  facet_period,
+  facet_period = NULL,
   max_col = 15,
   polar = FALSE,
   labels = c("none", "left", "right", "both"),

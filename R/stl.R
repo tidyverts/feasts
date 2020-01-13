@@ -184,7 +184,7 @@ model_sum.stl_decomposition <- function(x){
 #'   components()
 #'
 #' @importFrom stats ts stl
-#' @importFrom fabletools new_decomposition_class new_decomposition_definition
+#' @importFrom fabletools new_model_class new_model_definition
 #' @export
 STL <- function(formula, iterations = 2, ...){
   dcmp <- new_model_class("STL",
