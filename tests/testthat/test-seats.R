@@ -5,29 +5,29 @@ skip_if(!.Platform$OS.type == "windows" && Sys.info()["sysname"] != "Linux")
 
 tsbl_co2 <- as_tsibble(co2)
 test_that("Bad inputs for seats decomposition", {
-  expect_error(
+  expect_warning(
     tsibble::pedestrian %>%
       filter(Sensor == "Southern Cross Station",
              Date == as.Date("2015-01-01")) %>%
-      feasts:::SEATS(Count),
+      model(feasts:::SEATS(Count)),
     "The X-13ARIMA-SEATS method only supports seasonal patterns"
   )
 
-  expect_error(
+  expect_warning(
     tsbl_co2 %>%
-      feasts:::SEATS(value ~ seq_along(value)),
+      model(feasts:::SEATS(value ~ seq_along(value))),
     "Exogenous regressors are not supported for X-13ARIMA-SEATS decompositions"
   )
 
-  expect_error(
+  expect_warning(
     tsbl_co2 %>%
-      feasts:::SEATS(value, x11=""),
+      model(feasts:::SEATS(value, x11="")),
     "Use \\`X11\\(\\)\\` to perform an X11 decomposition"
   )
 })
 
 test_that("X-13ARIMA-SEATS decomposition", {
-  dcmp <- tsbl_co2 %>% feasts:::SEATS(value)
+  dcmp <- tsbl_co2 %>% model(feasts:::SEATS(value)) %>% components()
   seas_dcmp <- seasonal::seas(co2)
 
   expect_equivalent(
