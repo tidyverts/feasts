@@ -6,7 +6,7 @@
 [![Travis build
 status](https://travis-ci.org/tidyverts/feasts.svg?branch=master)](https://travis-ci.org/tidyverts/feasts)
 [![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/feasts?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverts/feasts)
+Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/feasts?branch=master&svg=true)](https://ci.appveyor.com/project/mitchelloharawild/feasts)
 [![Coverage
 status](https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverts/feasts?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/feasts)](https://cran.r-project.org/package=feasts)
@@ -50,6 +50,7 @@ remotes::install_github("tidyverts/feasts")
 library(feasts)
 library(tsibbledata)
 library(dplyr)
+#> Warning: package 'dplyr' was built under R version 3.6.2
 library(ggplot2)
 library(lubridate)
 ```
@@ -100,26 +101,29 @@ series decomposition methods:
 -->
 
 ``` r
-aus_production %>% STL(Beer ~ season(window = Inf))
-#> # A dable:           218 x 6 [1Q]
+dcmp <- aus_production %>%
+  model(STL(Beer ~ season(window = Inf)))
+components(dcmp)
+#> # A dable:           218 x 7 [1Q]
+#> # Key:               .model [1]
 #> # STL Decomposition: Beer = trend + season_year + remainder
-#>    Quarter  Beer trend season_year remainder season_adjust
-#>      <qtr> <dbl> <dbl>       <dbl>     <dbl>         <dbl>
-#>  1 1956 Q1   284  272.        2.14     10.1           282.
-#>  2 1956 Q2   213  264.      -42.6      -8.56          256.
-#>  3 1956 Q3   227  258.      -28.5      -2.34          255.
-#>  4 1956 Q4   308  253.       69.0     -14.4           239.
-#>  5 1957 Q1   262  257.        2.14      2.55          260.
-#>  6 1957 Q2   228  261.      -42.6       9.47          271.
-#>  7 1957 Q3   236  263.      -28.5       1.80          264.
-#>  8 1957 Q4   320  264.       69.0     -12.7           251.
-#>  9 1958 Q1   272  266.        2.14      4.32          270.
-#> 10 1958 Q2   233  266.      -42.6       9.72          276.
+#>    .model                           Quarter  Beer trend season_year remainder season_adjust
+#>    <chr>                              <qtr> <dbl> <dbl>       <dbl>     <dbl>         <dbl>
+#>  1 STL(Beer ~ season(window = Inf)) 1956 Q1   284  272.        2.14     10.1           282.
+#>  2 STL(Beer ~ season(window = Inf)) 1956 Q2   213  264.      -42.6      -8.56          256.
+#>  3 STL(Beer ~ season(window = Inf)) 1956 Q3   227  258.      -28.5      -2.34          255.
+#>  4 STL(Beer ~ season(window = Inf)) 1956 Q4   308  253.       69.0     -14.4           239.
+#>  5 STL(Beer ~ season(window = Inf)) 1957 Q1   262  257.        2.14      2.55          260.
+#>  6 STL(Beer ~ season(window = Inf)) 1957 Q2   228  261.      -42.6       9.47          271.
+#>  7 STL(Beer ~ season(window = Inf)) 1957 Q3   236  263.      -28.5       1.80          264.
+#>  8 STL(Beer ~ season(window = Inf)) 1957 Q4   320  264.       69.0     -12.7           251.
+#>  9 STL(Beer ~ season(window = Inf)) 1958 Q1   272  266.        2.14      4.32          270.
+#> 10 STL(Beer ~ season(window = Inf)) 1958 Q2   233  266.      -42.6       9.72          276.
 #> # … with 208 more rows
 ```
 
 ``` r
-aus_production %>% STL(Beer ~ season(window = Inf)) %>% autoplot()
+components(dcmp) %>% autoplot()
 ```
 
 <img src="man/figures/README-dcmp-plot-1.png" width="100%" />
@@ -133,20 +137,21 @@ behaviour.
 ``` r
 aus_retail %>%
   features(Turnover, feat_stl)
-#> # A tibble: 152 x 9
-#>    State Industry trend_strength seasonal_streng… spikiness linearity curvature seasonal_peak_y…
-#>    <chr> <chr>             <dbl>            <dbl>     <dbl>     <dbl>     <dbl>            <dbl>
-#>  1 Aust… Cafes, …          0.989            0.537   6.15e-5     227.      48.6                 0
-#>  2 Aust… Cafes, …          0.993            0.610   1.12e-4     342.      77.9                 0
-#>  3 Aust… Clothin…          0.990            0.918   4.77e-6     131.      17.4                 9
-#>  4 Aust… Clothin…          0.992            0.952   2.06e-5     195.      19.4                 9
-#>  5 Aust… Departm…          0.975            0.977   2.79e-5     130.     -43.9                 9
-#>  6 Aust… Electri…          0.991            0.929   3.03e-5     233.      -9.08                9
-#>  7 Aust… Food re…          0.999            0.882   2.74e-4    1264.     199.                  9
-#>  8 Aust… Footwea…          0.980            0.937   5.54e-6      64.0      1.98                9
-#>  9 Aust… Furnitu…          0.980            0.669   4.66e-5     141.     -21.6                 9
-#> 10 Aust… Hardwar…          0.992            0.895   1.47e-5     173.      45.2                 9
-#> # … with 142 more rows, and 1 more variable: seasonal_trough_year <dbl>
+#> # A tibble: 152 x 11
+#>    State Industry trend_strength seasonal_streng… seasonal_peak_y… seasonal_trough… spikiness
+#>    <chr> <chr>             <dbl>            <dbl>            <dbl>            <dbl>     <dbl>
+#>  1 Aust… Cafes, …          0.989            0.537                0               10   6.15e-5
+#>  2 Aust… Cafes, …          0.993            0.610                0               10   1.12e-4
+#>  3 Aust… Clothin…          0.990            0.918                9               11   4.77e-6
+#>  4 Aust… Clothin…          0.992            0.952                9               11   2.06e-5
+#>  5 Aust… Departm…          0.975            0.977                9               11   2.79e-5
+#>  6 Aust… Electri…          0.991            0.929                9               11   3.03e-5
+#>  7 Aust… Food re…          0.999            0.882                9               11   2.74e-4
+#>  8 Aust… Footwea…          0.980            0.937                9               11   5.54e-6
+#>  9 Aust… Furnitu…          0.980            0.669                9                1   4.66e-5
+#> 10 Aust… Hardwar…          0.992            0.895                9                4   1.47e-5
+#> # … with 142 more rows, and 4 more variables: linearity <dbl>, curvature <dbl>, stl_e_acf1 <dbl>,
+#> #   stl_e_acf10 <dbl>
 ```
 
 This allows you to visualise the behaviour of many time series (where

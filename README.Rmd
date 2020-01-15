@@ -16,7 +16,7 @@ options(width = 100)
 
 # feasts <a href='https://feasts.tidyverts.org'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
 [![Travis build status](https://travis-ci.org/tidyverts/feasts.svg?branch=master)](https://travis-ci.org/tidyverts/feasts)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/feasts?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverts/feasts)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverts/feasts?branch=master&svg=true)](https://ci.appveyor.com/project/mitchelloharawild/feasts)
 [![Coverage status](https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverts/feasts?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/feasts)](https://cran.r-project.org/package=feasts)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -77,10 +77,12 @@ A common task in time series analysis is decomposing a time series into some sim
 -->
 
 ```{r dcmp}
-aus_production %>% STL(Beer ~ season(window = Inf))
+dcmp <- aus_production %>%
+  model(STL(Beer ~ season(window = Inf)))
+components(dcmp)
 ```
 ```{r dcmp-plot}
-aus_production %>% STL(Beer ~ season(window = Inf)) %>% autoplot()
+components(dcmp) %>% autoplot()
 ```
 
 ### Feature extraction and statistics
