@@ -54,6 +54,7 @@ train_classical <- function(.data, formula, specials,
   )
 }
 
+#' @importFrom fabletools components
 #' @export
 components.classical_decomposition <- function(object, ...){
   as_dable(object[["decomposition"]], response = !!sym(object[["response"]]),

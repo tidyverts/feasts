@@ -61,6 +61,8 @@ train_X11 <- function(.data, formula, specials, type, ...){
   )
 }
 
+#' @importFrom fabletools components
+#' @export
 components.x11_decomposition <- function(object, ...){
   as_dable(object[["decomposition"]], response = !!sym(object[["response"]]),
            method = object[["method"]], seasons = object[["seasons"]],

@@ -110,6 +110,7 @@ train_stl <- function(.data, formula, specials, iterations = 2, ...){
   )
 }
 
+#' @importFrom fabletools components
 #' @export
 components.stl_decomposition <- function(object, ...){
   as_dable(object[["decomposition"]], response = !!sym(object[["response"]]),
