@@ -82,14 +82,16 @@ Another helpful strategy in investigating the patterns in a time series is to de
 
 ```{r stl}
 tourism_melb %>%
-  STL(Trips ~ season(window = "periodic"))
+  model(STL(Trips ~ season(window = "periodic"))) %>% 
+  components()
 ```
 
 The above call to `STL()` has decomposed the `Trips` variable into three components such that `Trips = trend + season_year + remainder`. By setting `season(window = "periodic")`, we have set the seasonal pattern to be unchanging --- you can control how quickly the seasonal pattern can change by setting this to some number (smaller numbers correspond to more rapid change).
 
 ```{r stl-plot}
 tourism_melb %>%
-  STL(Trips ~ season(window = 9)) %>%
+  model(STL(Trips ~ season(window = 9))) %>%
+  components() %>% 
   autoplot()
 ```
 
