@@ -7,11 +7,9 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 0 notes
 
-* Package suggested but not available for checking: 'fable' (included in Additional_repositories and also awaiting CRAN acceptance).
-* Days since last update: 5 (resolves existing CRAN check issues, requested submission ASAP).
+## revdep checks
 
-## CRAN check fixes
-
-This submission should resolve CRAN check errors relating to X13 binaries on solaris and osx.
+All revdeps have been checked.
+This submission resolves reverse dependency issues caused by a new release of the fabletools package.
