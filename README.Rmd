@@ -45,7 +45,7 @@ remotes::install_github("tidyverts/feasts")
 
 ## Usage
 
-```{r pkgs, message=FALSE}
+```{r pkgs, message = FALSE, warning = FALSE}
 library(feasts)
 library(tsibbledata)
 library(dplyr)

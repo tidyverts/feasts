@@ -50,7 +50,6 @@ remotes::install_github("tidyverts/feasts")
 library(feasts)
 library(tsibbledata)
 library(dplyr)
-#> Warning: package 'dplyr' was built under R version 3.6.2
 library(ggplot2)
 library(lubridate)
 ```
