@@ -61,7 +61,7 @@ train_X11 <- function(.data, formula, specials, type, ...){
   )
 }
 
-#' @importFrom fabletools components
+#' @importFrom fabletools components as_dable
 #' @export
 components.x11_decomposition <- function(object, ...){
   as_dable(object[["decomposition"]], response = !!sym(object[["response"]]),
@@ -69,6 +69,7 @@ components.x11_decomposition <- function(object, ...){
            aliases = object[["aliases"]])
 }
 
+#' @importFrom fabletools model_sum
 model_sum.x11_decomposition <- function(x){
   "X11"
 }

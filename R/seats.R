@@ -61,7 +61,7 @@ train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
   )
 }
 
-#' @importFrom fabletools components
+#' @importFrom fabletools components as_dable
 #' @export
 components.x13_decomposition <- function(object, ...){
   as_dable(object[["decomposition"]], response = !!sym(object[["response"]]),
@@ -69,6 +69,7 @@ components.x13_decomposition <- function(object, ...){
            aliases = object[["aliases"]])
 }
 
+#' @importFrom fabletools model_sum
 model_sum.x13_decomposition <- function(x){
   "SEATS"
 }
