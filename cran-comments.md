@@ -9,6 +9,10 @@
 
 0 errors | 0 warnings | 0 notes
 
+## Re-submission
+
+This re-submission resolves the NOTE relating to Additional_repositories.
+
 ## revdep checks
 
 All revdeps have been checked.
