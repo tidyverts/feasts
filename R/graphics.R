@@ -192,7 +192,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
     mutate(
       facet_id = time_identifier(!!idx, facet_period) %empty% NA,
       id = time_identifier(!!idx, period),
-      !!as_string(idx) := time_origin(!!idx) + (!!idx - floor_tsibble_date(!!idx, period))
+      !!as_string(idx) := time_offset_origin(!!idx, period)
     ) %>%
     mutate(id = ordered(!!sym("id")))
 
@@ -335,7 +335,7 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
 
   data <- as_tibble(data) %>%
     mutate(
-      id = time_origin(!!idx) + (!!idx - floor_tsibble_date(!!idx, period)),
+      id = time_offset_origin(!!idx, period),
       .yint = !!y
     ) %>%
     group_by(id, !!!keys) %>%

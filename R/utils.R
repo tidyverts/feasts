@@ -127,11 +127,42 @@ round_period <- function(period){
 }
 
 floor_tsibble_date <- function(x, unit, ...){
-  f_x <- lubridate::floor_date(x, round_period(unit), ...)
-  if (inherits(x, "yearweek")) tsibble::yearweek(f_x)
-  else if (inherits(x, "yearmonth")) tsibble::yearmonth(f_x)
-  else if (inherits(x, "yearquarter")) tsibble::yearquarter(f_x)
-  else f_x
+  UseMethod("floor_tsibble_date")
+}
+floor_tsibble_date.default <- function(x, unit, ...){
+  lubridate::floor_date(x, round_period(unit), ...)
+}
+floor_tsibble_date.yearquarter <- function(x, unit, ...){
+  yearquarter(lubridate::floor_date(as_date(x), round_period(unit), ...))
+}
+floor_tsibble_date.yearmonth <- function(x, unit, ...){
+  yearmonth(lubridate::floor_date(as_date(x), round_period(unit), ...))
+}
+floor_tsibble_date.yearweek <- function(x, unit, ...){
+  unit <- round_period(unit)
+  if ((unit@year > 0) && (unit@day > 0)) {
+    abort("Specify a period of either years or weeks to plot, not both.")
+  }
+  x <- lubridate::as_date(x)
+  mth <- lubridate::month(x)
+  wk <- as.numeric(strftime(x, "%V"))
+  year <- lubridate::year(x) - (mth == 1 & wk == 53) + (mth == 12 & wk == 1)
+
+  if (unit@year > 0) {
+    year <- year - (year - 1970)%%unit@year
+    wk <- "01"
+    x <- paste0(year, " W", wk)
+  }
+  else if (unit@day > 0) {
+    unit <- unit@day
+    if(unit%%7 > 0){
+      warn("A period with fractional weeks has been specified, rounding to the nearest week")
+      unit <- round(unit/7)*7
+    }
+    x <- as.numeric(as_date(x)) + 3
+    x <- structure((x %/% unit)*unit, class = "Date") - 3
+  }
+  yearweek(x)
 }
 
 time_origin <- function(x){
@@ -143,4 +174,18 @@ time_origin <- function(x){
   else if (inherits(x, "yearquarter")) tsibble::yearquarter(origin)
   else if (inherits(x, "Date")) as.Date(origin)
   else origin
+}
+
+#' @importFrom lubridate years year month as_date
+time_offset_origin <- function(x, period, origin = time_origin(x)){
+  x_start <- floor_tsibble_date(x, period)
+
+  if (inherits(x, "yearweek")) {
+    tsibble::yearweek(as_date(origin) + (x - x_start))
+  } else if (inherits(x, "yearmonth")) {
+    tsibble::yearmonth(as_date(origin) + years(year(x) - year(x_start)) + months(month(x) - month(x_start)))
+  } else if (inherits(x, "yearquarter")) {
+    tsibble::yearquarter(as_date(origin) + years(year(x) - year(x_start)) + months(month(x) - month(x_start)))
+  }
+  else origin + (x - x_start)
 }
