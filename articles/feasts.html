@@ -44,12 +44,15 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../articles/feasts.html">Introduction</a>
+</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -58,13 +61,17 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Vignettes
+    News
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/feasts.html">Introduction to feasts</a>
+<li class="dropdown-header">Release notes</li>
+    <li>
+      <a href="https://www.mitchelloharawild.com/blog/feasts/">Version 0.1.0</a>
+    </li>
+    <li>
+      <a href="../news/index.html">Change log</a>
     </li>
   </ul>
 </li>
@@ -109,7 +116,7 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3">tourism_melb <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Purpose) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 4 x 5 [?]</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; # A tsibble: 4 x 5 [1Q]</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; # Key:       Region, State, Purpose [4]</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; # Groups:    Purpose [4]</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;   Quarter Region    State    Purpose  Trips</span></a>
@@ -120,22 +127,22 @@
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 4 1998 Q1 Melbourne Victoria Visiting 666.</span></a></code></pre></div>
 <p>A useful first look at a time series is with a standard time series plot.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">tourism_melb <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/reexports.html">autoplot</a></span>(Trips)</a></code></pre></div>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(Trips)</a></code></pre></div>
 <p><img src="feasts_files/figure-html/plot-1.png" width="672"></p>
 <p>This plot reveals that each of the reasons for visiting Melbourne follow a similar pattern, and that in recent years the amount of tourism is increasing. It is also clear that most people travel to Melbourne for one of three reasons (Business, Holiday or Visiting), and fewer travellers report other travel purposes.</p>
 <p>While this plot reveals many useful large scale features of the data, it can be difficult to identify specifics about the seasonal pattern (other than its existence). Which quarter has the most tourism travel in Melbourne? To find out we will need to investigate other plot types.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">tourism_melb <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/gg_season.html">gg_season</a></span>(Trips)</a></code></pre></div>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/gg_season.html">gg_season</a></span>(Trips)</a></code></pre></div>
 <p><img src="feasts_files/figure-html/season-plot-1.png" width="672"></p>
-<p>The seasonal plot (<code><a href="https://feasts.tidyverts.org/reference/gg_season.html">gg_season()</a></code>) wraps a seasonal period (in this case, years) over the x axis, allowing you to see how each quarter varies. In particular, it is apparent that Q3 is a low point for people visiting friends and relatives, which noticeably increases in Q4. Similarly Q2 and Q3 are the time periods with the most business travel.</p>
+<p>The seasonal plot (<code><a href="../reference/gg_season.html">gg_season()</a></code>) wraps a seasonal period (in this case, years) over the x axis, allowing you to see how each quarter varies. In particular, it is apparent that Q3 is a low point for people visiting friends and relatives, which noticeably increases in Q4. Similarly Q2 and Q3 are the time periods with the most business travel.</p>
 <p>The trend of recent years can also be seen in the spread between the lines. The more recent years (purple/pink) are higher than the previous years. This also reveals that the drop in visiting tourism in Q3 was far less extreme in the most recent two years.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">tourism_melb <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/gg_subseries.html">gg_subseries</a></span>(Trips)</a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/gg_subseries.html">gg_subseries</a></span>(Trips)</a></code></pre></div>
 <p><img src="feasts_files/figure-html/subseries-plot-1.png" width="672"></p>
-<p>An alternative visualisation of seasonal patterns is the subseries plot (<code><a href="https://feasts.tidyverts.org/reference/gg_subseries.html">gg_subseries()</a></code>), which isolates seasonal periods into separate plots. The blue lines indicate the average number of trips in each quarter, making the increase in visiting tourism from Q3 to Q4 more obvious. This plot style is especially useful in seeing how seasonality changes over time. Focusing on the visiting tourism (last row of facets), the number of tourists in Q3 and Q4 are increasing much more than in Q1 and Q2 (suggesting that the trend may vary between seasons).</p>
+<p>An alternative visualisation of seasonal patterns is the subseries plot (<code><a href="../reference/gg_subseries.html">gg_subseries()</a></code>), which isolates seasonal periods into separate plots. The blue lines indicate the average number of trips in each quarter, making the increase in visiting tourism from Q3 to Q4 more obvious. This plot style is especially useful in seeing how seasonality changes over time. Focusing on the visiting tourism (last row of facets), the number of tourists in Q3 and Q4 are increasing much more than in Q1 and Q2 (suggesting that the trend may vary between seasons).</p>
 <p>A look at the correlations in each series could reveal structures which are difficult to identify in the above plots.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">tourism_melb <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/ACF.html">ACF</a></span>(Trips)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/ACF.html">ACF</a></span>(Trips)</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; # A tsibble: 76 x 5 [1Q]</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; # Key:       Region, State, Purpose [4]</span></a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;    Region    State    Purpose    lag     acf</span></a>
@@ -151,50 +158,52 @@
 <a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;  9 Melbourne Victoria Business    9Q  0.166 </span></a>
 <a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; 10 Melbourne Victoria Business   10Q -0.0183</span></a>
 <a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; # … with 66 more rows</span></a></code></pre></div>
-<p>The above code computes autocorrelations (<code><a href="https://feasts.tidyverts.org/reference/ACF.html">ACF()</a></code>), however it is also possible to compute partial autocorrelations (<code><a href="https://feasts.tidyverts.org/reference/ACF.html">PACF()</a></code>) and cross-correlations (<code><a href="https://feasts.tidyverts.org/reference/ACF.html">CCF()</a></code>).</p>
+<p>The above code computes autocorrelations (<code><a href="../reference/ACF.html">ACF()</a></code>), however it is also possible to compute partial autocorrelations (<code><a href="../reference/ACF.html">PACF()</a></code>) and cross-correlations (<code><a href="../reference/ACF.html">CCF()</a></code>).</p>
 <p>The tables given from these correlation functions also have a nice <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> method, which will show the correlations along with a threshold for significance (controllable with the <code>level</code> argument).</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">tourism_melb <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/ACF.html">ACF</a></span>(Trips) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/reexports.html">autoplot</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/ACF.html">ACF</a></span>(Trips) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>()</a></code></pre></div>
 <p><img src="feasts_files/figure-html/acf-plot-1.png" width="672"></p>
 <p>Another helpful strategy in investigating the patterns in a time series is to decompose it into components of interest. A useful decomposition for this is the STL decomposition, which allows you to extract multiple seasonal patterns with any seasonal period.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">tourism_melb <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/STL.html">STL</a></span>(Trips <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="st">"periodic"</span>))</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; # A dable:           320 x 9 [1Q]</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; # Key:               Region, State, Purpose [4]</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; # STL Decomposition: Trips = trend + season_year + remainder</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;    Region State Purpose    Quarter Trips trend season_year remainder</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;qtr&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  1 Melbo… Vict… Busine…    1998 Q1  405.  437.      -58.0      25.8 </span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  2 Melbo… Vict… Busine…    1998 Q2  408.  434.       18.1     -44.1 </span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  3 Melbo… Vict… Busine…    1998 Q3  486.  430.       37.9      18.3 </span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  4 Melbo… Vict… Busine…    1998 Q4  429.  431.        1.99     -3.48</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  5 Melbo… Vict… Busine…    1999 Q1  361.  427.      -58.0      -7.82</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  6 Melbo… Vict… Busine…    1999 Q2  486.  409.       18.1      58.6 </span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  7 Melbo… Vict… Busine…    1999 Q3  359.  418.       37.9     -97.0 </span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;  8 Melbo… Vict… Busine…    1999 Q4  426.  440.        1.99    -16.7 </span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;  9 Melbo… Vict… Busine…    2000 Q1  495.  468.      -58.0      84.1 </span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; 10 Melbo… Vict… Busine…    2000 Q2  499.  501.       18.1     -19.8 </span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; # … with 310 more rows, and 1 more variable: season_adjust &lt;dbl&gt;</span></a></code></pre></div>
-<p>The above call to <code><a href="https://feasts.tidyverts.org/reference/STL.html">STL()</a></code> has decomposed the <code>Trips</code> variable into three components such that <code>Trips = trend + season_year + remainder</code>. By setting <code>season(window = "periodic")</code>, we have set the seasonal pattern to be unchanging — you can control how quickly the seasonal pattern can change by setting this to some number (smaller numbers correspond to more rapid change).</p>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">model</span>(<span class="kw"><a href="../reference/STL.html">STL</a></span>(Trips <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="st">"periodic"</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw">components</span>()</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; # A dable:           320 x 10 [1Q]</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; # Key:               Region, State, Purpose, .model [4]</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; # STL Decomposition: Trips = trend + season_year + remainder</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;    Region State Purpose .model    Quarter Trips trend season_year remainder</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;qtr&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  1 Melbo… Vict… Busine… "STL(…    1998 Q1  405.  437.      -58.0      25.8 </span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  2 Melbo… Vict… Busine… "STL(…    1998 Q2  408.  434.       18.1     -44.1 </span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  3 Melbo… Vict… Busine… "STL(…    1998 Q3  486.  430.       37.9      18.3 </span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  4 Melbo… Vict… Busine… "STL(…    1998 Q4  429.  431.        1.99     -3.48</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  5 Melbo… Vict… Busine… "STL(…    1999 Q1  361.  427.      -58.0      -7.82</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  6 Melbo… Vict… Busine… "STL(…    1999 Q2  486.  409.       18.1      58.6 </span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;  7 Melbo… Vict… Busine… "STL(…    1999 Q3  359.  418.       37.9     -97.0 </span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;  8 Melbo… Vict… Busine… "STL(…    1999 Q4  426.  440.        1.99    -16.7 </span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt;  9 Melbo… Vict… Busine… "STL(…    2000 Q1  495.  468.      -58.0      84.1 </span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; 10 Melbo… Vict… Busine… "STL(…    2000 Q2  499.  501.       18.1     -19.8 </span></a>
+<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt; # … with 310 more rows, and 1 more variable: season_adjust &lt;dbl&gt;</span></a></code></pre></div>
+<p>The above call to <code><a href="../reference/STL.html">STL()</a></code> has decomposed the <code>Trips</code> variable into three components such that <code>Trips = trend + season_year + remainder</code>. By setting <code>season(window = "periodic")</code>, we have set the seasonal pattern to be unchanging — you can control how quickly the seasonal pattern can change by setting this to some number (smaller numbers correspond to more rapid change).</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tourism_melb <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/STL.html">STL</a></span>(Trips <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="dv">9</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://feasts.tidyverts.org/reference/reexports.html">autoplot</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">model</span>(<span class="kw"><a href="../reference/STL.html">STL</a></span>(Trips <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="dv">9</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">components</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>()</a></code></pre></div>
 <p><img src="feasts_files/figure-html/stl-plot-1.png" width="672"></p>
-<p>Much like the table from <code><a href="https://feasts.tidyverts.org/reference/ACF.html">ACF()</a></code>, decompositions can also be plotted with <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code>. This gives the expected faceted plot of the components extracted from the measured variable. The plot shows that each purpose of travel has a different seasonal pattern, and that the strength and structure of this pattern has changed over time. As these components are often on different scales, this plot includes a set of scale bars which are of equal scaled size across all plots.</p>
+<p>Much like the table from <code><a href="../reference/ACF.html">ACF()</a></code>, decompositions can also be plotted with <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code>. This gives the expected faceted plot of the components extracted from the measured variable. The plot shows that each purpose of travel has a different seasonal pattern, and that the strength and structure of this pattern has changed over time. As these components are often on different scales, this plot includes a set of scale bars which are of equal scaled size across all plots.</p>
 <p>The above plots and analysis are useful for if you’re looking at a few series, but what can be done if you needed to look at and compare more time series? Extracting features from a collection of time series is a scalable approach to analysing many data sets. Each feature is a numerical summary of the data set’s defining characteristics, and a set of features can be created using <code>feature_set()</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">tourism_melb_features &lt;-<span class="st"> </span>tourism_melb <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">features</span>(Trips, <span class="kw">feature_set</span>(<span class="dt">tags =</span> <span class="st">"stl"</span>))</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">tourism_melb_features</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 10</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;   Region State Purpose trend_strength seasonal_streng… spikiness linearity</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 1 Melbo… Vict… Busine…          0.776            0.541     564.       349.</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; 2 Melbo… Vict… Holiday          0.860            0.283     692.       794.</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 3 Melbo… Vict… Other            0.819            0.132      13.2      200.</span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; 4 Melbo… Vict… Visiti…          0.751            0.448     968.       458.</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; # … with 3 more variables: curvature &lt;dbl&gt;, seasonal_peak_year &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; #   seasonal_trough_year &lt;dbl&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; # A tibble: 4 x 12</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;   Region State Purpose trend_strength seasonal_streng… seasonal_peak_y…</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 1 Melbo… Vict… Busine…          0.776            0.541                3</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; 2 Melbo… Vict… Holiday          0.860            0.283                1</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 3 Melbo… Vict… Other            0.819            0.132                3</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; 4 Melbo… Vict… Visiti…          0.751            0.448                0</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; # … with 6 more variables: seasonal_trough_year &lt;dbl&gt;, spikiness &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; #   linearity &lt;dbl&gt;, curvature &lt;dbl&gt;, stl_e_acf1 &lt;dbl&gt;, stl_e_acf10 &lt;dbl&gt;</span></a></code></pre></div>
 <p>In the example above, the components from the STL decomposition has been used to summarise the strength of trend and seasonality components of each series.</p>
 <p>These features are particularly useful to show on a plot.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
@@ -232,7 +241,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.9900.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
