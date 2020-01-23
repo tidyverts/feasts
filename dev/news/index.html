@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -146,30 +146,43 @@
 <h1 class="page-header">
 <a href="#feasts-development-version" class="anchor"></a>feasts (development version)<small> Unreleased </small>
 </h1>
+</div>
+    <div id="feasts-012" class="section level1">
+<h1 class="page-header">
+<a href="#feasts-012" class="anchor"></a>feasts 0.1.2<small> 2020-01-17 </small>
+</h1>
 <div id="improvements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#improvements" class="anchor"></a>Improvements</h2>
 <ul>
 <li>
-<code>var_tiled_var()</code> no longer includes partial tile windows in the computation.</li>
-<li>Added residual acf features to <code>feat_stl()</code>.</li>
+<code><a href="../reference/tile_features.html">var_tiled_var()</a></code> no longer includes partial tile windows in the computation.</li>
+<li>Added residual acf features to <code><a href="../reference/feat_stl.html">feat_stl()</a></code>.</li>
 <li>Performance improvements.</li>
+</ul>
+</div>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<ul>
+<li>Decompositions are now treated as models. To access the decomposed values, you will now have to use <code>components()</code>. For example, <code>tourism %&gt;% STL(Trips)</code> is now <code>tourism %&gt;% model(STL(Trips)) %&gt;% components()</code>. This change allows for more flexible decomposition specifications, and better interfaces for decomposition modelling.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed bug with <code>feat_spectral()</code> not showing results.</li>
-<li>Fix warning in <code>ACF()</code>, <code>PACF()</code> and <code>CCF()</code> for tidyr change.</li>
+<li>Fixed bug with <code><a href="../reference/feat_spectral.html">feat_spectral()</a></code> not showing results.</li>
+<li>Fix warning in <code><a href="../reference/ACF.html">ACF()</a></code>, <code><a href="../reference/ACF.html">PACF()</a></code> and <code><a href="../reference/ACF.html">CCF()</a></code> for tidyr change.</li>
 <li>
-<code>gg_tsdisplay()</code> will no longer fail on non-seasonal data with missing values. The last plot will instead show a PACF in this case (#76)</li>
+<code><a href="../reference/gg_tsdisplay.html">gg_tsdisplay()</a></code> will no longer fail on non-seasonal data with missing values. The last plot will instead show a PACF in this case (#76)</li>
+<li>Better handling of perfect fits in <code><a href="../reference/stat_arch_lm.html">stat_arch_lm()</a></code> (#85)</li>
 </ul>
 </div>
 </div>
-    <div id="feasts-0-1-1" class="section level1">
+    <div id="feasts-011" class="section level1">
 <h1 class="page-header">
-<a href="#feasts-0-1-1" class="anchor"></a>feasts 0.1.1<small> 2019-09-02 </small>
+<a href="#feasts-011" class="anchor"></a>feasts 0.1.1<small> 2019-09-02 </small>
 </h1>
 <div id="improvements-1" class="section level2">
 <h2 class="hasAnchor">
@@ -186,9 +199,9 @@
 </ul>
 </div>
 </div>
-    <div id="feasts-0-1-0" class="section level1">
+    <div id="feasts-010" class="section level1">
 <h1 class="page-header">
-<a href="#feasts-0-1-0" class="anchor"></a>feasts 0.1.0<small> 2019-08-28 </small>
+<a href="#feasts-010" class="anchor"></a>feasts 0.1.0<small> 2019-08-28 </small>
 </h1>
 <ul>
 <li>First release.</li>
@@ -214,8 +227,9 @@
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#feasts-development-version">development version</a></li>
-        <li><a href="#feasts-0-1-1">0.1.1</a></li>
-        <li><a href="#feasts-0-1-0">0.1.0</a></li>
+        <li><a href="#feasts-012">0.1.2</a></li>
+        <li><a href="#feasts-011">0.1.1</a></li>
+        <li><a href="#feasts-010">0.1.0</a></li>
       </ul>
     </div>
   </div>

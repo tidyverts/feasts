@@ -89,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -152,16 +152,11 @@
   seasonal component.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>classical_decomposition</span>(<span class='no'>.data</span>, <span class='no'>formula</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"additive"</span>,
-  <span class='st'>"multiplicative"</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>classical_decomposition</span>(<span class='no'>formula</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"additive"</span>, <span class='st'>"multiplicative"</span>), <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>.data</th>
-      <td><p>A tsibble.</p></td>
-    </tr>
     <tr>
       <th>formula</th>
       <td><p>Decomposition specification (see "Specials" section).</p></td>
@@ -172,7 +167,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed to <code><a href='https://rdrr.io/r/stats/decompose.html'>decompose</a></code>.</p></td>
+      <td><p>Other arguments passed to <code>\link[stats]{decompose}</code>.</p></td>
     </tr>
     </table>
 
@@ -213,41 +208,43 @@ season(period = NULL)
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>USAccDeaths</span> <span class='kw'>%&gt;%</span>
-  <span class='no'>as_tsibble</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>classical_decomposition</span>(<span class='no'>value</span>)</div><div class='output co'>#&gt; # A dable:                 72 x 6 [1M]
-#&gt; # Classical Decomposition: value = trend + seasonal + random
-#&gt;       index value trend seasonal random season_adjust
-#&gt;       &lt;mth&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;
-#&gt;  1 1973 Jan  9007   NA     -806.   NA           9813.
-#&gt;  2 1973 Feb  8106   NA    -1523.   NA           9629.
-#&gt;  3 1973 Mar  8928   NA     -741.   NA           9669.
-#&gt;  4 1973 Apr  9137   NA     -515.   NA           9652.
-#&gt;  5 1973 May 10017   NA      340.   NA           9677.
-#&gt;  6 1973 Jun 10826   NA      745.   NA          10081.
-#&gt;  7 1973 Jul 11317 9599.    1679.   38.2         9638.
-#&gt;  8 1973 Aug 10744 9500.     986.  258.          9758.
-#&gt;  9 1973 Sep  9713 9416.    -109.  406.          9822.
-#&gt; 10 1973 Oct  9938 9349.     264.  325.          9674.
-#&gt; # … with 62 more rows</div><div class='input'>
-<span class='no'>USAccDeaths</span> <span class='kw'>%&gt;%</span>
-  <span class='no'>as_tsibble</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>classical_decomposition</span>(<span class='no'>value</span> ~ <span class='fu'>season</span>(<span class='fl'>12</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"mult"</span>)</div><div class='output co'>#&gt; # A dable:                 72 x 6 [1M]
-#&gt; # Classical Decomposition: value = trend * seasonal * random
-#&gt;       index value trend seasonal random season_adjust
-#&gt;       &lt;mth&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;
-#&gt;  1 1973 Jan  9007   NA     0.908 NA             9922.
-#&gt;  2 1973 Feb  8106   NA     0.825 NA             9829.
-#&gt;  3 1973 Mar  8928   NA     0.915 NA             9762.
-#&gt;  4 1973 Apr  9137   NA     0.941 NA             9713.
-#&gt;  5 1973 May 10017   NA     1.04  NA             9633.
-#&gt;  6 1973 Jun 10826   NA     1.09  NA             9960.
-#&gt;  7 1973 Jul 11317 9599.    1.19   0.989         9491.
-#&gt;  8 1973 Aug 10744 9500.    1.11   1.02          9656.
-#&gt;  9 1973 Sep  9713 9416.    0.987  1.05          9843.
-#&gt; 10 1973 Oct  9938 9349.    1.03   1.03          9649.
-#&gt; # … with 62 more rows</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>model</span>(<span class='fu'>classical_decomposition</span>(<span class='no'>value</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'>components</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A dable:                 72 x 7 [1M]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:                     .model [1]</span><span>
+#&gt; </span><span style='color: #555555;'># Classical Decomposition: value = trend + seasonal + random</span><span>
+#&gt;    .model                        index value trend seasonal random season_adjust
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> classical_decomposition(v… 1973 Jan  </span><span style='text-decoration: underline;'>9</span><span>007   </span><span style='color: #BB0000;'>NA</span><span>     -</span><span style='color: #BB0000;'>806.</span><span>   </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='text-decoration: underline;'>9</span><span>813.
+#&gt; </span><span style='color: #555555;'> 2</span><span> classical_decomposition(v… 1973 Feb  </span><span style='text-decoration: underline;'>8</span><span>106   </span><span style='color: #BB0000;'>NA</span><span>    -</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span style='color: #BB0000;'>523.</span><span>   </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='text-decoration: underline;'>9</span><span>629.
+#&gt; </span><span style='color: #555555;'> 3</span><span> classical_decomposition(v… 1973 Mar  </span><span style='text-decoration: underline;'>8</span><span>928   </span><span style='color: #BB0000;'>NA</span><span>     -</span><span style='color: #BB0000;'>741.</span><span>   </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='text-decoration: underline;'>9</span><span>669.
+#&gt; </span><span style='color: #555555;'> 4</span><span> classical_decomposition(v… 1973 Apr  </span><span style='text-decoration: underline;'>9</span><span>137   </span><span style='color: #BB0000;'>NA</span><span>     -</span><span style='color: #BB0000;'>515.</span><span>   </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='text-decoration: underline;'>9</span><span>652.
+#&gt; </span><span style='color: #555555;'> 5</span><span> classical_decomposition(v… 1973 May </span><span style='text-decoration: underline;'>10</span><span>017   </span><span style='color: #BB0000;'>NA</span><span>      340.   </span><span style='color: #BB0000;'>NA</span><span>           </span><span style='text-decoration: underline;'>9</span><span>677.
+#&gt; </span><span style='color: #555555;'> 6</span><span> classical_decomposition(v… 1973 Jun </span><span style='text-decoration: underline;'>10</span><span>826   </span><span style='color: #BB0000;'>NA</span><span>      745.   </span><span style='color: #BB0000;'>NA</span><span>          </span><span style='text-decoration: underline;'>10</span><span>081.
+#&gt; </span><span style='color: #555555;'> 7</span><span> classical_decomposition(v… 1973 Jul </span><span style='text-decoration: underline;'>11</span><span>317 </span><span style='text-decoration: underline;'>9</span><span>599.    </span><span style='text-decoration: underline;'>1</span><span>679.   38.2         </span><span style='text-decoration: underline;'>9</span><span>638.
+#&gt; </span><span style='color: #555555;'> 8</span><span> classical_decomposition(v… 1973 Aug </span><span style='text-decoration: underline;'>10</span><span>744 </span><span style='text-decoration: underline;'>9</span><span>500.     986.  258.          </span><span style='text-decoration: underline;'>9</span><span>758.
+#&gt; </span><span style='color: #555555;'> 9</span><span> classical_decomposition(v… 1973 Sep  </span><span style='text-decoration: underline;'>9</span><span>713 </span><span style='text-decoration: underline;'>9</span><span>416.    -</span><span style='color: #BB0000;'>109.</span><span>  406.          </span><span style='text-decoration: underline;'>9</span><span>822.
+#&gt; </span><span style='color: #555555;'>10</span><span> classical_decomposition(v… 1973 Oct  </span><span style='text-decoration: underline;'>9</span><span>938 </span><span style='text-decoration: underline;'>9</span><span>349.     264.  325.          </span><span style='text-decoration: underline;'>9</span><span>674.
+#&gt; </span><span style='color: #555555;'># … with 62 more rows</span><span></div><div class='input'>
+<span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>model</span>(<span class='fu'>classical_decomposition</span>(<span class='no'>value</span> ~ <span class='fu'>season</span>(<span class='fl'>12</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"mult"</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'>components</span>()</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A dable:                 72 x 7 [1M]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:                     .model [1]</span><span>
+#&gt; </span><span style='color: #555555;'># Classical Decomposition: value = trend * seasonal * random</span><span>
+#&gt;    .model                        index value trend seasonal random season_adjust
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                         </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 Jan  </span><span style='text-decoration: underline;'>9</span><span>007   </span><span style='color: #BB0000;'>NA</span><span>     0.908 </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='text-decoration: underline;'>9</span><span>922.
+#&gt; </span><span style='color: #555555;'> 2</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 Feb  </span><span style='text-decoration: underline;'>8</span><span>106   </span><span style='color: #BB0000;'>NA</span><span>     0.825 </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='text-decoration: underline;'>9</span><span>829.
+#&gt; </span><span style='color: #555555;'> 3</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 Mar  </span><span style='text-decoration: underline;'>8</span><span>928   </span><span style='color: #BB0000;'>NA</span><span>     0.915 </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='text-decoration: underline;'>9</span><span>762.
+#&gt; </span><span style='color: #555555;'> 4</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 Apr  </span><span style='text-decoration: underline;'>9</span><span>137   </span><span style='color: #BB0000;'>NA</span><span>     0.941 </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='text-decoration: underline;'>9</span><span>713.
+#&gt; </span><span style='color: #555555;'> 5</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 May </span><span style='text-decoration: underline;'>10</span><span>017   </span><span style='color: #BB0000;'>NA</span><span>     1.04  </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='text-decoration: underline;'>9</span><span>633.
+#&gt; </span><span style='color: #555555;'> 6</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 Jun </span><span style='text-decoration: underline;'>10</span><span>826   </span><span style='color: #BB0000;'>NA</span><span>     1.09  </span><span style='color: #BB0000;'>NA</span><span>             </span><span style='text-decoration: underline;'>9</span><span>960.
+#&gt; </span><span style='color: #555555;'> 7</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 Jul </span><span style='text-decoration: underline;'>11</span><span>317 </span><span style='text-decoration: underline;'>9</span><span>599.    1.19   0.989         </span><span style='text-decoration: underline;'>9</span><span>491.
+#&gt; </span><span style='color: #555555;'> 8</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 Aug </span><span style='text-decoration: underline;'>10</span><span>744 </span><span style='text-decoration: underline;'>9</span><span>500.    1.11   1.02          </span><span style='text-decoration: underline;'>9</span><span>656.
+#&gt; </span><span style='color: #555555;'> 9</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 Sep  </span><span style='text-decoration: underline;'>9</span><span>713 </span><span style='text-decoration: underline;'>9</span><span>416.    0.987  1.05          </span><span style='text-decoration: underline;'>9</span><span>843.
+#&gt; </span><span style='color: #555555;'>10</span><span> </span><span style='color: #555555;'>"</span><span>classical_decomposition…  1973 Oct  </span><span style='text-decoration: underline;'>9</span><span>938 </span><span style='text-decoration: underline;'>9</span><span>349.    1.03   1.03          </span><span style='text-decoration: underline;'>9</span><span>649.
+#&gt; </span><span style='color: #555555;'># … with 62 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -1,6 +1,6 @@
-pandoc: '2.2'
+pandoc: 2.7.3
 pkgdown: 1.4.1.9000
-pkgdown_sha: 61c3999702966dd75267b98ce905df22521ebd11
+pkgdown_sha: 732fb5b9ccc0ef87a73dfd0772ae661a4039b2a8
 articles:
   feasts: feasts.html
 urls:

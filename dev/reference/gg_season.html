@@ -90,7 +90,7 @@ and is especially useful in identifying years in which the pattern changes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -154,8 +154,16 @@ plot type allows the underlying seasonal pattern to be seen more clearly,
 and is especially useful in identifying years in which the pattern changes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_season</span>(<span class='no'>data</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>facet_period</span>, <span class='kw'>max_col</span> <span class='kw'>=</span> <span class='fl'>15</span>,
-  <span class='kw'>polar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"both"</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_season</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>max_col</span> <span class='kw'>=</span> <span class='fl'>15</span>,
+  <span class='kw'>polar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>, <span class='st'>"both"</span>),
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -88,7 +88,7 @@ graphic of either a PACF, histogram, lagged scatterplot or spectral density." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -150,8 +150,12 @@ graphic of either a PACF, histogram, lagged scatterplot or spectral density." />
 graphic of either a PACF, histogram, lagged scatterplot or spectral density.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_tsdisplay</span>(<span class='no'>data</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"partial"</span>, <span class='st'>"season"</span>,
-  <span class='st'>"histogram"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spectrum"</span>), <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>gg_tsdisplay</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"partial"</span>, <span class='st'>"season"</span>, <span class='st'>"histogram"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spectrum"</span>),
+  <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,8 +172,9 @@ automatically selected from the data.</p></td>
     <tr>
       <th>plot_type</th>
       <td><p>type of plot to include in lower right corner. By default
-(<code>"auto"</code>), a season plot will be shown for seasonal data, and a spectrum plot
-will be shown for non-seasonal data.</p></td>
+(<code>"auto"</code>) a season plot will be shown for seasonal data, a spectrum plot
+will be shown for non-seasonal data without missing values, and a PACF will
+be shown otherwise.</p></td>
     </tr>
     <tr>
       <th>lag_max</th>
@@ -189,7 +194,7 @@ and practice</em>, 3rd edition, OTexts: Melbourne, Australia.
 <a href='https://OTexts.org/fpp3/'>https://OTexts.org/fpp3/</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/plot.ts.html'>plot.ts</a></code>, <code>ACF</code>,
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/plot.ts.html'>plot.ts</a></code>, <code><a href='ACF.html'>ACF</a></code>,
 <code><a href='https://rdrr.io/r/stats/spec.ar.html'>spec.ar</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
