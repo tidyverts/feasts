@@ -25,7 +25,7 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
   }
   mat <- embed(x^2, lags + 1)
   fit <- lm(mat[, 1] ~ mat[, -1])
-  stat_arch_lm <- summary(fit)$r.squared
+  stat_arch_lm <- suppressWarnings(summary(fit)$r.squared)
   c(stat_arch_lm = if(is.nan(stat_arch_lm)) 1 else stat_arch_lm)
 }
 
