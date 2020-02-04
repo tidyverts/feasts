@@ -1,5 +1,9 @@
 # feasts (development version)
 
+## Improvements
+
+* The axis for `gg_lag()` have been reversed for consistency with `stats::lag.plot()`.
+
 # feasts 0.1.2
 
 ## Improvements

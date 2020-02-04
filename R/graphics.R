@@ -436,7 +436,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
     mutate(.lag = factor(!!sym(".lag"), levels = names(lag_exprs), labels = paste("lag", lags))) %>%
     filter(!is.na(!!sym(".value")) & !is.na(!!y))
 
-  mapping <- aes(x = !!y, y = !!sym(".value"))
+  mapping <- aes(x = !!sym(".value"), y = !!y)
   if(period > 1){
     mapping$colour <- sym("season")
   }
@@ -446,7 +446,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
     geom_abline(colour = "gray", linetype = "dashed") +
     lag_geom(..., arrow = arrow) +
     facet_wrap(~ .lag) +
-    ylab(paste0("lag(", as_string(y), ", n)"))
+    xlab(paste0("lag(", as_string(y), ", n)"))
 }
 
 #' Ensemble of time series displays
