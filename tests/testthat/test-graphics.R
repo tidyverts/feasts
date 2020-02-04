@@ -134,7 +134,7 @@ test_that("gg_lag() plots", {
   p <- gg_lag(tsbl_co2, value)
 
   expect_equal(
-    ggplot2::layer_data(p, 2)$y,
+    ggplot2::layer_data(p, 2)$x,
     do.call(c, map(seq_len(9), function(i)
       tsbl_co2$value[seq_len(length(tsbl_co2$value) - i)]))
   )
@@ -147,13 +147,13 @@ test_that("gg_lag() plots", {
 
   expect_identical(
     p_built$plot$labels[c("x", "y")],
-    list(x = "value", y = "lag(value, n)")
+    list(x = "lag(value, n)", y = "value")
   )
 
   p <- gg_lag(tsbl_co2, value, lags = c(1, 4, 9))
 
   expect_equal(
-    ggplot2::layer_data(p, 2)$y,
+    ggplot2::layer_data(p, 2)$x,
     do.call(c, map(c(1, 4, 9),
                    function(i) tsbl_co2$value[seq_len(length(tsbl_co2$value) - i)]))
   )
@@ -166,7 +166,7 @@ test_that("gg_lag() plots", {
 
   expect_identical(
     p_built$plot$labels[c("x", "y")],
-    list(x = "value", y = "lag(value, n)")
+    list(x = "lag(value, n)", y = "value")
   )
 })
 
