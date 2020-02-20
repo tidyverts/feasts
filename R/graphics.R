@@ -539,11 +539,23 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
       geom_point() +
       xlab(expression(Y[t - 1])) + ylab(expression(Y[t]))
   } else if(plot_type == "spectrum"){
-    p3 <- stats::spec.ar(eval_tidy(y, data), plot = FALSE) %>%
-      {tibble(spectrum = .$spec[,1], frequency = .$freq)} %>%
-      ggplot(aes(x = !!sym("frequency"), y = !!sym("spectrum"))) +
-      geom_line() +
-      ggplot2::scale_y_log10()
+    spec <- safely(stats::spec.ar)(eval_tidy(y, data), plot = FALSE)
+
+    p3 <- if (is.null(spec[["result"]])){
+      if(spec$error$message == "missing values in object"){
+        warn("Spectrum plot could not be shown as the data contains missing values. Consider using a different `plot_type`.")
+      }
+      else {
+        warn(sprintf("Spectrum plot could not be shown as an error occurred: %s", spec$error$message))
+      }
+      ggplot() + ggplot2::labs(x = "frequency", y = "spectrum")
+    } else {
+      spec[["result"]] %>%
+        {tibble(spectrum = .$spec[,1], frequency = .$freq)} %>%
+        ggplot(aes(x = !!sym("frequency"), y = !!sym("spectrum"))) +
+        geom_line() +
+        ggplot2::scale_y_log10()
+    }
   }
 
   structure(list(p1, p2, p3), class = c("gg_tsensemble", "gg"))
