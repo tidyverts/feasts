@@ -153,6 +153,13 @@
 <li>The axis for <code><a href="../reference/gg_lag.html">gg_lag()</a></code> have been reversed for consistency with <code><a href="https://rdrr.io/r/stats/lag.plot.html">stats::lag.plot()</a></code>.</li>
 </ul>
 </div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fixed the sprectral density plot in <code><a href="../reference/gg_tsdisplay.html">gg_tsdisplay()</a></code> not working with plotting expressions of data.</li>
+</ul>
+</div>
 </div>
     <div id="feasts-012" class="section level1">
 <h1 class="page-header">
@@ -175,9 +182,9 @@
 <li>Decompositions are now treated as models. To access the decomposed values, you will now have to use <code>components()</code>. For example, <code>tourism %&gt;% STL(Trips)</code> is now <code>tourism %&gt;% model(STL(Trips)) %&gt;% components()</code>. This change allows for more flexible decomposition specifications, and better interfaces for decomposition modelling.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed bug with <code><a href="../reference/feat_spectral.html">feat_spectral()</a></code> not showing results.</li>
 <li>Fix warning in <code><a href="../reference/ACF.html">ACF()</a></code>, <code><a href="../reference/ACF.html">PACF()</a></code> and <code><a href="../reference/ACF.html">CCF()</a></code> for tidyr change.</li>
@@ -198,9 +205,9 @@
 <li>Better naming of seasonal columns in STL decomposition when seasonal period is specified.</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixes issues with running tests on unsupported systems.</li>
 </ul>
