@@ -539,7 +539,7 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
       geom_point() +
       xlab(expression(Y[t - 1])) + ylab(expression(Y[t]))
   } else if(plot_type == "spectrum"){
-    p3 <- stats::spec.ar(data[[expr_text(y)]], plot = FALSE) %>%
+    p3 <- stats::spec.ar(eval_tidy(y, data), plot = FALSE) %>%
       {tibble(spectrum = .$spec[,1], frequency = .$freq)} %>%
       ggplot(aes(x = !!sym("frequency"), y = !!sym("spectrum"))) +
       geom_line() +
