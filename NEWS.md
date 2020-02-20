@@ -4,6 +4,10 @@
 
 * The axis for `gg_lag()` have been reversed for consistency with `stats::lag.plot()`.
 
+## Bug fixes
+
+* Fixed the sprectral density plot in `gg_tsdisplay()` not working with plotting expressions of data.
+
 # feasts 0.1.2
 
 ## Improvements
