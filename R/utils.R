@@ -187,5 +187,5 @@ time_offset_origin <- function(x, period, origin = time_origin(x)){
   } else if (inherits(x, "yearquarter")) {
     tsibble::yearquarter(as_date(origin) + years(year(x) - year(x_start)) + months(month(x) - month(x_start)))
   }
-  else origin + (x - x_start)
+  else origin + (x - x_start - 1)
 }
