@@ -172,9 +172,10 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
   if(is.numeric(period)){
     period <- period*ts_interval
   }
-  # if(period <= ts_interval){
-  #   abort("The data must contain at least one observation per seasonal period.")
-  # }
+  period <- lubridate::as.period(period)
+  if(period <= ts_interval){
+    abort("The data must contain at least one observation per seasonal period.")
+  }
 
   if(!is.null(facet_period)){
     if(is.numeric(facet_period)){
@@ -236,7 +237,7 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 
   if(inherits(data[[expr_text(idx)]], "Date")){
     p <- p + ggplot2::scale_x_date(breaks = function(limit){
-      if(suppressMessages(len <- lubridate::as.period(period)/ts_interval) <= 12){
+      if(suppressMessages(len <- period/ts_interval) <= 12){
         ggplot2::scale_x_date()$trans$breaks(limit, n = len)
       } else{
         ggplot2::scale_x_date()$trans$breaks(limit)
@@ -244,7 +245,7 @@ This issue will be resolved once vctrs is integrated into dplyr.")
     }, labels = within_time_identifier)
   } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(breaks = function(limit){
-      if(lubridate::as.period(period) == lubridate::weeks(1)){
+      if(period == lubridate::weeks(1)){
         ggplot2::scale_x_datetime()$trans$breaks(limit, n = 7)
       }
       else{
@@ -326,6 +327,10 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
   }
   if(is.numeric(period)){
     period <- period*ts_interval
+  }
+  period <- lubridate::as.period(period)
+  if(period <= 1){
+    abort("The data must contain at least one observation per seasonal period.")
   }
 
   data <- as_tibble(data) %>%

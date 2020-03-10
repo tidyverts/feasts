@@ -178,6 +178,9 @@ time_origin <- function(x){
 
 #' @importFrom lubridate years year month as_date
 time_offset_origin <- function(x, period, origin = time_origin(x)){
+  if(period == lubridate::weeks(1)){
+    period <- "week"
+  }
   x_start <- floor_tsibble_date(x, period)
 
   if (inherits(x, "yearweek")) {
