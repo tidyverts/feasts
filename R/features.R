@@ -560,7 +560,7 @@ feat_intermittent <- function(x){
   nonzero <- x[x!=0]
 
   c(
-    zero_run_mean = mean(rle$lengths[rle$values == 0]),
+    zero_run_mean = if(length(nonzero) == length(x)) 0 else mean(rle$lengths[rle$values == 0]),
     nonzero_squared_cv = (sd(nonzero, na.rm = TRUE) / mean(nonzero, na.rm = TRUE))^2,
     zero_start_prop = if(rle$values[1] != 0) 0 else rle$lengths[1]/length(x),
     zero_end_prop = if(rle$values[length(rle$values)] != 0) 0 else rle$lengths[length(rle$lengths)]/length(x)
