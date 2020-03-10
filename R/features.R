@@ -535,3 +535,34 @@ feat_pacf <- function(x, .period = 1, lag_max = NULL, ...) {
 
   return(output)
 }
+
+#' Intermittency features
+#'
+#' Computes various measures that can indicate the presence and structures of
+#' intermittent data.
+#'
+#' @param x A vector to extract features from.
+#'
+#' @return A vector of named features:
+#' - zero_run_mean: The average interval between non-zero observations
+#' - nonzero_squared_cv: The squared coefficient of variation of non-zero observations
+#' - zero_start_prop: The proportion of data which starts with zero
+#' - zero_end_prop: The proportion of data which ends with zero
+#'
+#' @references
+#' Kostenko, A. V., & Hyndman, R. J. (2006). A note on the categorization of
+#' demand patterns. \emph{Journal of the Operational Research Society}, 57(10),
+#' 1256-1257.
+#'
+#' @export
+feat_intermittent <- function(x){
+  rle <- rle(x)
+  nonzero <- x[x!=0]
+
+  c(
+    zero_run_mean = mean(rle$lengths[rle$values == 0]),
+    nonzero_squared_cv = (sd(nonzero, na.rm = TRUE) / mean(nonzero, na.rm = TRUE))^2,
+    zero_start_prop = if(rle$values[1] != 0) 0 else rle$lengths[1]/length(x),
+    zero_end_prop = if(rle$values[length(rle$values)] != 0) 0 else rle$lengths[length(rle$lengths)]/length(x)
+  )
+}
