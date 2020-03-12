@@ -72,10 +72,10 @@ time_identifier <- function(idx, period, base = NULL, within = NULL, interval){
   if(!is_empty(interval)){
     if(interval >= months(1)){
       formats <- formats[c("Month", "Year", "Yearmonth", "Date")]
-    } else if (interval >= weeks(1)){
+    } else if (interval >= lubridate::weeks(1)){
       formats <- formats[c("Monthday", "Yearday", "Week", "Month", "Year",
                            "Yearweek", "Yearmonth", "Date")]
-    } else if (interval >= days(1)){
+    } else if (interval >= lubridate::days(1)){
       formats <- formats[c("Weekday", "Monthday", "Yearday", "Week", "Month", "Year",
                            "Yearweek", "Yearmonth", "Date")]
     }
@@ -387,7 +387,7 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
     group_by(id, !!!keys) %>%
     mutate(.yint = mean(!!sym(".yint"), na.rm = TRUE))
 
-  fct_labeller <- if(inherits(data[["id"]], c("POSIXt", "Date"))){
+  fct_labeller <- if(inherits(data[["id"]], c("yearquarter", "yearmonth", "yearweek", "POSIXt", "Date"))){
     within_time_identifier
   } else if(is.numeric(data[["id"]])) {
     function(x) format(x - 1969)
