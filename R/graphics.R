@@ -459,7 +459,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 
   period <- get_frequencies(period, data, .auto = "smallest")
 
-  period_units <- period*time_unit(interval(data))
+  period_units <- period*default_time_units(interval(data))
 
   lag_exprs <- map(lags, function(lag) expr(lag(!!y, !!lag))) %>%
     set_names(paste0(".lag_", lags))
