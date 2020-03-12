@@ -4,6 +4,7 @@
 
 * The axis for `gg_lag()` have been reversed for consistency with `stats::lag.plot()`.
 * Graphical improvements for displaying weekly seasonality in season and subseries plots.
+* Added intermittency features available in `feat_intermittent()`
 
 ## Bug fixes
 
