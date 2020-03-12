@@ -3,6 +3,7 @@
 ## Improvements
 
 * The axis for `gg_lag()` have been reversed for consistency with `stats::lag.plot()`.
+* Graphical improvements for displaying weekly seasonality in season and subseries plots.
 
 ## Bug fixes
 

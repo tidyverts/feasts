@@ -104,6 +104,7 @@ interval_to_period <- function(interval){
 }
 
 round_period <- function(period){
+  if(!is.period(period)) return(period)
   if(!is.null(attr(period, "second"))){
     attr(period, "minute") <- attr(period, "minute")%||%0 + attr(period, "second")%/%60
     attr(period, "second") <- attr(period, "second")%%60
@@ -130,7 +131,11 @@ floor_tsibble_date <- function(x, unit, ...){
   UseMethod("floor_tsibble_date")
 }
 floor_tsibble_date.default <- function(x, unit, ...){
-  lubridate::floor_date(x, round_period(unit), ...)
+  unit <- round_period(unit)
+  if(unit == lubridate::weeks(1)){
+    unit <- "week"
+  }
+  lubridate::floor_date(x, unit, week_start = 1)
 }
 floor_tsibble_date.yearquarter <- function(x, unit, ...){
   yearquarter(lubridate::floor_date(as_date(x), round_period(unit), ...))
@@ -178,9 +183,6 @@ time_origin <- function(x){
 
 #' @importFrom lubridate years year month as_date
 time_offset_origin <- function(x, period, origin = time_origin(x)){
-  if(period == lubridate::weeks(1)){
-    period <- "week"
-  }
   x_start <- floor_tsibble_date(x, period)
 
   if (inherits(x, "yearweek")) {
@@ -190,5 +192,5 @@ time_offset_origin <- function(x, period, origin = time_origin(x)){
   } else if (inherits(x, "yearquarter")) {
     tsibble::yearquarter(as_date(origin) + years(year(x) - year(x_start)) + months(month(x) - month(x_start)))
   }
-  else origin + (x - x_start - 1)
+  else origin + (x - x_start)
 }

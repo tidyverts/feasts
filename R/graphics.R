@@ -7,7 +7,12 @@ format_time <- function(x, format, ...){
     qtr <- 1 + as.numeric(format(as.Date(x), "%m"))%/%3
     out <- split(out, qtr) %>% imap(function(x, rpl) gsub("%q", rpl, x)) %>% unsplit(qtr)
   }
-  factor(out, levels = unique(out[order(x)]))
+
+  lvls <- switch(format,
+                 `W%V` = sprintf("W%02d", 1:53),
+                 unique(out[order(x)]))
+
+  factor(out, levels = lvls)
 }
 
 tz_units_since <- function(x){
@@ -18,13 +23,18 @@ tz_units_since <- function(x){
 }
 
 # Find minimum largest identifier for each group
-# 1. Find largest homogenous descriptor within groups
+# 1. Find largest homogeneous descriptor within groups
 # 2. Return if descriptor is distinct across groups
 # 3. If descriptor varies across groups, add it to list
 # 4. Go to next largest descriptor and repeat from 2.
-time_identifier <- function(idx, period){
+time_identifier <- function(idx, period, base = NULL){
   if(is.null(period)){
     return(rep(NA, length(idx)))
+  }
+
+  # Early return for years in weeks, as years are structured differently in context of weeks
+  if (identical(period, lubridate::years(1)) && identical(base, lubridate::weeks(1))){
+    return(format_time(idx, format = "%G"))
   }
 
   grps <- floor_tsibble_date(idx, period)
@@ -37,7 +47,7 @@ time_identifier <- function(idx, period){
     Week = "W%V",
     Month = "%b",
     Year = "%Y",
-    Yearweek = "%Y W%V",
+    Yearweek = "%G W%V",
     Yearmonth = "%Y %b",
     Minute = "%M",
     Hour = "%H",
@@ -49,10 +59,9 @@ time_identifier <- function(idx, period){
 
   found_format <- FALSE
   for(fmt in formats){
-    # fmt_idx_grp <- if(grepl("W%V", fmt)) wk_idx_grp else idx_grp
     if(length(unique(format_time(fmt_idx_grp[[1]], format = fmt))) == 1){
       ids <- map(fmt_idx_grp, function(x) unique(format_time(x, format = fmt)))
-      if(all(map_lgl(ids, function(x) length(x) == 1)) && length(unique(ids)) == length(fmt_idx_grp)){
+      if(all(map_lgl(ids, function(x) length(x) == 1))){# && length(unique(ids)) == length(fmt_idx_grp)){
         found_format <- TRUE
         break
       }
@@ -79,7 +88,7 @@ within_time_identifier <- function(x){
     Monthday = "%d",
     Yearquarter = "%Y Q%q",
     Yearmonth = "%Y %b",
-    Yearweek = "%Y W%V",
+    Yearweek = "%G W%V",
     Yearday = "%j",
     Date = "%x",
     Hour = "%H",
@@ -190,11 +199,11 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
 
   data <- as_tibble(data) %>%
     mutate(
-      facet_id = time_identifier(!!idx, facet_period) %empty% NA,
+      facet_id = time_identifier(!!idx, facet_period, period) %empty% NA,
       id = time_identifier(!!idx, period),
-      !!as_string(idx) := time_offset_origin(!!idx, period)
-    ) %>%
-    mutate(id = ordered(!!sym("id")))
+      !!as_string(idx) := time_offset_origin(!!idx, period),
+      id = ordered(!!sym("id"))
+    )
 
   if(polar){
     warn("Polar plotting is not fully supported yet, and the resulting graph may be incorrect.
