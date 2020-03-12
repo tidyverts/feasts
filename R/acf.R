@@ -172,67 +172,86 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
     interval <- new_interval(unit = 1)
   }
 
+  kv <- key_vars(.data)
+
   lens <- key_data(.data) %>%
     transmute(
       !!!key(.data),
       .len = map_dbl(!!sym(".rows"), length)
     )
 
-  .data %>%
-    nest_keys() %>%
-    mutate(data = map(!!sym("data"), cf_fn, na.action = na.action, ...)) %>%
-    unnest_tbl("data") %>%
-    mutate(lag = as_lag(!!sym("lag"), interval = interval)) %>%
-    as_tsibble(index = !!sym("lag"), key = key_vars(.data)) %>%
-    new_tsibble(num_obs = lens, class = "tbl_cf")
+  .data <- nest_keys(.data)
+  .data[["data"]] <- map(.data[["data"]], cf_fn, na.action = na.action, ...)
+  .data <- unnest_tbl(.data, "data")
+  .data[["lag"]] <- as_lag(interval) * .data[["lag"]]
+  new_tsibble(
+    as_tsibble(.data, index = "lag", key = kv),
+    num_obs = lens, class = "tbl_cf"
+  )
 }
 
-type_sum.cf_lag <- function(x){
-  "lag"
-}
-
-obj_sum.cf_lag <- function(x){
-  rep("lag", length(x))
-}
-
-pillar_shaft.cf_lag <- function(x, ...) {
-  require_package("pillar")
-  pillar::new_pillar_shaft_simple(format(x), align = "right", min_width = 10)
-}
-
+# Temporary until generic time class is available for temporal hierarchies
 as_lag <- function(x, ...) {
-  structure(x, ..., class = "cf_lag")
+  UseMethod("as_lag")
+}
+
+as_lag.interval <- function(x, ...){
+  new_lag(1, x)
+}
+
+as_lag.default <- function(x, ...){
+  abort(
+    sprintf("`as_lag()` doesn't know how to handle the '%s' class yet.",
+            class(x)[1])
+  )
+}
+
+new_lag <- function(x, interval){
+  vctrs::new_vctr(x, interval = interval, class = "cf_lag")
 }
 
 #' @export
-`[.cf_lag` <- function(x, i) {
-  as_lag(NextMethod(), interval = attr(x, "interval"))
-}
-
-#' @export
-c.cf_lag <- function(x, ...) {
-  as_lag(NextMethod(), interval = attr(x, "interval"))
+vec_arith.cf_lag <- function(op, x, y){
+  out <- vctrs::vec_data(x)
+  out <- get(op)(out, y)
+  vctrs::vec_restore(out, x)
 }
 
 #' @export
 format.cf_lag <- function(x, ...){
-  out <- x %>% map_chr(function(.x){
-    format(add_class(map(attr(x, "interval"), `*`, .x), "interval"))
-  })
-  out[out=="?"] <- "0"
-  out
+  interval <- attr(x, "interval")
+  scale <- do.call(sum, vctrs::vec_data(interval))
+  suffix <- substring(format(interval), first = nchar(format(scale)) + 1)
+  paste0(scale*vec_data(x), suffix)
 }
 
 #' @export
-print.cf_lag <- function(x, ...){
-  print(format(x, ...), quote = FALSE)
-  invisible(x)
+vec_ptype_full.cf_lag <- function(x, ...){
+  "lag"
 }
 
-#' @importFrom tibble is_vector_s3
+vec_ptype2.cf_lag <- function(x, y, ...) UseMethod("vec_ptype2.cf_lag", y)
+vec_ptype2.cf_lag.default <- function(x, y, ..., x_arg = "x", y_arg = "y") {
+  vec_default_ptype2(x, y, x_arg = x_arg, y_arg = y_arg)
+}
+vec_ptype2.cf_lag.double <- function(x, y, ..., x_arg = "x", y_arg = "y") {
+  double()
+}
+vec_ptype2.double.cf_lag <- function(x, y, ..., x_arg = "x", y_arg = "y") {
+  double()
+}
+
+vec_cast.cf_lag <- function(x, to, ...) UseMethod("vec_cast.cf_lag")
+vec_cast.cf_lag.default <- function(x, to, ...) vec_default_cast(x, to)
+vec_cast.cf_lag.double <- function(x, to, ...) vec_data(x)
+vec_cast.double.cf_lag <- function(x, to, ...) vec_data(x)
+
 #' @export
-is_vector_s3.cf_lag <- function(x) {
-  TRUE
+index_valid.cf_lag <- function(x) TRUE
+
+#' @export
+interval_pull.cf_lag <- function(x) {
+  attr(x, "interval")
 }
 
 #' Auto- and Cross- Covariance and -Correlation plots
@@ -279,12 +298,6 @@ autoplot.tbl_cf <- function(object, level = 95, ...){
 
   p
 }
-
-#' @export
-index_valid.cf_lag <- function(x) TRUE
-
-#' @export
-interval_pull.cf_lag <- function(x) attr(x, "interval")
 
 #' @importFrom ggplot2 scale_type
 #' @export

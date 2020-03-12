@@ -1,9 +1,5 @@
 # nocov start
 .onLoad <- function(...) {
-  register_s3_method("pillar", "pillar_shaft", "cf_lag")
-  register_s3_method("pillar", "obj_sum", "cf_lag")
-  register_s3_method("pillar", "type_sum", "cf_lag")
-
   fabletools::register_feature(feat_stl, c("stl", "trend", "seasonal", "decomposition"))
   fabletools::register_feature(feat_acf, c("acf", "autocorrelation"))
   fabletools::register_feature(feat_pacf, c("pacf", "autocorrelation"))
