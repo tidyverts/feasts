@@ -280,7 +280,7 @@ shift_level_max <- function(x, .size = NULL, .period = 1) {
     .size <- ifelse(.period == 1, 10, .period)
   }
 
-  rollmean <- tsibble::slide_dbl(x, mean, .size = .size, na.rm = TRUE)
+  rollmean <- slider::slide_dbl(x, mean, .before = .size - 1, na.rm = TRUE)
 
   means <- abs(diff(rollmean, .size))
   if (length(means) == 0L) {
@@ -306,7 +306,7 @@ shift_var_max <- function(x, .size = NULL, .period = 1) {
     .size <- ifelse(.period == 1, 10, .period)
   }
 
-  rollvar <- tsibble::slide_dbl(x, var, .size = .size, na.rm = TRUE)
+  rollvar <- slider::slide_dbl(x, var, .before = .size - 1, na.rm = TRUE)
 
   vars <- abs(diff(rollvar, .size))
 
@@ -347,7 +347,7 @@ shift_kl_max <- function(x, .size = NULL, .period = 1) {
   densities <- map(densities, pmax, stats::dnorm(38))
 
   rmean <- map(densities, function(x)
-    tsibble::slide_dbl(x, mean, .size = .size, na.rm = TRUE, .align = "right")
+    slider::slide_dbl(x, mean, .before = .size - 1, na.rm = TRUE)
   ) %>%
     transpose() %>%
     map(unlist)
@@ -426,7 +426,8 @@ var_tiled_mean <- function(x, .size = NULL, .period = 1) {
   }
 
   x <- scale(x, center = TRUE, scale = TRUE)
-  meanx <- tsibble::tile_dbl(x, mean, na.rm = TRUE, .size = .size)
+  meanx <- slider::slide_dbl(x, mean, na.rm = TRUE,
+                             .after = .size - 1, .step = .size)
 
   if (length(x) < 2 * .size) {
     stability <- 0
