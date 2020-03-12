@@ -12,7 +12,7 @@ format_time <- function(x, format, ...){
                  `W%V` = sprintf("W%02d", 1:53),
                  unique(out[order(x)]))
 
-  factor(out, levels = lvls)
+  ordered(out, levels = lvls)
 }
 
 tz_units_since <- function(x){
@@ -27,18 +27,30 @@ tz_units_since <- function(x){
 # 2. Return if descriptor is distinct across groups
 # 3. If descriptor varies across groups, add it to list
 # 4. Go to next largest descriptor and repeat from 2.
-time_identifier <- function(idx, period, base = NULL){
+time_identifier <- function(idx, period, base = NULL, within = NULL){
   if(is.null(period)){
     return(rep(NA, length(idx)))
   }
 
   # Early return for years in weeks, as years are structured differently in context of weeks
   if (identical(period, lubridate::years(1)) && identical(base, lubridate::weeks(1))){
-    return(format_time(idx, format = "%G"))
+    return(list(facet_id = NA, id = format_time(idx, format = "%G")))
   }
 
   grps <- floor_tsibble_date(idx, period)
-  fmt_idx_grp <- split(idx, grps)
+
+  facet_grps <- if(!is.null(within)){
+    time_identifier(grps, period = within, base = period)$id
+  } else {
+    FALSE
+  }
+
+  # Create format groups for each series
+  fmt_idx_grp <- map2(
+    split(idx, facet_grps),
+    split(grps, facet_grps),
+    split
+  )
 
   formats <- list(
     Weekday = "%A",
@@ -57,25 +69,41 @@ time_identifier <- function(idx, period, base = NULL){
     Datetime = "%x %X"
   )
 
-  found_format <- FALSE
+
+  # Check if the format uniquely identifies the group
   for(fmt in formats){
-    if(length(unique(format_time(fmt_idx_grp[[1]], format = fmt))) == 1){
-      ids <- map(fmt_idx_grp, function(x) unique(format_time(x, format = fmt)))
-      if(all(map_lgl(ids, function(x) length(x) == 1))){# && length(unique(ids)) == length(fmt_idx_grp)){
-        found_format <- TRUE
-        break
+    for(fct in fmt_idx_grp){
+      found_format <- FALSE
+      id <- rep(NA_character_, length(fct))
+      for(i in seq_along(fct)){
+        val <- unique(format_time(fct[[i]], format = fmt))
+        if(length(val) > 1) break
+        id[i] <- as.character(val)
       }
+      if(is.na(id[length(id)])) break
+      if(anyDuplicated(id)) break
+      found_format <- TRUE
     }
+    if(found_format) break
   }
 
-  if(found_format){
+  out <- if(found_format){
     format_time(idx, format = fmt)
   }
   else{
     # Default to time ranges
-    map(fmt_idx_grp, function(x) rep(paste0(c(min(x), max(x)), collapse = " - "), length(x))) %>%
-      unsplit(grps)
+    map2(fmt_idx_grp, split(grps, facet_grps), function(x, grps){
+      map(x, function(y){
+        rep(paste0(c(min(y), max(y)), collapse = " - "), length(y))
+      }) %>%
+        unsplit(grps)
+    }) %>%
+      unsplit(facet_grps)
   }
+  list(
+    facet_id = if(!is.null(within)) facet_grps else NA,
+    id = out
+  )
 }
 
 within_time_identifier <- function(x){
@@ -169,8 +197,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
 
   labels <- match.arg(labels)
   check_gaps(data)
-  idx <- index(data)
-  idx_class <- class(data[[as_string(idx)]])
+  idx <- index_var(data)
   n_key <- n_keys(data)
   keys <- key(data)
   ts_interval <- interval_to_period(interval(data))
@@ -197,13 +224,9 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
     }
   }
 
-  data <- as_tibble(data) %>%
-    mutate(
-      facet_id = time_identifier(!!idx, facet_period, period) %empty% NA,
-      id = time_identifier(!!idx, period),
-      !!as_string(idx) := time_offset_origin(!!idx, period),
-      id = ordered(!!sym("id"))
-    )
+  data <- as_tibble(data)
+  data[c("facet_id", "id")] <- time_identifier(data[[idx]], period, within = facet_period)
+  data[idx] <- time_offset_origin(data[[idx]], period)
 
   if(polar){
     warn("Polar plotting is not fully supported yet, and the resulting graph may be incorrect.
@@ -220,9 +243,9 @@ This issue will be resolved once vctrs is integrated into dplyr.")
     data <- rbind(data, extra_x)
   }
 
-  num_ids <- NROW(distinct(data, !!sym("id")))
+  num_ids <- length(unique(data[["id"]]))
 
-  mapping <- aes(x = !!idx, y = !!y, colour = unclass(!!sym("id")), group = !!sym("id"))
+  mapping <- aes(x = !!sym(idx), y = !!y, colour = unclass(!!sym("id")), group = !!sym("id"))
 
   p <- ggplot(data, mapping) +
     geom_line(...) +
@@ -244,7 +267,7 @@ This issue will be resolved once vctrs is integrated into dplyr.")
     p <- p + facet_grid(rows = vars(!!!keys), scales = "free_y")
   }
 
-  if(inherits(data[[expr_text(idx)]], "Date")){
+  if(inherits(data[[idx]], "Date")){
     p <- p + ggplot2::scale_x_date(breaks = function(limit){
       if(suppressMessages(len <- period/ts_interval) <= 12){
         ggplot2::scale_x_date()$trans$breaks(limit, n = len)
@@ -252,7 +275,7 @@ This issue will be resolved once vctrs is integrated into dplyr.")
         ggplot2::scale_x_date()$trans$breaks(limit)
       }
     }, labels = within_time_identifier)
-  } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
+  } else if(inherits(data[[idx]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(breaks = function(limit){
       if(period == lubridate::weeks(1)){
         ggplot2::scale_x_datetime()$trans$breaks(limit, n = 7)
@@ -269,17 +292,17 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 
   if(labels != "none"){
     if(labels == "left"){
-      label_pos <- expr(min(!!idx))
+      label_pos <- expr(min(!!sym(idx)))
     }
     else if(labels == "right"){
-      label_pos <- expr(max(!!idx))
+      label_pos <- expr(max(!!sym(idx)))
     }
     else{
-      label_pos <- expr(range(!!idx))
+      label_pos <- expr(range(!!sym(idx)))
     }
     labels_x <- data %>%
       group_by(!!!syms(c("facet_id", "id"))) %>%
-      filter(!!idx %in% !!label_pos)
+      filter(!!sym(idx) %in% !!label_pos)
 
     p <- p + ggplot2::geom_text(aes(label = !!sym("id")), data = labels_x) +
       ggplot2::guides(colour = "none")
