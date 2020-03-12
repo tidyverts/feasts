@@ -408,8 +408,8 @@ var_tiled_var <- function(x, .size = NULL, .period = 1) {
   }
 
   x <- scale(x, center = TRUE, scale = TRUE)
-  varx <- tsibble::tile_dbl(x, var, na.rm = TRUE, .size = .size)
-  varx <- varx[seq_len(length(x)/.size)]
+  varx <- slider::slide_dbl(x[,1], var, na.rm = TRUE,
+                            .after = .size - 1, .step = .size, .complete = TRUE)
   if (length(x) < 2 * .size) {
     lumpiness <- 0
   } else {
