@@ -104,7 +104,7 @@ interval_to_period <- function(interval){
 }
 
 round_period <- function(period){
-  if(!is.period(period)) return(period)
+  if(!lubridate::is.period(period)) return(period)
   if(!is.null(attr(period, "second"))){
     attr(period, "minute") <- attr(period, "minute")%||%0 + attr(period, "second")%/%60
     attr(period, "second") <- attr(period, "second")%%60
