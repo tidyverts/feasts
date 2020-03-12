@@ -390,10 +390,10 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
   fct_labeller <- if(inherits(data[["id"]], c("POSIXt", "Date"))){
     within_time_identifier
   } else if(is.numeric(data[["id"]])) {
-    function(x) x - 1969
+    function(x) format(x - 1969)
   }
   else {
-    identity
+    format
   }
 
   p <- ggplot(data, aes(x = !!idx, y = !!y)) +
