@@ -27,7 +27,7 @@ tz_units_since <- function(x){
 # 2. Return if descriptor is distinct across groups
 # 3. If descriptor varies across groups, add it to list
 # 4. Go to next largest descriptor and repeat from 2.
-time_identifier <- function(idx, period, base = NULL, within = NULL){
+time_identifier <- function(idx, period, base = NULL, within = NULL, interval){
   if(is.null(period)){
     return(rep(NA, length(idx)))
   }
@@ -40,7 +40,7 @@ time_identifier <- function(idx, period, base = NULL, within = NULL){
   grps <- floor_tsibble_date(idx, period)
 
   facet_grps <- if(!is.null(within)){
-    time_identifier(grps, period = within, base = period)$id
+    time_identifier(idx, period = within, base = period, interval = interval)$id
   } else {
     FALSE
   }
@@ -68,6 +68,18 @@ time_identifier <- function(idx, period, base = NULL, within = NULL){
     Date = "%x",
     Datetime = "%x %X"
   )
+  # Remove unreasonable formats for a given interval
+  if(!is_empty(interval)){
+    if(interval >= months(1)){
+      formats <- formats[c("Month", "Year", "Yearmonth", "Date")]
+    } else if (interval >= weeks(1)){
+      formats <- formats[c("Monthday", "Yearday", "Week", "Month", "Year",
+                           "Yearweek", "Yearmonth", "Date")]
+    } else if (interval >= days(1)){
+      formats <- formats[c("Weekday", "Monthday", "Yearday", "Week", "Month", "Year",
+                           "Yearweek", "Yearmonth", "Date")]
+    }
+  }
 
 
   # Check if the format uniquely identifies the group
@@ -98,7 +110,8 @@ time_identifier <- function(idx, period, base = NULL, within = NULL){
       }) %>%
         unsplit(grps)
     }) %>%
-      unsplit(facet_grps)
+      unsplit(facet_grps) %>%
+      ordered()
   }
   list(
     facet_id = if(!is.null(within)) facet_grps else NA,
@@ -225,7 +238,8 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
   }
 
   data <- as_tibble(data)
-  data[c("facet_id", "id")] <- time_identifier(data[[idx]], period, within = facet_period)
+  data[c("facet_id", "id")] <- time_identifier(data[[idx]], period,
+                                               within = facet_period, interval = ts_interval)
   data[idx] <- time_offset_origin(data[[idx]], period)
 
   if(polar){
