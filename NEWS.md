@@ -9,6 +9,7 @@
 ## Bug fixes
 
 * Fixed the sprectral density plot in `gg_tsdisplay()` not working with plotting expressions of data.
+* Fixed issue with `gg_subseries()` erroring when certain column names are used (#95).
 
 # feasts 0.1.2
 

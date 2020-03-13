@@ -381,7 +381,7 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
 
   data <- as_tibble(data) %>%
     mutate(
-      id = time_offset_origin(!!idx, period),
+      id = time_offset_origin(!!idx, !!period),
       .yint = !!y
     ) %>%
     group_by(id, !!!keys) %>%
