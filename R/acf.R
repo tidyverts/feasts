@@ -220,7 +220,8 @@ vec_arith.cf_lag <- function(op, x, y){
 #' @export
 format.cf_lag <- function(x, ...){
   interval <- attr(x, "interval")
-  scale <- do.call(sum, vctrs::vec_data(interval))
+  itvl_data <- if(inherits(interval, "vctrs_vctr")) vctrs::vec_data else unclass
+  scale <- do.call(sum, itvl_data(interval))
   suffix <- substring(format(interval), first = nchar(format(scale)) + 1)
   paste0(scale*vec_data(x), suffix)
 }
