@@ -231,20 +231,38 @@ vec_ptype_full.cf_lag <- function(x, ...){
   "lag"
 }
 
+#' @importFrom vctrs vec_ptype2
+#' @method vec_ptype2 cf_lag
+#' @export
 vec_ptype2.cf_lag <- function(x, y, ...) UseMethod("vec_ptype2.cf_lag", y)
+#' @method vec_ptype2.cf_lag default
+#' @export
 vec_ptype2.cf_lag.default <- function(x, y, ..., x_arg = "x", y_arg = "y") {
   vec_default_ptype2(x, y, x_arg = x_arg, y_arg = y_arg)
 }
+#' @method vec_ptype2.cf_lag double
+#' @export
 vec_ptype2.cf_lag.double <- function(x, y, ..., x_arg = "x", y_arg = "y") {
   double()
 }
+#' @method vec_ptype2.double cf_lag
+#' @export
 vec_ptype2.double.cf_lag <- function(x, y, ..., x_arg = "x", y_arg = "y") {
   double()
 }
 
+#' @importFrom vctrs vec_cast
+#' @method vec_cast cf_lag
+#' @export
 vec_cast.cf_lag <- function(x, to, ...) UseMethod("vec_cast.cf_lag")
+#' @method vec_cast.cf_lag default
+#' @export
 vec_cast.cf_lag.default <- function(x, to, ...) vec_default_cast(x, to)
+#' @method vec_cast.cf_lag double
+#' @export
 vec_cast.cf_lag.double <- function(x, to, ...) vec_data(x)
+#' @method vec_cast.double cf_lag
+#' @export
 vec_cast.double.cf_lag <- function(x, to, ...) vec_data(x)
 
 #' @export
