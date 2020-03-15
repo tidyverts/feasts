@@ -2,7 +2,9 @@ globalVariables("self")
 
 specials_stl <- fabletools::new_specials(
   trend = function(window, degree, jump){
-    args <- map(call_args(match.call()), eval_tidy)
+    args <- as.list(environment())
+    args <- args[!map_lgl(args, rlang::is_missing)]
+
     if(isFALSE(is.finite(args$window)) && sign(args$window) == 1){
       args$window <- NROW(self$data) + 1e7
     }
@@ -11,11 +13,10 @@ specials_stl <- fabletools::new_specials(
     }
   },
   season = function(period = NULL, window = 13, degree, jump){
-    args <- map(call_args(match.call()), eval_tidy)
+    args <- as.list(environment())
+    args <- args[!map_lgl(args, rlang::is_missing)]
     args <- args[names(args)!="period"]
-    if(is.null(args$window)){
-      args$window <- window
-    }
+
     if(isFALSE(is.finite(args$window)) && is.numeric(args$window)){
       if(sign(args$window) == 1){
         args$window <- "periodic"
@@ -32,7 +33,9 @@ specials_stl <- fabletools::new_specials(
     }
   },
   lowpass = function(window, degree, jump){
-    args <- map(call_args(match.call()), eval_tidy)
+    args <- as.list(environment())
+    args <- args[!map_lgl(args, rlang::is_missing)]
+
     if(isFALSE(is.finite(args$window)) && sign(args$window) == 1){
       args$window <- NROW(self$data) + 1e7
     }
