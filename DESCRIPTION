@@ -27,7 +27,8 @@ Imports:
     vctrs,
     lubridate,
     grid,
-    slider
+    slider,
+    utils
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),
