@@ -2,7 +2,7 @@
 # They are due to be removed when these packages are released.
 
 default_time_units <- function(...){
-  if(utils::packageVersion("tsibble") >= "0.8.9.9000") tsibble::default_time_units(...) else tsibble::time_unit(...)
+  if(utils::packageVersion("tsibble") >= "0.8.9.9000") getExportedValue("tsibble", "default_time_units")(...) else tsibble::time_unit(...)
 }
 
 units_since <- function(...){
