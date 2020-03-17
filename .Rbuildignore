@@ -10,3 +10,4 @@
 ^hex$
 ^cran-comments\.md$
 ^.github$
+^revdep$
