@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ARCH LM Statistic — stat_arch_lm • feasts</title>
+<title>Intermittency features — feat_intermittent • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,11 +42,9 @@
 
 
 
-<meta property="og:title" content="ARCH LM Statistic — stat_arch_lm" />
-<meta property="og:description" content="Computes a statistic based on the Lagrange Multiplier (LM) test of Engle (1982) for
-autoregressive conditional heteroscedasticity (ARCH). The statistic returned is
-the \(R^2\) value of an autoregressive model of order lags applied
-to \(x^2\)." />
+<meta property="og:title" content="Intermittency features — feat_intermittent" />
+<meta property="og:description" content="Computes various measures that can indicate the presence and structures of
+intermittent data." />
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -142,40 +140,41 @@ to \(x^2\)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ARCH LM Statistic</h1>
+    <h1>Intermittency features</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/features.R'><code>R/features.R</code></a></small>
-    <div class="hidden name"><code>stat_arch_lm.Rd</code></div>
+    <div class="hidden name"><code>feat_intermittent.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes a statistic based on the Lagrange Multiplier (LM) test of Engle (1982) for
-autoregressive conditional heteroscedasticity (ARCH). The statistic returned is
-the \(R^2\) value of an autoregressive model of order <code>lags</code> applied
-to \(x^2\).</p>
+    <p>Computes various measures that can indicate the presence and structures of
+intermittent data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_arch_lm</span>(<span class='no'>x</span>, <span class='kw'>lags</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>demean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>feat_intermittent</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a univariate time series</p></td>
-    </tr>
-    <tr>
-      <th>lags</th>
-      <td><p>Number of lags to use in the test</p></td>
-    </tr>
-    <tr>
-      <th>demean</th>
-      <td><p>Should data have mean removed before test applied?</p></td>
+      <td><p>A vector to extract features from.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numeric value.</p>
+    <p>A vector of named features:</p><ul>
+<li><p>zero_run_mean: The average interval between non-zero observations</p></li>
+<li><p>nonzero_squared_cv: The squared coefficient of variation of non-zero observations</p></li>
+<li><p>zero_start_prop: The proportion of data which starts with zero</p></li>
+<li><p>zero_end_prop: The proportion of data which ends with zero</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Kostenko, A. V., &amp; Hyndman, R. J. (2006). A note on the categorization of
+demand patterns. <em>Journal of the Operational Research Society</em>, 57(10),
+1256-1257.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -183,10 +182,9 @@ to \(x^2\).</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#references">References</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>Yanfei Kang</p>
   </div>
 </div>
 
