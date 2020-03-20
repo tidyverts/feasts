@@ -63,7 +63,10 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
   compute_acf <- function(.data, value, ...){
     value <- enexpr(value)
     x <- eval_tidy(value, data = .data)
-    acf <- tail(as.numeric(acf(x, plot=FALSE, ...)$acf), -1)
+    acf <- as.numeric(acf(x, plot=FALSE, ...)$acf)
+    if(length(type) == 1 && type != "partial"){ # First indx already dropped
+      acf <- tail(acf, -1)
+    }
     tibble(lag = seq_along(acf), acf = acf)
   }
   value <- enexprs(...)

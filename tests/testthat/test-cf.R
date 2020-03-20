@@ -39,6 +39,13 @@ test_that("PACF", {
     as.numeric(stats::pacf(dt$y, plot = FALSE)$acf)
   )
 
+  acf <- ACF(dt, y, type = "partial")
+  names(acf) <- c("lag", "pacf") # Overwrite names c("lag", "acf")
+  expect_identical(
+    cf,
+    acf
+  )
+
   p <- autoplot(cf)
   expect_identical(
     ggplot2::layer_data(p)$y,
