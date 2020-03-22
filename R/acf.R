@@ -60,11 +60,12 @@
 #' @export
 ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
                 type = c("correlation", "covariance", "partial")){
+  type <- match.arg(type)
   compute_acf <- function(.data, value, ...){
     value <- enexpr(value)
     x <- eval_tidy(value, data = .data)
     acf <- as.numeric(acf(x, plot=FALSE, ...)$acf)
-    if(type[1] != "partial"){ # First indx already dropped if partial
+    if(type != "partial"){ # First indx already dropped if partial
       acf <- tail(acf, -1)
     }
     tibble(lag = seq_along(acf), acf = acf)

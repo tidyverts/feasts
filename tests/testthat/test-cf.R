@@ -39,7 +39,7 @@ test_that("PACF", {
     as.numeric(stats::pacf(dt$y, plot = FALSE)$acf)
   )
 
-  acf <- ACF(dt, y, type = "partial")
+  acf <- ACF(dt, y, type = "part") # Testing also partial matching of "partial"
   names(acf) <- c("lag", "pacf") # Overwrite names c("lag", "acf")
   expect_identical(
     cf,
@@ -99,3 +99,4 @@ test_that("CCF", {
     "CCF currently only supports two columns"
   )
 })
+
