@@ -49,7 +49,7 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 feat_stl <- function(x, .period, s.window = 13, ...){
   dots <- dots_list(...)
   dots <- dots[names(dots) %in% names(formals(stats::stl))]
-  season.args <- if (length(x) < .period * 2) {
+  season.args <- if (length(x) <= .period * 2) {
     list()
   } else {
     list2(!!(names(.period)%||%as.character(.period)) := list(period = .period, s.window = s.window))
