@@ -1,5 +1,16 @@
 # feasts 0.1.4
 
+Minor patch to resolve upstream check issues introduced by dplyr v1.0.0 and 
+tsibble v0.9.0.
+
+## Improvements
+
+* Added partial matching of the type argument in `ACF()`.
+
+## Bug fixes
+
+* Fixed the minimum data length for seasonal estimation in `feat_stl()`.
+
 # feasts 0.1.3
 
 ## Improvements
