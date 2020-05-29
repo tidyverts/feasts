@@ -384,7 +384,7 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
       id = time_offset_origin(!!idx, !!period),
       .yint = !!y
     ) %>%
-    group_by(id, !!!keys) %>%
+    group_by(!!sym("id"), !!!keys) %>%
     mutate(.yint = mean(!!sym(".yint"), na.rm = TRUE))
 
   fct_labeller <- if(inherits(data[["id"]], c("yearquarter", "yearmonth", "yearweek", "POSIXt", "Date"))){
