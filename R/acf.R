@@ -189,7 +189,7 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
   .data <- unnest_tbl(.data, "data")
   .data[["lag"]] <- as_lag(interval) * .data[["lag"]]
   new_tsibble(
-    as_tsibble(.data, index = "lag", key = kv),
+    as_tsibble(.data, index = "lag", key = !!kv),
     num_obs = lens, class = "tbl_cf"
   )
 }

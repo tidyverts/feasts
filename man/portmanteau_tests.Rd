@@ -6,7 +6,9 @@
 \alias{box_pierce}
 \alias{portmanteau_tests}
 \title{Portmanteau tests}
-\format{An object of class \code{list} of length 2.}
+\format{
+An object of class \code{list} of length 2.
+}
 \usage{
 ljung_box(x, lag = 1, dof = 0, ...)
 

@@ -42,7 +42,7 @@ test_that("PACF", {
   acf <- ACF(dt, y, type = "part") # Testing also partial matching of "partial"
   names(acf) <- c("lag", "pacf") # Overwrite names c("lag", "acf")
   expect_identical(
-    cf,
+    as_tsibble(cf),
     acf
   )
 
