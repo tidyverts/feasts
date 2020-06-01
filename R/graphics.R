@@ -19,7 +19,7 @@ tz_units_since <- function(x){
   if(!is.null(attr(x, "tz"))){
     x <- as.POSIXct(`attr<-`(as.POSIXlt(x), "tzone", "UTC"))
   }
-  units_since(x)
+  as.double(x)
 }
 
 # Find minimum largest identifier for each group

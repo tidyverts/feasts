@@ -19,7 +19,7 @@ Depends:
 Imports: 
     rlang (>= 0.2.0),
     tibble (>= 1.4.1),
-    tsibble (>= 0.8.0),
+    tsibble (>= 0.8.9.9000),
     ggplot2 (>= 3.0.0),
     dplyr (>= 0.8.0),
     tidyr (>= 0.8.3),
