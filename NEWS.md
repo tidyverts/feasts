@@ -3,6 +3,11 @@
 Minor patch to resolve upstream check issues introduced by dplyr v1.0.0 and 
 tsibble v0.9.0.
 
+## New features
+
+* Circular time plots are now supported by setting `polar = TRUE` in 
+  `gg_season()`.
+
 ## Improvements
 
 * Added partial matching of the type argument in `ACF()`.

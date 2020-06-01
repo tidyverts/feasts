@@ -243,18 +243,16 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
   data[idx] <- time_offset_origin(data[[idx]], period)
 
   if(polar){
-    warn("Polar plotting is not fully supported yet, and the resulting graph may be incorrect.
-This issue will be resolved once vctrs is integrated into dplyr.")
     extra_x <- data %>%
       group_by(!!sym("facet_id"), !!sym("id")) %>%
       summarise(
-        !!expr_text(idx) := max(!!idx) + ts_interval - .Machine$double.eps,
-        !!expr_text(y) := (!!y)[[which.min(!!idx)]]
+        !!idx := max(as.Date(!!sym(idx))) + ts_interval - .Machine$double.eps,
+        !!expr_text(y) := (!!y)[[which.min(!!sym(idx))]]
       ) %>%
       group_by(!!sym("facet_id")) %>%
       mutate(!!expr_text(y) := dplyr::lead(!!y)) %>%
       filter(!is.na(!!y))
-    data <- rbind(data, extra_x)
+    data <- dplyr::bind_rows(data, extra_x)
   }
 
   num_ids <- length(unique(data[["id"]]))
@@ -283,20 +281,22 @@ This issue will be resolved once vctrs is integrated into dplyr.")
 
   if(inherits(data[[idx]], "Date")){
     p <- p + ggplot2::scale_x_date(breaks = function(limit){
-      if(suppressMessages(len <- period/ts_interval) <= 12){
+      breaks <- if(suppressMessages(len <- period/ts_interval) <= 12){
         ggplot2::scale_x_date()$trans$breaks(limit, n = len)
       } else{
         ggplot2::scale_x_date()$trans$breaks(limit)
       }
+      unique(time_offset_origin(breaks, period))
     }, labels = within_time_identifier)
   } else if(inherits(data[[idx]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(breaks = function(limit){
-      if(period == lubridate::weeks(1)){
+      breaks <- if(period == lubridate::weeks(1)){
         ggplot2::scale_x_datetime()$trans$breaks(limit, n = 7)
       }
       else{
         ggplot2::scale_x_datetime()$trans$breaks(limit)
       }
+      unique(time_offset_origin(breaks, period))
     }, labels = within_time_identifier)
   }
 
