@@ -39,8 +39,7 @@ Suggests:
     seasonal,
     urca,
     fracdiff,
-    fable,
-    ForeCA
+    fable
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL-3

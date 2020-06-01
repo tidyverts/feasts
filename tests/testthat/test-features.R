@@ -29,7 +29,7 @@ test_that("basic features", {
   ft <- features(www_usage, value, basic_features)
   expect_equivalent(
     as.list(ft),
-    list(n_crossing_points = 7L, n_flat_spots = 13L, entropy = 0.561, var_tiled_var = 0.0139, var_tiled_mean = 0.988),
+    list(n_crossing_points = 7L, n_flat_spots = 13L, entropy = 0.461, var_tiled_var = 0.0139, var_tiled_mean = 0.988),
     tolerance = 0.01
   )
 })

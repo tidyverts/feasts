@@ -11,13 +11,42 @@ feat_spectral(x, .period = 1, ...)
 
 \item{.period}{The seasonal period.}
 
-\item{...}{Further arguments for \code{\link[ForeCA:spectral_entropy]{ForeCA::spectral_entropy()}}}
+\item{...}{Further arguments for \code{\link[stats:spec.ar]{stats::spec.ar()}}}
 }
 \value{
-A numeric value.
+A non-negative real value for the spectral entropy \eqn{H_s(x_t)}.
 }
 \description{
-Computes the spectral entropy of a time series
+Computes spectral entropy from a univariate normalized
+spectral density, estimated using an AR model.
+}
+\details{
+The \emph{spectral entropy} equals the Shannon entropy of the spectral density
+\eqn{f_x(\lambda)} of a stationary process \eqn{x_t}:
+\deqn{
+H_s(x_t) = - \int_{-\pi}^{\pi} f_x(\lambda) \log f_x(\lambda) d \lambda,
+}
+where the density is normalized such that
+\eqn{\int_{-\pi}^{\pi} f_x(\lambda) d \lambda = 1}.
+An estimate of \eqn{f(\lambda)} can be obtained using \code{\link[stats]{spec.ar}} with
+the \code{burg} method.
+}
+\examples{
+feat_spectral(rnorm(1000))
+feat_spectral(lynx)
+feat_spectral(sin(1:20))
+}
+\references{
+Jerry D. Gibson and Jaewoo Jung (2006). \dQuote{The
+Interpretation of Spectral Entropy Based Upon Rate Distortion Functions}.
+IEEE International Symposium on Information Theory, pp. 277-281.
+
+Goerg, G. M. (2013). \dQuote{Forecastable Component Analysis}.
+Journal of Machine Learning Research (JMLR) W&CP 28 (2): 64-72, 2013.
+Available at \url{http://jmlr.org/proceedings/papers/v28/goerg13.html}.
+}
+\seealso{
+\code{\link[stats]{spec.ar}}
 }
 \author{
 Rob J Hyndman

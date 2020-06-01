@@ -6,6 +6,10 @@ tsibble v0.9.0.
 ## Improvements
 
 * Added partial matching of the type argument in `ACF()`.
+* Updated `feat_spectral()` to use `stats::spec.ar()` instead of 
+  `ForeCA::spectral_entropy()`. Note that the feature value will be slightly
+  different due to use of a different spectral estimator, and the fix of a
+  bug in ForeCA.
 
 ## Bug fixes
 

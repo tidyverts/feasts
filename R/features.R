@@ -371,19 +371,58 @@ shift_kl_max <- function(x, .size = NULL, .period = 1) {
 
 #' Spectral features of a time series
 #'
-#' Computes the spectral entropy of a time series
+#' @description
+#' Computes spectral entropy from a univariate normalized
+#' spectral density, estimated using an AR model.
+#'
+#' @details
+#' The \emph{spectral entropy} equals the Shannon entropy of the spectral density
+#' \eqn{f_x(\lambda)} of a stationary process \eqn{x_t}:
+#' \deqn{
+#' H_s(x_t) = - \int_{-\pi}^{\pi} f_x(\lambda) \log f_x(\lambda) d \lambda,
+#' }
+#' where the density is normalized such that
+#' \eqn{\int_{-\pi}^{\pi} f_x(\lambda) d \lambda = 1}.
+#' An estimate of \eqn{f(\lambda)} can be obtained using \code{\link[stats]{spec.ar}} with
+#' the `burg` method.
 #'
 #' @inheritParams shift_level_max
 #' @param .period The seasonal period.
-#' @param ... Further arguments for [`ForeCA::spectral_entropy()`]
+#' @param ... Further arguments for [`stats::spec.ar()`]
 #'
-#' @return A numeric value.
 #' @author Rob J Hyndman
+#' @return
+#' A non-negative real value for the spectral entropy \eqn{H_s(x_t)}.
+#' @seealso \code{\link[stats]{spec.ar}}
+#' @references
+#' Jerry D. Gibson and Jaewoo Jung (2006). \dQuote{The
+#' Interpretation of Spectral Entropy Based Upon Rate Distortion Functions}.
+#' IEEE International Symposium on Information Theory, pp. 277-281.
+#'
+#' Goerg, G. M. (2013). \dQuote{Forecastable Component Analysis}.
+#' Journal of Machine Learning Research (JMLR) W&CP 28 (2): 64-72, 2013.
+#' Available at \url{http://jmlr.org/proceedings/papers/v28/goerg13.html}.
+#'
+#' @examples
+#' feat_spectral(rnorm(1000))
+#' feat_spectral(lynx)
+#' feat_spectral(sin(1:20))
 #' @export
 feat_spectral <- function(x, .period = 1, ...) {
-  require_package("ForeCA")
-  x <- na.contiguous(ts(x, frequency = .period))
-  entropy <- ForeCA::spectral_entropy(x, ...)[1L]
+  #spec <- spectrum(x, plot = FALSE, n.freq = ceiling(length(x)/2 + 1), ...)
+  spec <- try(stats::spec.ar(na.contiguous(ts(x, frequency = .period)),
+                             plot=FALSE, method='burg',
+                             n.freq = ceiling(length(x)/2 + 1)), ...)
+  if (class(spec) == "try-error") {
+    entropy <- NA
+  } else {
+    fx <- c(rev(spec$spec[-1]),spec$spec)/ length(x)
+    fx <- fx/sum(fx)
+    prior.fx = rep(1 / length(fx), length = length(fx))
+    prior.weight = 0.001
+    fx <- (1 - prior.weight) * fx + prior.weight * prior.fx
+    entropy <- pmin(1, -sum(fx * log(fx, base = length(x))))
+  }
   return(c(spectral_entropy = entropy))
 }
 
