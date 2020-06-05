@@ -137,6 +137,11 @@ floor_tsibble_date.default <- function(x, unit, ...){
   }
   lubridate::floor_date(x, unit, week_start = 1)
 }
+floor_tsibble_date.numeric <- function(x, unit, ...){
+  unit <- round_period(unit)
+  unit <- if (unit@year != 0) unit@year else unit@.Data
+  x%/%unit * unit
+}
 floor_tsibble_date.yearquarter <- function(x, unit, ...){
   yearquarter(lubridate::floor_date(as_date(x), round_period(unit), ...))
 }
@@ -177,6 +182,7 @@ time_origin <- function(x){
   if (inherits(x, "yearweek")) tsibble::yearweek(origin)
   else if (inherits(x, "yearmonth")) tsibble::yearmonth(origin)
   else if (inherits(x, "yearquarter")) tsibble::yearquarter(origin)
+  else if (is.numeric(x)) 0L
   else if (inherits(x, "Date")) as.Date(origin)
   else origin
 }
