@@ -225,7 +225,7 @@ vec_arith.cf_lag <- function(op, x, y){
 format.cf_lag <- function(x, ...){
   interval <- attr(x, "interval")
   itvl_data <- if(inherits(interval, "vctrs_vctr")) vctrs::vec_data else unclass
-  itvl_fmt <- getS3method("format", "interval", envir = getNamespace("tsibble"))
+  itvl_fmt <- utils::getS3method("format", "interval", envir = getNamespace("tsibble"))
   scale <- do.call(sum, itvl_data(interval))
   suffix <- substring(itvl_fmt(interval), first = nchar(format(scale)) + 1)
   paste0(scale*vec_data(x), suffix)
