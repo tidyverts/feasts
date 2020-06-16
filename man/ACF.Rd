@@ -47,11 +47,10 @@ Function \code{CCF} computes the cross-correlation or cross-covariance of two co
 from a tsibble.
 }
 \details{
-The functions improve the \code{\link[stats]{acf}},
-\code{\link[stats]{pacf}} and \code{\link[stats]{ccf}} functions. The main
-differences are that \code{ACF} does not plot a spike at lag 0 when
-\code{type=="correlation"} (which is redundant) and the horizontal axes show
-lags in time units rather than seasonal units.
+The functions improve the \code{\link[stats:acf]{stats::acf()}}, \code{\link[stats:acf]{stats::pacf()}} and
+\code{\link[stats:acf]{stats::ccf()}} functions. The main differences are that \code{ACF} does not plot
+the exact correlation at lag 0 when \code{type=="correlation"} and
+the horizontal axes show lags in time units rather than seasonal units.
 
 The resulting tables from these functions can also be plotted using
 \code{\link[=autoplot.tbl_cf]{autoplot.tbl_cf()}}.
