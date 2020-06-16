@@ -43,7 +43,8 @@
 
 
 <meta property="og:title" content="Spectral features of a time series — feat_spectral" />
-<meta property="og:description" content="Computes the spectral entropy of a time series" />
+<meta property="og:description" content="Computes spectral entropy from a univariate normalized
+spectral density, estimated using an AR model." />
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -145,7 +146,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Computes the spectral entropy of a time series</p>
+    <p>Computes spectral entropy from a univariate normalized
+spectral density, estimated using an AR model.</p>
     </div>
 
     <pre class="usage"><span class='fu'>feat_spectral</span>(<span class='no'>x</span>, <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
@@ -163,20 +165,51 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Further arguments for <code><a href='https://rdrr.io/pkg/ForeCA/man/spectral_entropy.html'>ForeCA::spectral_entropy()</a></code></p></td>
+      <td><p>Further arguments for <code><a href='https://rdrr.io/r/stats/spec.ar.html'>stats::spec.ar()</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numeric value.</p>
+    <p>A non-negative real value for the spectral entropy \(H_s(x_t)\).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>The <em>spectral entropy</em> equals the Shannon entropy of the spectral density
+\(f_x(\lambda)\) of a stationary process \(x_t\):
+$$
+H_s(x_t) = - \int_{-\pi}^{\pi} f_x(\lambda) \log f_x(\lambda) d \lambda,
+$$
+where the density is normalized such that
+\(\int_{-\pi}^{\pi} f_x(\lambda) d \lambda = 1\).
+An estimate of \(f(\lambda)\) can be obtained using <code><a href='https://rdrr.io/r/stats/spec.ar.html'>spec.ar</a></code> with
+the <code>burg</code> method.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Jerry D. Gibson and Jaewoo Jung (2006). &#8220;The
+Interpretation of Spectral Entropy Based Upon Rate Distortion Functions&#8221;.
+IEEE International Symposium on Information Theory, pp. 277-281.</p>
+<p>Goerg, G. M. (2013). &#8220;Forecastable Component Analysis&#8221;.
+Journal of Machine Learning Research (JMLR) W&amp;CP 28 (2): 64-72, 2013.
+Available at <a href='http://jmlr.org/proceedings/papers/v28/goerg13.html'>http://jmlr.org/proceedings/papers/v28/goerg13.html</a>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/spec.ar.html'>spec.ar</a></code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>feat_spectral</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>))</div><div class='output co'>#&gt; spectral_entropy 
+#&gt;                1 </div><div class='input'><span class='fu'>feat_spectral</span>(<span class='no'>lynx</span>)</div><div class='output co'>#&gt; spectral_entropy 
+#&gt;        0.7331515 </div><div class='input'><span class='fu'>feat_spectral</span>(<span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span>(<span class='fl'>1</span>:<span class='fl'>20</span>))</div><div class='output co'>#&gt; spectral_entropy 
+#&gt;      0.003481715 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#references">References</a></li>
+      <li><a href="#see-also">See also</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>

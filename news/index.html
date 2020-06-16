@@ -147,11 +147,19 @@
 <a href="#feasts-014" class="anchor"></a>feasts 0.1.4<small> Unreleased </small>
 </h1>
 <p>Minor patch to resolve upstream check issues introduced by dplyr v1.0.0 and tsibble v0.9.0.</p>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Circular time plots are now supported by setting <code>polar = TRUE</code> in <code><a href="../reference/gg_season.html">gg_season()</a></code>.</li>
+</ul>
+</div>
 <div id="improvements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#improvements" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Added partial matching of the type argument in <code><a href="../reference/ACF.html">ACF()</a></code>.</li>
+<li>Updated <code><a href="../reference/feat_spectral.html">feat_spectral()</a></code> to use <code><a href="https://rdrr.io/r/stats/spec.ar.html">stats::spec.ar()</a></code> instead of <code>ForeCA::spectral_entropy()</code>. Note that the feature value will be slightly different due to use of a different spectral estimator, and the fix of a bug in ForeCA.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -245,9 +253,9 @@
 <ul>
 <li>First release.</li>
 </ul>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Added support for graphical analysis of tidy temporal data and models, with <code>gg_season</code>, <code>gg_subseries</code>, <code>gg_lag</code>, <code>gg_tsdisplay</code>, <code>gg_tsresiduals</code>, <code>gg_arma</code>.</li>
 <li>Added support for autocorrelation functions and plots, with <code>ACF</code>, <code>PACF</code>, <code>CCF</code>, and <code>autoplot.tbl_cf</code>

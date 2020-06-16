@@ -229,9 +229,7 @@ Time Series Analysis</em>, 31(6), 471-482.</p>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tsibble</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tsibbledata</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tsibble’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    id</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
@@ -259,11 +257,11 @@ Time Series Analysis</em>, 31(6), 471-482.</p>
 #&gt; </span><span style='color: #555555;'> 3</span><span>   90m -</span><span style='color: #BB0000;'>0.220</span><span> 
 #&gt; </span><span style='color: #555555;'> 4</span><span>  120m -</span><span style='color: #BB0000;'>0.141</span><span> 
 #&gt; </span><span style='color: #555555;'> 5</span><span>  150m -</span><span style='color: #BB0000;'>0.091</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>
-#&gt; </span><span style='color: #555555;'> 6</span><span>  180m -</span><span style='color: #BB0000;'>0.061</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span>  180m -</span><span style='color: #BB0000;'>0.061</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>
 #&gt; </span><span style='color: #555555;'> 7</span><span>  210m -</span><span style='color: #BB0000;'>0.025</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span>
 #&gt; </span><span style='color: #555555;'> 8</span><span>  240m -</span><span style='color: #BB0000;'>0.010</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>
-#&gt; </span><span style='color: #555555;'> 9</span><span>  270m  0.015</span><span style='text-decoration: underline;'>1</span><span>
-#&gt; </span><span style='color: #555555;'>10</span><span>  300m  0.017</span><span style='text-decoration: underline;'>0</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span>  270m  0.015</span><span style='text-decoration: underline;'>2</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span>  300m  0.016</span><span style='text-decoration: underline;'>9</span><span>
 #&gt; </span><span style='color: #555555;'># … with 37 more rows</span><span></div><div class='input'>
 <span class='no'>vic_elec</span> <span class='kw'>%&gt;%</span> <span class='fu'>PACF</span>(<span class='no'>Temperature</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>()</div><div class='img'><img src='ACF-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>global_economy</span> <span class='kw'>%&gt;%</span>
