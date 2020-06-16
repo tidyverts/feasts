@@ -88,8 +88,7 @@ autocovariance matrices and the linear process bootstrap. \emph{Journal of
 Time Series Analysis}, 31(6), 471-482.
 }
 \seealso{
-\code{\link[stats]{acf}}, \code{\link[stats]{pacf}},
-\code{\link[stats]{ccf}}
+\code{\link[stats:acf]{stats::acf()}}, \code{\link[stats:acf]{stats::pacf()}}, \code{\link[stats:acf]{stats::ccf()}}
 }
 \author{
 Mitchell O'Hara-Wild and Rob J Hyndman

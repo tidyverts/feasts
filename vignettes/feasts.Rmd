@@ -2,7 +2,7 @@
 title: "Introduction to feasts"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{feasts}
+  %\VignetteIndexEntry{Introduction to feasts}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

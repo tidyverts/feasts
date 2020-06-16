@@ -38,8 +38,7 @@
 #' autocovariance matrices and the linear process bootstrap. \emph{Journal of
 #' Time Series Analysis}, 31(6), 471-482.
 #'
-#' @seealso \code{\link[stats]{acf}}, \code{\link[stats]{pacf}},
-#' \code{\link[stats]{ccf}}
+#' @seealso [`stats::acf()`], [`stats::pacf()`], [`stats::ccf()`]
 #'
 #' @examples
 #' library(tsibble)
