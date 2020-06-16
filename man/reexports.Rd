@@ -14,10 +14,10 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr]{\%>\%}}}
+  \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{autolayer}}, \code{\link[ggplot2]{autoplot}}}
 
-  \item{tsibble}{\code{\link[tsibble]{as_tsibble}}}
+  \item{tsibble}{\code{\link[tsibble:as-tsibble]{as_tsibble}}}
 }}
 

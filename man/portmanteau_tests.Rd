@@ -37,6 +37,6 @@ ljung_box(rnorm(100))
 box_pierce(rnorm(100))
 }
 \seealso{
-\code{\link[stats:Box.test]{stats::Box.test()}}
+\code{\link[stats:box.test]{stats::Box.test()}}
 }
 \keyword{datasets}

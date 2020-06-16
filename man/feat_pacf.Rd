@@ -14,7 +14,7 @@ feat_pacf(x, .period = 1, lag_max = NULL, ...)
 \item{lag_max}{maximum lag at which to calculate the acf. The default is
 \code{max(.period, 10L)} for \code{feat_acf}, and \code{max(.period, 5L)} for \code{feat_pacf}}
 
-\item{...}{Further arguments passed to \code{\link[stats:acf]{stats::acf()}} or \code{\link[stats:pacf]{stats::pacf()}}}
+\item{...}{Further arguments passed to \code{\link[stats:acf]{stats::acf()}} or \code{\link[stats:acf]{stats::pacf()}}}
 }
 \value{
 A vector of 3 values: Sum of squared of first 5
