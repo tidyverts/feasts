@@ -205,11 +205,10 @@ automatically limited to one less than the number of observations in the series.
 of class "tbl_cf", which is a tsibble containing the correlations computed.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The functions improve the <code><a href='https://rdrr.io/r/stats/acf.html'>acf</a></code>,
-<code><a href='https://rdrr.io/r/stats/acf.html'>pacf</a></code> and <code><a href='https://rdrr.io/r/stats/acf.html'>ccf</a></code> functions. The main
-differences are that <code>ACF</code> does not plot a spike at lag 0 when
-<code>type=="correlation"</code> (which is redundant) and the horizontal axes show
-lags in time units rather than seasonal units.</p>
+    <p>The functions improve the <code><a href='https://rdrr.io/r/stats/acf.html'>stats::acf()</a></code>, <code><a href='https://rdrr.io/r/stats/acf.html'>stats::pacf()</a></code> and
+<code><a href='https://rdrr.io/r/stats/acf.html'>stats::ccf()</a></code> functions. The main differences are that <code>ACF</code> does not plot
+the exact correlation at lag 0 when <code>type=="correlation"</code> and
+the horizontal axes show lags in time units rather than seasonal units.</p>
 <p>The resulting tables from these functions can also be plotted using
 <code><a href='autoplot.tbl_cf.html'>autoplot.tbl_cf()</a></code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
