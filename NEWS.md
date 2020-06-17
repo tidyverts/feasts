@@ -1,3 +1,5 @@
+# feasts (development version)
+
 # feasts 0.1.4
 
 Minor patch to resolve upstream check issues introduced by dplyr v1.0.0 and 
