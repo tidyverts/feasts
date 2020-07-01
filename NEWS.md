@@ -1,5 +1,9 @@
 # feasts (development version)
 
+## Improvements
+
+* `gg_lag()` facets are now displayed with a 1:1 aspect ratio.
+
 # feasts 0.1.4
 
 Minor patch to resolve upstream check issues introduced by dplyr v1.0.0 and 

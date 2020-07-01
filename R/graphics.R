@@ -492,6 +492,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
     geom_abline(colour = "gray", linetype = "dashed") +
     lag_geom(..., arrow = arrow) +
     facet_wrap(~ .lag) +
+    ggplot2::theme(aspect.ratio = 1) +
     xlab(paste0("lag(", as_string(y), ", n)"))
 }
 
