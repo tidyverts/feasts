@@ -598,7 +598,7 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
       ggplot() + ggplot2::labs(x = "frequency", y = "spectrum")
     } else {
       spec[["result"]] %>%
-        {tibble(spectrum = .$spec[,1], frequency = .$freq)} %>%
+        {tibble(spectrum = drop(.$spec), frequency = .$freq)} %>%
         ggplot(aes(x = !!sym("frequency"), y = !!sym("spectrum"))) +
         geom_line() +
         ggplot2::scale_y_log10()
