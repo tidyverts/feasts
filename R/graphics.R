@@ -181,6 +181,7 @@ guess_plot_var <- function(x, y){
 #' number of seasonal periods in the data is larger than `max_col`, the plot
 #' will not include a colour. Use `max_col = 0` to never colour the lines, or Inf
 #' to always colour the lines. If labels are used, then max_col will be ignored.
+#' @param pal A colour palette to be used.
 #' @param polar If TRUE, the season plot will be shown on polar coordinates.
 #' @param labels Position of the labels for seasonal period identifier.
 #' @param ... Additional arguments passed to geom_line()
@@ -204,8 +205,8 @@ guess_plot_var <- function(x, y){
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
 gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
-                      max_col = 15, polar = FALSE,
-                      labels = c("none", "left", "right", "both"),  ...){
+                      max_col = 15, pal = scales::hue_pal()(9), polar = FALSE,
+                      labels = c("none", "left", "right", "both"), ...){
   y <- guess_plot_var(data, !!enquo(y))
 
   labels <- match.arg(labels)
@@ -261,7 +262,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
 
   p <- ggplot(data, mapping) +
     geom_line(...) +
-    ggplot2::scale_color_gradientn(colours = scales::hue_pal()(9),
+    ggplot2::scale_color_gradientn(colours = pal,
                                    breaks = if (num_ids < max_col) seq_len(num_ids) else ggplot2::waiver(),
                                    labels = function(idx) levels(data$id)[idx]) +
     ggplot2::labs(colour = NULL)
