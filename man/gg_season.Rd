@@ -10,6 +10,7 @@ gg_season(
   period = NULL,
   facet_period = NULL,
   max_col = 15,
+  pal = (scales::hue_pal())(9),
   polar = FALSE,
   labels = c("none", "left", "right", "both"),
   ...
@@ -30,6 +31,8 @@ automatically selected from the data.}
 number of seasonal periods in the data is larger than \code{max_col}, the plot
 will not include a colour. Use \code{max_col = 0} to never colour the lines, or Inf
 to always colour the lines. If labels are used, then max_col will be ignored.}
+
+\item{pal}{A colour palette to be used.}
 
 \item{polar}{If TRUE, the season plot will be shown on polar coordinates.}
 
