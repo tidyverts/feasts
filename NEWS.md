@@ -8,6 +8,7 @@
 
 * Fixed spectral density plot in `gg_tsdisplay()` erroring when the `spec.ar`
   order is chosen to be 0.
+* Fixed `CCF()` lag being spaced by multiples of the data's frequency.
 
 # feasts 0.1.4
 

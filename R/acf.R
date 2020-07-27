@@ -138,7 +138,7 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
     ccf <- ccf(x = eval_tidy(value1, data = .data),
                y = eval_tidy(value2, data = .data),
                plot=FALSE, ...)
-    lag <- as.numeric(ccf$lag)*frequency(.data)
+    lag <- as.numeric(ccf$lag)
     tibble(lag = lag, ccf = as.numeric(ccf$acf))
   }
   value <- enexprs(...)
