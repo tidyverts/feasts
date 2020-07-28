@@ -3,6 +3,8 @@
 ## Improvements
 
 * `gg_lag()` facets are now displayed with a 1:1 aspect ratio.
+* Season and subseries plots of numeric index data now starts at the earliest 
+  measured observation, rather than assuming a meaningful 0 (#111).
 
 ## Bug fixes
 
