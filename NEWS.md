@@ -11,6 +11,7 @@
 * Fixed spectral density plot in `gg_tsdisplay()` erroring when the `spec.ar`
   order is chosen to be 0.
 * Fixed `CCF()` lag being spaced by multiples of the data's frequency.
+* Fixed labelling of x-axis for `gg_season()` and `gg_subseries()` (#107).
 
 # feasts 0.1.4
 

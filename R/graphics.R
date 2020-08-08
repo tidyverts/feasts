@@ -241,7 +241,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
   data <- as_tibble(data)
   data[c("facet_id", "id")] <- time_identifier(data[[idx]], period,
                                                within = facet_period, interval = ts_interval)
-  data[idx] <- time_offset_origin(data[[idx]], period)
+  data[idx] <- as.Date(time_offset_origin(data[[idx]], period))
 
   if(polar){
     extra_x <- data %>%
@@ -383,6 +383,7 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
   data <- as_tibble(data) %>%
     mutate(
       id = time_offset_origin(!!idx, !!period),
+      !!idx := as.Date(!!idx),
       .yint = !!y
     ) %>%
     group_by(!!sym("id"), !!!keys) %>%
