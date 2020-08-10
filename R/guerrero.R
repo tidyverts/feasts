@@ -16,6 +16,11 @@ lambda_coef_var <- function(lambda, x, .period = 2) {
 #' Applies Guerrero's (1993) method to select the lambda which minimises the
 #' coefficient of variation for subseries of x.
 #'
+#' Note that this function will give slightly different results to
+#' `forecast::BoxCox.lambda(y)` if your data does not start at the start of the
+#' seasonal period. This function will make use of all of your data, whereas the
+#' forecast package will not use data that doesn't complete a seasonal period.
+#'
 #' @param x A numeric vector. The data used to identify the transformation
 #' parameter lambda.
 #' @param lower The lower bound for lambda.

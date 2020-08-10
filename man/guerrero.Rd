@@ -24,6 +24,12 @@ A Box Cox transformation parameter (lambda) chosen by Guerrero's method.
 Applies Guerrero's (1993) method to select the lambda which minimises the
 coefficient of variation for subseries of x.
 }
+\details{
+Note that this function will give slightly different results to
+\code{forecast::BoxCox.lambda(y)} if your data does not start at the start of the
+seasonal period. This function will make use of all of your data, whereas the
+forecast package will not use data that doesn't complete a seasonal period.
+}
 \references{
 Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. JRSS B 26 211–246.
 
