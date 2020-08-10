@@ -18,7 +18,13 @@ A \code{\link[fabletools:dable]{fabletools::dable()}} containing the decomposed 
 and remainder from the STL decomposition.
 }
 \description{
-Multiple seasonal decomposition by Loess
+Decompose a time series into seasonal, trend and remainder components.
+Seasonal components are estimated iteratively using STL. Multiple seasonal periods are
+allowed. The trend component is computed for the last iteration of STL.
+Non-seasonal time series are decomposed into trend and remainder only.
+In this case, \code{\link[stats]{supsmu}} is used to estimate the trend.
+Optionally, the time series may be Box-Cox transformed before decomposition.
+Unlike \code{\link[stats]{stl}}, \code{mstl} is completely automated.
 }
 \section{Specials}{
 
@@ -72,4 +78,7 @@ as_tsibble(USAccDeaths) \%>\%
 }
 \references{
 R. B. Cleveland, W. S. Cleveland, J.E. McRae, and I. Terpenning (1990) STL: A Seasonal-Trend Decomposition Procedure Based on Loess. Journal of Official Statistics, 6, 3–73.
+}
+\seealso{
+\code{\link[stats]{stl}}, \code{\link[stats]{supsmu}}
 }
