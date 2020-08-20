@@ -24,12 +24,12 @@ test_that("unit root features", {
 })
 
 test_that("basic features", {
-  basic_features <- list(n_crossing_points, n_flat_spots, feat_spectral,
+  basic_features <- list(n_crossing_points, longest_flat_spot, feat_spectral,
                          var_tiled_var, var_tiled_mean)
   ft <- features(www_usage, value, basic_features)
   expect_equivalent(
     as.list(ft),
-    list(n_crossing_points = 7L, n_flat_spots = 13L, entropy = 0.461, var_tiled_var = 0.0139, var_tiled_mean = 0.988),
+    list(n_crossing_points = 7L, longest_flat_spot = 13L, entropy = 0.461, var_tiled_var = 0.0139, var_tiled_mean = 0.988),
     tolerance = 0.01
   )
 })

@@ -28,7 +28,8 @@ Imports:
     lubridate,
     grid,
     slider,
-    utils
+    utils,
+    lifecycle
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),
@@ -50,3 +51,4 @@ LazyData: true
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
 Language: en-GB
+RdMacros: lifecycle

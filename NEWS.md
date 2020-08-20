@@ -5,6 +5,14 @@
 * `gg_lag()` facets are now displayed with a 1:1 aspect ratio.
 * Season and subseries plots of numeric index data now starts at the earliest 
   measured observation, rather than assuming a meaningful 0 (#111).
+* The `n_flat_spots()` function has been renamed to `longest_flat_spot()` to 
+  more accurately describe the feature.
+* Documentation improvements
+
+## Breaking changes
+
+* The `n_flat_spots()` return name is now "longest_flat_spot" to better describe
+  the feature.
 
 ## Bug fixes
 

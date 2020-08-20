@@ -228,17 +228,28 @@ unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ feat_stl(.,.period
   c(nsdiffs = max(differences[c(TRUE, keep)], na.rm = TRUE))
 }
 
-#' Number of flat spots
+#' Longest flat spot length
 #'
-#' Number of flat spots in a time series
+#' "Flat spots” are computed by dividing the sample space of a time series into
+#' ten equal-sized intervals, and computing the maximum run length within any
+#' single interval.
+#'
 #' @param x a vector
 #' @return A numeric value.
 #' @author Earo Wang and Rob J Hyndman
+#'
+#' @aliases n_flat_spots
 #' @export
-n_flat_spots <- function(x) {
+longest_flat_spot <- function(x) {
   cutx <- cut(x, breaks = 10, include.lowest = TRUE, labels = FALSE)
   rlex <- rle(cutx)
-  return(c(n_flat_spots = max(rlex$lengths)))
+  return(c(longest_flat_spot = max(rlex$lengths)))
+}
+
+#' @export
+n_flat_spots <- function(x) {
+  lifecycle::deprecate_warn("0.1.5", "feasts::n_flat_spots()", "feasts::longest_flat_spot()")
+  longest_flat_spot(x)
 }
 
 #' Hurst coefficient
