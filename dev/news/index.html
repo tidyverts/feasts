@@ -153,6 +153,15 @@
 <li>
 <code><a href="../reference/gg_lag.html">gg_lag()</a></code> facets are now displayed with a 1:1 aspect ratio.</li>
 <li>Season and subseries plots of numeric index data now starts at the earliest measured observation, rather than assuming a meaningful 0 (<a href='https://github.com/tidyverts/feasts/issues/111'>#111</a>).</li>
+<li>The <code><a href="../reference/longest_flat_spot.html">n_flat_spots()</a></code> function has been renamed to <code><a href="../reference/longest_flat_spot.html">longest_flat_spot()</a></code> to more accurately describe the feature.</li>
+<li>Documentation improvements</li>
+</ul>
+</div>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<ul>
+<li>The <code><a href="../reference/longest_flat_spot.html">n_flat_spots()</a></code> return name is now “longest_flat_spot” to better describe the feature.</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -231,9 +240,9 @@
 <li>Performance improvements.</li>
 </ul>
 </div>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>Decompositions are now treated as models. To access the decomposed values, you will now have to use <code>components()</code>. For example, <code>tourism %&gt;% STL(Trips)</code> is now <code>tourism %&gt;% model(STL(Trips)) %&gt;% components()</code>. This change allows for more flexible decomposition specifications, and better interfaces for decomposition modelling.</li>
 </ul>
