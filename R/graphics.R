@@ -241,7 +241,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
   data <- as_tibble(data)
   data[c("facet_id", "id")] <- time_identifier(data[[idx]], period,
                                                within = facet_period, interval = ts_interval)
-  data[idx] <- as.Date(time_offset_origin(data[[idx]], period))
+  data[idx] <- time_offset_origin(data[[idx]], period)
 
   if(polar){
     extra_x <- data %>%
@@ -299,6 +299,9 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
       }
       unique(time_offset_origin(breaks, period))
     }, labels = within_time_identifier)
+  } else {
+    scale_fn <- get(paste0("scale_x_", ggplot2::scale_type(data[[idx]])), parent.frame())
+    p <- p + scale_fn(labels = within_time_identifier)
   }
 
   if(polar){
@@ -383,7 +386,7 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
   data <- as_tibble(data) %>%
     mutate(
       id = time_offset_origin(!!idx, !!period),
-      !!idx := as.Date(!!idx),
+      !!idx := !!idx,
       .yint = !!y
     ) %>%
     group_by(!!sym("id"), !!!keys) %>%
@@ -408,6 +411,9 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
     p <- p + ggplot2::scale_x_date(labels = within_time_identifier)
   } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
+  } else {
+    scale_fn <- get(paste0("scale_x_", ggplot2::scale_type(data[[expr_text(idx)]])), parent.frame())
+    p <- p + scale_fn(labels = within_time_identifier)
   }
 
   p + ggplot2::theme(axis.text.x.bottom = ggplot2::element_text(angle = 90))
