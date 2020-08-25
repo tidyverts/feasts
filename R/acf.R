@@ -267,6 +267,9 @@ vec_cast.cf_lag.double <- function(x, to, ...) vec_data(x)
 #' @method vec_cast.double cf_lag
 #' @export
 vec_cast.double.cf_lag <- function(x, to, ...) vec_data(x)
+#' @method vec_cast.character cf_lag
+#' @export
+vec_cast.character.cf_lag <- function(x, to, ...) format(x)
 
 #' @export
 index_valid.cf_lag <- function(x) TRUE
