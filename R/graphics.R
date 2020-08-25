@@ -300,8 +300,21 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
       unique(time_offset_origin(breaks, period))
     }, labels = within_time_identifier)
   } else {
-    scale_fn <- get(paste0("scale_x_", ggplot2::scale_type(data[[idx]])), parent.frame())
-    p <- p + scale_fn(labels = within_time_identifier)
+    scale_fn <- paste0("scale_x_", ggplot2::scale_type(data[[idx]]))
+    scale_fn <- if(exists(scale_fn, parent.frame(), mode = "function")){
+      get(scale_fn, parent.frame(), mode = "function")
+    } else {
+      get(scale_fn, asNamespace("feasts"), mode = "function")
+    }
+    p <- p + scale_fn(
+      breaks = function(limit){
+        breaks <- if(suppressMessages(len <- period/ts_interval) <= 12){
+          ggplot2::scale_x_date()$trans$breaks(as.Date(limit), n = len)
+        } else{
+          scale_fn()$trans$breaks(limit)
+        }
+        unique(time_offset_origin(breaks, period))
+      }, labels = within_time_identifier)
   }
 
   if(polar){
@@ -412,7 +425,12 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
   } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
   } else {
-    scale_fn <- get(paste0("scale_x_", ggplot2::scale_type(data[[expr_text(idx)]])), parent.frame())
+    scale_fn <- paste0("scale_x_", ggplot2::scale_type(data[[expr_text(idx)]]))
+    scale_fn <- if(exists(scale_fn, parent.frame(), mode = "function")){
+      get(scale_fn, parent.frame(), mode = "function")
+    } else {
+      get(scale_fn, asNamespace("feasts"), mode = "function")
+    }
     p <- p + scale_fn(labels = within_time_identifier)
   }
 
