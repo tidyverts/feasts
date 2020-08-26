@@ -1,4 +1,4 @@
-# feasts (development version)
+# feasts 0.1.5
 
 ## Improvements
 
@@ -7,6 +7,7 @@
   measured observation, rather than assuming a meaningful 0 (#111).
 * The `n_flat_spots()` function has been renamed to `longest_flat_spot()` to 
   more accurately describe the feature.
+* `gg_season()` and `ggsubseries()` date structure improvements.
 * Documentation improvements
 
 ## Breaking changes
@@ -20,6 +21,7 @@
   order is chosen to be 0.
 * Fixed `CCF()` lag being spaced by multiples of the data's frequency.
 * Fixed labelling of x-axis for `gg_season()` and `gg_subseries()` (#107).
+* Fixed `View()` not working on `ACF()`, `PACF()` and `CCF()` outputs.
 
 # feasts 0.1.4
 
