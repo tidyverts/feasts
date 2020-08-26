@@ -47,7 +47,7 @@ tsibbledata::aus_retail \%>\%
 \references{
 Hyndman and Athanasopoulos (2019) \emph{Forecasting: principles
 and practice}, 3rd edition, OTexts: Melbourne, Australia.
-\url{https://OTexts.org/fpp3/}
+\url{https://OTexts.com/fpp3/}
 }
 \seealso{
 \code{\link[stats]{plot.ts}}, \code{\link{ACF}},

@@ -190,7 +190,7 @@ guess_plot_var <- function(x, y){
 #'
 #' @references
 #' Hyndman and Athanasopoulos (2019) Forecasting: principles and practice,
-#'  3rd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp3/
+#'  3rd edition, OTexts: Melbourne, Australia. https://OTexts.com/fpp3/
 #'
 #' @examples
 #' library(tsibble)
@@ -363,7 +363,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
 #'
 #' @references
 #' Hyndman and Athanasopoulos (2019) Forecasting: principles and practice,
-#'  3rd edition, OTexts: Melbourne, Australia. https://OTexts.org/fpp3/
+#'  3rd edition, OTexts: Melbourne, Australia. https://OTexts.com/fpp3/
 #'
 #' @examples
 #' library(tsibble)
@@ -544,7 +544,7 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #'
 #' @references Hyndman and Athanasopoulos (2019) \emph{Forecasting: principles
 #' and practice}, 3rd edition, OTexts: Melbourne, Australia.
-#' \url{https://OTexts.org/fpp3/}
+#' \url{https://OTexts.com/fpp3/}
 #'
 #' @examples
 #' library(tsibble)
@@ -647,7 +647,7 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 #'
 #' @references Hyndman and Athanasopoulos (2019) \emph{Forecasting: principles
 #' and practice}, 3rd edition, OTexts: Melbourne, Australia.
-#' \url{https://OTexts.org/fpp3/}
+#' \url{https://OTexts.com/fpp3/}
 #'
 #' @examples
 #' if (requireNamespace("fable", quietly = TRUE)) {
