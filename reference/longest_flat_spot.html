@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • feasts</title>
+<title>Longest flat spot length — longest_flat_spot • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,17 +42,10 @@
 
 
 
-<meta property="og:title" content="Objects exported from other packages — reexports" />
-<meta property="og:description" content="These objects are imported from other packages. Follow the links
-below to see their documentation.
-
-  dplyr%&amp;gt;%
-
-  ggplot2autolayer, autoplot
-
-  tsibbleas_tsibble
-
-" />
+<meta property="og:title" content="Longest flat spot length — longest_flat_spot" />
+<meta property="og:description" content="&quot;Flat spots” are computed by dividing the sample space of a time series into
+ten equal-sized intervals, and computing the maximum run length within any
+single interval." />
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -148,33 +141,42 @@ below to see their documentation.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/reexports.R'><code>R/reexports.R</code></a></small>
-    <div class="hidden name"><code>reexports.Rd</code></div>
+    <h1>Longest flat spot length</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/features.R'><code>R/features.R</code></a></small>
+    <div class="hidden name"><code>longest_flat_spot.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p>
-<dl class='dl-horizontal'>
-  <dt>dplyr</dt><dd><p><code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>%&gt;%</a></code></p></dd>
-
-  <dt>ggplot2</dt><dd><p><code><a href='https://ggplot2.tidyverse.org/reference/autolayer.html'>autolayer</a></code>, <code><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></code></p></dd>
-
-  <dt>tsibble</dt><dd><p><code>as_tsibble</code></p></dd>
-
-</dl>
+    <p>"Flat spots” are computed by dividing the sample space of a time series into
+ten equal-sized intervals, and computing the maximum run length within any
+single interval.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>longest_flat_spot</span>(<span class='no'>x</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>a vector</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A numeric value.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Earo Wang and Rob J Hyndman</p>
   </div>
 </div>
 

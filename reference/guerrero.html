@@ -88,7 +88,7 @@ coefficient of variation for subseries of x." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
       </span>
     </div>
 
@@ -178,6 +178,12 @@ period). Subseries length must be at least 2.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A Box Cox transformation parameter (lambda) chosen by Guerrero's method.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Note that this function will give slightly different results to
+<code>forecast::BoxCox.lambda(y)</code> if your data does not start at the start of the
+seasonal period. This function will make use of all of your data, whereas the
+forecast package will not use data that doesn't complete a seasonal period.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. JRSS B 26 211–246.</p>
@@ -189,6 +195,7 @@ period). Subseries length must be at least 2.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#references">References</a></li>
     </ul>
 
