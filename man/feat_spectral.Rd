@@ -43,7 +43,7 @@ IEEE International Symposium on Information Theory, pp. 277-281.
 
 Goerg, G. M. (2013). \dQuote{Forecastable Component Analysis}.
 Journal of Machine Learning Research (JMLR) W&CP 28 (2): 64-72, 2013.
-Available at \url{http://jmlr.org/proceedings/papers/v28/goerg13.html}.
+Available at \url{https://jmlr.org/proceedings/papers/v28/goerg13.html}.
 }
 \seealso{
 \code{\link[stats]{spec.ar}}
