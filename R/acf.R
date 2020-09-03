@@ -343,7 +343,7 @@ scale_x_cf_lag <- function(...) {
                    train = function (self, x){
                      if (length(x) == 0)
                        return()
-                     self$range$train(x)
+                     self$range$train(vctrs::vec_data(x))
                      if(!is.null(gap <- attr(x, "interval"))){
                        self$interval <- gap
                        freq <- get_frequencies(NULL, gap, .auto = "all")
