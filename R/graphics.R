@@ -337,7 +337,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
       group_by(!!!syms(c("facet_id", "id"))) %>%
       filter(!!sym(idx) %in% !!label_pos)
 
-    p <- p + ggplot2::geom_text(aes(label = !!sym("id")), data = labels_x) +
+    p <- p + ggplot2::geom_text(aes(label = !!sym("id")), data = labels_x, hjust = "outward") +
       ggplot2::guides(colour = "none")
   }
 

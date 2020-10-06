@@ -1,5 +1,9 @@
 # feasts (development version)
 
+## Improvements
+
+* `gg_season()` labels are low aligned outward (#115).
+
 ## Bug fixes
 
 * Fixed issue with plotting aggregated tsibbles with `gg_season()` and
