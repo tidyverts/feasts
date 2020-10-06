@@ -1,5 +1,10 @@
 # feasts (development version)
 
+## Bug fixes
+
+* Fixed issue with plotting aggregated tsibbles with `gg_season()` and
+  `gg_subseries()` (#117).
+
 # feasts 0.1.5
 
 ## Improvements

@@ -277,7 +277,9 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
                         scales = ifelse(n_key > 1, "free", "free_x"))
   }
   else if(n_key > 1){
-    p <- p + facet_grid(rows = vars(!!!keys), scales = "free_y")
+    p <- p + facet_grid(
+      rows = vars(!!!lapply(keys, function(x) expr(format(!!x)))),
+      scales = "free_y")
   }
 
   if(inherits(data[[idx]], "Date")){
@@ -416,8 +418,10 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
 
   p <- ggplot(data, aes(x = !!idx, y = !!y)) +
     geom_line(...) +
-    facet_grid(rows = vars(!!!keys), cols = vars(fct_labeller(!!sym("id"))),
-               scales = "free_y") +
+    facet_grid(
+      rows = vars(!!!lapply(keys, function(x) expr(format(!!x)))),
+      cols = vars(fct_labeller(!!sym("id"))),
+      scales = "free_y") +
     geom_hline(aes(yintercept = !!sym(".yint")), colour = "blue")
 
   if(inherits(data[[expr_text(idx)]], "Date")){
