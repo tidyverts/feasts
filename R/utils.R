@@ -201,3 +201,7 @@ time_offset_origin <- function(x, period, origin = time_origin(x)){
   }
   else origin + (x - x_start)
 }
+
+within_bounds <- function(x, lim) {
+  x[x>=lim[1] & x<=lim[2]]
+}

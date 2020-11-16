@@ -289,7 +289,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
       } else{
         ggplot2::scale_x_date()$trans$breaks(limit)
       }
-      unique(time_offset_origin(breaks, period))
+      unique(time_offset_origin(within_bounds(breaks, limit), period))
     }, labels = within_time_identifier)
   } else if(inherits(data[[idx]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(breaks = function(limit){
@@ -299,7 +299,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
       else{
         ggplot2::scale_x_datetime()$trans$breaks(limit)
       }
-      unique(time_offset_origin(breaks, period))
+      unique(time_offset_origin(within_bounds(breaks, limit), period))
     }, labels = within_time_identifier)
   } else {
     scale_fn <- paste0("scale_x_", ggplot2::scale_type(data[[idx]]))
@@ -315,7 +315,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
         } else{
           scale_fn()$trans$breaks(limit)
         }
-        unique(time_offset_origin(breaks, period))
+        unique(time_offset_origin(within_bounds(breaks, limit), period))
       }, labels = within_time_identifier)
   }
 
