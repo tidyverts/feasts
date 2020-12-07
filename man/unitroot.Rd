@@ -35,7 +35,7 @@ Performs a test for the existence of a unit root in the vector.
 \details{
 \code{unitroot_kpss} computes the statistic for the Kwiatkowski et al. unit root test with linear trend and lag 1.
 
-\code{unitroot_pp} computes the statistic for the `'Z-tau'' version of Phillips & Perron unit root test with constant trend and lag 1.
+\code{unitroot_pp} computes the statistic for the \code{Z-tau} version of Phillips & Perron unit root test with constant trend and lag 1.
 }
 \seealso{
 \code{\link[urca:ur.kpss]{urca::ur.kpss()}}
