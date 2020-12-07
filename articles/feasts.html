@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
       </span>
     </div>
 
@@ -93,7 +93,8 @@
 
       
 
-      </header><script src="feasts_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="feasts_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="feasts_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="feasts_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Introduction to feasts</h1>
@@ -132,7 +133,39 @@
 <p>This plot reveals that each of the reasons for visiting Melbourne follow a similar pattern, and that in recent years the amount of tourism is increasing. It is also clear that most people travel to Melbourne for one of three reasons (Business, Holiday or Visiting), and fewer travellers report other travel purposes.</p>
 <p>While this plot reveals many useful large scale features of the data, it can be difficult to identify specifics about the seasonal pattern (other than its existence). Which quarter has the most tourism travel in Melbourne? To find out we will need to investigate other plot types.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw"><a href="../reference/gg_season.html">gg_season</a></span>(Trips)</span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw"><a href="../reference/gg_season.html">gg_season</a></span>(Trips)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&gt;=.Date", "&gt;=.vctrs_vctr")</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; for "&gt;="</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&lt;=.Date", "&lt;=.vctrs_vctr")</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; for "&lt;="</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&gt;=.Date", "&gt;=.vctrs_vctr")</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; for "&gt;="</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&lt;=.Date", "&lt;=.vctrs_vctr")</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; for "&lt;="</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&gt;=.Date", "&gt;=.vctrs_vctr")</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; for "&gt;="</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&lt;=.Date", "&lt;=.vctrs_vctr")</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; for "&lt;="</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&gt;=.Date", "&gt;=.vctrs_vctr")</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; for "&gt;="</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&lt;=.Date", "&lt;=.vctrs_vctr")</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; for "&lt;="</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&gt;=.Date", "&gt;=.vctrs_vctr")</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; for "&gt;="</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&lt;=.Date", "&lt;=.vctrs_vctr")</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; for "&lt;="</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&gt;=.Date", "&gt;=.vctrs_vctr")</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; for "&gt;="</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&lt;=.Date", "&lt;=.vctrs_vctr")</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; for "&lt;="</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&gt;=.Date", "&gt;=.vctrs_vctr")</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt; for "&gt;="</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&lt;=.Date", "&lt;=.vctrs_vctr")</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt; for "&lt;="</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&gt;=.Date", "&gt;=.vctrs_vctr")</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt; for "&gt;="</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="co">#&gt; Warning in NextMethod("["): Incompatible methods ("&lt;=.Date", "&lt;=.vctrs_vctr")</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="co">#&gt; for "&lt;="</span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/season-plot-1.png" width="672"></p>
 <p>The seasonal plot (<code><a href="../reference/gg_season.html">gg_season()</a></code>) wraps a seasonal period (in this case, years) over the x axis, allowing you to see how each quarter varies. In particular, it is apparent that Q3 is a low point for people visiting friends and relatives, which noticeably increases in Q4. Similarly Q2 and Q3 are the time periods with the most business travel.</p>
 <p>The trend of recent years can also be seen in the spread between the lines. The more recent years (purple/pink) are higher than the previous years. This also reveals that the drop in visiting tourism in Q3 was far less extreme in the most recent two years.</p>
