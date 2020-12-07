@@ -1,4 +1,7 @@
-# feasts (development version)
+# feasts 0.1.6
+
+A minor release to fix check issues introduced by changes in an upstream 
+dependency.
 
 ## Improvements
 
@@ -8,6 +11,8 @@
 
 * Fixed issue with plotting aggregated tsibbles with `gg_season()` and
   `gg_subseries()` (#117).
+* Fixed occasional issue with double label/breaks displayed in `gg_season()`
+
 
 # feasts 0.1.5
 
