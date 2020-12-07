@@ -302,7 +302,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
       unique(time_offset_origin(within_bounds(breaks, limit), period))
     }, labels = within_time_identifier)
   } else {
-    scale_fn <- paste0("scale_x_", ggplot2::scale_type(data[[idx]]))
+    scale_fn <- paste0("scale_x_", ggplot2::scale_type(data[[idx]])[1])
     scale_fn <- if(exists(scale_fn, parent.frame(), mode = "function")){
       get(scale_fn, parent.frame(), mode = "function")
     } else {
@@ -429,7 +429,7 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
   } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
   } else {
-    scale_fn <- paste0("scale_x_", ggplot2::scale_type(data[[expr_text(idx)]]))
+    scale_fn <- paste0("scale_x_", ggplot2::scale_type(data[[expr_text(idx)]])[1])
     scale_fn <- if(exists(scale_fn, parent.frame(), mode = "function")){
       get(scale_fn, parent.frame(), mode = "function")
     } else {
