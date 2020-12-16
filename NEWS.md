@@ -1,3 +1,5 @@
+# feasts (development version)
+
 # feasts 0.1.6
 
 A minor release to fix check issues introduced by changes in an upstream 
