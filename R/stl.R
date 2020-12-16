@@ -121,6 +121,42 @@ components.stl_decomposition <- function(object, ...){
            aliases = object[["aliases"]])
 }
 
+MBB <- function (x, window_size) {
+  bx <- array(0, (floor(length(x)/window_size) + 2) * window_size)
+  for (i in 1:(floor(length(x)/window_size) + 2)) {
+    c <- sample(1:(length(x) - window_size + 1), 1)
+    bx[((i - 1) * window_size + 1):(i * window_size)] <- x[c:(c + window_size - 1)]
+  }
+  start_from <- sample(0:(window_size - 1), 1) + 1
+  bx[start_from:(start_from + length(x) - 1)]
+}
+
+#' @export
+#'
+#' @examples
+#' as_tsibble(USAccDeaths) %>%
+#'   model(STL(log(value))) %>%
+#'   generate(as_tsibble(USAccDeaths), times = 3)
+#'
+#' @references
+#' Bergmeir, C., R. J. Hyndman, and J. M. Benitez (2016). Bagging Exponential Smoothing Methods using STL Decomposition and Box-Cox Transformation. International Journal of Forecasting 32, 303-312.
+generate.stl_decomposition <- function(x, new_data, specials = NULL, bootstrap = FALSE, ...){
+  if(bootstrap) abort("Bootstrap argument is not yet supported, block bootstrap will be used by default.")
+
+  period <- max(vapply(x$seasons, `[[`, double(1L), "period"))
+  block_size <- ifelse(period > 1, 2 * period, min(8, floor(length(x)/2)))
+
+  new_data <- dplyr::left_join(
+    new_data[c(key_vars(new_data), index_var(new_data))],
+    x$decomposition,
+    by = index_var(new_data)
+  )
+
+  group_by_key(new_data) %>%
+    mutate(remainder = MBB(remainder, block_size)) %>%
+    transmute(.sim = !!x$aliases[[x$response]])
+}
+
 #' @importFrom fabletools model_sum
 #' @export
 model_sum.stl_decomposition <- function(x){

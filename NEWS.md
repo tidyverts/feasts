@@ -1,5 +1,10 @@
 # feasts (development version)
 
+## New features
+
+* Added `generate()` method for `STL()` decompositions. The method uses a block 
+bootstrap method to sample from the residuals.
+
 # feasts 0.1.6
 
 A minor release to fix check issues introduced by changes in an upstream 
