@@ -143,18 +143,31 @@ MBB <- function (x, window_size) {
 generate.stl_decomposition <- function(x, new_data, specials = NULL, bootstrap = FALSE, ...){
   if(bootstrap) abort("Bootstrap argument is not yet supported, block bootstrap will be used by default.")
 
-  period <- max(vapply(x$seasons, `[[`, double(1L), "period"))
-  block_size <- ifelse(period > 1, 2 * period, min(8, floor(length(x)/2)))
+  dcmp <- x$decomposition
 
-  new_data <- dplyr::left_join(
-    new_data[c(key_vars(new_data), index_var(new_data))],
-    x$decomposition,
-    by = index_var(new_data)
-  )
+  # Match new_data index with dcmp index
+  pos <- vec_match(new_data[[index_var(new_data)]], dcmp[[index_var(dcmp)]])
 
-  group_by_key(new_data) %>%
-    mutate(remainder = MBB(remainder, block_size)) %>%
-    transmute(.sim = !!x$aliases[[x$response]])
+  if(!(".innov" %in% names(new_data))){
+    # Block bootstrap for each replicate
+    kr <- tsibble::key_rows(new_data)
+
+    # Get default bootstrap params
+    period <- max(vapply(x$seasons, `[[`, double(1L), "period"))
+    block_size <- ifelse(period > 1, 2 * period, min(8, floor(length(x)/2)))
+
+    # Block bootstrap
+    innov <- lapply(seq_along(kr), function(...) MBB(dcmp[["remainder"]], block_size))
+    innov <- mapply(function(i, e) e[pos[i]], kr, innov, SIMPLIFY = FALSE)
+    new_data$.innov <- vec_c(!!!innov)
+  }
+
+  dcmp <- as_tibble(dcmp)[pos,]
+  dcmp$remainder <- new_data$.innov
+
+  new_data[[".sim"]] <- eval_tidy(x$aliases[[x$response]], dcmp)
+  new_data[[".innov"]] <- NULL
+  new_data
 }
 
 #' @importFrom fabletools model_sum
