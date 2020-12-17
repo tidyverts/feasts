@@ -121,6 +121,16 @@ components.stl_decomposition <- function(object, ...){
            aliases = object[["aliases"]])
 }
 
+#' @export
+fitted.stl_decomposition <- function(object, ...) {
+  object[["decomposition"]][[object[["response"]]]] - residuals(object)
+}
+
+#' @export
+residuals.stl_decomposition <- function(object, ...) {
+  object[["decomposition"]][["remainder"]]
+}
+
 MBB <- function (x, window_size) {
   bx <- array(0, (floor(length(x)/window_size) + 2) * window_size)
   for (i in 1:(floor(length(x)/window_size) + 2)) {
