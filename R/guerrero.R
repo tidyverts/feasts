@@ -39,7 +39,7 @@ lambda_coef_var <- function(lambda, x, .period = 2) {
 #' Guerrero, V.M. (1993) Time-series analysis supported by power transformations. Journal of Forecasting, 12, 37–48.
 #'
 #' @export
-guerrero <- function(x, lower = -1, upper = 2, .period = 2L) {
+guerrero <- function(x, lower = -0.9, upper = 2, .period = 2L) {
   c(lambda_guerrero = optimise(
     lambda_coef_var, c(lower, upper), x = x,
     .period = max(.period, 2)

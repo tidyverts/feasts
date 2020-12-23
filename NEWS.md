@@ -5,6 +5,14 @@
 * Added `generate()` method for `STL()` decompositions. The method uses a block 
 bootstrap method to sample from the residuals.
 
+## Improvements
+
+* Changed `guerrero()` default lower bound for Box-Cox lambda selection to from
+  -1 to -0.9. A transformation parameter of -1 typically results from data which
+  should not be transformed with a Box-Cox transformation, and can result in
+  very inaccurate forecasts if such a strong and inappropriate transformation is
+  used.
+  
 # feasts 0.1.6
 
 A minor release to fix check issues introduced by changes in an upstream 
