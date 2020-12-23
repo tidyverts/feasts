@@ -203,5 +203,6 @@ time_offset_origin <- function(x, period, origin = time_origin(x)){
 }
 
 within_bounds <- function(x, lim) {
+  lim <- vec_cast(lim, x)
   x[x>=lim[1] & x<=lim[2]]
 }
