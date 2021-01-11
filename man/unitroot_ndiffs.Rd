@@ -42,3 +42,10 @@ A numeric corresponding to the minimum required differences for stationarity.
 Use a unit root function to determine the minimum number of differences
 necessary to obtain a stationary time series.
 }
+\details{
+Note that the default 'unit root function' for \code{unitroot_nsdiffs()} is based
+on the seasonal strength of an STL decomposition. This is not a test for the
+presence of a seasonal unit root, but generally works reasonably well in
+identifying the presence of seasonality and the need for a seasonal
+difference.
+}

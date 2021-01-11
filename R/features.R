@@ -163,6 +163,12 @@ unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "
 #' Use a unit root function to determine the minimum number of differences
 #' necessary to obtain a stationary time series.
 #'
+#' Note that the default 'unit root function' for `unitroot_nsdiffs()` is based
+#' on the seasonal strength of an STL decomposition. This is not a test for the
+#' presence of a seasonal unit root, but generally works reasonably well in
+#' identifying the presence of seasonality and the need for a seasonal
+#' difference.
+#'
 #' @inheritParams unitroot_kpss
 #' @param alpha The level of the test.
 #' @param unitroot_fn A function (or lambda) that provides a p-value for a unit root test.
