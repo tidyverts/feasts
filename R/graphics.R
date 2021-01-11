@@ -153,11 +153,16 @@ within_time_identifier <- function(x){
 
 guess_plot_var <- function(x, y){
   if(quo_is_null(enquo(y))){
+    mv <- measured_vars(x)
+    pos <- which(vapply(x[mv], is.numeric, logical(1L)))
+    if(is_empty(pos)) {
+      abort("Could not automatically identify an appropriate plot variable, please specify the variable to plot.")
+    }
     inform(sprintf(
       "Plot variable not specified, automatically selected `y = %s`",
-      measured_vars(x)[1]
+      measured_vars(x)[pos[1]]
     ))
-    sym(measured_vars(x)[1])
+    sym(measured_vars(x)[pos[1]])
   }
   else{
     get_expr(enexpr(y))
