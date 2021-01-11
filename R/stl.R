@@ -141,7 +141,11 @@ MBB <- function (x, window_size) {
   bx[start_from:(start_from + length(x) - 1)]
 }
 
-#' @export
+#' Generate block bootstrapped series from an STL decomposition
+#'
+#' Produces new data with the same structure by resampling the residuals using
+#' a block bootstrap procedure. This method can only generate within sample, and
+#' any generated data out of the trained sample will produce NA simulations.
 #'
 #' @examples
 #' as_tsibble(USAccDeaths) %>%
@@ -150,6 +154,10 @@ MBB <- function (x, window_size) {
 #'
 #' @references
 #' Bergmeir, C., R. J. Hyndman, and J. M. Benitez (2016). Bagging Exponential Smoothing Methods using STL Decomposition and Box-Cox Transformation. International Journal of Forecasting 32, 303-312.
+#'
+#' @importFrom fabletools generate
+#'
+#' @export
 generate.stl_decomposition <- function(x, new_data, specials = NULL, bootstrap = FALSE, ...){
   if(bootstrap) abort("Bootstrap argument is not yet supported, block bootstrap will be used by default.")
 

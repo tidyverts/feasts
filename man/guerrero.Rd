@@ -4,7 +4,7 @@
 \alias{guerrero}
 \title{Guerrero's method for Box Cox lambda selection}
 \usage{
-guerrero(x, lower = -1, upper = 2, .period = 2L)
+guerrero(x, lower = -0.9, upper = 2, .period = 2L)
 }
 \arguments{
 \item{x}{A numeric vector. The data used to identify the transformation
