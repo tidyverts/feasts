@@ -11,7 +11,7 @@ test_that("guerrero()", {
 
   ft <- features(lung_deaths_long, value, guerrero)
   expect_equal(dim(ft), c(2,2))
-  expect_equal(ft$lambda_guerrero, c(-1, 0.321), tolerance = 0.001)
+  expect_equal(ft$lambda_guerrero, c(-0.9, 0.321), tolerance = 0.001)
 })
 
 test_that("unit root features", {
