@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ensemble of time series displays — gg_tsdisplay • feasts</title>
+<title>Generate block bootstrapped series from an STL decomposition — generate.stl_decomposition • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,10 @@
 
 
 
-<meta property="og:title" content="Ensemble of time series displays — gg_tsdisplay" />
-<meta property="og:description" content="Plots a time series along with its ACF along with an customisable third
-graphic of either a PACF, histogram, lagged scatterplot or spectral density." />
+<meta property="og:title" content="Generate block bootstrapped series from an STL decomposition — generate.stl_decomposition" />
+<meta property="og:description" content="Produces new data with the same structure by resampling the residuals using
+a block bootstrap procedure. This method can only generate within sample, and
+any generated data out of the trained sample will produce NA simulations." />
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -140,86 +141,52 @@ graphic of either a PACF, histogram, lagged scatterplot or spectral density." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Ensemble of time series displays</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/graphics.R'><code>R/graphics.R</code></a></small>
-    <div class="hidden name"><code>gg_tsdisplay.Rd</code></div>
+    <h1>Generate block bootstrapped series from an STL decomposition</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/stl.R'><code>R/stl.R</code></a></small>
+    <div class="hidden name"><code>generate.stl_decomposition.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plots a time series along with its ACF along with an customisable third
-graphic of either a PACF, histogram, lagged scatterplot or spectral density.</p>
+    <p>Produces new data with the same structure by resampling the residuals using
+a block bootstrap procedure. This method can only generate within sample, and
+any generated data out of the trained sample will produce NA simulations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gg_tsdisplay</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"auto"</span>, <span class='st'>"partial"</span>, <span class='st'>"season"</span>, <span class='st'>"histogram"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spectrum"</span>),
-  <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='co'># S3 method for stl_decomposition</span>
+<span class='fu'>generate</span>(<span class='no'>x</span>, <span class='no'>new_data</span>, <span class='kw'>specials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>A tidy time series object (tsibble)</p></td>
-    </tr>
-    <tr>
-      <th>y</th>
-      <td><p>The variable to plot (a bare expression). If NULL, it will
-automatically selected from the data.</p></td>
-    </tr>
-    <tr>
-      <th>plot_type</th>
-      <td><p>type of plot to include in lower right corner. By default
-(<code>"auto"</code>) a season plot will be shown for seasonal data, a spectrum plot
-will be shown for non-seasonal data without missing values, and a PACF will
-be shown otherwise.</p></td>
-    </tr>
-    <tr>
-      <th>lag_max</th>
-      <td><p>maximum lag at which to calculate the acf. Default is 10*log10(N/m)
-where N is the number of observations and m the number of series. Will be
-automatically limited to one less than the number of observations in the series.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A list of ggplot objects showing useful plots of a time series.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Hyndman and Athanasopoulos (2019) <em>Forecasting: principles
-and practice</em>, 3rd edition, OTexts: Melbourne, Australia.
-<a href='https://OTexts.com/fpp3/'>https://OTexts.com/fpp3/</a></p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/plot.ts.html'>plot.ts</a></code>, <code><a href='ACF.html'>ACF</a></code>,
-<code><a href='https://rdrr.io/r/stats/spec.ar.html'>spec.ar</a></code></p></div>
+    <p>Bergmeir, C., R. J. Hyndman, and J. M. Benitez (2016). Bagging Exponential Smoothing Methods using STL Decomposition and Box-Cox Transformation. International Journal of Forecasting 32, 303-312.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tsibble</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://tsibbledata.tidyverts.org/reference/aus_retail.html'>aus_retail</a></span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(
-    <span class='no'>State</span> <span class='kw'>==</span> <span class='st'>"Victoria"</span>,
-    <span class='no'>Industry</span> <span class='kw'>==</span> <span class='st'>"Cafes, restaurants and catering services"</span>
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'>gg_tsdisplay</span>(<span class='no'>Turnover</span>)</div><div class='img'><img src='gg_tsdisplay-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>model</span>(<span class='fu'><a href='STL.html'>STL</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>value</span>))) <span class='kw'>%&gt;%</span>
+  <span class='fu'>generate</span>(<span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>), <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 216 x 5 [1M]</span><span>
+#&gt; </span><span style='color: #555555;'># Key:       .model, .rep [3]</span><span>
+#&gt;    .model          .rep     index value   .sim
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> STL(log(value)) 1     1973 Jan  </span><span style='text-decoration: underline;'>9</span><span>007  </span><span style='text-decoration: underline;'>9</span><span>269.
+#&gt; </span><span style='color: #555555;'> 2</span><span> STL(log(value)) 1     1973 Feb  </span><span style='text-decoration: underline;'>8</span><span>106  </span><span style='text-decoration: underline;'>8</span><span>583.
+#&gt; </span><span style='color: #555555;'> 3</span><span> STL(log(value)) 1     1973 Mar  </span><span style='text-decoration: underline;'>8</span><span>928  </span><span style='text-decoration: underline;'>9</span><span>402.
+#&gt; </span><span style='color: #555555;'> 4</span><span> STL(log(value)) 1     1973 Apr  </span><span style='text-decoration: underline;'>9</span><span>137  </span><span style='text-decoration: underline;'>9</span><span>441.
+#&gt; </span><span style='color: #555555;'> 5</span><span> STL(log(value)) 1     1973 May </span><span style='text-decoration: underline;'>10</span><span>017  </span><span style='text-decoration: underline;'>9</span><span>932.
+#&gt; </span><span style='color: #555555;'> 6</span><span> STL(log(value)) 1     1973 Jun </span><span style='text-decoration: underline;'>10</span><span>826 </span><span style='text-decoration: underline;'>10</span><span>003.
+#&gt; </span><span style='color: #555555;'> 7</span><span> STL(log(value)) 1     1973 Jul </span><span style='text-decoration: underline;'>11</span><span>317 </span><span style='text-decoration: underline;'>10</span><span>742.
+#&gt; </span><span style='color: #555555;'> 8</span><span> STL(log(value)) 1     1973 Aug </span><span style='text-decoration: underline;'>10</span><span>744 </span><span style='text-decoration: underline;'>10</span><span>436.
+#&gt; </span><span style='color: #555555;'> 9</span><span> STL(log(value)) 1     1973 Sep  </span><span style='text-decoration: underline;'>9</span><span>713  </span><span style='text-decoration: underline;'>9</span><span>462.
+#&gt; </span><span style='color: #555555;'>10</span><span> STL(log(value)) 1     1973 Oct  </span><span style='text-decoration: underline;'>9</span><span>938  </span><span style='text-decoration: underline;'>9</span><span>137.
+#&gt; </span><span style='color: #555555;'># … with 206 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
       <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>Rob J Hyndman &amp; Mitchell O'Hara-Wild</p>
   </div>
 </div>
 
