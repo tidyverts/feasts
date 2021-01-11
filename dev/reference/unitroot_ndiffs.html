@@ -199,6 +199,13 @@ necessary to obtain a stationary time series.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A numeric corresponding to the minimum required differences for stationarity.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Note that the default 'unit root function' for <code>unitroot_nsdiffs()</code> is based
+on the seasonal strength of an STL decomposition. This is not a test for the
+presence of a seasonal unit root, but generally works reasonably well in
+identifying the presence of seasonality and the need for a seasonal
+difference.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -206,6 +213,7 @@ necessary to obtain a stationary time series.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
     </ul>
 
   </div>
