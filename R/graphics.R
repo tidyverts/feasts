@@ -160,9 +160,9 @@ guess_plot_var <- function(x, y){
     }
     inform(sprintf(
       "Plot variable not specified, automatically selected `y = %s`",
-      measured_vars(x)[pos[1]]
+      mv[pos[1]]
     ))
-    sym(measured_vars(x)[pos[1]])
+    sym(mv[pos[1]])
   }
   else{
     get_expr(enexpr(y))
