@@ -9,7 +9,7 @@ status](https://github.com/tidyverts/feasts/workflows/R-CMD-check/badge.svg)](ht
 status](https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverts/feasts?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/feasts)](https://cran.r-project.org/package=feasts)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 ## Overview
 
@@ -46,6 +46,7 @@ remotes::install_github("tidyverts/feasts")
 
 ``` r
 library(feasts)
+library(tsibble)
 library(tsibbledata)
 library(dplyr)
 library(ggplot2)
@@ -89,8 +90,8 @@ A common task in time series analysis is decomposing a time series into
 some simpler components. The feasts package supports two common time
 series decomposition methods:
 
-  - Classical decomposition
-  - STL decomposition
+-   Classical decomposition
+-   STL decomposition
 
 <!--
 * X11 decomposition

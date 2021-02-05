@@ -18,7 +18,7 @@ options(width = 100)
 [![R build status](https://github.com/tidyverts/feasts/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/feasts/actions?workflow=R-CMD-check)
 [![Coverage status](https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverts/feasts?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/feasts)](https://cran.r-project.org/package=feasts)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
 ## Overview
 
@@ -46,6 +46,7 @@ remotes::install_github("tidyverts/feasts")
 
 ```{r pkgs, message = FALSE, warning = FALSE}
 library(feasts)
+library(tsibble)
 library(tsibbledata)
 library(dplyr)
 library(ggplot2)
