@@ -4,7 +4,16 @@
 \alias{generate.stl_decomposition}
 \title{Generate block bootstrapped series from an STL decomposition}
 \usage{
-\method{generate}{stl_decomposition}(x, new_data, specials = NULL, bootstrap = FALSE, ...)
+\method{generate}{stl_decomposition}(x, new_data, specials = NULL, ...)
+}
+\arguments{
+\item{x}{A fitted model.}
+
+\item{new_data}{A \code{tsibble} containing future information used to forecast.}
+
+\item{specials}{(passed by \code{\link[fabletools:forecast]{fabletools::forecast.mdl_df()}}).}
+
+\item{...}{Additional arguments for forecast model methods.}
 }
 \description{
 Produces new data with the same structure by resampling the residuals using

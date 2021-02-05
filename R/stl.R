@@ -126,6 +126,7 @@ fitted.stl_decomposition <- function(object, ...) {
   object[["decomposition"]][[object[["response"]]]] - residuals(object)
 }
 
+#' @importFrom stats residuals
 #' @export
 residuals.stl_decomposition <- function(object, ...) {
   object[["decomposition"]][["remainder"]]
@@ -147,6 +148,8 @@ MBB <- function (x, window_size) {
 #' a block bootstrap procedure. This method can only generate within sample, and
 #' any generated data out of the trained sample will produce NA simulations.
 #'
+#' @inheritParams fable::generate.ARIMA
+#'
 #' @examples
 #' as_tsibble(USAccDeaths) %>%
 #'   model(STL(log(value))) %>%
@@ -158,9 +161,7 @@ MBB <- function (x, window_size) {
 #' @importFrom fabletools generate
 #'
 #' @export
-generate.stl_decomposition <- function(x, new_data, specials = NULL, bootstrap = FALSE, ...){
-  if(bootstrap) abort("Bootstrap argument is not yet supported, block bootstrap will be used by default.")
-
+generate.stl_decomposition <- function(x, new_data, specials = NULL, ...){
   dcmp <- x$decomposition
 
   # Match new_data index with dcmp index
