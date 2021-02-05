@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>feasts: Feature Extraction and Statistics for Time Series — feasts-package • feasts</title>
+<title>Generate block bootstrapped series from an STL decomposition — generate.stl_decomposition • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,12 +42,10 @@
 
 
 
-<meta property="og:title" content="feasts: Feature Extraction and Statistics for Time Series — feasts-package" />
-<meta property="og:description" content="
-Provides a collection of features, decomposition methods, 
-    statistical summaries and graphics functions for the analysing tidy time
-    series data. The package name 'feasts' is an acronym comprising of its key
-    features: Feature Extraction And Statistics for Time Series." />
+<meta property="og:title" content="Generate block bootstrapped series from an STL decomposition — generate.stl_decomposition" />
+<meta property="og:description" content="Produces new data with the same structure by resampling the residuals using
+a block bootstrap procedure. This method can only generate within sample, and
+any generated data out of the trained sample will produce NA simulations." />
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -143,51 +141,72 @@ Provides a collection of features, decomposition methods,
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>feasts: Feature Extraction and Statistics for Time Series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/feasts.R'><code>R/feasts.R</code></a></small>
-    <div class="hidden name"><code>feasts-package.Rd</code></div>
+    <h1>Generate block bootstrapped series from an STL decomposition</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/stl.R'><code>R/stl.R</code></a></small>
+    <div class="hidden name"><code>generate.stl_decomposition.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/logo.png' align='right' alt='logo' width='120' /></p>
-<p>Provides a collection of features, decomposition methods, 
-    statistical summaries and graphics functions for the analysing tidy time
-    series data. The package name 'feasts' is an acronym comprising of its key
-    features: Feature Extraction And Statistics for Time Series.</p>
+    <p>Produces new data with the same structure by resampling the residuals using
+a block bootstrap procedure. This method can only generate within sample, and
+any generated data out of the trained sample will produce NA simulations.</p>
     </div>
 
+    <pre class="usage"><span class='co'># S3 method for stl_decomposition</span>
+<span class='fu'>generate</span>(<span class='no'>x</span>, <span class='no'>new_data</span>, <span class='kw'>specials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A fitted model.</p></td>
+    </tr>
+    <tr>
+      <th>new_data</th>
+      <td><p>A <code>tsibble</code> containing future information used to forecast.</p></td>
+    </tr>
+    <tr>
+      <th>specials</th>
+      <td><p>(passed by <code><a href='https://fabletools.tidyverts.org/reference/forecast.html'>fabletools::forecast.mdl_df()</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments for forecast model methods.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='http://feasts.tidyverts.org/'>http://feasts.tidyverts.org/</a></p></li>
-<li><p><a href='https://github.com/tidyverts/feasts/'>https://github.com/tidyverts/feasts/</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/tidyverts/feasts/issues'>https://github.com/tidyverts/feasts/issues</a></p></li>
-</ul>
+    <p>Bergmeir, C., R. J. Hyndman, and J. M. Benitez (2016). Bagging Exponential Smoothing Methods using STL Decomposition and Box-Cox Transformation. International Journal of Forecasting 32, 303-312.</p>
 
-</div>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>model</span>(<span class='fu'><a href='STL.html'>STL</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>value</span>))) <span class='kw'>%&gt;%</span>
+  <span class='fu'>generate</span>(<span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>), <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; # A tsibble: 216 x 5 [1M]
+#&gt; # Key:       .model, .rep [3]
+#&gt;    .model          .rep     index value   .sim
+#&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;mth&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 STL(log(value)) 1     1973 Jan  9007  9269.
+#&gt;  2 STL(log(value)) 1     1973 Feb  8106  8583.
+#&gt;  3 STL(log(value)) 1     1973 Mar  8928  9402.
+#&gt;  4 STL(log(value)) 1     1973 Apr  9137  9441.
+#&gt;  5 STL(log(value)) 1     1973 May 10017  9932.
+#&gt;  6 STL(log(value)) 1     1973 Jun 10826 10003.
+#&gt;  7 STL(log(value)) 1     1973 Jul 11317 10742.
+#&gt;  8 STL(log(value)) 1     1973 Aug 10744 10436.
+#&gt;  9 STL(log(value)) 1     1973 Sep  9713  9462.
+#&gt; 10 STL(log(value)) 1     1973 Oct  9938  9137.
+#&gt; # … with 206 more rows</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#references">References</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
-
-    <h2>Author</h2>
-    <p><strong>Maintainer</strong>: Mitchell O'Hara-Wild <a href='mailto:mail@mitchelloharawild.com'>mail@mitchelloharawild.com</a></p>
-<p>Authors:</p><ul>
-<li><p>Rob Hyndman</p></li>
-<li><p>Earo Wang</p></li>
-</ul>
-
-<p>Other contributors:</p><ul>
-<li><p>Di Cook [contributor]</p></li>
-<li><p>Thiyanga Talagala (Correlation features) [contributor]</p></li>
-<li><p>Leanne Chhay (Guerrero's method) [contributor]</p></li>
-</ul>
-
 
   </div>
 </div>

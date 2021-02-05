@@ -93,7 +93,7 @@ Unlike stl, mstl is completely automated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.7</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@ Unlike stl, mstl is completely automated." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverts/feasts">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -238,23 +238,23 @@ lowpass(window, degree, jump)
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>model</span>(<span class='fu'>STL</span>(<span class='no'>value</span> ~ <span class='fu'>trend</span>(<span class='kw'>window</span> <span class='kw'>=</span> <span class='fl'>10</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'>components</span>()</div><div class='output co'>#&gt; <span style='color: #555555;'># A dable:           72 x 7 [1M]</span><span>
-#&gt; </span><span style='color: #555555;'># Key:               .model [1]</span><span>
-#&gt; </span><span style='color: #555555;'># STL Decomposition: value = trend + season_year + remainder</span><span>
+  <span class='fu'>components</span>()</div><div class='output co'>#&gt; # A dable:           72 x 7 [1M]
+#&gt; # Key:               .model [1]
+#&gt; # STL Decomposition: value = trend + season_year + remainder
 #&gt;    .model                  index value trend season_year remainder season_adjust
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> STL(value ~ trend(w… 1973 Jan  </span><span style='text-decoration: underline;'>9</span><span>007 </span><span style='text-decoration: underline;'>9</span><span>678.       -</span><span style='color: #BB0000;'>788.</span><span>     118.          </span><span style='text-decoration: underline;'>9</span><span>795.
-#&gt; </span><span style='color: #555555;'> 2</span><span> STL(value ~ trend(w… 1973 Feb  </span><span style='text-decoration: underline;'>8</span><span>106 </span><span style='text-decoration: underline;'>9</span><span>692.      -</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span style='color: #BB0000;'>513.</span><span>     -</span><span style='color: #BB0000;'>73.2</span><span>         </span><span style='text-decoration: underline;'>9</span><span>619.
-#&gt; </span><span style='color: #555555;'> 3</span><span> STL(value ~ trend(w… 1973 Mar  </span><span style='text-decoration: underline;'>8</span><span>928 </span><span style='text-decoration: underline;'>9</span><span>708.       -</span><span style='color: #BB0000;'>716.</span><span>     -</span><span style='color: #BB0000;'>63.4</span><span>         </span><span style='text-decoration: underline;'>9</span><span>644.
-#&gt; </span><span style='color: #555555;'> 4</span><span> STL(value ~ trend(w… 1973 Apr  </span><span style='text-decoration: underline;'>9</span><span>137 </span><span style='text-decoration: underline;'>9</span><span>721.       -</span><span style='color: #BB0000;'>521.</span><span>     -</span><span style='color: #BB0000;'>63.6</span><span>         </span><span style='text-decoration: underline;'>9</span><span>658.
-#&gt; </span><span style='color: #555555;'> 5</span><span> STL(value ~ trend(w… 1973 May </span><span style='text-decoration: underline;'>10</span><span>017 </span><span style='text-decoration: underline;'>9</span><span>734.        328.     -</span><span style='color: #BB0000;'>44.6</span><span>         </span><span style='text-decoration: underline;'>9</span><span>689.
-#&gt; </span><span style='color: #555555;'> 6</span><span> STL(value ~ trend(w… 1973 Jun </span><span style='text-decoration: underline;'>10</span><span>826 </span><span style='text-decoration: underline;'>9</span><span>754.        831.     241.          </span><span style='text-decoration: underline;'>9</span><span>995.
-#&gt; </span><span style='color: #555555;'> 7</span><span> STL(value ~ trend(w… 1973 Jul </span><span style='text-decoration: underline;'>11</span><span>317 </span><span style='text-decoration: underline;'>9</span><span>764.       </span><span style='text-decoration: underline;'>1</span><span>633.     -</span><span style='color: #BB0000;'>80.6</span><span>         </span><span style='text-decoration: underline;'>9</span><span>684.
-#&gt; </span><span style='color: #555555;'> 8</span><span> STL(value ~ trend(w… 1973 Aug </span><span style='text-decoration: underline;'>10</span><span>744 </span><span style='text-decoration: underline;'>9</span><span>734.        974.      35.1         </span><span style='text-decoration: underline;'>9</span><span>770.
-#&gt; </span><span style='color: #555555;'> 9</span><span> STL(value ~ trend(w… 1973 Sep  </span><span style='text-decoration: underline;'>9</span><span>713 </span><span style='text-decoration: underline;'>9</span><span>637.       -</span><span style='color: #BB0000;'>100.</span><span>     176.          </span><span style='text-decoration: underline;'>9</span><span>813.
-#&gt; </span><span style='color: #555555;'>10</span><span> STL(value ~ trend(w… 1973 Oct  </span><span style='text-decoration: underline;'>9</span><span>938 </span><span style='text-decoration: underline;'>9</span><span>472.        227.     240.          </span><span style='text-decoration: underline;'>9</span><span>711.
-#&gt; </span><span style='color: #555555;'># … with 62 more rows</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    &lt;chr&gt;                   &lt;mth&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+#&gt;  1 STL(value ~ trend(w… 1973 Jan  9007 9678.       -788.     118.          9795.
+#&gt;  2 STL(value ~ trend(w… 1973 Feb  8106 9692.      -1513.     -73.2         9619.
+#&gt;  3 STL(value ~ trend(w… 1973 Mar  8928 9708.       -716.     -63.4         9644.
+#&gt;  4 STL(value ~ trend(w… 1973 Apr  9137 9721.       -521.     -63.6         9658.
+#&gt;  5 STL(value ~ trend(w… 1973 May 10017 9734.        328.     -44.6         9689.
+#&gt;  6 STL(value ~ trend(w… 1973 Jun 10826 9754.        831.     241.          9995.
+#&gt;  7 STL(value ~ trend(w… 1973 Jul 11317 9764.       1633.     -80.6         9684.
+#&gt;  8 STL(value ~ trend(w… 1973 Aug 10744 9734.        974.      35.1         9770.
+#&gt;  9 STL(value ~ trend(w… 1973 Sep  9713 9637.       -100.     176.          9813.
+#&gt; 10 STL(value ~ trend(w… 1973 Oct  9938 9472.        227.     240.          9711.
+#&gt; # … with 62 more rows</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
