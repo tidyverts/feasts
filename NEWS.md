@@ -1,9 +1,10 @@
-# feasts (development version)
+# feasts 0.1.7
 
 ## New features
 
 * Added `generate()` method for `STL()` decompositions. The method uses a block 
 bootstrap method to sample from the residuals.
+* Added `fitted()` and `residuals()` methods for `STL()` decompositions.
 
 ## Improvements
 
@@ -12,6 +13,8 @@ bootstrap method to sample from the residuals.
   should not be transformed with a Box-Cox transformation, and can result in
   very inaccurate forecasts if such a strong and inappropriate transformation is
   used.
+* Improved time series plotting functions axis labelling.  
+* Documentation improvements.
   
 # feasts 0.1.6
 
