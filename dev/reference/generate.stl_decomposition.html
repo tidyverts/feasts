@@ -153,8 +153,28 @@ any generated data out of the trained sample will produce NA simulations.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for stl_decomposition</span>
-<span class='fu'>generate</span>(<span class='no'>x</span>, <span class='no'>new_data</span>, <span class='kw'>specials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bootstrap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>generate</span>(<span class='no'>x</span>, <span class='no'>new_data</span>, <span class='kw'>specials</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A fitted model.</p></td>
+    </tr>
+    <tr>
+      <th>new_data</th>
+      <td><p>A <code>tsibble</code> containing future information used to forecast.</p></td>
+    </tr>
+    <tr>
+      <th>specials</th>
+      <td><p>(passed by <code><a href='https://fabletools.tidyverts.org/reference/forecast.html'>fabletools::forecast.mdl_df()</a></code>).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments for forecast model methods.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -163,26 +183,27 @@ any generated data out of the trained sample will produce NA simulations.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>model</span>(<span class='fu'><a href='STL.html'>STL</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>value</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'>generate</span>(<span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>), <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tsibble: 216 x 5 [1M]</span><span>
-#&gt; </span><span style='color: #555555;'># Key:       .model, .rep [3]</span><span>
+  <span class='fu'>generate</span>(<span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>), <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; # A tsibble: 216 x 5 [1M]
+#&gt; # Key:       .model, .rep [3]
 #&gt;    .model          .rep     index value   .sim
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;mth&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> STL(log(value)) 1     1973 Jan  </span><span style='text-decoration: underline;'>9</span><span>007  </span><span style='text-decoration: underline;'>9</span><span>269.
-#&gt; </span><span style='color: #555555;'> 2</span><span> STL(log(value)) 1     1973 Feb  </span><span style='text-decoration: underline;'>8</span><span>106  </span><span style='text-decoration: underline;'>8</span><span>583.
-#&gt; </span><span style='color: #555555;'> 3</span><span> STL(log(value)) 1     1973 Mar  </span><span style='text-decoration: underline;'>8</span><span>928  </span><span style='text-decoration: underline;'>9</span><span>402.
-#&gt; </span><span style='color: #555555;'> 4</span><span> STL(log(value)) 1     1973 Apr  </span><span style='text-decoration: underline;'>9</span><span>137  </span><span style='text-decoration: underline;'>9</span><span>441.
-#&gt; </span><span style='color: #555555;'> 5</span><span> STL(log(value)) 1     1973 May </span><span style='text-decoration: underline;'>10</span><span>017  </span><span style='text-decoration: underline;'>9</span><span>932.
-#&gt; </span><span style='color: #555555;'> 6</span><span> STL(log(value)) 1     1973 Jun </span><span style='text-decoration: underline;'>10</span><span>826 </span><span style='text-decoration: underline;'>10</span><span>003.
-#&gt; </span><span style='color: #555555;'> 7</span><span> STL(log(value)) 1     1973 Jul </span><span style='text-decoration: underline;'>11</span><span>317 </span><span style='text-decoration: underline;'>10</span><span>742.
-#&gt; </span><span style='color: #555555;'> 8</span><span> STL(log(value)) 1     1973 Aug </span><span style='text-decoration: underline;'>10</span><span>744 </span><span style='text-decoration: underline;'>10</span><span>436.
-#&gt; </span><span style='color: #555555;'> 9</span><span> STL(log(value)) 1     1973 Sep  </span><span style='text-decoration: underline;'>9</span><span>713  </span><span style='text-decoration: underline;'>9</span><span>462.
-#&gt; </span><span style='color: #555555;'>10</span><span> STL(log(value)) 1     1973 Oct  </span><span style='text-decoration: underline;'>9</span><span>938  </span><span style='text-decoration: underline;'>9</span><span>137.
-#&gt; </span><span style='color: #555555;'># … with 206 more rows</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;mth&gt; &lt;dbl&gt;  &lt;dbl&gt;
+#&gt;  1 STL(log(value)) 1     1973 Jan  9007  9269.
+#&gt;  2 STL(log(value)) 1     1973 Feb  8106  8583.
+#&gt;  3 STL(log(value)) 1     1973 Mar  8928  9402.
+#&gt;  4 STL(log(value)) 1     1973 Apr  9137  9441.
+#&gt;  5 STL(log(value)) 1     1973 May 10017  9932.
+#&gt;  6 STL(log(value)) 1     1973 Jun 10826 10003.
+#&gt;  7 STL(log(value)) 1     1973 Jul 11317 10742.
+#&gt;  8 STL(log(value)) 1     1973 Aug 10744 10436.
+#&gt;  9 STL(log(value)) 1     1973 Sep  9713  9462.
+#&gt; 10 STL(log(value)) 1     1973 Oct  9938  9137.
+#&gt; # … with 206 more rows</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
