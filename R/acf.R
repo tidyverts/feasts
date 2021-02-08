@@ -57,7 +57,8 @@
 #' @rdname ACF
 #' @export
 ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
-                type = c("correlation", "covariance", "partial")){
+                type = c("correlation", "covariance", "partial"),
+                na.action = na.contiguous){
   type <- match.arg(type)
   compute_acf <- function(.data, value, ...){
     value <- enexpr(value)
@@ -84,7 +85,7 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
                  expr_text(value[[1]])))
   }
   build_cf(.data, compute_acf, value=!!value[[1]], lag.max = lag_max,
-           demean = demean, type = type)
+           demean = demean, type = type, na.action = na.action)
 }
 
 #' @rdname ACF
@@ -94,7 +95,8 @@ ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
 #' vic_elec %>% PACF(Temperature) %>% autoplot()
 #'
 #' @export
-PACF <- function(.data, ..., lag_max = NULL){
+PACF <- function(.data, ..., lag_max = NULL,
+                 na.action = na.contiguous){
   compute_pacf <- function(.data, value, ...){
     value <- enexpr(value)
     x <- eval_tidy(value, data = .data)
@@ -116,7 +118,8 @@ PACF <- function(.data, ..., lag_max = NULL){
     warn(sprintf("PACF currently only supports one column, `%s` will be used.",
                  expr_text(value[[1]])))
   }
-  build_cf(.data, compute_pacf, value=!!value[[1]], lag.max = lag_max)
+  build_cf(.data, compute_pacf, value=!!value[[1]], lag.max = lag_max,
+           na.action = na.action)
 }
 
 #' @rdname ACF
@@ -131,7 +134,9 @@ PACF <- function(.data, ..., lag_max = NULL){
 #'   autoplot()
 #'
 #' @export
-CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance")){
+CCF <- function(.data, ..., lag_max = NULL,
+                type = c("correlation", "covariance"),
+                na.action = na.contiguous){
   compute_ccf <- function(.data, value1, value2, ...){
     value1 <- enexpr(value1)
     value2 <- enexpr(value2)
@@ -160,11 +165,11 @@ CCF <- function(.data, ..., lag_max = NULL, type = c("correlation", "covariance"
     abort("CCF requires two columns to be specified.")
   }
   build_cf(.data, compute_ccf, value1=!!value[[1]], value2=!!value[[2]],
-           lag.max = lag_max, type = type)
+           lag.max = lag_max, type = type, na.action = na.action)
 }
 
 #' @importFrom stats na.contiguous
-build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
+build_cf <- function(.data, cf_fn, ...){
   check_gaps(.data)
   if(is_regular(.data)){
     interval <- interval(.data)
@@ -183,7 +188,7 @@ build_cf <- function(.data, cf_fn, na.action = na.contiguous, ...){
     )
 
   .data <- nest_keys(.data)
-  .data[["data"]] <- map(.data[["data"]], cf_fn, na.action = na.action, ...)
+  .data[["data"]] <- map(.data[["data"]], cf_fn, ...)
   .data <- unnest_tbl(.data, "data")
   .data[["lag"]] <- as_lag(interval) * .data[["lag"]]
   new_tsibble(
