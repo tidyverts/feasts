@@ -56,9 +56,9 @@
 #'
 #' @rdname ACF
 #' @export
-ACF <- function(.data, ..., lag_max = NULL, demean = TRUE,
+ACF <- function(.data, ..., lag_max = NULL,
                 type = c("correlation", "covariance", "partial"),
-                na.action = na.contiguous){
+                na.action = na.contiguous, demean = TRUE){
   type <- match.arg(type)
   compute_acf <- function(.data, value, ...){
     value <- enexpr(value)
