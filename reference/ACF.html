@@ -160,9 +160,9 @@ from a tsibble.</p>
   <span class='no'>.data</span>,
   <span class='no'>...</span>,
   <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>demean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"correlation"</span>, <span class='st'>"covariance"</span>, <span class='st'>"partial"</span>),
-  <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='no'>na.contiguous</span>
+  <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='no'>na.contiguous</span>,
+  <span class='kw'>demean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )
 
 <span class='fu'>PACF</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='no'>na.contiguous</span>)
@@ -193,11 +193,6 @@ where N is the number of observations and m the number of series. Will be
 automatically limited to one less than the number of observations in the series.</p></td>
     </tr>
     <tr>
-      <th>demean</th>
-      <td><p>logical.  Should the covariances be about the sample
-    means?</p></td>
-    </tr>
-    <tr>
       <th>type</th>
       <td><p>character string giving the type of acf to be computed.
     Allowed values are
@@ -208,6 +203,11 @@ automatically limited to one less than the number of observations in the series.
       <th>na.action</th>
       <td><p>function to be called to handle missing
     values. <code>na.pass</code> can be used.</p></td>
+    </tr>
+    <tr>
+      <th>demean</th>
+      <td><p>logical.  Should the covariances be about the sample
+    means?</p></td>
     </tr>
     </table>
 
