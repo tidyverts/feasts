@@ -1,29 +1,78 @@
 globalVariables("self")
 
 specials_x13arimaseats <- fabletools::new_specials(
-  season = function(period = NULL){
+  transform = function(`function` = c("none", "log", "sqrt", "inverse", "logistic"),
+                       power = NULL,
+                       ...) {
+    if(!is.null(power)) {
+      vec_assert(power, numeric(1L))
+      rm(`function`)
+    } else {
+      rm(power)
+    }
+    as.list(environment())
+  },
+  x11 = function(period = NULL, mode = NULL, seasonalma = "msr", trendma = NULL,
+                 ...) {
+    mode <- match.arg(mode)
     period <- get_frequencies(period, self$data, .auto = "smallest")
-    if(!(period %in% c(1, 2, 4, 6, 12))){
-      abort("The X-13ARIMA-SEATS method only supports seasonal patterns with seasonal periods of 1, 2, 4, 6 or 12. Defaulting to `period = 1`.")
+    if(!(period %in% c(1, 4, 12))){
+      abort("X-11 seasonal adjustments only support seasonal periods of 12 for monthly series and 4 for quarterly series. Defaulting to `period = 1`.")
     }
     period
+    as.list(environment())
+  },
+  x11regression = function(...) {
+    list(...)
+  },
+  seats = function(period = NULL, ...){
+    period <- get_frequencies(period, self$data, .auto = "smallest")
+    if(!(period %in% c(1, 2, 4, 6, 12))){
+      abort("SEATS seasonal adjustments only support seasonal periods of 12 for monthly series, 6 for bimonthly series, 4 for quarterly series, 2 for biannual series and 1 for annual series. Defaulting to `period = 1`.")
+    }
+    period
+  },
+  force = function(...) {
+    list(...)
+  },
+  automdl = function(maxorder = c(3, 1), maxdiff = c(1, 1), mixed = c("yes", "no"), ...) {
+    mixed <- match.arg(mixed)
+    as.list(environment())
+  },
+  pickmdl = function(...) {
+    list(...)
+  },
+  arima = function(...) {
+    list(...)
+  },
+  regression = function(aictest = c("td", "easter"), ...) {
+    list(...)
+  },
+  estimate = function(tol = 1e-5, maxiter = 500, ...) {
+    as.list(environment())
+  },
+  check = function(...) {
+    list(...)
+  },
+  forecast = function(maxlead = 24, maxback = 12, ...) {
+    as.list(environment())
+  },
+  outlier = function(...) {
+    list(...)
   },
 
   xreg = function(...){
     abort("Exogenous regressors are not yet supported.")
   },
 
-  .required_specials = "season"
+  .required_specials = NULL
 )
 
 train_x13arimaseats <- function(.data, formula, specials, x11, x11.mode, ...){
   require_package("seasonal")
   stopifnot(is_tsibble(.data))
 
-  if(length(specials$season) != 1){
-    abort("X-13ARIMA-SEATS only supports one seasonal period.")
-  }
-  period <- specials$season[[1]]
+  period <- 12#specials$season[[1]]
   y <- as.ts(.data, frequency = period)
 
   fit <- seasonal::seas(y, ...)
