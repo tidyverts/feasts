@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.6.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.7.9000</span>
       </span>
     </div>
 
@@ -146,11 +146,17 @@
 <h1 class="page-header">
 <a href="#feasts-development-version" class="anchor"></a>feasts (development version)<small> Unreleased </small>
 </h1>
+</div>
+    <div id="feasts-017" class="section level1">
+<h1 class="page-header">
+<a href="#feasts-017" class="anchor"></a>feasts 0.1.7<small> 2021-02-05 </small>
+</h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>Added <code>generate()</code> method for <code><a href="../reference/STL.html">STL()</a></code> decompositions. The method uses a block bootstrap method to sample from the residuals.</li>
+<li>Added <code><a href="https://rdrr.io/r/stats/fitted.values.html">fitted()</a></code> and <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> methods for <code><a href="../reference/STL.html">STL()</a></code> decompositions.</li>
 </ul>
 </div>
 <div id="improvements" class="section level2">
@@ -158,6 +164,9 @@
 <a href="#improvements" class="anchor"></a>Improvements</h2>
 <ul>
 <li>Changed <code><a href="../reference/guerrero.html">guerrero()</a></code> default lower bound for Box-Cox lambda selection to from -1 to -0.9. A transformation parameter of -1 typically results from data which should not be transformed with a Box-Cox transformation, and can result in very inaccurate forecasts if such a strong and inappropriate transformation is used.</li>
+<li>Improved time series plotting functions axis labelling.<br>
+</li>
+<li>Documentation improvements.</li>
 </ul>
 </div>
 </div>
@@ -351,6 +360,7 @@
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#feasts-development-version">development version</a></li>
+        <li><a href="#feasts-017">0.1.7</a></li>
         <li><a href="#feasts-016">0.1.6</a></li>
         <li><a href="#feasts-015">0.1.5</a></li>
         <li><a href="#feasts-014">0.1.4</a></li>
