@@ -91,6 +91,9 @@ components.feasts_x13arimaseats <- function(object, ...){
   .data <- as_tsibble(fit$x)
   colnames(.data) <- c(object$index, object$response)
   dcmp <- unclass(fit$data)
+  if(is.null(dcmp)){
+    abort("The X-13ARIMA-SEATS model does not contain a decomposition, are you missing a seasonal component?")
+  }
   op <- switch(fit$udg["finmode"], multiplicative = "*", additive = "+")
 
   dcmp <- .data %>%
