@@ -4,7 +4,12 @@
 \alias{X_13ARIMA_SEATS}
 \title{Seasonal decomposition with X-13ARIMA-SEATS}
 \usage{
-X_13ARIMA_SEATS(formula, ...)
+X_13ARIMA_SEATS(
+  formula,
+  ...,
+  defaults = c("none"),
+  na.action = seasonal::na.x13
+)
 }
 \arguments{
 \item{formula}{Decomposition specification.}

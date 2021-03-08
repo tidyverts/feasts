@@ -60,22 +60,25 @@ specials_x13arimaseats <- fabletools::new_specials(
   outlier = function(...) {
     list(...)
   },
-
   xreg = function(...){
     abort("Exogenous regressors are not yet supported.")
   },
-
   .required_specials = NULL
 )
 
-train_x13arimaseats <- function(.data, formula, specials, x11, x11.mode, ...){
+train_x13arimaseats <- function(.data, formula, specials, defaults, ...){
   require_package("seasonal")
   stopifnot(is_tsibble(.data))
 
   period <- 12#specials$season[[1]]
   y <- as.ts(.data, frequency = period)
 
-  fit <- seasonal::seas(y, ...)
+
+  specials <- lapply(specials, do.call, what = "c")
+  specification <- unlist(specials, recursive = FALSE)
+
+  fit <- do.call(seasonal::seas, c(list(x = y), specification, list(...)))
+  fit$call <- NULL
 
   structure(
     list(fit = fit, response = measured_vars(.data), index = index_var(.data)),
@@ -164,12 +167,15 @@ model_sum.feasts_x13arimaseats <- function(x){
 #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
 #'
 #' @importFrom fabletools new_model_class new_model_definition
-X_13ARIMA_SEATS <- function(formula, ...){
+X_13ARIMA_SEATS <- function(formula, ..., defaults = c("none"),
+                            na.action = seasonal::na.x13){
+  defaults <- match.arg(defaults)
   dcmp <- new_model_class("x13arimaseats",
                           train = train_x13arimaseats,
                           specials = specials_x13arimaseats,
                           check = all_tsbl_checks)
-  new_model_definition(dcmp, !!enquo(formula), ...)
+  new_model_definition(dcmp, !!enquo(formula), defaults = defaults,
+                       na.action = na.action, ...)
 }
 
 #' @export
