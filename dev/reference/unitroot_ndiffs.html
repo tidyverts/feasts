@@ -153,7 +153,7 @@ necessary to obtain a stationary time series.</p>
     <pre class="usage"><span class='fu'>unitroot_ndiffs</span>(
   <span class='no'>x</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>unitroot_fn</span> <span class='kw'>=</span> ~<span class='fu'><a href='unitroot.html'>unitroot_kpss</a></span>(<span class='no'>.</span>)[<span class='st'>"kpss_pvalue"</span>],
+  <span class='kw'>unitroot_fn</span> <span class='kw'>=</span> ~<span class='fu'>unitroot_kpss</span>(<span class='no'>.</span>)[<span class='st'>"kpss_pvalue"</span>],
   <span class='kw'>differences</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>2</span>,
   <span class='no'>...</span>
 )
@@ -161,7 +161,7 @@ necessary to obtain a stationary time series.</p>
 <span class='fu'>unitroot_nsdiffs</span>(
   <span class='no'>x</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>unitroot_fn</span> <span class='kw'>=</span> ~<span class='fu'><a href='feat_stl.html'>feat_stl</a></span>(<span class='no'>.</span>, <span class='no'>.period</span>)[<span class='fl'>2</span>] <span class='kw'>&lt;</span> <span class='fl'>0.64</span>,
+  <span class='kw'>unitroot_fn</span> <span class='kw'>=</span> ~<span class='fu'>feat_stl</span>(<span class='no'>.</span>, <span class='no'>.period</span>)[<span class='fl'>2</span>] <span class='kw'>&lt;</span> <span class='fl'>0.64</span>,
   <span class='kw'>differences</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>2</span>,
   <span class='kw'>.period</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='no'>...</span>

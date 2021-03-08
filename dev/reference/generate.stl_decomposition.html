@@ -181,9 +181,9 @@ any generated data out of the trained sample will produce NA simulations.</p>
     <p>Bergmeir, C., R. J. Hyndman, and J. M. Benitez (2016). Bagging Exponential Smoothing Methods using STL Decomposition and Box-Cox Transformation. International Journal of Forecasting 32, 303-312.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>model</span>(<span class='fu'><a href='STL.html'>STL</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>value</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'>generate</span>(<span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>), <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; # A tsibble: 216 x 5 [1M]
+    <pre class="examples"><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>model</span>(<span class='fu'>STL</span>(<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>value</span>))) <span class='kw'>%&gt;%</span>
+  <span class='fu'>generate</span>(<span class='fu'>as_tsibble</span>(<span class='no'>USAccDeaths</span>), <span class='kw'>times</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; # A tsibble: 216 x 5 [1M]
 #&gt; # Key:       .model, .rep [3]
 #&gt;    .model          .rep     index value   .sim
 #&gt;    &lt;chr&gt;           &lt;chr&gt;    &lt;mth&gt; &lt;dbl&gt;  &lt;dbl&gt;
