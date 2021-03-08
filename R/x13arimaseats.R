@@ -172,3 +172,7 @@ X_13ARIMA_SEATS <- function(formula, ...){
   new_model_definition(dcmp, !!enquo(formula), ...)
 }
 
+#' @export
+report.feasts_x13arimaseats <- function(x){
+  cat(capture.output(summary(x$fit))[-(1:3)], sep = "\n")
+}
