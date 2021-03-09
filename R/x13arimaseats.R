@@ -77,7 +77,7 @@ train_x13arimaseats <- function(.data, formula, specials, defaults, ...){
   specials <- lapply(specials, do.call, what = "c")
   specification <- unlist(specials, recursive = FALSE)
 
-  fit <- seasonal::seas(x = y, ..., list = specification)
+  fit <- seasonal::seas(x = y, list = c(specification, list(...)))
   fit$call <- NULL
 
   structure(
