@@ -1,57 +1,23 @@
 globalVariables("self")
 
-specials_x13arimaseats <- fabletools::new_specials(
-  transform = function(`function` = c("none", "log", "sqrt", "inverse", "logistic"),
-                       power = NULL,
-                       ...) {
-    if(!is.null(power)) {
-      vec_assert(power, numeric(1L))
-      rm(`function`)
-    } else {
-      rm(power)
-    }
-    as.list(environment())
-  },
-  x11 = function(period = NULL, mode = NULL, seasonalma = "msr", trendma = NULL,
-                 ...) {
-    mode <- match.arg(mode)
-    as.list(environment())
-  },
-  x11regression = function(...) {
-    list(...)
-  },
-  seats = function(...){
+x13_valid_args <- function(...) {
+  list(...)
+}
 
-    period
-  },
-  force = function(...) {
-    list(...)
-  },
-  automdl = function(maxorder = c(3, 1), maxdiff = c(1, 1), mixed = c("yes", "no"), ...) {
-    mixed <- match.arg(mixed)
-    as.list(environment())
-  },
-  pickmdl = function(...) {
-    list(...)
-  },
-  arima = function(...) {
-    list(...)
-  },
-  regression = function(aictest = c("td", "easter"), ...) {
-    list(...)
-  },
-  estimate = function(tol = 1e-5, maxiter = 500, ...) {
-    as.list(environment())
-  },
-  check = function(...) {
-    list(...)
-  },
-  forecast = function(maxlead = 24, maxback = 12, ...) {
-    as.list(environment())
-  },
-  outlier = function(...) {
-    list(...)
-  },
+specials_x13arimaseats <- fabletools::new_specials(
+  transform = x13_valid_args,
+  x11 = x13_valid_args,
+  x11regression = x13_valid_args,
+  seats = x13_valid_args,
+  force = x13_valid_args,
+  automdl = x13_valid_args,
+  pickmdl = x13_valid_args,
+  arima = x13_valid_args,
+  regression = x13_valid_args,
+  estimate = x13_valid_args,
+  check = x13_valid_args,
+  forecast = x13_valid_args,
+  outlier = x13_valid_args,
   xreg = function(...){
     abort("Exogenous regressors are not yet supported.")
   },
