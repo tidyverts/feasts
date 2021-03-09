@@ -24,13 +24,21 @@ specials_x13arimaseats <- fabletools::new_specials(
   .required_specials = NULL
 )
 
-train_x13arimaseats <- function(.data, formula, specials, ...){
+train_x13arimaseats <- function(.data, formula, specials, ..., defaults){
   require_package("seasonal")
   stopifnot(is_tsibble(.data))
   series_name <- measured_vars(.data)
 
   specials <- lapply(specials, do.call, what = "c")
   specification <- unlist(specials, recursive = FALSE)
+
+  if(defaults == "none") {
+    valid_spc <- c("arima", "automdl", "check", "estimate", "force", "forecast",
+      "outlier", "pickmdl", "regression", "seats", "transform", "x11",
+      "x11regression")
+    missing_spc <- setdiff(valid_spc, names(specials))
+    specification <- c(specification, set_names(vector("list", length(missing_spc)), missing_spc))
+  }
 
   fit <- seasonal::seas(
     x = as.ts(.data),
@@ -127,12 +135,15 @@ model_sum.feasts_x13arimaseats <- function(x){
 #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
 #'
 #' @importFrom fabletools new_model_class new_model_definition
-X_13ARIMA_SEATS <- function(formula, ..., na.action = seasonal::na.x13){
+X_13ARIMA_SEATS <- function(formula, ..., na.action = seasonal::na.x13,
+                            defaults = c("seasonal", "none")){
+  defaults <- match.arg(defaults)
   dcmp <- new_model_class("x13arimaseats",
                           train = train_x13arimaseats,
                           specials = specials_x13arimaseats,
                           check = all_tsbl_checks)
-  new_model_definition(dcmp, !!enquo(formula), na.action = na.action, ...)
+  new_model_definition(dcmp, !!enquo(formula),
+                       defaults = defaults, na.action = na.action, ...)
 }
 
 #' @export
