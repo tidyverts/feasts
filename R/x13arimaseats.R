@@ -24,9 +24,7 @@ specials_x13arimaseats <- fabletools::new_specials(
   transform = x13_valid_args,
   x11 = x13_valid_args,
   x11regression = x13_valid_args,
-  xreg = function(...){
-    abort("Exogenous regressors are not yet supported.")
-  },
+  xreg = fabletools::special_xreg(FALSE),
   .required_specials = NULL
 )
 
@@ -35,6 +33,8 @@ train_x13arimaseats <- function(.data, formula, specials, ..., defaults){
   stopifnot(is_tsibble(.data))
   series_name <- measured_vars(.data)
 
+  xreg <- do.call("cbind", specials$xreg)
+  specials <- specials[setdiff(names(specials), "xreg")]
   specials <- lapply(specials, do.call, what = "c")
   specification <- unlist(specials, recursive = FALSE)
   specification <- c(specification, rep_named(names(specials)[lengths(specials)==0], list("")))
@@ -48,8 +48,10 @@ train_x13arimaseats <- function(.data, formula, specials, ..., defaults){
     specification <- c(specification, set_names(vector("list", length(missing_spc)), missing_spc))
   }
 
+  y <- as.ts(.data)
   fit <- seasonal::seas(
-    x = as.ts(.data),
+    x = y,
+    xreg = ts(xreg, start = start(y), frequency = frequency(y)),
     list = c(specification, list(...))
   )
   fit$call <- NULL
