@@ -2,13 +2,13 @@
 % Please edit documentation in R/x13arimaseats.R
 \name{X_13ARIMA_SEATS}
 \alias{X_13ARIMA_SEATS}
-\title{Seasonal decomposition with X-13ARIMA-SEATS}
+\title{X-13ARIMA-SEATS Seasonal Adjustment}
 \usage{
 X_13ARIMA_SEATS(
   formula,
   ...,
-  defaults = c("none"),
-  na.action = seasonal::na.x13
+  na.action = seasonal::na.x13,
+  defaults = c("seasonal", "none")
 )
 }
 \arguments{
@@ -16,33 +16,324 @@ X_13ARIMA_SEATS(
 
 \item{...}{Other arguments passed to \code{\link[seasonal:seas]{seasonal::seas()}}.}
 
+\item{na.action}{a function which indicates what should happen when the data
+contain NAs. \code{na.omit} (default), \code{na.exclude} or \code{na.fail}.
+If \code{na.action = na.x13}, NA handling is done by X-13, i.e. NA values
+are substituted by -99999.}
+
+\item{defaults}{If defaults="seasonal", the default options of
+\code{\link[seasonal:seas]{seasonal::seas()}} will be used, which should work well in most
+circumstances. Setting defaults="none" gives an empty model specification,
+which can be added to in the model formula.}
+
 \item{.data}{A tsibble.}
 }
 \description{
-Decomposes a time series via model based signal extraction using X-13ARIMA-SEATS.
+X-13ARIMA-SEATS is a seasonal adjustment program developed and maintained by
+the U.S. Census Bureau.
+}
+\details{
+The SEATS decomposition method stands for "Seasonal
+Extraction in ARIMA Time Series", and is the default method for seasonally
+adjusting the data. This decomposition method can extract seasonality from
+data with seasonal periods of 2 (biannual), 4 (quarterly), 6 (bimonthly),
+and 12 (monthly). This method is specified using the \code{seats()} function in
+the model formula.
+
+Alternatively, the seasonal adjustment can be done using an enhanced X-11
+decomposition method. The X-11 method uses weighted averages over a moving
+window of the time series. This is used in combination with the RegARIMA
+model to prepare the data for decomposition. To use the X-11 decomposition
+method, the \code{x11()} function can be used in the model formula.
 }
 \section{Specials}{
 
 
-\subsection{season}{
-The \code{season} special is used to specify seasonal adjustment method for the
-decomposition.
+The specials of the X-13ARIMA-SEATS model closely follow the individual
+specification options of the original function. Refer to
+\href{https://www.census.gov/ts/x13as/docX13AS.pdf#chapter.7}{Chapter 7 of the X-13ARIMA-SEATS Reference Manual}
+for full details of the arguments.
+
+The available specials for this model are:
+
+#' \subsection{arima}{
+The \code{arima} special is used to specify the ARIMA part of the regARIMA model.
+This defines a pure ARIMA model if the \code{regression()} special absent and if
+no exogenous regressors are specified. The lags of the ARIMA model can be
+specified in the \code{model} argument, potentially along with \code{ar} and \code{ma}
+coefficients.
+
 \preformatted{
-season(period = NULL)
+arima(...)
 }
 
 \tabular{ll}{
-\code{period}   \tab The periodic nature of the seasonality. X-13ARIMA-SEATS decompositions only seasonal patterns with periods of 1, 2, 4, 6 or 12.
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{automdl}{
+The \code{automdl} special is used to specify the ARIMA part of the regARIMA
+model will be sought using an automatic model selection procedure
+derived from the one used by TRAMO (see Gomez and Maravall (2001a)). The
+maximum order of lags and differencing can be specified using \code{maxorder} and
+\code{maxdiff} arguments. Models containing mixtures of AR and MA components can
+be allowed or disallowed using the \code{mixed} argument.
+
+\preformatted{
+automdl(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{check}{
+The \code{check} special is used to produce statistics for diagnostic checking of
+residuals from the estimated model. The computed statistics include ACF and
+PACF of residuals, along with some statistical tests. These calculations are
+included in the model object, but difficult to access. It is recommended that
+these checks are done in R after estimating the model, and that this special
+is not used.
+
+\preformatted{
+check(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+
+\subsection{estimate}{
+The \code{estimate} special is used to specify optimisation parameters and
+estimation options for the regARIMA model specified by the \code{regression()}
+and \code{arima()} specials. Among other options, the tolerance can be set with
+\code{tol}, and maximum iterations can be set with \code{maxiter}.
+
+\preformatted{
+estimate(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{force}{
+The \code{force} is an optional special for invoking options that allow users to
+force yearly totals of the seasonally adjusted series to equal those of the
+original series for convenience.
+
+\preformatted{
+force(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{forecast}{
+The \code{forecast} special is used to specify options for forecasting and/or
+backcasting the time series using the estimated model. This process is used
+to enhance the decomposition procedure, especially its performance at the
+start and end of the series. The number of forecasts to produce is specified
+in the \code{maxlead} argument, and the number of backcasts in the \code{maxback}
+argument.
+
+\preformatted{
+forecast(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{history}{
+The \code{history} special is an optional special for requesting a sequence of
+runs from a sequence of truncated versions of the time series. Using this
+special can substantially slow down the program.
+
+\preformatted{
+history(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{metadata}{
+The \code{metadata} special is used to insert metadata into the diagnostic summary
+file. This is typically not needed when interacting with the program via R.
+
+\preformatted{
+metadata(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{identify}{
+The \code{identify} special is used to produce tables and line printer plots of
+sample ACFs and PACFs for identifying the ARIMA part of a regARIMA model.
+
+\preformatted{
+identify(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{outlier}{
+The \code{outlier} special is used to perform automatic detection of additive
+(point) outliers, temporary change outliers, level shifts, or any combination
+of the three using the specified model. The \code{seasonal::seas()} defaults used
+when \code{defaults="seasonal"} will include the default automatic detection of
+outliers.
+
+\preformatted{
+outlier(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{pickmdl}{
+The \code{pickmdl} special is used to specify the ARIMA part of the regARIMA
+model will be sought using an automatic model selectionprocedure
+similar to the one used by X-11-ARIMA/88 (see Dagum 1988).
+
+\preformatted{
+pickmdl(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{regression}{
+
+The \code{regression} special is used to specify including regression variables
+in a regARIMA model, or for specifying regression variables whose
+effects are to be removed by the \code{identify()} special to aid ARIMA model
+identification. Any exogenous regressors specified in the model formula will
+be passed into this specification via the \code{user} and \code{data} arguments. The
+\code{\link[seasonal:seas]{seasonal::seas()}} defaults used when \code{defaults="seasonal"} will set
+\code{aictest = c("td", "easter")}, indicating that trading days and Easter
+effects will be included conditional on AIC-based selection methods.
+
+\preformatted{
+regression(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{seats}{
+The \code{seats} special is optionally used to invoke the production of model
+based signal extraction using SEATS, a seasonal adjustment program developed
+by Victor Gomez and Agustin Maravall at the Bank of Spain.
+
+\preformatted{
+seats(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{slidingspans}{
+The optional \code{slidingspans} special is to provide sliding spans stability
+analysis on the model. These compare different features of seasonal
+adjustment output from overlapping subspans of the time series data.
+
+\preformatted{
+slidingspans(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{spectrum}{
+The optional \code{spectrum} special is used to provide a choice between two
+spectrum diagnostics to detect seasonality or trading day effects in
+monthly series.
+
+\preformatted{
+spectrum(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{transform}{
+The \code{transform} special is used to transform or adjust the series prior to
+estimating a regARIMA model. This is comparable to transforming the response
+on the formula's left hand side, but offers X-13ARIMA-SEATS specific
+adjustment options.
+
+\preformatted{
+transform(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{x11}{
+The optional \code{x11} special is used to invoke seasonal adjustment by
+an enhanced version of the methodology of the Census Bureau X-11 and X-11Q
+programs. The user can control the type of seasonal adjustment decomposition
+calculated (\code{mode}), the seasonal and trend moving averages used
+(\code{seasonalma} and \code{trendma}), and the type of extreme value adjustment
+performed during seasonal adjustment (\code{sigmalim}).
+
+\preformatted{
+x11(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
+}
+}
+\subsection{x11regression}{
+The \code{x11regression} special is used in conjunction with the \code{x11()} special
+for series without missing observations. This special estimates calendar
+effects by regression modeling of the irregular component with predefined or
+user-defined regressors. Any exogenous regressors specified in the model
+formula will be passed into this specification via the \code{user} and \code{data}
+arguments.
+
+\preformatted{
+x11regression(...)
+}
+
+\tabular{ll}{
+\code{...}   \tab Arguments described in the reference manual linked below.
 }
 }
 }
 
 \examples{
-tsibbledata::aus_production \%>\%
-  model(X_13ARIMA_SEATS(Beer)
+fit <- tsibbledata::aus_production \%>\%
+  model(X_13ARIMA_SEATS(Beer))
+
+report(fit)
+components(fit)
 
 }
 \references{
+Gomez, Victor, and Agustin Maravall. "Automatic modeling methods for
+univariate series." A course in time series analysis (2001): 171-201.
+
+Dagum, E.B. (1988), The X11 ARIMA/88 Seasonal Adjustment Method - Foundations
+And User’s Manual, Time Series Research and Analysis Division Statistics
+Canada, Ottawa.
+
 Dagum, E. B., & Bianconcini, S. (2016) "Seasonal adjustment methods and real
 time trend-cycle estimation". \emph{Springer}.
 

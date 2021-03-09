@@ -1,5 +1,13 @@
 # feasts (development version)
 
+## New features
+
+* Added `X_13ARIMA_SEATS()` decomposition method. This is a complete wrapper of
+  the X-13ARIMA-SEATS developed by the U.S. Census Bureau, implemented via
+  the `seasonal::seas()` function. The defaults match what is used in the 
+  seasonal pacakge, however these defaults can be removed (giving an empty 
+  default model) by setting `defaults="none"`.
+
 # feasts 0.1.7
 
 ## New features
