@@ -150,7 +150,7 @@
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
-<li>Added <code><a href="../reference/X_13ARIMA_SEATS.html">X_13ARIMA_SEATS()</a></code> decomposition method. This is a complete wrapper of the X-13ARIMA-SEATS developed by the U.S. Census Bureau, implemented via the <code><a href="https://rdrr.io/pkg/seasonal/man/seas.html">seasonal::seas()</a></code> function. The defaults match what is used in the seasonal pacakge, however these defaults can be removed (giving an empty default model) by setting <code>defaults="none"</code>.</li>
+<li>Added <code>X_13ARIMA_SEATS()</code> decomposition method. This is a complete wrapper of the X-13ARIMA-SEATS developed by the U.S. Census Bureau, implemented via the <code><a href="https://rdrr.io/pkg/seasonal/man/seas.html">seasonal::seas()</a></code> function. The defaults match what is used in the seasonal pacakge, however these defaults can be removed (giving an empty default model) by setting <code>defaults="none"</code>.</li>
 </ul>
 </div>
 </div>
@@ -162,15 +162,15 @@
 <h2 class="hasAnchor">
 <a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
-<li>Added <code>generate()</code> method for <code><a href="../reference/STL.html">STL()</a></code> decompositions. The method uses a block bootstrap method to sample from the residuals.</li>
-<li>Added <code><a href="https://rdrr.io/r/stats/fitted.values.html">fitted()</a></code> and <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> methods for <code><a href="../reference/STL.html">STL()</a></code> decompositions.</li>
+<li>Added <code>generate()</code> method for <code>STL()</code> decompositions. The method uses a block bootstrap method to sample from the residuals.</li>
+<li>Added <code><a href="https://rdrr.io/r/stats/fitted.values.html">fitted()</a></code> and <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> methods for <code>STL()</code> decompositions.</li>
 </ul>
 </div>
 <div id="improvements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#improvements" class="anchor"></a>Improvements</h2>
 <ul>
-<li>Changed <code><a href="../reference/guerrero.html">guerrero()</a></code> default lower bound for Box-Cox lambda selection to from -1 to -0.9. A transformation parameter of -1 typically results from data which should not be transformed with a Box-Cox transformation, and can result in very inaccurate forecasts if such a strong and inappropriate transformation is used.</li>
+<li>Changed <code>guerrero()</code> default lower bound for Box-Cox lambda selection to from -1 to -0.9. A transformation parameter of -1 typically results from data which should not be transformed with a Box-Cox transformation, and can result in very inaccurate forecasts if such a strong and inappropriate transformation is used.</li>
 <li>Improved time series plotting functions axis labelling.<br>
 </li>
 <li>Documentation improvements.</li>
@@ -187,15 +187,15 @@
 <a href="#improvements-1" class="anchor"></a>Improvements</h2>
 <ul>
 <li>
-<code><a href="../reference/gg_season.html">gg_season()</a></code> labels are low aligned outward (<a href='https://github.com/tidyverts/feasts/issues/115'>#115</a>).</li>
+<code>gg_season()</code> labels are low aligned outward (<a href='https://github.com/tidyverts/feasts/issues/115'>#115</a>).</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed issue with plotting aggregated tsibbles with <code><a href="../reference/gg_season.html">gg_season()</a></code> and <code><a href="../reference/gg_subseries.html">gg_subseries()</a></code> (<a href='https://github.com/tidyverts/feasts/issues/117'>#117</a>).</li>
-<li>Fixed occasional issue with double label/breaks displayed in <code><a href="../reference/gg_season.html">gg_season()</a></code>
+<li>Fixed issue with plotting aggregated tsibbles with <code>gg_season()</code> and <code>gg_subseries()</code> (<a href='https://github.com/tidyverts/feasts/issues/117'>#117</a>).</li>
+<li>Fixed occasional issue with double label/breaks displayed in <code>gg_season()</code>
 </li>
 </ul>
 </div>
@@ -209,11 +209,11 @@
 <a href="#improvements-2" class="anchor"></a>Improvements</h2>
 <ul>
 <li>
-<code><a href="../reference/gg_lag.html">gg_lag()</a></code> facets are now displayed with a 1:1 aspect ratio.</li>
+<code>gg_lag()</code> facets are now displayed with a 1:1 aspect ratio.</li>
 <li>Season and subseries plots of numeric index data now starts at the earliest measured observation, rather than assuming a meaningful 0 (<a href='https://github.com/tidyverts/feasts/issues/111'>#111</a>).</li>
-<li>The <code><a href="../reference/longest_flat_spot.html">n_flat_spots()</a></code> function has been renamed to <code><a href="../reference/longest_flat_spot.html">longest_flat_spot()</a></code> to more accurately describe the feature.</li>
+<li>The <code>n_flat_spots()</code> function has been renamed to <code>longest_flat_spot()</code> to more accurately describe the feature.</li>
 <li>
-<code><a href="../reference/gg_season.html">gg_season()</a></code> and <code>ggsubseries()</code> date structure improvements.</li>
+<code>gg_season()</code> and <code>ggsubseries()</code> date structure improvements.</li>
 <li>Documentation improvements</li>
 </ul>
 </div>
@@ -221,17 +221,17 @@
 <h2 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
 <ul>
-<li>The <code><a href="../reference/longest_flat_spot.html">n_flat_spots()</a></code> return name is now “longest_flat_spot” to better describe the feature.</li>
+<li>The <code>n_flat_spots()</code> return name is now “longest_flat_spot” to better describe the feature.</li>
 </ul>
 </div>
 <div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed spectral density plot in <code><a href="../reference/gg_tsdisplay.html">gg_tsdisplay()</a></code> erroring when the <code>spec.ar</code> order is chosen to be 0.</li>
-<li>Fixed <code><a href="../reference/ACF.html">CCF()</a></code> lag being spaced by multiples of the data’s frequency.</li>
-<li>Fixed labelling of x-axis for <code><a href="../reference/gg_season.html">gg_season()</a></code> and <code><a href="../reference/gg_subseries.html">gg_subseries()</a></code> (<a href='https://github.com/tidyverts/feasts/issues/107'>#107</a>).</li>
-<li>Fixed <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code> not working on <code><a href="../reference/ACF.html">ACF()</a></code>, <code><a href="../reference/ACF.html">PACF()</a></code> and <code><a href="../reference/ACF.html">CCF()</a></code> outputs.</li>
+<li>Fixed spectral density plot in <code>gg_tsdisplay()</code> erroring when the <code>spec.ar</code> order is chosen to be 0.</li>
+<li>Fixed <code>CCF()</code> lag being spaced by multiples of the data’s frequency.</li>
+<li>Fixed labelling of x-axis for <code>gg_season()</code> and <code>gg_subseries()</code> (<a href='https://github.com/tidyverts/feasts/issues/107'>#107</a>).</li>
+<li>Fixed <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code> not working on <code>ACF()</code>, <code>PACF()</code> and <code>CCF()</code> outputs.</li>
 </ul>
 </div>
 </div>
@@ -244,22 +244,22 @@
 <h2 class="hasAnchor">
 <a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
-<li>Circular time plots are now supported by setting <code>polar = TRUE</code> in <code><a href="../reference/gg_season.html">gg_season()</a></code>.</li>
+<li>Circular time plots are now supported by setting <code>polar = TRUE</code> in <code>gg_season()</code>.</li>
 </ul>
 </div>
 <div id="improvements-3" class="section level2">
 <h2 class="hasAnchor">
 <a href="#improvements-3" class="anchor"></a>Improvements</h2>
 <ul>
-<li>Added partial matching of the type argument in <code><a href="../reference/ACF.html">ACF()</a></code>.</li>
-<li>Updated <code><a href="../reference/feat_spectral.html">feat_spectral()</a></code> to use <code><a href="https://rdrr.io/r/stats/spec.ar.html">stats::spec.ar()</a></code> instead of <code>ForeCA::spectral_entropy()</code>. Note that the feature value will be slightly different due to use of a different spectral estimator, and the fix of a bug in ForeCA.</li>
+<li>Added partial matching of the type argument in <code>ACF()</code>.</li>
+<li>Updated <code>feat_spectral()</code> to use <code><a href="https://rdrr.io/r/stats/spec.ar.html">stats::spec.ar()</a></code> instead of <code>ForeCA::spectral_entropy()</code>. Note that the feature value will be slightly different due to use of a different spectral estimator, and the fix of a bug in ForeCA.</li>
 </ul>
 </div>
 <div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed the minimum data length for seasonal estimation in <code><a href="../reference/feat_stl.html">feat_stl()</a></code>.</li>
+<li>Fixed the minimum data length for seasonal estimation in <code>feat_stl()</code>.</li>
 </ul>
 </div>
 </div>
@@ -271,9 +271,9 @@
 <h2 class="hasAnchor">
 <a href="#improvements-4" class="anchor"></a>Improvements</h2>
 <ul>
-<li>The axis for <code><a href="../reference/gg_lag.html">gg_lag()</a></code> have been reversed for consistency with <code><a href="https://rdrr.io/r/stats/lag.plot.html">stats::lag.plot()</a></code>.</li>
+<li>The axis for <code>gg_lag()</code> have been reversed for consistency with <code><a href="https://rdrr.io/r/stats/lag.plot.html">stats::lag.plot()</a></code>.</li>
 <li>Graphical improvements for displaying weekly seasonality in season and subseries plots.</li>
-<li>Added intermittency features available in <code><a href="../reference/feat_intermittent.html">feat_intermittent()</a></code>
+<li>Added intermittency features available in <code>feat_intermittent()</code>
 </li>
 </ul>
 </div>
@@ -281,9 +281,9 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed the sprectral density plot in <code><a href="../reference/gg_tsdisplay.html">gg_tsdisplay()</a></code> not working with plotting expressions of data.</li>
-<li>Fixed issue with <code><a href="../reference/gg_subseries.html">gg_subseries()</a></code> erroring when certain column names are used (<a href='https://github.com/tidyverts/feasts/issues/95'>#95</a>).</li>
-<li>Fixed issue with environment handling in <code><a href="../reference/STL.html">STL()</a></code> specials.</li>
+<li>Fixed the sprectral density plot in <code>gg_tsdisplay()</code> not working with plotting expressions of data.</li>
+<li>Fixed issue with <code>gg_subseries()</code> erroring when certain column names are used (<a href='https://github.com/tidyverts/feasts/issues/95'>#95</a>).</li>
+<li>Fixed issue with environment handling in <code>STL()</code> specials.</li>
 </ul>
 </div>
 </div>
@@ -296,8 +296,8 @@
 <a href="#improvements-5" class="anchor"></a>Improvements</h2>
 <ul>
 <li>
-<code><a href="../reference/tile_features.html">var_tiled_var()</a></code> no longer includes partial tile windows in the computation.</li>
-<li>Added residual acf features to <code><a href="../reference/feat_stl.html">feat_stl()</a></code>.</li>
+<code>var_tiled_var()</code> no longer includes partial tile windows in the computation.</li>
+<li>Added residual acf features to <code>feat_stl()</code>.</li>
 <li>Performance improvements.</li>
 </ul>
 </div>
@@ -312,11 +312,11 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
-<li>Fixed bug with <code><a href="../reference/feat_spectral.html">feat_spectral()</a></code> not showing results.</li>
-<li>Fix warning in <code><a href="../reference/ACF.html">ACF()</a></code>, <code><a href="../reference/ACF.html">PACF()</a></code> and <code><a href="../reference/ACF.html">CCF()</a></code> for tidyr change.</li>
+<li>Fixed bug with <code>feat_spectral()</code> not showing results.</li>
+<li>Fix warning in <code>ACF()</code>, <code>PACF()</code> and <code>CCF()</code> for tidyr change.</li>
 <li>
-<code><a href="../reference/gg_tsdisplay.html">gg_tsdisplay()</a></code> will no longer fail on non-seasonal data with missing values. The last plot will instead show a PACF in this case (<a href='https://github.com/tidyverts/feasts/issues/76'>#76</a>)</li>
-<li>Better handling of perfect fits in <code><a href="../reference/stat_arch_lm.html">stat_arch_lm()</a></code> (<a href='https://github.com/tidyverts/feasts/issues/85'>#85</a>)</li>
+<code>gg_tsdisplay()</code> will no longer fail on non-seasonal data with missing values. The last plot will instead show a PACF in this case (<a href='https://github.com/tidyverts/feasts/issues/76'>#76</a>)</li>
+<li>Better handling of perfect fits in <code>stat_arch_lm()</code> (<a href='https://github.com/tidyverts/feasts/issues/85'>#85</a>)</li>
 </ul>
 </div>
 </div>
