@@ -5,19 +5,25 @@ x13_valid_args <- function(...) {
 }
 
 specials_x13arimaseats <- fabletools::new_specials(
+  arima = x13_valid_args,
+  automdl = x13_valid_args,
+  check = x13_valid_args,
+  composite = x13_valid_args,
+  estimate = x13_valid_args,
+  force = x13_valid_args,
+  forecast = x13_valid_args,
+  history = x13_valid_args,
+  metadata = x13_valid_args,
+  identify = x13_valid_args,
+  outlier = x13_valid_args,
+  pickmdl = x13_valid_args,
+  regression = x13_valid_args,
+  seats = x13_valid_args,
+  slidingspans = x13_valid_args,
+  spectrum = x13_valid_args,
   transform = x13_valid_args,
   x11 = x13_valid_args,
   x11regression = x13_valid_args,
-  seats = x13_valid_args,
-  force = x13_valid_args,
-  automdl = x13_valid_args,
-  pickmdl = x13_valid_args,
-  arima = x13_valid_args,
-  regression = x13_valid_args,
-  estimate = x13_valid_args,
-  check = x13_valid_args,
-  forecast = x13_valid_args,
-  outlier = x13_valid_args,
   xreg = function(...){
     abort("Exogenous regressors are not yet supported.")
   },
@@ -34,9 +40,10 @@ train_x13arimaseats <- function(.data, formula, specials, ..., defaults){
   specification <- c(specification, rep_named(names(specials)[lengths(specials)==0], list("")))
 
   if(defaults == "none") {
-    valid_spc <- c("arima", "automdl", "check", "estimate", "force", "forecast",
-      "outlier", "pickmdl", "regression", "seats", "transform", "x11",
-      "x11regression")
+    valid_spc <- c("arima", "automdl", "check", "composite", "estimate", "force",
+                   "forecast", "history", "metadata", "identify", "outlier", "pickmdl",
+                   "regression", "seats", "slidingspans", "spectrum", "transform",
+                   "x11", "x11regression")
     missing_spc <- setdiff(valid_spc, names(specials))
     specification <- c(specification, set_names(vector("list", length(missing_spc)), missing_spc))
   }
