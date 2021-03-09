@@ -96,8 +96,7 @@ components.feasts_x13arimaseats <- function(object, ...){
       trend = dcmp[,"trend"],
       seasonal = dcmp[,"adjustfac"],
       irregular = dcmp[,"irregular"],
-      season_adjust = !!call2(if(op == "pseudo-add") "*" else op,
-                              sym("trend"), sym("irregular"))
+      season_adjust = dcmp[,"seasonaladj"]
     )
 
   seasonalities <- list(
