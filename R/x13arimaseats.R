@@ -76,9 +76,15 @@ components.feasts_x13arimaseats <- function(object, ...){
     abort("The X-13ARIMA-SEATS model does not contain a decomposition, are you missing a seasonal component?")
   }
 
-  if(!is.na(fit$udg["finmode"])) {
+  # with(as.data.frame(dcmp), .data$value - trend+seasonal+irregular)
+  if(!is.na(fit$udg["seatsadj"])) {
     # SEATS
-    op <- switch(fit$udg["finmode"], multiplicative = "*", additive = "+")
+    # Relationship between components is a bit complicated to include for now.
+    aliases <- list2(
+      !!series_name := parse_expr("f(trend, seasonal, irregular)"),
+      season_adjust = parse_expr("f(trend, irregular)")
+    )
+    seas_base <- 0
   } else {
     # X11
     method <- paste(method, "using X-11 adjustment")
@@ -89,6 +95,18 @@ components.feasts_x13arimaseats <- function(object, ...){
       additive = "+",
       "pseudo-add" = "pseudo-add"
     )
+    y_expr <- if(op == "pseudo-add") {
+      parse_expr("trend * (seasonal + irregular - 1)")
+    } else {
+      reduce(syms(c("trend", "seasonal", "irregular")),
+             function(x,y) call2(op, x, y))
+    }
+
+    aliases <- list2(
+      !!series_name := y_expr,
+      season_adjust = call2(op, sym("trend"), sym("irregular"))
+    )
+    seas_base <- switch(op, `+` = 0, 1)
   }
 
   dcmp <- .data %>%
@@ -100,19 +118,7 @@ components.feasts_x13arimaseats <- function(object, ...){
     )
 
   seasonalities <- list(
-    seasonal = list(period = period, base = switch(op, `+` = 0, 1))
-  )
-
-  y_expr <- if(op == "pseudo-add") {
-    parse_expr("trend * (seasonal + irregular - 1)")
-  } else {
-    reduce(syms(c("trend", "seasonal", "irregular")),
-           function(x,y) call2(op, x, y))
-  }
-
-  aliases <- list2(
-    !!series_name := y_expr,
-    season_adjust = call2(op, sym("trend"), sym("irregular"))
+    seasonal = list(period = period, base = seas_base)
   )
 
   as_dable(dcmp, response = series_name,
