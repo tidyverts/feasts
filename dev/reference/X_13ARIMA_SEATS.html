@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Seasonal decomposition with X-13ARIMA-SEATS — X_13ARIMA_SEATS • feasts</title>
+<title>X-13ARIMA-SEATS Seasonal Adjustment — X_13ARIMA_SEATS • feasts</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,9 @@
 
 
 
-<meta property="og:title" content="Seasonal decomposition with X-13ARIMA-SEATS — X_13ARIMA_SEATS" />
-<meta property="og:description" content="Decomposes a time series via model based signal extraction using X-13ARIMA-SEATS." />
+<meta property="og:title" content="X-13ARIMA-SEATS Seasonal Adjustment — X_13ARIMA_SEATS" />
+<meta property="og:description" content="X-13ARIMA-SEATS is a seasonal adjustment program developed and maintained by
+the U.S. Census Bureau." />
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -139,20 +140,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Seasonal decomposition with X-13ARIMA-SEATS</h1>
+    <h1>X-13ARIMA-SEATS Seasonal Adjustment</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverts/feasts/blob/master/R/x13arimaseats.R'><code>R/x13arimaseats.R</code></a></small>
     <div class="hidden name"><code>X_13ARIMA_SEATS.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Decomposes a time series via model based signal extraction using X-13ARIMA-SEATS.</p>
+    <p>X-13ARIMA-SEATS is a seasonal adjustment program developed and maintained by
+the U.S. Census Bureau.</p>
     </div>
 
     <pre class="usage"><span class='fu'>X_13ARIMA_SEATS</span>(
   <span class='no'>formula</span>,
   <span class='no'>...</span>,
-  <span class='kw'>defaults</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>),
-  <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='kw pkg'>seasonal</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/seasonal/man/na.x13.html'>na.x13</a></span>
+  <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='kw pkg'>seasonal</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/seasonal/man/na.x13.html'>na.x13</a></span>,
+  <span class='kw'>defaults</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"seasonal"</span>, <span class='st'>"none"</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -167,31 +169,318 @@
       <td><p>Other arguments passed to <code><a href='https://rdrr.io/pkg/seasonal/man/seas.html'>seasonal::seas()</a></code>.</p></td>
     </tr>
     <tr>
+      <th>na.action</th>
+      <td><p>a function which indicates what should happen when the data
+contain NAs. <code>na.omit</code> (default), <code>na.exclude</code> or <code>na.fail</code>.
+If <code>na.action = na.x13</code>, NA handling is done by X-13, i.e. NA values
+are substituted by -99999.</p></td>
+    </tr>
+    <tr>
+      <th>defaults</th>
+      <td><p>If defaults="seasonal", the default options of
+<code><a href='https://rdrr.io/pkg/seasonal/man/seas.html'>seasonal::seas()</a></code> will be used, which should work well in most
+circumstances. Setting defaults="none" gives an empty model specification,
+which can be added to in the model formula.</p></td>
+    </tr>
+    <tr>
       <th>.data</th>
       <td><p>A tsibble.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The SEATS decomposition method stands for "Seasonal
+Extraction in ARIMA Time Series", and is the default method for seasonally
+adjusting the data. This decomposition method can extract seasonality from
+data with seasonal periods of 2 (biannual), 4 (quarterly), 6 (bimonthly),
+and 12 (monthly). This method is specified using the <code>seats()</code> function in
+the model formula.</p>
+<p>Alternatively, the seasonal adjustment can be done using an enhanced X-11
+decomposition method. The X-11 method uses weighted averages over a moving
+window of the time series. This is used in combination with the RegARIMA
+model to prepare the data for decomposition. To use the X-11 decomposition
+method, the <code><a href='https://rdrr.io/r/grDevices/x11.html'>x11()</a></code> function can be used in the model formula.</p>
     <h2 class="hasAnchor" id="specials"><a class="anchor" href="#specials"></a>Specials</h2>
 
     
 
 
-<h3>season</h3>
-<p>The <code>season</code> special is used to specify seasonal adjustment method for the
-decomposition.</p><pre>
-season(period = NULL)
+<p>The specials of the X-13ARIMA-SEATS model closely follow the individual
+specification options of the original function. Refer to
+<a href='https://www.census.gov/ts/x13as/docX13AS.pdf#chapter.7'>Chapter 7 of the X-13ARIMA-SEATS Reference Manual</a>
+for full details of the arguments.</p>
+<p>The available specials for this model are:</p>
+<p>#'</p><h3>arima</h3>
+<p>The <code>arima</code> special is used to specify the ARIMA part of the regARIMA model.
+This defines a pure ARIMA model if the <code>regression()</code> special absent and if
+no exogenous regressors are specified. The lags of the ARIMA model can be
+specified in the <code>model</code> argument, potentially along with <code>ar</code> and <code>ma</code>
+coefficients.</p>
+<pre>
+arima(...)
 </pre>
 
 <table class='table'>
-<tr><td><code>period</code></td><td>The periodic nature of the seasonality. X-13ARIMA-SEATS decompositions only seasonal patterns with periods of 1, 2, 4, 6 or 12.</td></tr>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>automdl</h3>
+<p>The <code>automdl</code> special is used to specify the ARIMA part of the regARIMA
+model will be sought using an automatic model selection procedure
+derived from the one used by TRAMO (see Gomez and Maravall (2001a)). The
+maximum order of lags and differencing can be specified using <code>maxorder</code> and
+<code>maxdiff</code> arguments. Models containing mixtures of AR and MA components can
+be allowed or disallowed using the <code>mixed</code> argument.</p>
+<pre>
+automdl(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>check</h3>
+<p>The <code>check</code> special is used to produce statistics for diagnostic checking of
+residuals from the estimated model. The computed statistics include ACF and
+PACF of residuals, along with some statistical tests. These calculations are
+included in the model object, but difficult to access. It is recommended that
+these checks are done in R after estimating the model, and that this special
+is not used.</p>
+<pre>
+check(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+
+<h3>estimate</h3>
+<p>The <code>estimate</code> special is used to specify optimisation parameters and
+estimation options for the regARIMA model specified by the <code>regression()</code>
+and <code><a href='https://rdrr.io/r/stats/arima.html'>arima()</a></code> specials. Among other options, the tolerance can be set with
+<code>tol</code>, and maximum iterations can be set with <code>maxiter</code>.</p>
+<pre>
+estimate(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>force</h3>
+<p>The <code>force</code> is an optional special for invoking options that allow users to
+force yearly totals of the seasonally adjusted series to equal those of the
+original series for convenience.</p>
+<pre>
+force(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>forecast</h3>
+<p>The <code>forecast</code> special is used to specify options for forecasting and/or
+backcasting the time series using the estimated model. This process is used
+to enhance the decomposition procedure, especially its performance at the
+start and end of the series. The number of forecasts to produce is specified
+in the <code>maxlead</code> argument, and the number of backcasts in the <code>maxback</code>
+argument.</p>
+<pre>
+forecast(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>history</h3>
+<p>The <code>history</code> special is an optional special for requesting a sequence of
+runs from a sequence of truncated versions of the time series. Using this
+special can substantially slow down the program.</p>
+<pre>
+history(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>metadata</h3>
+<p>The <code>metadata</code> special is used to insert metadata into the diagnostic summary
+file. This is typically not needed when interacting with the program via R.</p>
+<pre>
+metadata(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>identify</h3>
+<p>The <code>identify</code> special is used to produce tables and line printer plots of
+sample ACFs and PACFs for identifying the ARIMA part of a regARIMA model.</p>
+<pre>
+identify(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>outlier</h3>
+<p>The <code>outlier</code> special is used to perform automatic detection of additive
+(point) outliers, temporary change outliers, level shifts, or any combination
+of the three using the specified model. The <code><a href='https://rdrr.io/pkg/seasonal/man/seas.html'>seasonal::seas()</a></code> defaults used
+when <code>defaults="seasonal"</code> will include the default automatic detection of
+outliers.</p>
+<pre>
+outlier(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>pickmdl</h3>
+<p>The <code>pickmdl</code> special is used to specify the ARIMA part of the regARIMA
+model will be sought using an automatic model selectionprocedure
+similar to the one used by X-11-ARIMA/88 (see Dagum 1988).</p>
+<pre>
+pickmdl(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>regression</h3>
+
+
+<p>The <code>regression</code> special is used to specify including regression variables
+in a regARIMA model, or for specifying regression variables whose
+effects are to be removed by the <code><a href='https://rdrr.io/r/graphics/identify.html'>identify()</a></code> special to aid ARIMA model
+identification. Any exogenous regressors specified in the model formula will
+be passed into this specification via the <code>user</code> and <code>data</code> arguments. The
+<code><a href='https://rdrr.io/pkg/seasonal/man/seas.html'>seasonal::seas()</a></code> defaults used when <code>defaults="seasonal"</code> will set
+<code>aictest = c("td", "easter")</code>, indicating that trading days and Easter
+effects will be included conditional on AIC-based selection methods.</p>
+<pre>
+regression(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>seats</h3>
+<p>The <code>seats</code> special is optionally used to invoke the production of model
+based signal extraction using SEATS, a seasonal adjustment program developed
+by Victor Gomez and Agustin Maravall at the Bank of Spain.</p>
+<pre>
+seats(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>slidingspans</h3>
+<p>The optional <code>slidingspans</code> special is to provide sliding spans stability
+analysis on the model. These compare different features of seasonal
+adjustment output from overlapping subspans of the time series data.</p>
+<pre>
+slidingspans(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>spectrum</h3>
+<p>The optional <code>spectrum</code> special is used to provide a choice between two
+spectrum diagnostics to detect seasonality or trading day effects in
+monthly series.</p>
+<pre>
+spectrum(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>transform</h3>
+<p>The <code>transform</code> special is used to transform or adjust the series prior to
+estimating a regARIMA model. This is comparable to transforming the response
+on the formula's left hand side, but offers X-13ARIMA-SEATS specific
+adjustment options.</p>
+<pre>
+transform(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>x11</h3>
+<p>The optional <code>x11</code> special is used to invoke seasonal adjustment by
+an enhanced version of the methodology of the Census Bureau X-11 and X-11Q
+programs. The user can control the type of seasonal adjustment decomposition
+calculated (<code>mode</code>), the seasonal and trend moving averages used
+(<code>seasonalma</code> and <code>trendma</code>), and the type of extreme value adjustment
+performed during seasonal adjustment (<code>sigmalim</code>).</p>
+<pre>
+x11(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
+</table>
+
+
+<h3>x11regression</h3>
+<p>The <code>x11regression</code> special is used in conjunction with the <code><a href='https://rdrr.io/r/grDevices/x11.html'>x11()</a></code> special
+for series without missing observations. This special estimates calendar
+effects by regression modeling of the irregular component with predefined or
+user-defined regressors. Any exogenous regressors specified in the model
+formula will be passed into this specification via the <code>user</code> and <code>data</code>
+arguments.</p>
+<pre>
+x11regression(...)
+</pre>
+
+<table class='table'>
+<tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr>
 </table>
 
 
 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Dagum, E. B., &amp; Bianconcini, S. (2016) "Seasonal adjustment methods and real
+    <p>Gomez, Victor, and Agustin Maravall. "Automatic modeling methods for
+univariate series." A course in time series analysis (2001): 171-201.</p>
+<p>Dagum, E.B. (1988), The X11 ARIMA/88 Seasonal Adjustment Method - Foundations
+And User’s Manual, Time Series Research and Analysis Division Statistics
+Canada, Ottawa.</p>
+<p>Dagum, E. B., &amp; Bianconcini, S. (2016) "Seasonal adjustment methods and real
 time trend-cycle estimation". <em>Springer</em>.</p>
 <p>X-13ARIMA-SEATS Documentation from the seasonal package's website:
 http://www.seasonal.website/seasonal.html</p>
@@ -201,12 +490,16 @@ http://www.seasonal.website/seasonal.html</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/seasonal/man/seas.html'>seasonal::seas()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tsibbledata</span><span class='kw ns'>::</span><span class='no'><a href='https://tsibbledata.tidyverts.org/reference/aus_production.html'>aus_production</a></span> <span class='kw'>%&gt;%</span>
+  <span class='fu'>model</span>(<span class='fu'>X_13ARIMA_SEATS</span>(<span class='no'>Beer</span>))</div><div class='output co'>#&gt; <span class='error'>Error in X_13ARIMA_SEATS(Beer): could not find function "X_13ARIMA_SEATS"</span></div><div class='input'>
+<span class='fu'>report</span>(<span class='no'>fit</span>)</div><div class='output co'>#&gt; <span class='error'>Error in report(fit): object 'fit' not found</span></div><div class='input'><span class='fu'>components</span>(<span class='no'>fit</span>)</div><div class='output co'>#&gt; <span class='error'>Error in components(fit): object 'fit' not found</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#specials">Specials</a></li>
       <li><a href="#references">References</a></li>
       <li><a href="#see-also">See also</a></li>

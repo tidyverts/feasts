@@ -146,14 +146,21 @@
 <h1 class="page-header">
 <a href="#feasts-development-version" class="anchor"></a>feasts (development version)<small> Unreleased </small>
 </h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Added <code>X_13ARIMA_SEATS()</code> decomposition method. This is a complete wrapper of the X-13ARIMA-SEATS developed by the U.S. Census Bureau, implemented via the <code><a href="https://rdrr.io/pkg/seasonal/man/seas.html">seasonal::seas()</a></code> function. The defaults match what is used in the seasonal pacakge, however these defaults can be removed (giving an empty default model) by setting <code>defaults="none"</code>.</li>
+</ul>
+</div>
 </div>
     <div id="feasts-017" class="section level1">
 <h1 class="page-header">
 <a href="#feasts-017" class="anchor"></a>feasts 0.1.7<small> 2021-02-05 </small>
 </h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features</h2>
+<a href="#new-features-1" class="anchor"></a>New features</h2>
 <ul>
 <li>Added <code>generate()</code> method for <code>STL()</code> decompositions. The method uses a block bootstrap method to sample from the residuals.</li>
 <li>Added <code><a href="https://rdrr.io/r/stats/fitted.values.html">fitted()</a></code> and <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> methods for <code>STL()</code> decompositions.</li>
@@ -233,9 +240,9 @@
 <a href="#feasts-014" class="anchor"></a>feasts 0.1.4<small> 2020-06-17 </small>
 </h1>
 <p>Minor patch to resolve upstream check issues introduced by dplyr v1.0.0 and tsibble v0.9.0.</p>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New features</h2>
+<a href="#new-features-2" class="anchor"></a>New features</h2>
 <ul>
 <li>Circular time plots are now supported by setting <code>polar = TRUE</code> in <code>gg_season()</code>.</li>
 </ul>
@@ -339,9 +346,9 @@
 <ul>
 <li>First release.</li>
 </ul>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>New features</h2>
+<a href="#new-features-3" class="anchor"></a>New features</h2>
 <ul>
 <li>Added support for graphical analysis of tidy temporal data and models, with <code>gg_season</code>, <code>gg_subseries</code>, <code>gg_lag</code>, <code>gg_tsdisplay</code>, <code>gg_tsresiduals</code>, <code>gg_arma</code>.</li>
 <li>Added support for autocorrelation functions and plots, with <code>ACF</code>, <code>PACF</code>, <code>CCF</code>, and <code>autoplot.tbl_cf</code>
