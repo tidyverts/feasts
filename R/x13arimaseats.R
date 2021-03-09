@@ -442,5 +442,5 @@ X_13ARIMA_SEATS <- function(formula, ..., na.action = seasonal::na.x13,
 #' @importFrom fabletools report
 #' @export
 report.feasts_x13arimaseats <- function(object, ...){
-  cat(capture.output(summary(x$fit))[-(1:3)], sep = "\n")
+  cat(stats::capture.output(summary(object$fit))[-(1:3)], sep = "\n")
 }
