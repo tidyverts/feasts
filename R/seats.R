@@ -74,44 +74,8 @@ model_sum.x13_decomposition <- function(x){
   "SEATS"
 }
 
-# #' Seasonal decomposition with X-13ARIMA-SEATS
-# #'
-# #' Decomposes a time series via model based signal extraction using X-13ARIMA-SEATS.
-# #'
-# #' @param .data A tsibble.
-# #' @param formula Decomposition specification.
-# #' @param ... Other arguments passed to [seasonal::seas()].
-# #'
-# #' @section Specials:
-# #'
-# #' \subsection{season}{
-# #' The `season` special is used to specify seasonal attributes of the decomposition.
-# #' \preformatted{
-# #' season(period = NULL)
-# #' }
-# #'
-# #' \tabular{ll}{
-# #'   `period`   \tab The periodic nature of the seasonality. X-13ARIMA-SEATS decompositions only seasonal patterns with periods of 1, 2, 4, 6 or 12.
-# #' }
-# #' }
-# #'
-# #' @examples
-# #' tsibbledata::aus_production %>% feasts:::SEATS(Beer)
-# #'
-# #' @seealso [seasonal::seas()]
-# #'
-# #' @references
-# #'
-# #' Dagum, E. B., & Bianconcini, S. (2016) "Seasonal adjustment methods and real
-# #' time trend-cycle estimation". \emph{Springer}.
-# #'
-# #' X-13ARIMA-SEATS Documentation from the seasonal package's website:
-# #' http://www.seasonal.website/seasonal.html
-# #'
-# #' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
-# #'
-# #' @importFrom fabletools new_model_class new_model_definition
 SEATS <- function(formula, ...){
+  lifecycle::deprecate_warn("0.2.0", "feasts::SEATS()", "feasts::X_13ARIMA_SEATS()", "You can specify the SEATS decomposition method by including seats() in the model formula of `X_13ARIMA_SEATS()`.")
   dcmp <- new_model_class("SEATS", train = train_seats,
                           specials = specials_seats, check = all_tsbl_checks)
   new_model_definition(dcmp, !!enquo(formula), ...)
