@@ -15,21 +15,13 @@ specials_x13arimaseats <- fabletools::new_specials(
   x11 = function(period = NULL, mode = NULL, seasonalma = "msr", trendma = NULL,
                  ...) {
     mode <- match.arg(mode)
-    period <- get_frequencies(period, self$data, .auto = "smallest")
-    if(!(period %in% c(1, 4, 12))){
-      abort("X-11 seasonal adjustments only support seasonal periods of 12 for monthly series and 4 for quarterly series. Defaulting to `period = 1`.")
-    }
-    period
     as.list(environment())
   },
   x11regression = function(...) {
     list(...)
   },
-  seats = function(period = NULL, ...){
-    period <- get_frequencies(period, self$data, .auto = "smallest")
-    if(!(period %in% c(1, 2, 4, 6, 12))){
-      abort("SEATS seasonal adjustments only support seasonal periods of 12 for monthly series, 6 for bimonthly series, 4 for quarterly series, 2 for biannual series and 1 for annual series. Defaulting to `period = 1`.")
-    }
+  seats = function(...){
+
     period
   },
   force = function(...) {
@@ -69,18 +61,20 @@ specials_x13arimaseats <- fabletools::new_specials(
 train_x13arimaseats <- function(.data, formula, specials, ...){
   require_package("seasonal")
   stopifnot(is_tsibble(.data))
+  series_name <- measured_vars(.data)
 
   specials <- lapply(specials, do.call, what = "c")
-  period <- specials$seats$period %||% specials$x11$period %||% get_frequencies(NULL, .data, .auto = "smallest")
-  y <- as.ts(.data, frequency = period)
-
   specification <- unlist(specials, recursive = FALSE)
 
-  fit <- seasonal::seas(x = y, list = c(specification, list(...)))
+  fit <- seasonal::seas(
+    x = as.ts(.data),
+    list = c(specification, list(...))
+  )
   fit$call <- NULL
+  fit$spc$series$title <- series_name
 
   structure(
-    list(fit = fit, response = measured_vars(.data), index = index_var(.data)),
+    list(fit = fit, response = series_name, index = index_var(.data)),
     class = "feasts_x13arimaseats"
   )
 }
