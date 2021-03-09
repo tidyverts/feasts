@@ -444,3 +444,8 @@ X_13ARIMA_SEATS <- function(formula, ..., na.action = seasonal::na.x13,
 report.feasts_x13arimaseats <- function(object, ...){
   cat(stats::capture.output(summary(object$fit))[-(1:3)], sep = "\n")
 }
+
+#' @export
+outliers.feasts_x13arimaseats <- function(object, ...){
+  which(!is.na(seasonal::outlier(object$fit)))
+}
