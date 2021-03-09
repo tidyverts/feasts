@@ -31,6 +31,7 @@ train_x13arimaseats <- function(.data, formula, specials, ..., defaults){
 
   specials <- lapply(specials, do.call, what = "c")
   specification <- unlist(specials, recursive = FALSE)
+  specification <- c(specification, rep_named(names(specials)[lengths(specials)==0], list("")))
 
   if(defaults == "none") {
     valid_spc <- c("arima", "automdl", "check", "estimate", "force", "forecast",
