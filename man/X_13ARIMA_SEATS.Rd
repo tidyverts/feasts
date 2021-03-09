@@ -25,8 +25,6 @@ are substituted by -99999.}
 \code{\link[seasonal:seas]{seasonal::seas()}} will be used, which should work well in most
 circumstances. Setting defaults="none" gives an empty model specification,
 which can be added to in the model formula.}
-
-\item{.data}{A tsibble.}
 }
 \description{
 X-13ARIMA-SEATS is a seasonal adjustment program developed and maintained by

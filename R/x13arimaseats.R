@@ -122,7 +122,6 @@ model_sum.feasts_x13arimaseats <- function(x){
 #' model to prepare the data for decomposition. To use the X-11 decomposition
 #' method, the `x11()` function can be used in the model formula.
 #'
-#' @param .data A tsibble.
 #' @param formula Decomposition specification.
 #' @param ... Other arguments passed to [seasonal::seas()].
 #' @param defaults If defaults="seasonal", the default options of
@@ -440,7 +439,8 @@ X_13ARIMA_SEATS <- function(formula, ..., na.action = seasonal::na.x13,
                        defaults = defaults, na.action = na.action, ...)
 }
 
+#' @importFrom fabletools report
 #' @export
-report.feasts_x13arimaseats <- function(x){
+report.feasts_x13arimaseats <- function(object, ...){
   cat(capture.output(summary(x$fit))[-(1:3)], sep = "\n")
 }
