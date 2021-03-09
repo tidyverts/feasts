@@ -67,34 +67,57 @@ components.feasts_x13arimaseats <- function(object, ...){
   fit <- object$fit
   period <- as.integer(fit$udg["freq"])
   series_name <- fit$spc$series$title
+  method <- "X-13ARIMA-SEATS"
+
   .data <- as_tsibble(fit$x)
   colnames(.data) <- c(object$index, series_name)
   dcmp <- unclass(fit$data)
   if(is.null(dcmp)){
     abort("The X-13ARIMA-SEATS model does not contain a decomposition, are you missing a seasonal component?")
   }
-  op <- switch(fit$udg["finmode"], multiplicative = "*", additive = "+")
+
+  if(!is.na(fit$udg["finmode"])) {
+    # SEATS
+    op <- switch(fit$udg["finmode"], multiplicative = "*", additive = "+")
+  } else {
+    # X11
+    method <- paste(method, "using X-11 adjustment")
+    op <- switch(
+      sub("(.+) seasonal adjustment", "\\1", fit$udg["samode"]),
+      logarithmic = "*",
+      multiplicative = "*",
+      additive = "+",
+      "pseudo-add" = "pseudo-add"
+    )
+  }
 
   dcmp <- .data %>%
     mutate(
       trend = dcmp[,"trend"],
       seasonal = dcmp[,"adjustfac"],
       irregular = dcmp[,"irregular"],
-      season_adjust = !!call2(op, sym("trend"), sym("irregular"))
+      season_adjust = !!call2(if(op == "pseudo-add") "*" else op,
+                              sym("trend"), sym("irregular"))
     )
 
   seasonalities <- list(
     seasonal = list(period = period, base = switch(op, `+` = 0, 1))
   )
 
+  y_expr <- if(op == "pseudo-add") {
+    parse_expr("trend * (seasonal + irregular - 1)")
+  } else {
+    reduce(syms(c("trend", "seasonal", "irregular")),
+           function(x,y) call2(op, x, y))
+  }
+
   aliases <- list2(
-    !!series_name := reduce(syms(c("trend", "seasonal", "irregular")),
-                                     function(x,y) call2(op, x, y)),
+    !!series_name := y_expr,
     season_adjust = call2(op, sym("trend"), sym("irregular"))
   )
 
   as_dable(dcmp, response = series_name,
-           method = "X-13ARIMA-SEATS", seasons = seasonalities,
+           method = method, seasons = seasonalities,
            aliases = aliases)
 }
 
