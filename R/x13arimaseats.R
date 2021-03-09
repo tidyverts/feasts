@@ -40,7 +40,7 @@ train_x13arimaseats <- function(.data, formula, specials, ...){
   fit$spc$series$title <- series_name
 
   structure(
-    list(fit = fit, response = series_name, index = index_var(.data)),
+    list(fit = fit, index = index_var(.data)),
     class = "feasts_x13arimaseats"
   )
 }
@@ -50,8 +50,9 @@ train_x13arimaseats <- function(.data, formula, specials, ...){
 components.feasts_x13arimaseats <- function(object, ...){
   fit <- object$fit
   period <- as.integer(fit$udg["freq"])
+  series_name <- fit$spc$series$title
   .data <- as_tsibble(fit$x)
-  colnames(.data) <- c(object$index, object$response)
+  colnames(.data) <- c(object$index, series_name)
   dcmp <- unclass(fit$data)
   if(is.null(dcmp)){
     abort("The X-13ARIMA-SEATS model does not contain a decomposition, are you missing a seasonal component?")
@@ -71,12 +72,12 @@ components.feasts_x13arimaseats <- function(object, ...){
   )
 
   aliases <- list2(
-    !!object$response := reduce(syms(c("trend", "seasonal", "irregular")),
+    !!series_name := reduce(syms(c("trend", "seasonal", "irregular")),
                                      function(x,y) call2(op, x, y)),
     season_adjust = call2(op, sym("trend"), sym("irregular"))
   )
 
-  as_dable(dcmp, response = object$response,
+  as_dable(dcmp, response = series_name,
            method = "X-13ARIMA-SEATS", seasons = seasonalities,
            aliases = aliases)
 }
