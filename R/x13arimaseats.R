@@ -472,7 +472,7 @@ X_13ARIMA_SEATS <- function(formula, ..., na.action = seasonal::na.x13,
 #' @importFrom fabletools report
 #' @export
 report.feasts_x13arimaseats <- function(object, ...){
-  cat(stats::capture.output(summary(object$fit))[-(1:3)], sep = "\n")
+  cat(utils::capture.output(summary(object$fit))[-(1:3)], sep = "\n")
 }
 
 #' @importFrom fabletools outliers
