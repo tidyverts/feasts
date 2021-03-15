@@ -236,7 +236,7 @@ lowpass(window, degree, jump)
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/stl.html'>stl</a></code>, <code><a href='https://rdrr.io/r/stats/supsmu.html'>supsmu</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>model</span>(<span class='fu'>STL</span>(<span class='no'>value</span> ~ <span class='fu'>trend</span>(<span class='kw'>window</span> <span class='kw'>=</span> <span class='fl'>10</span>))) <span class='kw'>%&gt;%</span>
   <span class='fu'>components</span>()</div><div class='output co'>#&gt; # A dable: 72 x 7 [1M]
 #&gt; # Key:     .model [1]

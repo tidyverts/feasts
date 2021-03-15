@@ -208,7 +208,7 @@ season(period = NULL)
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>as_tsibble</span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>model</span>(<span class='fu'>classical_decomposition</span>(<span class='no'>value</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'>components</span>()</div><div class='output co'>#&gt; # A dable: 72 x 7 [1M]
 #&gt; # Key:     .model [1]
@@ -226,7 +226,7 @@ season(period = NULL)
 #&gt;  9 classical_decomposition(v… 1973 Sep  9713 9416.    -109.  406.          9822.
 #&gt; 10 classical_decomposition(v… 1973 Oct  9938 9349.     264.  325.          9674.
 #&gt; # … with 62 more rows</div><div class='input'>
-<span class='fu'>as_tsibble</span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
+<span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>model</span>(<span class='fu'>classical_decomposition</span>(<span class='no'>value</span> ~ <span class='fu'>season</span>(<span class='fl'>12</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"mult"</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'>components</span>()</div><div class='output co'>#&gt; # A dable: 72 x 7 [1M]
 #&gt; # Key:     .model [1]
