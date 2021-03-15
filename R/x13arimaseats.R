@@ -475,6 +475,7 @@ report.feasts_x13arimaseats <- function(object, ...){
   cat(stats::capture.output(summary(object$fit))[-(1:3)], sep = "\n")
 }
 
+#' @importFrom fabletools outliers
 #' @export
 outliers.feasts_x13arimaseats <- function(object, ...){
   which(!is.na(seasonal::outlier(object$fit)))
