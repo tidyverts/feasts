@@ -93,7 +93,7 @@ Unlike stl, mstl is completely automated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -238,9 +238,9 @@ lowpass(window, degree, jump)
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span>(<span class='no'>USAccDeaths</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>model</span>(<span class='fu'>STL</span>(<span class='no'>value</span> ~ <span class='fu'>trend</span>(<span class='kw'>window</span> <span class='kw'>=</span> <span class='fl'>10</span>))) <span class='kw'>%&gt;%</span>
-  <span class='fu'>components</span>()</div><div class='output co'>#&gt; # A dable:           72 x 7 [1M]
-#&gt; # Key:               .model [1]
-#&gt; # STL Decomposition: value = trend + season_year + remainder
+  <span class='fu'>components</span>()</div><div class='output co'>#&gt; # A dable: 72 x 7 [1M]
+#&gt; # Key:     .model [1]
+#&gt; # :        value = trend + season_year + remainder
 #&gt;    .model                  index value trend season_year remainder season_adjust
 #&gt;    &lt;chr&gt;                   &lt;mth&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
 #&gt;  1 STL(value ~ trend(w… 1973 Jan  9007 9678.       -788.     118.          9795.

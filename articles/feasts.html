@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -168,9 +168,9 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>tourism_melb <span class="op">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">model</span>(<span class="kw"><a href="../reference/STL.html">STL</a></span>(Trips <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="st">"periodic"</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">components</span>()</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; # A dable:           320 x 10 [1Q]</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; # Key:               Region, State, Purpose, .model [4]</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; # STL Decomposition: Trips = trend + season_year + remainder</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; # A dable: 320 x 10 [1Q]</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; # Key:     Region, State, Purpose, .model [4]</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; # :        Trips = trend + season_year + remainder</span></span>
 <span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt;    Region State Purpose .model Quarter Trips trend season_year remainder</span></span>
 <span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;qtr&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;</span></span>
 <span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt;  1 Melbo… Vict… Busine… "STL(… 1998 Q1  405.  437.      -58.0      25.8 </span></span>
@@ -196,12 +196,12 @@
 <span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">features</span>(Trips, <span class="kw">feature_set</span>(<span class="dt">tags =</span> <span class="st">"stl"</span>))</span>
 <span id="cb10-3"><a href="#cb10-3"></a>tourism_melb_features</span>
 <span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; # A tibble: 4 x 12</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt;   Region State Purpose trend_strength seasonal_streng… seasonal_peak_y…</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; 1 Melbo… Vict… Busine…          0.776            0.541                3</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; 2 Melbo… Vict… Holiday          0.860            0.283                1</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; 3 Melbo… Vict… Other            0.819            0.132                3</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; 4 Melbo… Vict… Visiti…          0.751            0.448                0</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt;   Region   State   Purpose  trend_strength seasonal_strength_… seasonal_peak_ye…</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;             &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; 1 Melbour… Victor… Business          0.776               0.541                 3</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; 2 Melbour… Victor… Holiday           0.860               0.283                 1</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; 3 Melbour… Victor… Other             0.819               0.132                 3</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; 4 Melbour… Victor… Visiting          0.751               0.448                 0</span></span>
 <span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; # … with 6 more variables: seasonal_trough_year &lt;dbl&gt;, spikiness &lt;dbl&gt;,</span></span>
 <span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; #   linearity &lt;dbl&gt;, curvature &lt;dbl&gt;, stl_e_acf1 &lt;dbl&gt;, stl_e_acf10 &lt;dbl&gt;</span></span></code></pre></div>
 <p>In the example above, the components from the STL decomposition has been used to summarise the strength of trend and seasonality components of each series.</p>
