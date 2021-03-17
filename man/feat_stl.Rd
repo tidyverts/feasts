@@ -23,5 +23,5 @@ Computes a variety of measures extracted from an STL decomposition of the
 time series. This includes details about the strength of trend and seasonality.
 }
 \seealso{
-\href{https://otexts.com/fpp3/seasonal-strength.html}{Forecasting Principle and Practices: Measuring strength of trend and seasonality}
+\href{https://otexts.com/fpp3/stlfeatures.html}{Forecasting Principle and Practices: Measuring strength of trend and seasonality}
 }

@@ -40,7 +40,7 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 #' @param ... Further arguments passed to [`stats::stl()`]
 #'
 #' @seealso
-#' [Forecasting Principle and Practices: Measuring strength of trend and seasonality](https://otexts.com/fpp3/seasonal-strength.html)
+#' [Forecasting Principle and Practices: Measuring strength of trend and seasonality](https://otexts.com/fpp3/stlfeatures.html)
 #'
 #' @return A vector of numeric features from a STL decomposition.
 #'
