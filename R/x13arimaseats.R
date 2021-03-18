@@ -30,7 +30,8 @@ specials_x13arimaseats <- fabletools::new_specials(
   .xreg_specials = names(common_xregs)
 )
 
-train_x13arimaseats <- function(.data, formula, specials, ..., defaults){
+train_x13arimaseats <- function(.data, formula, specials, ...,
+                                defaults, na.action = seasonal::na.x13){
   require_package("seasonal")
   stopifnot(is_tsibble(.data))
   series_name <- measured_vars(.data)
@@ -55,7 +56,8 @@ train_x13arimaseats <- function(.data, formula, specials, ..., defaults){
   if(!is.null(xreg)) xreg <- ts(xreg, start = stats::start(y), frequency = stats::frequency(y))
 
   # Fit model via {seasonal} package
-  fit <- seasonal::seas(x = y, xreg = xreg, list = c(specification, list(...)))
+  fit <- seasonal::seas(x = y, xreg = xreg, na.action = na.action,
+                        list = c(specification, list(...)))
   fit$call <- NULL
   fit$spc$series$title <- series_name
 
