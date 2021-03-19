@@ -1,4 +1,4 @@
-# feasts (development version)
+# feasts 0.2.1
 
 # feasts 0.2.0
 
