@@ -99,6 +99,7 @@ components.feasts_x13arimaseats <- function(object, ...){
       logarithmic = "*",
       multiplicative = "*",
       additive = "+",
+      "auto-mode" = if(fit$udg["aictrans"] == "Log(y)") "*" else "+",
       "pseudo-add" = "pseudo-add"
     )
     y_expr <- if(op == "pseudo-add") {
