@@ -9,7 +9,10 @@ This submission resolves issues noted on the CRAN check page.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 note
+0 errors | 0 warnings | 1 note
+
+Previous submission within the last 7 days. This submission is to resolve
+Solaris check issues with the previous release.
 
 ## Revdep checks
 

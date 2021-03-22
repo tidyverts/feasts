@@ -1,5 +1,8 @@
 # feasts 0.2.1
 
+Small patch to fix check issues on Solaris, and to resolve `components()` for
+automatically selected transformations in `X_13ARIMA_SEATS()`.
+
 # feasts 0.2.0
 
 ## New features
