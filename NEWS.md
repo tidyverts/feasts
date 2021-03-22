@@ -1,3 +1,5 @@
+# feasts (development version)
+
 # feasts 0.2.1
 
 Small patch to fix check issues on Solaris, and to resolve `components()` for
