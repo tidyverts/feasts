@@ -670,17 +670,17 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 #' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
 #' @importFrom stats na.exclude complete.cases
 #' @export
-gg_tsresiduals <- function(data, ...){
+gg_tsresiduals <- function(data, type = .innov, ...){
   if(!fabletools::is_mable(data)){
     abort("gg_tsresiduals() must be used with a mable containing only one model.")
   }
 
-  data <- stats::residuals(data)
+  data <- augment(data)
   if(n_keys(data) > 1){
     abort("gg_tsresiduals() must be used with a mable containing only one model.")
   }
 
-  gg_tsdisplay(data, !!sym(".resid"), plot_type = "histogram", ...)
+  gg_tsdisplay(data, !!enquo(type), plot_type = "histogram", ...)
 }
 
 #' @export
