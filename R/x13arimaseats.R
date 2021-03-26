@@ -49,6 +49,12 @@ train_x13arimaseats <- function(.data, formula, specials, ...,
                    "x11", "x11regression")
     missing_spc <- setdiff(valid_spc, names(specials))
     specification <- c(specification, set_names(vector("list", length(missing_spc)), missing_spc))
+  } else if(defaults == "seasonal") {
+    default_spc <- list(seats.noadmiss = "yes", transform.function = "auto",
+                        regression.aictest = c("td", "easter"), outlier = "",
+                        automdl = "")
+    missing_spc <- setdiff(names(default_spc), names(specification))
+    specification[missing_spc] <- default_spc[missing_spc]
   }
 
   # Add tsp

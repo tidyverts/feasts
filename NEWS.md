@@ -1,5 +1,10 @@
 # feasts (development version)
 
+## Bug fixes
+
+* Fixed issue where `seasonal::seas()` defaults were not being used in
+  `X_13ARIMA_SEATS()` when `defaults = "seasonal"` (#130).
+
 # feasts 0.2.1
 
 Small patch to fix check issues on Solaris, and to resolve `components()` for
