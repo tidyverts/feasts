@@ -1,5 +1,10 @@
 # feasts (development version)
 
+## Improvements
+
+* The `gg_tsresiduals()` function now allows the type of plotted residual to be
+  controlled via the `type` argument.
+
 ## Bug fixes
 
 * Fixed issue where `seasonal::seas()` defaults were not being used in

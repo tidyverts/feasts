@@ -649,6 +649,8 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 #'
 #' @param data A mable containing one model with residuals.
 #' @param ... Additional arguments passed to [`gg_tsdisplay()`].
+#' @inheritParams fabletools::residuals.mdl_ts
+#'
 #'
 #' @return A list of ggplot objects showing a useful plots of a time series model's residuals.
 #'
@@ -670,17 +672,20 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 #' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
 #' @importFrom stats na.exclude complete.cases
 #' @export
-gg_tsresiduals <- function(data, ...){
+gg_tsresiduals <- function(data, type = "innovation", ...){
   if(!fabletools::is_mable(data)){
     abort("gg_tsresiduals() must be used with a mable containing only one model.")
   }
 
-  data <- stats::residuals(data)
+  data <- stats::residuals(data, type = type)
   if(n_keys(data) > 1){
     abort("gg_tsresiduals() must be used with a mable containing only one model.")
   }
 
-  gg_tsdisplay(data, !!sym(".resid"), plot_type = "histogram", ...)
+  out <- gg_tsdisplay(data, !!sym(".resid"), plot_type = "histogram", ...)
+  out[[1]] <- out[[1]] +
+    ggplot2::ylab(sub("([[:alpha:]])(.+)", "\\U\\1\\L\\2 residuals", type, perl=TRUE))
+  out
 }
 
 #' @export

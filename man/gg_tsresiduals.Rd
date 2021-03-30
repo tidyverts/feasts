@@ -4,10 +4,12 @@
 \alias{gg_tsresiduals}
 \title{Ensemble of time series residual diagnostic plots}
 \usage{
-gg_tsresiduals(data, ...)
+gg_tsresiduals(data, type = "innovation", ...)
 }
 \arguments{
 \item{data}{A mable containing one model with residuals.}
+
+\item{type}{The type of residuals to compute. If \code{type="response"}, residuals on the back-transformed data will be computed.}
 
 \item{...}{Additional arguments passed to \code{\link[=gg_tsdisplay]{gg_tsdisplay()}}.}
 }
