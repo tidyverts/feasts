@@ -4,6 +4,7 @@
 
 * The `gg_tsresiduals()` function now allows the type of plotted residual to be
   controlled via the `type` argument.
+* Documentation improvements.
 
 ## Bug fixes
 

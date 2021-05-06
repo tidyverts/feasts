@@ -11,7 +11,7 @@ classical_decomposition(formula, type = c("additive", "multiplicative"), ...)
 
 \item{type}{The type of seasonal component. Can be abbreviated.}
 
-\item{...}{Other arguments passed to \verb{\link[stats]\{decompose\}}.}
+\item{...}{Other arguments passed to \code{\link[stats:decompose]{stats::decompose()}}.}
 }
 \value{
 A \code{\link[fabletools:dable]{fabletools::dable()}} containing the decomposed trend, seasonality

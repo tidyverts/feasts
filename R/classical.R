@@ -73,7 +73,7 @@ model_sum.classical_decomposition <- function(x){
 #' @inherit stats::decompose description details
 #'
 #' @param formula Decomposition specification (see "Specials" section).
-#' @param ... Other arguments passed to `\link[stats]{decompose}`.
+#' @param ... Other arguments passed to [`stats::decompose()`].
 #' @inheritParams stats::decompose
 #'
 #' @return A [`fabletools::dable()`] containing the decomposed trend, seasonality
