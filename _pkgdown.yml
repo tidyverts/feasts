@@ -50,6 +50,7 @@ reference:
     - gg_season
     - gg_subseries
     - gg_tsdisplay
+    - gg_tsresiduals
     - gg_lag
     - gg_arma
 
