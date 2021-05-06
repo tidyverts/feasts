@@ -10,6 +10,8 @@
 
 * Fixed issue where `seasonal::seas()` defaults were not being used in
   `X_13ARIMA_SEATS()` when `defaults = "seasonal"` (#130).
+* Fixed issue with `gg_subseries()` on data with spaces in the index column 
+  name (#136).
 
 # feasts 0.2.1
 

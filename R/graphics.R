@@ -253,10 +253,10 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
       group_by(!!sym("facet_id"), !!sym("id")) %>%
       summarise(
         !!idx := max(as.Date(!!sym(idx))) + ts_interval - .Machine$double.eps,
-        !!expr_text(y) := (!!y)[[which.min(!!sym(idx))]]
+        !!as_name(y) := (!!y)[[which.min(!!sym(idx))]]
       ) %>%
       group_by(!!sym("facet_id")) %>%
-      mutate(!!expr_text(y) := dplyr::lead(!!y)) %>%
+      mutate(!!as_name(y) := dplyr::lead(!!y)) %>%
       filter(!is.na(!!y))
     data <- dplyr::bind_rows(data, extra_x)
   }
@@ -429,12 +429,12 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
       scales = "free_y") +
     geom_hline(aes(yintercept = !!sym(".yint")), colour = "blue")
 
-  if(inherits(data[[expr_text(idx)]], "Date")){
+  if(inherits(data[[as_name(idx)]], "Date")){
     p <- p + ggplot2::scale_x_date(labels = within_time_identifier)
-  } else if(inherits(data[[expr_text(idx)]], "POSIXct")){
+  } else if(inherits(data[[as_name(idx)]], "POSIXct")){
     p <- p + ggplot2::scale_x_datetime(labels = within_time_identifier)
   } else {
-    scale_fn <- paste0("scale_x_", ggplot2::scale_type(data[[expr_text(idx)]])[1])
+    scale_fn <- paste0("scale_x_", ggplot2::scale_type(data[[as_name(idx)]])[1])
     scale_fn <- if(exists(scale_fn, parent.frame(), mode = "function")){
       get(scale_fn, parent.frame(), mode = "function")
     } else {
@@ -581,7 +581,7 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
   if(plot_type == "auto"){
     period <- get_frequencies(NULL, data, .auto = "all")
     if(all(period <= 1)){
-      plot_type <- if(any(is.na(data[[expr_text(y)]]))) "partial" else "spectrum"
+      plot_type <- if(any(is.na(data[[as_name(y)]]))) "partial" else "spectrum"
     }
     else{
       plot_type <- "season"
@@ -611,13 +611,13 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
     p3 <- gg_season(data, !!y)
   } else if(plot_type == "histogram"){
     p3 <- ggplot(data, aes(x = !!y)) +
-      geom_histogram(bins = min(500, grDevices::nclass.FD(na.exclude(data[[expr_text(y)]])))) +
+      geom_histogram(bins = min(500, grDevices::nclass.FD(na.exclude(data[[as_name(y)]])))) +
       ggplot2::geom_rug()
   } else if(plot_type == "scatter"){
     p3 <- data %>%
-      mutate(!!paste0(expr_text(y),"_lag") := lag(!!y, 1)) %>%
+      mutate(!!paste0(as_name(y),"_lag") := lag(!!y, 1)) %>%
       .[complete.cases(.),] %>%
-      ggplot(aes(y = !!y, x = !!sym(paste0(expr_text(y),"_lag")))) +
+      ggplot(aes(y = !!y, x = !!sym(paste0(as_name(y),"_lag")))) +
       geom_point() +
       xlab(expression(Y[t - 1])) + ylab(expression(Y[t]))
   } else if(plot_type == "spectrum"){

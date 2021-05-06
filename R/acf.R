@@ -82,7 +82,7 @@ ACF <- function(.data, ..., lag_max = NULL,
   }
   if(length(value) > 1){
     warn(sprintf("ACF currently only supports one column, `%s` will be used.",
-                 expr_text(value[[1]])))
+                 as_name(value[[1]])))
   }
   build_cf(.data, compute_acf, value=!!value[[1]], lag.max = lag_max,
            demean = demean, type = type, na.action = na.action)
@@ -116,7 +116,7 @@ PACF <- function(.data, ..., lag_max = NULL,
   }
   if(length(value) > 1){
     warn(sprintf("PACF currently only supports one column, `%s` will be used.",
-                 expr_text(value[[1]])))
+                 as_name(value[[1]])))
   }
   build_cf(.data, compute_pacf, value=!!value[[1]], lag.max = lag_max,
            na.action = na.action)
@@ -159,7 +159,7 @@ CCF <- function(.data, ..., lag_max = NULL,
   }
   if(length(value) > 2){
     warn(sprintf("CCF currently only supports two columns, `%s` and `%s` will be used.",
-                 expr_text(value[[1]]), expr_text(value[[2]])))
+                 as_name(value[[1]]), as_name(value[[2]])))
   }
   if(length(value) == 1){
     abort("CCF requires two columns to be specified.")
