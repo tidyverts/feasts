@@ -13,6 +13,13 @@
 * Fixed issue with `gg_subseries()` on data with spaces in the index column 
   name (#136).
 
+## Breaking changes
+
+* Replaced usage of `...` in `ACF()`, `PACF()`, and `CCF()` with `y` (and `x` 
+  for `CCF()`) arguments. This change should not affect the code for most users,
+  but is important for the eventual passing of `...` to `acf()`, `pacf()` and
+  `ccf()` in a future version.
+
 # feasts 0.2.1
 
 Small patch to fix check issues on Solaris, and to resolve `components()` for
