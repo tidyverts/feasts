@@ -162,6 +162,13 @@
 <li>Fixed issue with <code><a href="../reference/gg_subseries.html">gg_subseries()</a></code> on data with spaces in the index column name (<a href='https://github.com/tidyverts/feasts/issues/136'>#136</a>).</li>
 </ul>
 </div>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<ul>
+<li>Replaced usage of <code>...</code> in <code><a href="../reference/ACF.html">ACF()</a></code>, <code><a href="../reference/ACF.html">PACF()</a></code>, and <code><a href="../reference/ACF.html">CCF()</a></code> with <code>y</code> (and <code>x</code> for <code><a href="../reference/ACF.html">CCF()</a></code>) arguments. This change should not affect the code for most users, but is important for the eventual passing of <code>...</code> to <code><a href="https://rdrr.io/r/stats/acf.html">acf()</a></code>, <code><a href="https://rdrr.io/r/stats/acf.html">pacf()</a></code> and <code><a href="https://rdrr.io/r/stats/acf.html">ccf()</a></code> in a future version.</li>
+</ul>
+</div>
 </div>
     <div id="feasts-021" class="section level1">
 <h1 class="page-header">
@@ -180,9 +187,9 @@
 <li>Added <code><a href="../reference/X_13ARIMA_SEATS.html">X_13ARIMA_SEATS()</a></code> decomposition method. This is a complete wrapper of the X-13ARIMA-SEATS developed by the U.S. Census Bureau, implemented via the <code><a href="https://rdrr.io/pkg/seasonal/man/seas.html">seasonal::seas()</a></code> function. The defaults match what is used in the seasonal pacakge, however these defaults can be removed (giving an empty default model) by setting <code>defaults="none"</code>.</li>
 </ul>
 </div>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>The new <code><a href="../reference/X_13ARIMA_SEATS.html">X_13ARIMA_SEATS()</a></code> method officially deprecates (supersedes) the <code><a href="https://rdrr.io/r/grDevices/x11.html">X11()</a></code> and <code>SEATS()</code> models which were previously not exported (<a href='https://github.com/tidyverts/feasts/issues/66'>#66</a>).</li>
 </ul>
@@ -258,9 +265,9 @@
 <li>Documentation improvements</li>
 </ul>
 </div>
-<div id="breaking-changes-1" class="section level2">
+<div id="breaking-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>The <code><a href="../reference/longest_flat_spot.html">n_flat_spots()</a></code> return name is now “longest_flat_spot” to better describe the feature.</li>
 </ul>
@@ -342,9 +349,9 @@
 <li>Performance improvements.</li>
 </ul>
 </div>
-<div id="breaking-changes-2" class="section level2">
+<div id="breaking-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-3" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>Decompositions are now treated as models. To access the decomposed values, you will now have to use <code>components()</code>. For example, <code>tourism %&gt;% STL(Trips)</code> is now <code>tourism %&gt;% model(STL(Trips)) %&gt;% components()</code>. This change allows for more flexible decomposition specifications, and better interfaces for decomposition modelling.</li>
 </ul>

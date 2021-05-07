@@ -280,18 +280,18 @@ Time Series Analysis</em>, 31(6), 471-482.</p>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Country</span> <span class='kw'>==</span> <span class='st'>"Australia"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>CCF</span>(<span class='no'>GDP</span>, <span class='no'>Population</span>)</div><div class='output co'>#&gt; # A tsibble: 29 x 3 [1Y]
 #&gt; # Key:       Country [1]
-#&gt;    Country     lag    ccf
-#&gt;    &lt;fct&gt;     &lt;lag&gt;  &lt;dbl&gt;
-#&gt;  1 Australia  -14Y 0.0315
-#&gt;  2 Australia  -13Y 0.0673
-#&gt;  3 Australia  -12Y 0.108 
-#&gt;  4 Australia  -11Y 0.152 
-#&gt;  5 Australia  -10Y 0.203 
-#&gt;  6 Australia   -9Y 0.268 
-#&gt;  7 Australia   -8Y 0.321 
-#&gt;  8 Australia   -7Y 0.389 
-#&gt;  9 Australia   -6Y 0.472 
-#&gt; 10 Australia   -5Y 0.563 
+#&gt;    Country     lag   ccf
+#&gt;    &lt;fct&gt;     &lt;lag&gt; &lt;dbl&gt;
+#&gt;  1 Australia  -14Y 0.394
+#&gt;  2 Australia  -13Y 0.427
+#&gt;  3 Australia  -12Y 0.461
+#&gt;  4 Australia  -11Y 0.496
+#&gt;  5 Australia  -10Y 0.530
+#&gt;  6 Australia   -9Y 0.565
+#&gt;  7 Australia   -8Y 0.601
+#&gt;  8 Australia   -7Y 0.637
+#&gt;  9 Australia   -6Y 0.674
+#&gt; 10 Australia   -5Y 0.711
 #&gt; # … with 19 more rows</div><div class='input'>
 <span class='no'>global_economy</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>Country</span> <span class='kw'>==</span> <span class='st'>"Australia"</span>) <span class='kw'>%&gt;%</span>
