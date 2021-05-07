@@ -18,7 +18,7 @@
 * Replaced usage of `...` in `ACF()`, `PACF()`, and `CCF()` with `y` (and `x` 
   for `CCF()`) arguments. This change should not affect the code for most users,
   but is important for the eventual passing of `...` to `acf()`, `pacf()` and
-  `ccf()` in a future version.
+  `ccf()` in a future version (#124).
 
 # feasts 0.2.1
 
