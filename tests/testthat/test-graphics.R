@@ -19,7 +19,7 @@ test_that("gg_season() plots", {
 
   p_built <- ggplot2::ggplot_build(p)
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "index", y = "value")
   )
@@ -37,7 +37,7 @@ test_that("gg_season() plots", {
 
   p_built <- ggplot2::ggplot_build(p)
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "Date_Time", y = "Count")
   )
@@ -62,7 +62,7 @@ test_that("gg_season() plot labels", {
 
   p_built <- ggplot2::ggplot_build(p)
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "index", y = "value")
   )
@@ -86,7 +86,7 @@ test_that("gg_season() facets", {
 
   p_built <- ggplot2::ggplot_build(p)
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "index", y = "value")
   )
@@ -106,7 +106,7 @@ test_that("gg_subseries() plots", {
 
   p_built <- ggplot2::ggplot_build(p)
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "index", y = "value")
   )
@@ -124,7 +124,7 @@ test_that("gg_subseries() plots", {
 
   p_built <- ggplot2::ggplot_build(p)
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "Date_Time", y = "Count")
   )
@@ -145,7 +145,7 @@ test_that("gg_lag() plots", {
 
   p_built <- ggplot2::ggplot_build(p)
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "lag(value, n)", y = "value")
   )
@@ -164,7 +164,7 @@ test_that("gg_lag() plots", {
 
   p_built <- ggplot2::ggplot_build(p)
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "lag(value, n)", y = "value")
   )
@@ -184,7 +184,7 @@ test_that("gg_tsdisplay() plots", {
 
   p_built <- ggplot2::ggplot_build(p[[1]])
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "index", y = "value")
   )
@@ -193,21 +193,21 @@ test_that("gg_tsdisplay() plots", {
 
   p_built <- ggplot2::ggplot_build(p[[1]])
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y", "title")],
     list(x = "x", y = "y", title = "title")
   )
 
   p_built <- ggplot2::ggplot_build(p[[2]])
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "lag [1M]", y = "acf")
   )
 
   p_built <- ggplot2::ggplot_build(p[[3]])
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "index", y = "value")
   )
@@ -216,7 +216,7 @@ test_that("gg_tsdisplay() plots", {
 
   p_built <- ggplot2::ggplot_build(p[[3]])
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "value", y = "count")
   )
@@ -230,7 +230,7 @@ test_that("gg_tsdisplay() plots", {
 
   p_built <- ggplot2::ggplot_build(p[[3]])
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = expression(Y[t - 1]), y = expression(Y[t]))
   )
@@ -239,7 +239,7 @@ test_that("gg_tsdisplay() plots", {
 
   p_built <- ggplot2::ggplot_build(p[[3]])
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "frequency", y = "spectrum")
   )
@@ -270,7 +270,7 @@ test_that("gg_arma() plots", {
 
   p_built <- ggplot2::ggplot_build(p)
 
-  expect_identical(
+  expect_equivalent(
     p_built$plot$labels[c("x", "y")],
     list(x = "Re(1/root)", y = "Im(1/root)")
   )
