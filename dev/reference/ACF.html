@@ -158,6 +158,7 @@ from a tsibble.</p>
 
     <pre class="usage"><span class='fu'>ACF</span>(
   <span class='no'>.data</span>,
+  <span class='no'>y</span>,
   <span class='no'>...</span>,
   <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"correlation"</span>, <span class='st'>"covariance"</span>, <span class='st'>"partial"</span>),
@@ -165,10 +166,12 @@ from a tsibble.</p>
   <span class='kw'>demean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>PACF</span>(<span class='no'>.data</span>, <span class='no'>...</span>, <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='no'>na.contiguous</span>)
+<span class='fu'>PACF</span>(<span class='no'>.data</span>, <span class='no'>y</span>, <span class='no'>...</span>, <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.action</span> <span class='kw'>=</span> <span class='no'>na.contiguous</span>)
 
 <span class='fu'>CCF</span>(
   <span class='no'>.data</span>,
+  <span class='no'>y</span>,
+  <span class='no'>x</span>,
   <span class='no'>...</span>,
   <span class='kw'>lag_max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"correlation"</span>, <span class='st'>"covariance"</span>),
@@ -181,6 +184,11 @@ from a tsibble.</p>
     <tr>
       <th>.data</th>
       <td><p>A tsibble</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>a univariate or multivariate (not <code>ccf</code>) numeric time
+    series object or a numeric vector or matrix, or an <code>"acf"</code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -208,6 +216,11 @@ automatically limited to one less than the number of observations in the series.
       <th>demean</th>
       <td><p>logical.  Should the covariances be about the sample
     means?</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>a univariate or multivariate (not <code>ccf</code>) numeric time
+    series object or a numeric vector or matrix, or an <code>"acf"</code> object.</p></td>
     </tr>
     </table>
 
