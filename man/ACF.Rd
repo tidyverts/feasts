@@ -8,6 +8,7 @@
 \usage{
 ACF(
   .data,
+  y,
   ...,
   lag_max = NULL,
   type = c("correlation", "covariance", "partial"),
@@ -15,10 +16,12 @@ ACF(
   demean = TRUE
 )
 
-PACF(.data, ..., lag_max = NULL, na.action = na.contiguous)
+PACF(.data, y, ..., lag_max = NULL, na.action = na.contiguous)
 
 CCF(
   .data,
+  y,
+  x,
   ...,
   lag_max = NULL,
   type = c("correlation", "covariance"),
@@ -27,6 +30,9 @@ CCF(
 }
 \arguments{
 \item{.data}{A tsibble}
+
+\item{y}{a univariate or multivariate (not \code{ccf}) numeric time
+    series object or a numeric vector or matrix, or an \code{"acf"} object.}
 
 \item{...}{The column(s) from the tsibble used to compute the ACF, PACF or CCF.}
 
@@ -44,6 +50,9 @@ automatically limited to one less than the number of observations in the series.
 
 \item{demean}{logical.  Should the covariances be about the sample
     means?}
+
+\item{x}{a univariate or multivariate (not \code{ccf}) numeric time
+    series object or a numeric vector or matrix, or an \code{"acf"} object.}
 }
 \value{
 The \code{ACF}, \code{PACF} and \code{CCF} functions return objects
