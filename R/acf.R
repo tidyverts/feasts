@@ -74,7 +74,7 @@ ACF <- function(.data, y, ..., lag_max = NULL,
       "0.2.2", "PACF(...)", details = "ACF variables should be passed to the `y` argument. If multiple variables are to be used, specify them using `vars(...)`."
     )
   }
-  value <- enquos(y, ...)
+  value <- Filter(negate(quo_is_missing), enquos(y, ...))
   if(length(value) == 0){
     if(is_empty(measured_vars(.data))){
       abort("There are no variables to compute the ACF.")
@@ -113,7 +113,7 @@ PACF <- function(.data, y, ..., lag_max = NULL,
       "0.2.2", "PACF(...)", details = "PACF variables should be passed to the `y` argument. If multiple variables are to be used, specify them using `vars(...)`."
     )
   }
-  value <- enquos(y, ...)
+  value <- Filter(negate(quo_is_missing), enquos(y, ...))
   if(length(value) == 0){
     if(is_empty(measured_vars(.data))){
       abort("There are no variables to compute the PACF.")
@@ -161,7 +161,7 @@ CCF <- function(.data, y, x, ..., lag_max = NULL,
       "0.2.2", "CCF(...)", details = "CCF variables should be passed to the `y` and `x` arguments. If multiple variables are to be used, specify them using `vars(...)`."
     )
   }
-  value <- enquos(x, y, ...)
+  value <- Filter(negate(quo_is_missing), enquos(y, x, ...))
   if(length(value) == 0){
     if(length(measured_vars(.data)) < 2){
       abort("CCF requires two columns to be specified.")
