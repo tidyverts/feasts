@@ -146,11 +146,13 @@
 <h1 class="page-header">
 <a href="#feasts-development-version" class="anchor"></a>feasts (development version)<small> Unreleased </small>
 </h1>
+<p>Minor release for compatibility with an upcoming ggplot2 release. This release contains a few bug fixes and improvements to existing functionality.</p>
 <div id="improvements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#improvements" class="anchor"></a>Improvements</h2>
 <ul>
 <li>The <code><a href="../reference/gg_tsresiduals.html">gg_tsresiduals()</a></code> function now allows the type of plotted residual to be controlled via the <code>type</code> argument.</li>
+<li>Improved the default seasonal window for <code><a href="../reference/STL.html">STL()</a></code> decompositions. For data with a single seasonal pattern, the window has changed from 13 to 11. This change is based on results from simulation experiments.</li>
 <li>Documentation improvements.</li>
 </ul>
 </div>
