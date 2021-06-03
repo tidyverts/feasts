@@ -12,7 +12,7 @@ specials_stl <- fabletools::new_specials(
       set_names(args, paste0("t.", names(args)))
     }
   },
-  season = function(period = NULL, window = 13, degree, jump){
+  season = function(period = NULL, window = NULL, degree, jump){
     args <- as.list(environment())
     args <- args[!map_lgl(args, rlang::is_missing)]
     args <- args[names(args)!="period"]
@@ -54,6 +54,13 @@ estimate_stl <- function(y, trend.args, season.args, lowpass.args,
   }
   deseas <- y
   season.args <- Filter(function(x) x[["period"]] > 1, season.args)
+  period <- map_dbl(season.args, function(x) x[["period"]])
+  season.args <- map2(season.args, 7 + 4*order(period),
+                      function(x, default_window){
+                        x$s.window <- x$s.window %||% default_window
+                        x
+                      })
+  season.args <- season.args[order(period)]
   seas <- set_names(as.list(rep(0, length(season.args))),
                     sprintf("season_%s", names(season.args)%||%map(season.args, function(x) x[["period"]])))
   if(length(season.args) > 0){
@@ -224,12 +231,12 @@ model_sum.stl_decomposition <- function(x){
 #' \subsection{season}{
 #' The `season` special is used to specify the season extraction parameters.
 #' \preformatted{
-#' season(period = NULL, window = 13, degree, jump)
+#' season(period = NULL, window = NULL, degree, jump)
 #' }
 #'
 #' \tabular{ll}{
 #'   `period` \tab The periodic nature of the seasonality. This can be either a number indicating the number of observations in each seasonal period, or text to indicate the duration of the seasonal window (for example, annual seasonality would be "1 year").\cr
-#'   `window` \tab The span (in lags) of the loess window, which should be odd. If the `window` is set to `"periodic"` or `Inf`, the seasonal pattern will be fixed. The window size should be odd and at least 7, according to Cleveland et al. \cr
+#'   `window` \tab The span (in lags) of the loess window, which should be odd. If the `window` is set to `"periodic"` or `Inf`, the seasonal pattern will be fixed. The window size should be odd and at least 7, according to Cleveland et al. The default (NULL) will choose an appropriate default, for a dataset with one seasonal pattern this would be 11, the second larger seasonal window would be 15, then 19, 23, ... onwards.\cr
 #'   `degree` \tab The degree of locally-fitted polynomial. Should be zero or one. \cr
 #'   `jump`   \tab Integers at least one to increase speed of the respective smoother. Linear interpolation happens between every `jump`th value.
 #' }

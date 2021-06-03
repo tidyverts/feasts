@@ -1,9 +1,15 @@
 # feasts (development version)
 
+Minor release for compatibility with an upcoming ggplot2 release. This release
+contains a few bug fixes and improvements to existing functionality.
+
 ## Improvements
 
 * The `gg_tsresiduals()` function now allows the type of plotted residual to be
   controlled via the `type` argument.
+* Improved the default seasonal window for `STL()` decompositions. For data with
+  a single seasonal pattern, the window has changed from 13 to 11. This change
+  is based on results from simulation experiments.
 * Documentation improvements.
 
 ## Bug fixes

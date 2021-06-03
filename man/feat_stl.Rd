@@ -4,7 +4,7 @@
 \alias{feat_stl}
 \title{STL features}
 \usage{
-feat_stl(x, .period, s.window = 13, ...)
+feat_stl(x, .period, s.window = 11, ...)
 }
 \arguments{
 \item{x}{A vector to extract features from.}

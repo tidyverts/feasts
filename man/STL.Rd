@@ -45,12 +45,12 @@ trend(window, degree, jump)
 \subsection{season}{
 The \code{season} special is used to specify the season extraction parameters.
 \preformatted{
-season(period = NULL, window = 13, degree, jump)
+season(period = NULL, window = NULL, degree, jump)
 }
 
 \tabular{ll}{
 \code{period} \tab The periodic nature of the seasonality. This can be either a number indicating the number of observations in each seasonal period, or text to indicate the duration of the seasonal window (for example, annual seasonality would be "1 year").\cr
-\code{window} \tab The span (in lags) of the loess window, which should be odd. If the \code{window} is set to \code{"periodic"} or \code{Inf}, the seasonal pattern will be fixed. The window size should be odd and at least 7, according to Cleveland et al. \cr
+\code{window} \tab The span (in lags) of the loess window, which should be odd. If the \code{window} is set to \code{"periodic"} or \code{Inf}, the seasonal pattern will be fixed. The window size should be odd and at least 7, according to Cleveland et al. The default (NULL) will choose an appropriate default, for a dataset with one seasonal pattern this would be 11, the second larger seasonal window would be 15, then 19, 23, ... onwards.\cr
 \code{degree} \tab The degree of locally-fitted polynomial. Should be zero or one. \cr
 \code{jump}   \tab Integers at least one to increase speed of the respective smoother. Linear interpolation happens between every \code{jump}th value.
 }

@@ -77,10 +77,10 @@ test_that("model based features", {
   ft <- features(lung_deaths_wide, fdeaths, feat_stl)
   expect_equivalent(
     as.list(ft),
-    list(trend_strength = 0.118, seasonal_strength_year = 0.881,
-         seasonal_peak_year = 1, seasonal_trough_year = 8,
-         spikiness = 24526, linearity = -148, cuvature = 11.6,
-         stl_e_acf1 = 0.0256, stl_e_acf10 = 0.186),
+    list(trend_strength = 0.1191, seasonal_strength_year = 0.8832,
+         seasonal_peak_year = 2, seasonal_trough_year = 8, spikiness = 23968.457,
+         linearity = -147.5444, curvature = 13.0048, stl_e_acf1 = 0.024,
+         stl_e_acf10 = 0.194),
     tolerance = 0.01
   )
 })

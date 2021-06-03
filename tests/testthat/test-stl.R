@@ -3,7 +3,7 @@ context("test-stl")
 test_that("Seasonal STL", {
   tsbl_uad <- as_tsibble(USAccDeaths)
   dcmp <- tsbl_uad %>% model(STL(value)) %>% components()
-  stats_dcmp <- stats::stl(USAccDeaths, s.window = 13)
+  stats_dcmp <- stats::stl(USAccDeaths, s.window = 11)
 
   expect_equivalent(
     dcmp$trend,

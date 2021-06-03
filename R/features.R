@@ -46,7 +46,7 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 #'
 #' @importFrom stats var coef
 #' @export
-feat_stl <- function(x, .period, s.window = 13, ...){
+feat_stl <- function(x, .period, s.window = 11, ...){
   dots <- dots_list(...)
   dots <- dots[names(dots) %in% names(formals(stats::stl))]
   season.args <- if (length(x) <= .period * 2) {
