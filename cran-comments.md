@@ -1,4 +1,5 @@
-This submission resolves issues noted on the CRAN check page.
+This submission resolves upcoming reverse dependency checks for the ggplot2
+package.
 
 ## Test environments
 * local ubuntu 20.04 install, R 4.0.2
@@ -9,10 +10,7 @@ This submission resolves issues noted on the CRAN check page.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-Previous submission within the last 7 days. This submission is to resolve
-Solaris check issues with the previous release.
+0 errors | 0 warnings | 0 notes
 
 ## Revdep checks
 

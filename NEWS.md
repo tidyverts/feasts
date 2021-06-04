@@ -1,3 +1,5 @@
+# feasts (development version)
+
 # feasts 0.2.2
 
 Minor release for compatibility with an upcoming ggplot2 release. This release
