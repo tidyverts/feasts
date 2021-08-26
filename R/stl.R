@@ -191,7 +191,7 @@ generate.stl_decomposition <- function(x, new_data, specials = NULL, ...){
   dcmp <- as_tibble(dcmp)[pos,]
   dcmp$remainder <- new_data$.innov
 
-  new_data[[".sim"]] <- eval_tidy(x$aliases[[x$response]], dcmp)
+  new_data[[".sim"]] <- as.numeric(eval_tidy(x$aliases[[x$response]], dcmp))
   new_data[[".innov"]] <- NULL
   new_data
 }
