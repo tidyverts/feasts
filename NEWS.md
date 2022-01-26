@@ -1,5 +1,11 @@
 # feasts (development version)
 
+## Improvements
+
+* `gg_season()` now allows seasonal period identifying labels to be nudged and
+  repelled with the `labels_repel`, `labels_left_nudge`, and 
+  `labels_right_nudge` arguments.
+
 ## Bug fixes
 
 * Fixed `generate(<STL>)` returning `$.sim` as a `num [1:n(1d)]` instead of 

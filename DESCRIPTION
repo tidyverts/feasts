@@ -40,7 +40,8 @@ Suggests:
     seasonal,
     urca,
     fracdiff,
-    fable
+    fable,
+    ggrepel
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL-3

@@ -189,6 +189,8 @@ guess_plot_var <- function(x, y){
 #' @param pal A colour palette to be used.
 #' @param polar If TRUE, the season plot will be shown on polar coordinates.
 #' @param labels Position of the labels for seasonal period identifier.
+#' @param labels_repel If TRUE, the seasonal period identifying labels will be repelled with the ggrepel package.
+#' @param labels_left_nudge,labels_right_nudge Allows seasonal period identifying labels to be nudged to the left or right from their default position.
 #' @param ... Additional arguments passed to geom_line()
 #'
 #' @return A ggplot object showing a seasonal plot of a time series.
@@ -211,7 +213,10 @@ guess_plot_var <- function(x, y){
 #' @export
 gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
                       max_col = 15, pal = scales::hue_pal()(9), polar = FALSE,
-                      labels = c("none", "left", "right", "both"), ...){
+                      labels = c("none", "left", "right", "both"),
+                      labels_repel = FALSE,
+                      labels_left_nudge = 0, labels_right_nudge = 0,
+                      ...){
   y <- guess_plot_var(data, !!enquo(y))
 
   labels <- match.arg(labels)
@@ -329,21 +334,30 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
   }
 
   if(labels != "none"){
-    if(labels == "left"){
-      label_pos <- expr(min(!!sym(idx)))
+    labeller <- if(labels_repel) {
+      require_package("ggrepel")
+      function(...) ggrepel::geom_text_repel(..., direction = "y", segment.colour = NA)
+    } else {
+      ggplot2::geom_text
     }
-    else if(labels == "right"){
-      label_pos <- expr(max(!!sym(idx)))
-    }
-    else{
-      label_pos <- expr(range(!!sym(idx)))
-    }
-    labels_x <- data %>%
-      group_by(!!!syms(c("facet_id", "id"))) %>%
-      filter(!!sym(idx) %in% !!label_pos)
+    if(labels %in% c("left", "both")){
+      labels_left <- data %>%
+        group_by(!!!syms(c("facet_id", "id"))) %>%
+        filter(!!sym(idx) %in% min(!!sym(idx)))
 
-    p <- p + ggplot2::geom_text(aes(label = !!sym("id")), data = labels_x, hjust = "outward") +
-      ggplot2::guides(colour = "none")
+      p <- p + labeller(aes(label = !!sym("id")), data = labels_left,
+                        hjust = "outward", nudge_x = labels_left_nudge)
+    }
+    else if(labels %in% c("right", "both")){
+      labels_right <- data %>%
+        group_by(!!!syms(c("facet_id", "id"))) %>%
+        filter(!!sym(idx) %in% max(!!sym(idx)))
+
+      p <- p + labeller(aes(label = !!sym("id")), data = labels_right,
+                        hjust = "outward", nudge_x = labels_right_nudge)
+    }
+
+    p <- p + ggplot2::guides(colour = "none")
   }
 
   p
