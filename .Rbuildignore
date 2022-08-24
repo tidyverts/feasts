@@ -12,3 +12,4 @@
 ^.github$
 ^revdep$
 ^CRAN-RELEASE$
+^\.github$
