@@ -430,7 +430,7 @@ feat_spectral <- function(x, .period = 1, ...) {
   spec <- try(stats::spec.ar(na.contiguous(ts(x, frequency = .period)),
                              plot=FALSE, method='burg',
                              n.freq = ceiling(length(x)/2 + 1)), ...)
-  if (class(spec) == "try-error") {
+  if (inherits(spec, "try-error")) {
     entropy <- NA
   } else {
     fx <- c(rev(spec$spec[-1]),spec$spec)/ length(x)
