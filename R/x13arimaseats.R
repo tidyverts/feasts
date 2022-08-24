@@ -449,6 +449,14 @@ model_sum.feasts_x13arimaseats <- function(x){
 #'
 #' report(fit)
 #' components(fit)
+#'
+#' # Additive X-11 decomposition
+#' fit <- tsibbledata::aus_production %>%
+#'   model(X_13ARIMA_SEATS(X_13ARIMA_SEATS(Beer ~ transform(func = "none") + x11(mode = "add"))))
+#'
+#' report(fit)
+#' components(fit)
+#'
 #' }
 #'
 #' @seealso [seasonal::seas()]
