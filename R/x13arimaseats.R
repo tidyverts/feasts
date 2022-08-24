@@ -476,7 +476,7 @@ model_sum.feasts_x13arimaseats <- function(x){
 #' X-13ARIMA-SEATS Documentation from the seasonal package's website:
 #' http://www.seasonal.website/seasonal.html
 #'
-#' Official X-13ARIMA-SEATS manual: https://www.census.gov/ts/x13as/docX13ASHTML.pdf
+#' Official X-13ARIMA-SEATS manual: <https://www2.census.gov/software/x-13arima-seats/x13as/windows/documentation/docx13as.pdf>
 #'
 #' @importFrom fabletools new_model_class new_model_definition
 #' @export
