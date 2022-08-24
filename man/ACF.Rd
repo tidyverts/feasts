@@ -98,8 +98,8 @@ global_economy \%>\%
 
 }
 \references{
-Hyndman, R.J. (2015). Discussion of ``High-dimensional
-autocovariance matrices and optimal linear prediction''. \emph{Electronic
+Hyndman, R.J. (2015). Discussion of "High-dimensional
+autocovariance matrices and optimal linear prediction". \emph{Electronic
 Journal of Statistics}, 9, 792-796.
 
 McMurry, T. L., & Politis, D. N. (2010). Banded and tapered estimates for
