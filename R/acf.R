@@ -407,7 +407,7 @@ autoplot.tbl_cf <- function(object, level = 95, ...){
     abort("Only one confidence interval is currently supported for this autoplot.")
   }
 
-  itvl_fmt <- getS3method("format", "interval", envir = getNamespace("tsibble"))
+  itvl_fmt <- utils::getS3method("format", "interval", envir = getNamespace("tsibble"))
   p <- ggplot(object, plot_aes) +
     geom_linecol() +
     geom_hline(yintercept = 0) +
