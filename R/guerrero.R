@@ -31,6 +31,7 @@ guerrero <- function(x, lower = -0.9, upper = 2, .period = 2L) {
   if(all(x == x[1])) return(1)
 
   # Prepare seasonal subseries
+  .period <- max(2L, .period)
   n_obs <- length(x)
   n_subseries <- floor(n_obs/.period)
   x <- matrix(
