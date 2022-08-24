@@ -452,7 +452,7 @@ model_sum.feasts_x13arimaseats <- function(x){
 #'
 #' # Additive X-11 decomposition
 #' fit <- tsibbledata::aus_production %>%
-#'   model(X_13ARIMA_SEATS(X_13ARIMA_SEATS(Beer ~ transform(func = "none") + x11(mode = "add"))))
+#'   model(X_13ARIMA_SEATS(Beer ~ transform(`function` = "none") + x11(mode = "add")))
 #'
 #' report(fit)
 #' components(fit)
