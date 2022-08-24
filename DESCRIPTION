@@ -48,7 +48,7 @@ License: GPL-3
 URL: http://feasts.tidyverts.org/, https://github.com/tidyverts/feasts/
 BugReports: https://github.com/tidyverts/feasts/issues
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
 Language: en-GB
 RdMacros: lifecycle

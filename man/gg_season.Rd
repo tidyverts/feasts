@@ -13,6 +13,9 @@ gg_season(
   pal = (scales::hue_pal())(9),
   polar = FALSE,
   labels = c("none", "left", "right", "both"),
+  labels_repel = FALSE,
+  labels_left_nudge = 0,
+  labels_right_nudge = 0,
   ...
 )
 }
@@ -37,6 +40,10 @@ to always colour the lines. If labels are used, then max_col will be ignored.}
 \item{polar}{If TRUE, the season plot will be shown on polar coordinates.}
 
 \item{labels}{Position of the labels for seasonal period identifier.}
+
+\item{labels_repel}{If TRUE, the seasonal period identifying labels will be repelled with the ggrepel package.}
+
+\item{labels_left_nudge, labels_right_nudge}{Allows seasonal period identifying labels to be nudged to the left or right from their default position.}
 
 \item{...}{Additional arguments passed to geom_line()}
 }
