@@ -24,7 +24,7 @@
 #'
 #' Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. JRSS B 26 211–246.
 #'
-#' Guerrero, V.M. (1993) Time-series analysis supported by power transformations. Journal of Forecasting, 12, 37–48.
+#' Guerrero, V.M. (1993) Time-series analysis supported by power transformations. Journal of Forecasting, 12, 37–48. <https://doi.org/10.1002/for.3980120104>
 #'
 #' @export
 guerrero <- function(x, lower = -0.9, upper = 2, .period = 2L) {
