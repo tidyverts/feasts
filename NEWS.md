@@ -13,6 +13,8 @@
 * Updated `guerrero()` method to maintain a consistent subseries length by 
   removing the first few observations of needed. This more closely matches
   the described method, and the implementation in the forecast package.
+* Added `grid.draw()` method for ensemble graphics (`gg_tsdisplay()` and
+  `gg_tsresiduals()`). This allows use of `ggsave()` with these plots (#149).
 
 ## Bug fixes
 

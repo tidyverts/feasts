@@ -569,7 +569,6 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' @inheritParams gg_season
 #' @inheritParams ACF
 #'
-
 #' @return A list of ggplot objects showing useful plots of a time series.
 #'
 #' @author Rob J Hyndman & Mitchell O'Hara-Wild
@@ -722,9 +721,27 @@ gg_tsresiduals <- function(data, type = "innovation", ...){
 
 #' @export
 print.gg_tsensemble <- function(x, ...){
-  print(x[[1]], vp = grid::viewport(layout.pos.row = c(1, 1), layout.pos.col = c(1, 2)))
-  print(x[[2]], vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 1))
-  print(x[[3]], vp = grid::viewport(layout.pos.row = 2, layout.pos.col = 2))
+  x <- lapply(x, ggplot2::ggplotGrob)
+
+  gt <- gtable::gtable(
+    name = "tsensemble",
+    heights = grid::unit(rep(1, 2), "null"),
+    widths = grid::unit(rep(1, 2), "null")
+  )
+  gt <- gtable::gtable_add_grob(
+    gt, x,
+    t = c(1, 2, 2), b = c(1, 2, 2),
+    l = c(1, 1, 2), r = c(2, 1, 2),
+    z = seq_along(x), clip = "off"
+  )
+  grid.draw(gt)
+}
+
+#' @importFrom grid grid.draw
+#' @method grid.draw gg_tsensemble
+#' @export
+grid.draw.gg_tsensemble <- function(x, recording = TRUE) {
+  print(x)
 }
 
 #' Plot characteristic ARMA roots

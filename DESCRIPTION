@@ -29,7 +29,8 @@ Imports:
     grid,
     slider,
     utils,
-    lifecycle
+    lifecycle,
+    gtable
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),
