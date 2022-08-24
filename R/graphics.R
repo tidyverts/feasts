@@ -42,7 +42,7 @@ time_identifier <- function(idx, period, base = NULL, within = NULL, interval){
   facet_grps <- if(!is.null(within)){
     time_identifier(idx, period = within, base = period, interval = interval)$id
   } else {
-    FALSE
+    rep_along(idx, FALSE)
   }
 
   # Create format groups for each series
@@ -106,9 +106,9 @@ time_identifier <- function(idx, period, base = NULL, within = NULL, interval){
     # Default to time ranges
     map2(fmt_idx_grp, split(grps, facet_grps), function(x, grps){
       map(x, function(y){
-        rep(paste0(c(min(y), max(y)), collapse = " - "), length(y))
+        rep(paste0(range(y), collapse = " - "), length(y))
       }) %>%
-        unsplit(grps)
+        unsplit(as.factor(format(grps)))
     }) %>%
       unsplit(facet_grps) %>%
       ordered()
