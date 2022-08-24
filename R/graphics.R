@@ -186,6 +186,7 @@ guess_plot_var <- function(x, y){
 #' number of seasonal periods in the data is larger than `max_col`, the plot
 #' will not include a colour. Use `max_col = 0` to never colour the lines, or Inf
 #' to always colour the lines. If labels are used, then max_col will be ignored.
+#' @param max_col_discrete The maximum number of colours to show using a discrete colour scale.
 #' @param pal A colour palette to be used.
 #' @param polar If TRUE, the season plot will be shown on polar coordinates.
 #' @param labels Position of the labels for seasonal period identifier.
@@ -212,7 +213,8 @@ guess_plot_var <- function(x, y){
 #' @importFrom ggplot2 ggplot aes geom_line
 #' @export
 gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
-                      max_col = 15, pal = scales::hue_pal()(9), polar = FALSE,
+                      max_col = Inf, max_col_discrete = 7,
+                      pal = scales::hue_pal()(9), polar = FALSE,
                       labels = c("none", "left", "right", "both"),
                       labels_repel = FALSE,
                       labels_left_nudge = 0, labels_right_nudge = 0,
@@ -270,14 +272,24 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
 
   mapping <- aes(x = !!sym(idx), y = !!y, colour = unclass(!!sym("id")), group = !!sym("id"))
 
+  if(num_ids > max_col){
+    mapping$colour <- NULL
+  }
+
   p <- ggplot(data, mapping) +
     geom_line(...) +
-    ggplot2::scale_color_gradientn(colours = pal,
-                                   breaks = if (num_ids < max_col) seq_len(num_ids) else ggplot2::waiver(),
-                                   labels = function(idx) levels(data$id)[idx]) +
     ggplot2::labs(colour = NULL)
 
-  if(num_ids < max_col){
+  if(num_ids <= max_col){
+    p <- p +
+      ggplot2::scale_color_gradientn(
+        colours = pal,
+        breaks = if (num_ids < max_col) seq_len(num_ids) else ggplot2::waiver(),
+        labels = function(idx) levels(data$id)[idx]
+      )
+  }
+
+  if(num_ids <= max_col_discrete){
     p <- p + ggplot2::guides(colour = ggplot2::guide_legend())
   }
 

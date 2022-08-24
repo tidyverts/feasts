@@ -5,6 +5,11 @@
 * `gg_season()` now allows seasonal period identifying labels to be nudged and
   repelled with the `labels_repel`, `labels_left_nudge`, and 
   `labels_right_nudge` arguments.
+* `gg_season()` behaviour of `max_col` has been restored, where colours aren't
+  used if the number of subseries to be coloured exceeds this value. The default
+  has changed to `Inf` since this function now supports continuous colour
+  guides. A new argument `max_col_discrete` has been added to control the
+  threshold for showing discrete and continuous colour guides (#150).
 * Updated `guerrero()` method to maintain a consistent subseries length by 
   removing the first few observations of needed. This more closely matches
   the described method, and the implementation in the forecast package.
