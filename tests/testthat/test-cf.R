@@ -71,7 +71,7 @@ test_that("PACF", {
 
 
 test_that("CCF", {
-  cf <- CCF(dt, x, y)
+  cf <- CCF(dt, y, x)
   expect_identical(
     cf$ccf,
     as.numeric(stats::ccf(dt$x, dt$y, plot = FALSE)$acf)
