@@ -348,7 +348,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
       p <- p + labeller(aes(label = !!sym("id")), data = labels_left,
                         hjust = "outward", nudge_x = labels_left_nudge)
     }
-    else if(labels %in% c("right", "both")){
+    if(labels %in% c("right", "both")){
       labels_right <- data %>%
         group_by(!!!syms(c("facet_id", "id"))) %>%
         filter(!!sym(idx) %in% max(!!sym(idx)))

@@ -56,8 +56,8 @@ test_that("gg_season() plot labels", {
     rep(12, 39)
   )
   expect_equal(
-    ggplot2::layer_data(p,2)$label,
-    ordered(rep(1959:1997, each = 2))
+    c(ggplot2::layer_data(p,2)$label, ggplot2::layer_data(p,3)$label),
+    ordered(rep(1959:1997, 2))
   )
 
   p_built <- ggplot2::ggplot_build(p)
@@ -80,8 +80,8 @@ test_that("gg_season() facets", {
     rep(12, 39)
   )
   expect_equal(
-    ggplot2::layer_data(p,2)$label,
-    ordered(rep(1959:1997, each = 2))
+    c(ggplot2::layer_data(p,2)$label, ggplot2::layer_data(p,3)$label),
+    ordered(rep(1959:1997, 2))
   )
 
   p_built <- ggplot2::ggplot_build(p)
