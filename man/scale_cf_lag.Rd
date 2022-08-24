@@ -18,3 +18,4 @@ A ggproto object inheriting from \code{Scale}
 lagged datetime scales
 This set of scales defines new scales for lagged time structures.
 }
+\keyword{internal}

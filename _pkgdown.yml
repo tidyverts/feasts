@@ -41,6 +41,9 @@ navbar:
     href: https://github.com/tidyverts/feasts
 
 reference:
+- title: Overview
+  contents:
+    - feasts-package
 - title: Graphics
   desc: >
     Visualisation is often the first step in understanding the patterns in time series data.
@@ -60,6 +63,8 @@ reference:
   contents:
     - classical_decomposition
     - STL
+    - generate.stl_decomposition
+    - X_13ARIMA_SEATS
 
 - title: Autocorrelation analysis
   desc: >
@@ -109,6 +114,7 @@ reference:
   contents:
     - feat_stl
     - feat_spectral
+    - feat_intermittent
     - stat_arch_lm
     - n_crossing_points
     - n_flat_spots

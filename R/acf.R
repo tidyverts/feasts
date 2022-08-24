@@ -442,6 +442,7 @@ scale_type.cf_lag <- function(x) c("cf_lag", "continuous")
 #'
 #' @return A ggproto object inheriting from `Scale`
 #'
+#' @keywords internal
 #' @name scale_cf_lag
 #' @rdname scale_cf_lag
 #' @export
