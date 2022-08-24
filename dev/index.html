@@ -165,9 +165,9 @@
 <code class="sourceCode R"><span><span class="va">dcmp</span> <span class="op">&lt;-</span> <span class="va">aus_production</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://fabletools.tidyverts.org/reference/model.html" class="external-link">model</a></span><span class="op">(</span><span class="fu"><a href="reference/STL.html">STL</a></span><span class="op">(</span><span class="va">Beer</span> <span class="op">~</span> <span class="fu">season</span><span class="op">(</span>window <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://generics.r-lib.org/reference/components.html" class="external-link">components</a></span><span class="op">(</span><span class="va">dcmp</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A dable:           218 x 7 [1Q]</span></span>
-<span><span class="co">#&gt; # Key:               .model [1]</span></span>
-<span><span class="co">#&gt; # STL Decomposition: Beer = trend + season_year + remainder</span></span>
+<span><span class="co">#&gt; # A dable: 218 x 7 [1Q]</span></span>
+<span><span class="co">#&gt; # Key:     .model [1]</span></span>
+<span><span class="co">#&gt; # :        Beer = trend + season_year + remainder</span></span>
 <span><span class="co">#&gt;    .model                           Quarter  Beer trend season_year remainder season_adjust</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;                              &lt;qtr&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 STL(Beer ~ season(window = Inf)) 1956 Q1   284  272.        2.14     10.1           282.</span></span>
@@ -192,21 +192,22 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aus_retail</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://fabletools.tidyverts.org/reference/features.html" class="external-link">features</a></span><span class="op">(</span><span class="va">Turnover</span>, <span class="va">feat_stl</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 152 x 11</span></span>
-<span><span class="co">#&gt;    State Industry trend_strength seasonal_streng… seasonal_peak_y… seasonal_trough… spikiness</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Aust… Cafes, …          0.989            0.537                0               10   6.15e-5</span></span>
-<span><span class="co">#&gt;  2 Aust… Cafes, …          0.993            0.610                0               10   1.12e-4</span></span>
-<span><span class="co">#&gt;  3 Aust… Clothin…          0.990            0.918                9               11   4.77e-6</span></span>
-<span><span class="co">#&gt;  4 Aust… Clothin…          0.992            0.952                9               11   2.06e-5</span></span>
-<span><span class="co">#&gt;  5 Aust… Departm…          0.975            0.977                9               11   2.79e-5</span></span>
-<span><span class="co">#&gt;  6 Aust… Electri…          0.991            0.929                9               11   3.03e-5</span></span>
-<span><span class="co">#&gt;  7 Aust… Food re…          0.999            0.882                9               11   2.74e-4</span></span>
-<span><span class="co">#&gt;  8 Aust… Footwea…          0.980            0.937                9               11   5.54e-6</span></span>
-<span><span class="co">#&gt;  9 Aust… Furnitu…          0.980            0.669                9                1   4.66e-5</span></span>
-<span><span class="co">#&gt; 10 Aust… Hardwar…          0.992            0.895                9                4   1.47e-5</span></span>
-<span><span class="co">#&gt; # … with 142 more rows, and 4 more variables: linearity &lt;dbl&gt;, curvature &lt;dbl&gt;, stl_e_acf1 &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   stl_e_acf10 &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 152 × 11</span></span>
+<span><span class="co">#&gt;    State             Indus…¹ trend…² seaso…³ seaso…⁴ seaso…⁵ spiki…⁶ linea…⁷ curva…⁸ stl_e…⁹ stl_e…˟</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Australian Capit… Cafes,…   0.989   0.562       0      10 5.15e-5   227.    48.5   0.281   0.187 </span></span>
+<span><span class="co">#&gt;  2 Australian Capit… Cafes,…   0.993   0.629       0      10 9.73e-5   342.    77.8   0.320   0.218 </span></span>
+<span><span class="co">#&gt;  3 Australian Capit… Clothi…   0.991   0.923       9      11 4.23e-6   131.    17.4   0.262   0.152 </span></span>
+<span><span class="co">#&gt;  4 Australian Capit… Clothi…   0.993   0.957       9      11 1.29e-5   195.    19.3   0.262   0.193 </span></span>
+<span><span class="co">#&gt;  5 Australian Capit… Depart…   0.977   0.980       9      11 2.21e-5   130.   -43.9  -0.254   0.119 </span></span>
+<span><span class="co">#&gt;  6 Australian Capit… Electr…   0.992   0.933       9      11 2.68e-5   233.    -9.07  0.308   0.207 </span></span>
+<span><span class="co">#&gt;  7 Australian Capit… Food r…   0.999   0.890       9      11 2.24e-4  1264.   199.    0.0866  0.268 </span></span>
+<span><span class="co">#&gt;  8 Australian Capit… Footwe…   0.982   0.944       9      11 3.69e-6    64.0    1.95  0.152   0.176 </span></span>
+<span><span class="co">#&gt;  9 Australian Capit… Furnit…   0.981   0.687       9       1 4.09e-5   141.   -21.6   0.200   0.0812</span></span>
+<span><span class="co">#&gt; 10 Australian Capit… Hardwa…   0.992   0.900       9       4 1.32e-5   173.    45.1   0.102   0.0796</span></span>
+<span><span class="co">#&gt; # … with 142 more rows, and abbreviated variable names ¹​Industry, ²​trend_strength,</span></span>
+<span><span class="co">#&gt; #   ³​seasonal_strength_year, ⁴​seasonal_peak_year, ⁵​seasonal_trough_year, ⁶​spikiness, ⁷​linearity,</span></span>
+<span><span class="co">#&gt; #   ⁸​curvature, ⁹​stl_e_acf1, ˟​stl_e_acf10</span></span></code></pre></div>
 <p>This allows you to visualise the behaviour of many time series (where the plotting methods above would show too much information).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aus_retail</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -275,7 +276,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/tidyverts/feasts/actions?workflow=R-CMD-check" class="external-link"><img src="https://github.com/tidyverts/feasts/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/tidyverts/feasts?branch=master" class="external-link"><img src="https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://app.codecov.io/gh/tidyverts/feasts?branch=master" class="external-link"><img src="https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
 <li><a href="https://cran.r-project.org/package=feasts" class="external-link"><img src="http://www.r-pkg.org/badges/version/feasts" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 </ul>
