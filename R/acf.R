@@ -150,8 +150,8 @@ CCF <- function(.data, y, x, ..., lag_max = NULL,
   compute_ccf <- function(.data, value1, value2, ...){
     value1 <- enexpr(value1)
     value2 <- enexpr(value2)
-    ccf <- ccf(x = eval_tidy(value1, data = .data),
-               y = eval_tidy(value2, data = .data),
+    ccf <- ccf(y = eval_tidy(value1, data = .data),
+               x = eval_tidy(value2, data = .data),
                plot=FALSE, ...)
     lag <- as.numeric(ccf$lag)
     tibble(lag = lag, ccf = as.numeric(ccf$acf))

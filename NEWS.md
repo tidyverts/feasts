@@ -21,6 +21,7 @@
 * Fixed `generate(<STL>)` returning `$.sim` as a `num [1:n(1d)]` instead of 
   `num [1:72]` (fable/#336).
 * Fixed issue with `gg_season()` incorrectly grouping some seasonal subseries.
+* `CCF()` now matches `stats::ccf()` `x` and `y` arguments (#144).
 
 # feasts 0.2.2
 
