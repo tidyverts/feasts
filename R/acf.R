@@ -23,6 +23,7 @@
 #' @param lag_max maximum lag at which to calculate the acf. Default is 10*log10(N/m)
 #' where N is the number of observations and m the number of series. Will be
 #' automatically limited to one less than the number of observations in the series.
+#' @param tapered Produces banded and tapered estimates of the (partial) autocorrelation.
 #' @inheritParams stats::acf
 #'
 #' @return The `ACF`, `PACF` and `CCF` functions return objects
@@ -58,12 +59,18 @@
 #' @export
 ACF <- function(.data, y, ..., lag_max = NULL,
                 type = c("correlation", "covariance", "partial"),
-                na.action = na.contiguous, demean = TRUE){
+                na.action = na.contiguous, demean = TRUE, tapered = FALSE){
   type <- match.arg(type)
-  compute_acf <- function(.data, value, ...){
+  compute_acf <- function(.data, value, lag.max, ...){
     value <- enexpr(value)
     x <- eval_tidy(value, data = .data)
-    acf <- as.numeric(acf(x, plot=FALSE, ...)$acf)
+
+    acf <- if(tapered) {
+      tacf(x)[seq_len(lag_max+1)]
+    } else {
+      as.numeric(acf(x, plot=FALSE, lag.max=lag.max, ...)$acf)
+    }
+
     if(type != "partial"){ # First indx already dropped if partial
       acf <- tail(acf, -1)
     }
@@ -101,11 +108,40 @@ ACF <- function(.data, y, ..., lag_max = NULL,
 #'
 #' @export
 PACF <- function(.data, y, ..., lag_max = NULL,
-                 na.action = na.contiguous){
-  compute_pacf <- function(.data, value, ...){
+                 na.action = na.contiguous,
+                 tapered = FALSE){
+  compute_pacf <- function(.data, value, lag.max, ...){
     value <- enexpr(value)
     x <- eval_tidy(value, data = .data)
-    pacf <- as.numeric(pacf(x, plot=FALSE, ...)$acf)
+
+    if (tapered) {
+      # Compute acf using tapered estimate
+      acvf <- tacf(x)
+      # Durbin-Levinson recursions
+      # Modified from http://faculty.washington.edu/dbp/s519/R-code/LD-recursions.R
+      p <- length(acvf) - 1
+      phis <- acvf[2] / acvf[1]
+      pev <- rep(acvf[1], p + 1)
+      pacf <- rep(phis, lag.max)
+      pev[2] <- pev[1] * (1 - phis ^ 2)
+      if (p > 1) {
+        for (k in 2:lag.max)
+        {
+          old.phis <- phis
+          phis <- rep(0, k)
+          ## compute kth order pacf (reflection coefficient)
+          phis[k] <- (acvf[k + 1] - sum(old.phis * acvf[k:2])) / pev[k]
+          phis[1:(k - 1)] <- old.phis - phis[k] * rev(old.phis)
+          pacf[k] <- phis[k]
+          pev[k + 1] <- pev[k] * (1 - phis[k] ^ 2)
+          # if(abs(pacf[k]) > 1)
+          #  warning("PACF larger than 1 in absolute value")
+        }
+      }
+    } else {
+      pacf <- as.numeric(pacf(x, plot=FALSE, lag.max = lag.max, ...)$acf)
+    }
+
     tibble(lag = seq_along(pacf), pacf = pacf)
   }
   if(dots_n(...) > 0) {
@@ -210,6 +246,56 @@ build_cf <- function(.data, cf_fn, ...){
     as_tsibble(.data, index = "lag", key = !!kv),
     num_obs = lens, class = "tbl_cf"
   )
+}
+
+tacf <- function(x) {
+  acf <- as.numeric(acf(x, plot=FALSE, lag.max=length(x)-1)$acf)
+  # Taper estimates
+  s <- seq_along(acf)
+  upper <- 2 * sqrt(log(length(x), 10) / length(x))
+  ac <- abs(acf)
+  # Find l: ac < upper for 5 consecutive lags
+  j <- (ac < upper)
+  l <- 0
+  k <- 1
+  N <- length(j) - 4
+  while (l < 1 && k <= N) {
+    if (all(j[k:(k + 4)])) {
+      l <- k
+    } else {
+      k <- k + 1
+    }
+  }
+  sl <- s / l
+  k <- numeric(length(sl))
+  k[sl <= 1] <- 1
+  k[sl > 1 & sl <= 2] <- 2 - sl[sl > 1 & sl <= 2]
+
+  acf <- acf * k
+  # End of Tapering
+
+  # Now do some shrinkage towards white noise using eigenvalues
+  # Construct covariance matrix
+  gamma <- acf
+  s <- length(gamma)
+  Gamma <- matrix(1, s, s)
+  d <- row(Gamma) - col(Gamma)
+  for (i in 1:(s - 1))
+    Gamma[d == i | d == (-i)] <- gamma[i + 1]
+  # Compute eigenvalue decomposition
+  ei <- eigen(Gamma)
+  # Shrink eigenvalues
+  d <- pmax(ei$values, 20 / length(x))
+  # Construct new covariance matrix
+  Gamma2 <- ei$vectors %*% diag(d) %*% t(ei$vectors)
+  Gamma2 <- Gamma2 / mean(d)
+  # Estimate new ACF
+  d <- row(Gamma2) - col(Gamma2)
+  for (i in 2:s)
+    gamma[i] <- mean(Gamma2[d == (i - 1)])
+
+  ############### end of shrinkage
+  gamma
 }
 
 # Temporary until generic time class is available for temporal hierarchies

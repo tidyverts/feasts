@@ -1,5 +1,10 @@
 # feasts (development version)
 
+## New features
+
+* Added the `tapered` argument to `ACF()` and `PACF()` for producing banded and
+  tapered estimates of autocovariance (#1).
+
 ## Improvements
 
 * `gg_season()` now allows seasonal period identifying labels to be nudged and

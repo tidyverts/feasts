@@ -13,10 +13,11 @@ ACF(
   lag_max = NULL,
   type = c("correlation", "covariance", "partial"),
   na.action = na.contiguous,
-  demean = TRUE
+  demean = TRUE,
+  tapered = FALSE
 )
 
-PACF(.data, y, ..., lag_max = NULL, na.action = na.contiguous)
+PACF(.data, y, ..., lag_max = NULL, na.action = na.contiguous, tapered = FALSE)
 
 CCF(
   .data,
@@ -47,6 +48,8 @@ automatically limited to one less than the number of observations in the series.
 
 \item{demean}{logical.  Should the covariances be about the sample
     means?}
+
+\item{tapered}{Produces banded and tapered estimates of the (partial) autocorrelation.}
 
 \item{x, y}{a univariate or multivariate (not \code{ccf}) numeric time
     series object or a numeric vector or matrix, or an \code{"acf"} object.}
