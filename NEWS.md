@@ -5,6 +5,9 @@
 * `gg_season()` now allows seasonal period identifying labels to be nudged and
   repelled with the `labels_repel`, `labels_left_nudge`, and 
   `labels_right_nudge` arguments.
+* Updated `guerrero()` method to maintain a consistent subseries length by 
+  removing the first few observations of needed. This more closely matches
+  the described method, and the implementation in the forecast package.
 
 ## Bug fixes
 
