@@ -175,7 +175,7 @@ model_sum.feasts_x13arimaseats <- function(x){
 #'
 #' The specials of the X-13ARIMA-SEATS model closely follow the individual
 #' specification options of the original function. Refer to
-#' [Chapter 7 of the X-13ARIMA-SEATS Reference Manual](https://www.census.gov/ts/x13as/docX13AS.pdf#chapter.7)
+#' [Chapter 7 of the X-13ARIMA-SEATS Reference Manual](https://www2.census.gov/software/x-13arima-seats/x13as/windows/documentation/docx13as.pdf#chapter.7)
 #' for full details of the arguments.
 #'
 #' The available specials for this model are:
