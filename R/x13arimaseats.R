@@ -105,7 +105,7 @@ components.feasts_x13arimaseats <- function(object, ...){
       logarithmic = "*",
       multiplicative = "*",
       additive = "+",
-      "auto-mode" = if(fit$udg["aictrans"] == "Log(y)") "*" else "+",
+      "auto-mode" = if(get_x13_transformation(fit) == "Log(y)") "*" else "+",
       "pseudo-add" = "pseudo-add"
     )
     y_expr <- if(op == "pseudo-add") {
@@ -139,10 +139,49 @@ components.feasts_x13arimaseats <- function(object, ...){
            aliases = aliases)
 }
 
+#' @importFrom fabletools forecast
+#' @export
+forecast.feasts_x13arimaseats <- function(
+    object, new_data = NULL, specials = NULL,
+    bootstrap = FALSE, ...) {
+  if(bootstrap)
+    stop("Bootstrapped forecasts are not supported in X-13ARIMA-SEATS.")
+  if(is.null(object$fit$series$ftr)) {
+    stop("Transormed forecasts and standard errors must be available to extract forecasts.
+Specify forecast(save = \"ftr\") in the model specials to obtain forecasts")
+  }
+  fc <- object$fit$series$ftr
+  if(nrow(fc) < nrow(new_data))
+    stop(sprintf(
+"The specified forecast maxlead of %i is insufficient to extract %i forecasts.
+Specify the number of forecasts in the forecast(maxlead = ...) model special.",
+nrow(fc), nrow(new_data)))
+  trans <- get_x13_transformation(object$fit)
+
+  fc <- fc[seq_len(nrow(new_data)),]
+  # ci <- object$fit$spc$forecast$probability%||%0.95
+  # se <- (fc[,"upperci"] - fc[,"forecast"])/qnorm((1+ci)/2)
+
+  mu <- fc[,"forecast"]
+  se <- fc[,"standarderror"]
+  fc <- if(trans == "Log(y)")
+    distributional::dist_lognormal(mu, se)
+  else
+    distributional::dist_normal(mu, se)
+  fc
+}
+
 #' @importFrom fabletools model_sum
 #' @export
-model_sum.feasts_x13arimaseats <- function(x){
+model_sum.feasts_x13arimaseats <- function(x) {
   "X-13ARIMA-SEATS"
+}
+
+get_x13_transformation <- function(fit) {
+  if(fit$udg["transform"] == "Automatic selection")
+    fit$udg["aictrans"]
+  else
+    fit$udg["transform"]
 }
 
 #' X-13ARIMA-SEATS Seasonal Adjustment
