@@ -1,8 +1,9 @@
 pandoc: 2.7.3
-pkgdown: 1.4.1.9000
-pkgdown_sha: 732fb5b9ccc0ef87a73dfd0772ae661a4039b2a8
+pkgdown: 2.0.6
+pkgdown_sha: ~
 articles:
   feasts: feasts.html
+last_built: 2022-09-02T01:14Z
 urls:
   reference: https://feasts.tidyverts.org/reference
   article: https://feasts.tidyverts.org/articles

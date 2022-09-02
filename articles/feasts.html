@@ -12,14 +12,14 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to feasts">
-<meta property="og:description" content="">
+<meta property="og:description" content="feasts">
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -31,7 +31,9 @@
   gtag('config', 'UA-145121339-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -60,7 +62,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     News
      
     <span class="caret"></span>
@@ -68,7 +70,7 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="https://www.mitchelloharawild.com/blog/feasts/">Version 0.1.0</a>
+      <a href="https://www.mitchelloharawild.com/blog/feasts/" class="external-link">Version 0.1.0</a>
     </li>
     <li>
       <a href="../news/index.html">Change log</a>
@@ -78,8 +80,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tidyverts/feasts">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/tidyverts/feasts" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,139 +98,154 @@
       </header><script src="feasts_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Introduction to feasts</h1>
+      <h1 data-toc-skip>Introduction to feasts</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverts/feasts/blob/master/vignettes/feasts.Rmd"><code>vignettes/feasts.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverts/feasts/blob/HEAD/vignettes/feasts.Rmd" class="external-link"><code>vignettes/feasts.Rmd</code></a></small>
       <div class="hidden name"><code>feasts.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(feasts)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tsibble)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://feasts.tidyverts.org/" class="external-link">feasts</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tsibble.tidyverts.org" class="external-link">tsibble</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
 <p>The feasts package provides a smorgasbord of tools for analysing tidy temporal data in the tsibble format. The package name is an acronym of its primary functionality: <em>Feature Extraction and Statistics for Time Series</em>.</p>
-<p>Suppose we wanted to analyse seasonal patterns in the number of domestic travellers to Melbourne, Australia. In the <code><a href="https://tsibble.tidyverts.org/reference/tourism.html">tsibble::tourism</a></code> data set, this can be further broken down into 4 reasons of travel: “business”, “holiday”, “visiting friends and relatives” and “other reasons”. The first observation from each series are shown below.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>tourism_melb &lt;-<span class="st"> </span>tourism <span class="op">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(Region <span class="op">==</span><span class="st"> "Melbourne"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Purpose) <span class="op">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(<span class="dv">1</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; # A tsibble: 4 x 5 [1Q]</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; # Key:       Region, State, Purpose [4]</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; # Groups:    Purpose [4]</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt;   Quarter Region    State    Purpose  Trips</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;     &lt;qtr&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; 1 1998 Q1 Melbourne Victoria Business 405. </span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; 2 1998 Q1 Melbourne Victoria Holiday  428. </span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; 3 1998 Q1 Melbourne Victoria Other     79.9</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; 4 1998 Q1 Melbourne Victoria Visiting 666.</span></span></code></pre></div>
+<p>Suppose we wanted to analyse seasonal patterns in the number of domestic travellers to Melbourne, Australia. In the <code><a href="https://tsibble.tidyverts.org/reference/tourism.html" class="external-link">tsibble::tourism</a></code> data set, this can be further broken down into 4 reasons of travel: “business”, “holiday”, “visiting friends and relatives” and “other reasons”. The first observation from each series are shown below.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op">&lt;-</span> <span class="va">tourism</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Region</span> <span class="op">==</span> <span class="st">"Melbourne"</span><span class="op">)</span></span>
+<span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Purpose</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tsibble: 4 x 5 [1Q]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Key:       Region, State, Purpose [4]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:    Purpose [4]</span></span></span>
+<span><span class="co">#&gt;   Quarter Region    State    Purpose  Trips</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1998 Q1 Melbourne Victoria Business 405. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 1998 Q1 Melbourne Victoria Holiday  428. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 1998 Q1 Melbourne Victoria Other     79.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 1998 Q1 Melbourne Victoria Visiting 666.</span></span></code></pre></div>
 <p>A useful first look at a time series is with a standard time series plot.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(Trips)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">Trips</span><span class="op">)</span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/plot-1.png" width="672"></p>
 <p>This plot reveals that each of the reasons for visiting Melbourne follow a similar pattern, and that in recent years the amount of tourism is increasing. It is also clear that most people travel to Melbourne for one of three reasons (Business, Holiday or Visiting), and fewer travellers report other travel purposes.</p>
 <p>While this plot reveals many useful large scale features of the data, it can be difficult to identify specifics about the seasonal pattern (other than its existence). Which quarter has the most tourism travel in Melbourne? To find out we will need to investigate other plot types.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw"><a href="../reference/gg_season.html">gg_season</a></span>(Trips)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/gg_season.html">gg_season</a></span><span class="op">(</span><span class="va">Trips</span><span class="op">)</span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/season-plot-1.png" width="672"></p>
 <p>The seasonal plot (<code><a href="../reference/gg_season.html">gg_season()</a></code>) wraps a seasonal period (in this case, years) over the x axis, allowing you to see how each quarter varies. In particular, it is apparent that Q3 is a low point for people visiting friends and relatives, which noticeably increases in Q4. Similarly Q2 and Q3 are the time periods with the most business travel.</p>
 <p>The trend of recent years can also be seen in the spread between the lines. The more recent years (purple/pink) are higher than the previous years. This also reveals that the drop in visiting tourism in Q3 was far less extreme in the most recent two years.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw"><a href="../reference/gg_subseries.html">gg_subseries</a></span>(Trips)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/gg_subseries.html">gg_subseries</a></span><span class="op">(</span><span class="va">Trips</span><span class="op">)</span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/subseries-plot-1.png" width="672"></p>
 <p>An alternative visualisation of seasonal patterns is the subseries plot (<code><a href="../reference/gg_subseries.html">gg_subseries()</a></code>), which isolates seasonal periods into separate plots. The blue lines indicate the average number of trips in each quarter, making the increase in visiting tourism from Q3 to Q4 more obvious. This plot style is especially useful in seeing how seasonality changes over time. Focusing on the visiting tourism (last row of facets), the number of tourists in Q3 and Q4 are increasing much more than in Q1 and Q2 (suggesting that the trend may vary between seasons).</p>
 <p>A look at the correlations in each series could reveal structures which are difficult to identify in the above plots.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw"><a href="../reference/ACF.html">ACF</a></span>(Trips)</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; # A tsibble: 76 x 5 [1Q]</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; # Key:       Region, State, Purpose [4]</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;    Region    State    Purpose    lag     acf</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;    &lt;lag&gt;   &lt;dbl&gt;</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;  1 Melbourne Victoria Business    1Q  0.487 </span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt;  2 Melbourne Victoria Business    2Q  0.193 </span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt;  3 Melbourne Victoria Business    3Q  0.331 </span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt;  4 Melbourne Victoria Business    4Q  0.470 </span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;  5 Melbourne Victoria Business    5Q  0.219 </span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;  6 Melbourne Victoria Business    6Q  0.0750</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;  7 Melbourne Victoria Business    7Q  0.168 </span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;  8 Melbourne Victoria Business    8Q  0.321 </span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;  9 Melbourne Victoria Business    9Q  0.166 </span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; 10 Melbourne Victoria Business   10Q -0.0183</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; # … with 66 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/ACF.html">ACF</a></span><span class="op">(</span><span class="va">Trips</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tsibble: 76 x 5 [1Q]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Key:       Region, State, Purpose [4]</span></span></span>
+<span><span class="co">#&gt;    Region    State    Purpose    lag     acf</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lag&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Melbourne Victoria Business    1Q  0.487 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Melbourne Victoria Business    2Q  0.193 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Melbourne Victoria Business    3Q  0.331 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Melbourne Victoria Business    4Q  0.470 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Melbourne Victoria Business    5Q  0.219 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Melbourne Victoria Business    6Q  0.075<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Melbourne Victoria Business    7Q  0.168 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Melbourne Victoria Business    8Q  0.321 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Melbourne Victoria Business    9Q  0.166 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Melbourne Victoria Business   10Q -<span style="color: #BB0000;">0.018</span><span style="color: #BB0000; text-decoration: underline;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 66 more rows</span></span></span></code></pre></div>
 <p>The above code computes autocorrelations (<code><a href="../reference/ACF.html">ACF()</a></code>), however it is also possible to compute partial autocorrelations (<code><a href="../reference/ACF.html">PACF()</a></code>) and cross-correlations (<code><a href="../reference/ACF.html">CCF()</a></code>).</p>
-<p>The tables given from these correlation functions also have a nice <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> method, which will show the correlations along with a threshold for significance (controllable with the <code>level</code> argument).</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw"><a href="../reference/ACF.html">ACF</a></span>(Trips) <span class="op">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>()</span></code></pre></div>
+<p>The tables given from these correlation functions also have a nice <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> method, which will show the correlations along with a threshold for significance (controllable with the <code>level</code> argument).</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/ACF.html">ACF</a></span><span class="op">(</span><span class="va">Trips</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/acf-plot-1.png" width="672"></p>
 <p>Another helpful strategy in investigating the patterns in a time series is to decompose it into components of interest. A useful decomposition for this is the STL decomposition, which allows you to extract multiple seasonal patterns with any seasonal period.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">model</span>(<span class="kw"><a href="../reference/STL.html">STL</a></span>(Trips <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="st">"periodic"</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">components</span>()</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; # A dable: 320 x 10 [1Q]</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; # Key:     Region, State, Purpose, .model [4]</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; # :        Trips = trend + season_year + remainder</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt;    Region  State  Purpose .model       Quarter Trips trend season_year remainder</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;          &lt;qtr&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt;  1 Melbou… Victo… Busine… "STL(Trips … 1998 Q1  405.  437.      -58.0      25.8 </span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt;  2 Melbou… Victo… Busine… "STL(Trips … 1998 Q2  408.  434.       18.1     -44.1 </span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt;  3 Melbou… Victo… Busine… "STL(Trips … 1998 Q3  486.  430.       37.9      18.3 </span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt;  4 Melbou… Victo… Busine… "STL(Trips … 1998 Q4  429.  431.        1.99     -3.48</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;  5 Melbou… Victo… Busine… "STL(Trips … 1999 Q1  361.  427.      -58.0      -7.82</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;  6 Melbou… Victo… Busine… "STL(Trips … 1999 Q2  486.  409.       18.1      58.6 </span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt;  7 Melbou… Victo… Busine… "STL(Trips … 1999 Q3  359.  418.       37.9     -97.0 </span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt;  8 Melbou… Victo… Busine… "STL(Trips … 1999 Q4  426.  440.        1.99    -16.7 </span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt;  9 Melbou… Victo… Busine… "STL(Trips … 2000 Q1  495.  468.      -58.0      84.1 </span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; 10 Melbou… Victo… Busine… "STL(Trips … 2000 Q2  499.  501.       18.1     -19.8 </span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; # … with 310 more rows, and 1 more variable: season_adjust &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://fabletools.tidyverts.org/reference/model.html" class="external-link">model</a></span><span class="op">(</span><span class="fu"><a href="../reference/STL.html">STL</a></span><span class="op">(</span><span class="va">Trips</span> <span class="op">~</span> <span class="fu">season</span><span class="op">(</span>window <span class="op">=</span> <span class="st">"periodic"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/components.html" class="external-link">components</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A dable: 320 x 10 [1Q]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Key:     Region, State, Purpose, .model [4]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># :        Trips = trend + season_year + remainder</span></span></span>
+<span><span class="co">#&gt;    Region    State    Purpose .model Quarter Trips trend seaso…¹ remai…² seaso…³</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 1998 Q1  405.  437.  -<span style="color: #BB0000;">58.0</span>    25.8     463.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 1998 Q2  408.  434.   18.1   -<span style="color: #BB0000;">44.1</span>     390.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 1998 Q3  486.  430.   37.9    18.3     448.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 1998 Q4  429.  431.    1.99   -<span style="color: #BB0000;">3.48</span>    427.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 1999 Q1  361.  427.  -<span style="color: #BB0000;">58.0</span>    -<span style="color: #BB0000;">7.82</span>    419.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 1999 Q2  486.  409.   18.1    58.6     468.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 1999 Q3  359.  418.   37.9   -<span style="color: #BB0000;">97.0</span>     321.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 1999 Q4  426.  440.    1.99  -<span style="color: #BB0000;">16.7</span>     424.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 2000 Q1  495.  468.  -<span style="color: #BB0000;">58.0</span>    84.1     552.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Melbourne Victoria Busine… <span style="color: #949494;">"</span>STL(… 2000 Q2  499.  501.   18.1   -<span style="color: #BB0000;">19.8</span>     481.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 310 more rows, and abbreviated variable names ¹​season_year,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​remainder, ³​season_adjust</span></span></span></code></pre></div>
 <p>The above call to <code><a href="../reference/STL.html">STL()</a></code> has decomposed the <code>Trips</code> variable into three components such that <code>Trips = trend + season_year + remainder</code>. By setting <code>season(window = "periodic")</code>, we have set the seasonal pattern to be unchanging — you can control how quickly the seasonal pattern can change by setting this to some number (smaller numbers correspond to more rapid change).</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">model</span>(<span class="kw"><a href="../reference/STL.html">STL</a></span>(Trips <span class="op">~</span><span class="st"> </span><span class="kw">season</span>(<span class="dt">window =</span> <span class="dv">9</span>))) <span class="op">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">components</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://fabletools.tidyverts.org/reference/model.html" class="external-link">model</a></span><span class="op">(</span><span class="fu"><a href="../reference/STL.html">STL</a></span><span class="op">(</span><span class="va">Trips</span> <span class="op">~</span> <span class="fu">season</span><span class="op">(</span>window <span class="op">=</span> <span class="fl">9</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://generics.r-lib.org/reference/components.html" class="external-link">components</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/stl-plot-1.png" width="672"></p>
-<p>Much like the table from <code><a href="../reference/ACF.html">ACF()</a></code>, decompositions can also be plotted with <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code>. This gives the expected faceted plot of the components extracted from the measured variable. The plot shows that each purpose of travel has a different seasonal pattern, and that the strength and structure of this pattern has changed over time. As these components are often on different scales, this plot includes a set of scale bars which are of equal scaled size across all plots.</p>
-<p>The above plots and analysis are useful for if you’re looking at a few series, but what can be done if you needed to look at and compare more time series? Extracting features from a collection of time series is a scalable approach to analysing many data sets. Each feature is a numerical summary of the data set’s defining characteristics, and a set of features can be created using <code>feature_set()</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>tourism_melb_features &lt;-<span class="st"> </span>tourism_melb <span class="op">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">features</span>(Trips, <span class="kw">feature_set</span>(<span class="dt">tags =</span> <span class="st">"stl"</span>))</span>
-<span id="cb10-3"><a href="#cb10-3"></a>tourism_melb_features</span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; # A tibble: 4 x 12</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt;   Region   State   Purpose  trend_strength seasonal_strength_… seasonal_peak_ye…</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;             &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; 1 Melbour… Victor… Business          0.782               0.559                 3</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; 2 Melbour… Victor… Holiday           0.864               0.308                 1</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; 3 Melbour… Victor… Other             0.826               0.183                 3</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; 4 Melbour… Victor… Visiting          0.759               0.475                 0</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; # … with 6 more variables: seasonal_trough_year &lt;dbl&gt;, spikiness &lt;dbl&gt;,</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; #   linearity &lt;dbl&gt;, curvature &lt;dbl&gt;, stl_e_acf1 &lt;dbl&gt;, stl_e_acf10 &lt;dbl&gt;</span></span></code></pre></div>
+<p>Much like the table from <code><a href="../reference/ACF.html">ACF()</a></code>, decompositions can also be plotted with <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code>. This gives the expected faceted plot of the components extracted from the measured variable. The plot shows that each purpose of travel has a different seasonal pattern, and that the strength and structure of this pattern has changed over time. As these components are often on different scales, this plot includes a set of scale bars which are of equal scaled size across all plots.</p>
+<p>The above plots and analysis are useful for if you’re looking at a few series, but what can be done if you needed to look at and compare more time series? Extracting features from a collection of time series is a scalable approach to analysing many data sets. Each feature is a numerical summary of the data set’s defining characteristics, and a set of features can be created using <code><a href="https://fabletools.tidyverts.org/reference/feature_set.html" class="external-link">feature_set()</a></code>.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_melb_features</span> <span class="op">&lt;-</span> <span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://fabletools.tidyverts.org/reference/features.html" class="external-link">features</a></span><span class="op">(</span><span class="va">Trips</span>, <span class="fu"><a href="https://fabletools.tidyverts.org/reference/feature_set.html" class="external-link">feature_set</a></span><span class="op">(</span>tags <span class="op">=</span> <span class="st">"stl"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tourism_melb_features</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 12</span></span></span>
+<span><span class="co">#&gt;   Region   State Purpose trend…¹ seaso…² seaso…³ seaso…⁴ spiki…⁵ linea…⁶ curva…⁷</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Melbour… Vict… Busine…   0.782   0.559       3       1   515.     351.    326.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Melbour… Vict… Holiday   0.864   0.308       1       0   626.     793.    121.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Melbour… Vict… Other     0.826   0.183       3       0    11.8    200.    104.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Melbour… Vict… Visiti…   0.759   0.475       0       3   932.     457.    320.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: stl_e_acf1 &lt;dbl&gt;, stl_e_acf10 &lt;dbl&gt;, and abbreviated</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   variable names ¹​trend_strength, ²​seasonal_strength_year,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ³​seasonal_peak_year, ⁴​seasonal_trough_year, ⁵​spikiness, ⁶​linearity,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁷​curvature</span></span></span></code></pre></div>
 <p>In the example above, the components from the STL decomposition has been used to summarise the strength of trend and seasonality components of each series.</p>
 <p>These features are particularly useful to show on a plot.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>tourism_melb_features <span class="op">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> trend_strength, <span class="dt">y =</span> seasonal_strength_year, <span class="dt">colour =</span> Purpose)) <span class="op">+</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_equal</a></span>() <span class="op">+</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/lims.html">lims</a></span>(<span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="va">tourism_melb_features</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">trend_strength</span>, y <span class="op">=</span> <span class="va">seasonal_strength_year</span>, colour <span class="op">=</span> <span class="va">Purpose</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">lims</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/featutes-plot-1.png" width="672"></p>
 <p>When analysing just four series, a plot of the features does not look very exciting. It is worth noting that a lot of the individuality seen in the previous analysis have been lost when each series is summarised down to just two values. However recall that the analysis has been working from a very small subset of the complete <code>tourism</code> data set. Let’s see how Melbourne compares with the other regions in the data.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>tourism_features &lt;-<span class="st"> </span>tourism <span class="op">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="st">  </span><span class="kw">features</span>(Trips, feat_stl)</span>
-<span id="cb12-3"><a href="#cb12-3"></a></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="dt">mapping =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> trend_strength, <span class="dt">y =</span> seasonal_strength_year, <span class="dt">colour =</span> Purpose)) <span class="op">+</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="dt">data =</span> tourism_features, <span class="dt">alpha =</span> <span class="fl">0.3</span>) <span class="op">+</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>(<span class="dt">data =</span> tourism_melb_features, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_equal</a></span>() <span class="op">+</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span>(Purpose)) <span class="op">+</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/lims.html">lims</a></span>(<span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tourism_features</span> <span class="op">&lt;-</span> <span class="va">tourism</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://fabletools.tidyverts.org/reference/features.html" class="external-link">features</a></span><span class="op">(</span><span class="va">Trips</span>, <span class="va">feat_stl</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">trend_strength</span>, y <span class="op">=</span> <span class="va">seasonal_strength_year</span>, colour <span class="op">=</span> <span class="va">Purpose</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tourism_features</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tourism_melb_features</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="va">Purpose</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">lims</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/features-all-plot-1.png" width="672"></p>
 <p>Looks like Melbourne is one of the <em>trendiest</em> places around Australia!</p>
-<p>More information about time series analysis using the feasts package can be found in <a href="https://otexts.com/fpp3/"><em>Forecasting: Principles and Practices (3rd Ed.)</em></a> and in the <a href="https://feasts.tidyverts.org/"><em>pkgdown site</em></a>.</p>
+<p>More information about time series analysis using the feasts package can be found in <a href="https://otexts.com/fpp3/" class="external-link"><em>Forecasting: Principles and Practices (3rd Ed.)</em></a> and in the <a href="https://feasts.tidyverts.org/"><em>pkgdown site</em></a>.</p>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
       </div>
 
@@ -237,11 +254,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://mitchelloharawild.com">Mitchell O'Hara-Wild</a>, <a href="http://robjhyndman.com">Rob Hyndman</a>, <a href="https://earo.me">Earo Wang</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://mitchelloharawild.com" class="external-link">Mitchell O’Hara-Wild</a>, <a href="http://robjhyndman.com" class="external-link">Rob Hyndman</a>, <a href="https://earo.me" class="external-link">Earo Wang</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -249,6 +268,8 @@
 
   
 
+
+  
 
   </body>
 </html>
