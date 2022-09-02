@@ -3,7 +3,10 @@ url: https://feasts.tidyverts.org
 template:
   params:
     bootswatch: cosmo
-    ganalytics: UA-145121339-1
+  includes:
+    in_header: |
+    <script defer data-domain="feasts.tidyverts.org" src="https://track.mitchelloharawild.com/js/plausible.js"></script>
+
 
 development:
   mode: auto
