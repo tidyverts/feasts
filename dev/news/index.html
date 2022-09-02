@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9000</span>
       </span>
     </div>
 
@@ -70,13 +70,14 @@
       <small>Source: <a href="https://github.com/tidyverts/feasts/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2"><h2 class="page-header" data-toc-text="development version" id="feasts-development-version">feasts (development version)<a class="anchor" aria-label="anchor" href="#feasts-development-version"></a></h2></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="development version" id="feasts-development-version">feasts (development version)<a class="anchor" aria-label="anchor" href="#feasts-development-version"></a></h2>
+<h2 class="page-header" data-toc-text="0.3.0" id="feasts-030">feasts 0.3.0<small>2022-09-01</small><a class="anchor" aria-label="anchor" href="#feasts-030"></a></h2>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-3-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-0"></a></h3>
 <ul><li>Added the <code>tapered</code> argument to <code><a href="../reference/ACF.html">ACF()</a></code> and <code><a href="../reference/ACF.html">PACF()</a></code> for producing banded and tapered estimates of autocovariance (<a href="https://github.com/tidyverts/feasts/issues/1" class="external-link">#1</a>).</li></ul></div>
 <div class="section level3">
-<h3 id="improvements-development-version">Improvements<a class="anchor" aria-label="anchor" href="#improvements-development-version"></a></h3>
+<h3 id="improvements-0-3-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-3-0"></a></h3>
 <ul><li>
 <code><a href="../reference/gg_season.html">gg_season()</a></code> now allows seasonal period identifying labels to be nudged and repelled with the <code>labels_repel</code>, <code>labels_left_nudge</code>, and <code>labels_right_nudge</code> arguments.</li>
 <li>
@@ -85,7 +86,7 @@
 <li>Added <code>grid.draw()</code> method for ensemble graphics (<code><a href="../reference/gg_tsdisplay.html">gg_tsdisplay()</a></code> and <code><a href="../reference/gg_tsresiduals.html">gg_tsresiduals()</a></code>). This allows use of <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave()</a></code> with these plots (<a href="https://github.com/tidyverts/feasts/issues/149" class="external-link">#149</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-0-3-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-0"></a></h3>
 <ul><li>Fixed <code>generate(&lt;STL&gt;)</code> returning <code>$.sim</code> as a <code>num [1:n(1d)]</code> instead of <code>num [1:72]</code> (fable/#336).</li>
 <li>Fixed issue with <code><a href="../reference/gg_season.html">gg_season()</a></code> incorrectly grouping some seasonal subseries.</li>
 <li>
