@@ -11,5 +11,7 @@
 ^cran-comments\.md$
 ^.github$
 ^revdep$
+^pkgdown$
 ^CRAN-RELEASE$
 ^\.github$
+^CRAN-SUBMISSION$

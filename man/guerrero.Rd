@@ -33,5 +33,5 @@ forecast package will not use data that doesn't complete a seasonal period.
 \references{
 Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. JRSS B 26 211–246.
 
-Guerrero, V.M. (1993) Time-series analysis supported by power transformations. Journal of Forecasting, 12, 37–48. \doi{10.1002/for.3980120104}
+Guerrero, V.M. (1993) Time-series analysis supported by power transformations. Journal of Forecasting, 12, 37–48.
 }
