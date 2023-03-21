@@ -81,7 +81,7 @@ reference:
 
 - title: Unit root tests
   desc: >
-    Unit root tests for use with [`features()`](https://feasts.tidyverts.org/reference/features.html).
+    Unit root tests for use with [`fabletools::features()`](https://fabletools.tidyverts.org/reference/features.html).
   contents:
     - unitroot_kpss
     - unitroot_pp
