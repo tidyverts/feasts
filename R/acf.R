@@ -319,7 +319,7 @@ new_lag <- function(x, interval){
 }
 
 #' @export
-vec_arith.cf_lag <- function(op, x, y){
+vec_arith.cf_lag <- function(op, x, y, ...){
   out <- vctrs::vec_data(x)
   out <- get(op)(out, y)
   vctrs::vec_restore(out, x)
