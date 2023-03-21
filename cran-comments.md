@@ -1,8 +1,7 @@
-This submission resolves upcoming reverse dependency checks for the ggplot2
-package.
+This submission resolves CRAN check issues.
 
 ## Test environments
-* local ubuntu 20.04 install, R 4.0.2
+* local ubuntu 20.04 install, R 4.1.2
 * ubuntu 16.04 (on GitHub actions), R 4.0.0, R 3.6.3, R 3.5.3
 * macOS (on GitHub actions), R-devel, R 4.0.0
 * windows (on GitHub actions), R 4.0.0
