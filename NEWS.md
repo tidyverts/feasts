@@ -1,3 +1,5 @@
+# feasts (development version)
+
 # feasts 0.3.1
 
 Minor patch to resolve CRAN check issues with S3 method consistency.
