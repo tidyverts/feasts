@@ -1,5 +1,10 @@
 # feasts (development version)
 
+## Bug fixes
+
+* Changed the metadata of classical decomposition's components to better reflect
+  the seasonally adjusted variable's structure.
+
 # feasts 0.3.1
 
 Minor patch to resolve CRAN check issues with S3 method consistency.

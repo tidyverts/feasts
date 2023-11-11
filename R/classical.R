@@ -23,16 +23,14 @@ train_classical <- function(.data, formula, specials,
   dcmp_op <- switch(type,
                     additive = "+",
                     multiplicative = "*")
-  dcmp_op_inv <- switch(type,
-                        additive = "-",
-                        multiplicative = "/")
+  cl_sadj <- call2(dcmp_op, sym("trend"), sym("random"))
 
   dcmp <- decompose(ts(y, frequency = m), type = type, ...)[c("trend", "seasonal", "random")]
 
   dcmp <- .data %>%
     mutate(
       !!!map(dcmp, as.numeric),
-      season_adjust = !!call2(dcmp_op_inv, sym(resp), sym("seasonal"))
+      season_adjust = !!cl_sadj
     )
 
   seasonalities <- list(
@@ -42,7 +40,7 @@ train_classical <- function(.data, formula, specials,
   aliases <- list2(
     !!resp := reduce(syms(c("trend", "seasonal", "random")),
                      function(x,y) call2(dcmp_op, x, y)),
-    season_adjust = call2(dcmp_op_inv, sym(resp), sym("seasonal"))
+    season_adjust = cl_sadj
   )
 
   structure(
