@@ -18,7 +18,7 @@
   fabletools::register_feature(shift_kl_max, c("roll", "slide"))
   fabletools::register_feature(feat_spectral, c("spectral"))
   fabletools::register_feature(n_crossing_points, "count")
-  fabletools::register_feature(n_flat_spots, c("count", "rle"))
+  fabletools::register_feature(longest_flat_spot, c("count", "rle"))
   fabletools::register_feature(coef_hurst, c("coefficients"))
   fabletools::register_feature(stat_arch_lm, c("test"))
   invisible()
