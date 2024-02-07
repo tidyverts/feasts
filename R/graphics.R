@@ -281,10 +281,15 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
     ggplot2::labs(colour = NULL)
 
   if(num_ids <= max_col){
+    breaks <- if (num_ids <= max_col_discrete) {
+      seq_len(num_ids)
+    } else {
+      function(x) scales::oob_discard(scales::extended_breaks()(x), x)
+    }
     p <- p +
       ggplot2::scale_color_gradientn(
         colours = pal,
-        breaks = if (num_ids <= max_col_discrete) seq_len(num_ids) else ggplot2::waiver(),
+        breaks = breaks,
         labels = function(idx) levels(data$id)[idx]
       )
   }
