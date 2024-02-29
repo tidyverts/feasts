@@ -23,7 +23,7 @@ train_classical <- function(.data, formula, specials,
   dcmp_op <- switch(type,
                     additive = "+",
                     multiplicative = "*")
-  cl_sadj <- call2(dcmp_op, sym("trend"), sym("random"))
+  cl_sadj <- call2(switch(dcmp_op, `+` = "-", "/"), sym(resp), sym("seasonal"))
 
   dcmp <- decompose(ts(y, frequency = m), type = type, ...)[c("trend", "seasonal", "random")]
 

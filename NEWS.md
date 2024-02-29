@@ -2,6 +2,11 @@
 
 Minor patch to resolve CRAN check issues with ggplot2 v3.5.0 breaking changes.
 
+## Improvements
+
+* Calculate seasonally adjusted data from classical decomposition using original
+  data and seasonal term rather than trend and remainder.
+
 ## Bug fixes
 
 * Fixed out-of-bounds `gg_season()` breaks issue with ggplot2 v3.5.0
