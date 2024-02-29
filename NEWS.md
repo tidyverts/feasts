@@ -1,7 +1,10 @@
-# feasts (development version)
+# feasts 0.3.2
+
+Minor patch to resolve CRAN check issues with ggplot2 v3.5.0 breaking changes.
 
 ## Bug fixes
 
+* Fixed out-of-bounds `gg_season()` breaks issue with ggplot2 v3.5.0
 * Changed the metadata of classical decomposition's components to better reflect
   the seasonally adjusted variable's structure.
 
