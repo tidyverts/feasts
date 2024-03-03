@@ -5,8 +5,7 @@ template:
     bootswatch: cosmo
   includes:
     in_header: |
-    <script defer data-domain="feasts.tidyverts.org" src="https://track.mitchelloharawild.com/js/plausible.js"></script>
-
+      <script defer data-domain="feasts.tidyverts.org" src="https://track.mitchelloharawild.com/js/plausible.js"></script>
 
 development:
   mode: auto
