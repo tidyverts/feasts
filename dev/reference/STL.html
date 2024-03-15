@@ -8,13 +8,7 @@ Optionally, the time series may be Box-Cox transformed before decomposition.
 Unlike stl, mstl is completely automated."><meta property="og:image" content="https://feasts.tidyverts.org/logo.png"><meta name="robots" content="noindex"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145121339-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-145121339-1');
-</script></head><body data-spy="scroll" data-target="#toc">
+<![endif]--><script defer data-domain="feasts.tidyverts.org" src="https://track.mitchelloharawild.com/js/plausible.js"></script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -29,7 +23,7 @@ Unlike stl, mstl is completely automated."><meta property="og:image" content="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9000</span>
       </span>
     </div>
 
@@ -156,20 +150,19 @@ and remainder from the STL decomposition.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A dable: 72 x 7 [1M]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:     .model [1]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># :        value = trend + season_year + remainder</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .model                             index value trend season…¹ remai…² seaso…³</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                              <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> STL(value ~ trend(window = 10)) 1973 Jan  <span style="text-decoration: underline;">9</span>007 <span style="text-decoration: underline;">9</span>676.    -<span style="color: #BB0000;">792.</span>   123.    <span style="text-decoration: underline;">9</span>799.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> STL(value ~ trend(window = 10)) 1973 Feb  <span style="text-decoration: underline;">8</span>106 <span style="text-decoration: underline;">9</span>691.   -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">510.</span>   -<span style="color: #BB0000;">75.1</span>   <span style="text-decoration: underline;">9</span>616.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> STL(value ~ trend(window = 10)) 1973 Mar  <span style="text-decoration: underline;">8</span>928 <span style="text-decoration: underline;">9</span>706.    -<span style="color: #BB0000;">707.</span>   -<span style="color: #BB0000;">70.7</span>   <span style="text-decoration: underline;">9</span>635.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> STL(value ~ trend(window = 10)) 1973 Apr  <span style="text-decoration: underline;">9</span>137 <span style="text-decoration: underline;">9</span>720.    -<span style="color: #BB0000;">522.</span>   -<span style="color: #BB0000;">61.2</span>   <span style="text-decoration: underline;">9</span>659.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> STL(value ~ trend(window = 10)) 1973 May <span style="text-decoration: underline;">10</span>017 <span style="text-decoration: underline;">9</span>733.     325.   -<span style="color: #BB0000;">41.3</span>   <span style="text-decoration: underline;">9</span>692.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> STL(value ~ trend(window = 10)) 1973 Jun <span style="text-decoration: underline;">10</span>826 <span style="text-decoration: underline;">9</span>753.     843.   229.    <span style="text-decoration: underline;">9</span>983.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> STL(value ~ trend(window = 10)) 1973 Jul <span style="text-decoration: underline;">11</span>317 <span style="text-decoration: underline;">9</span>764.    <span style="text-decoration: underline;">1</span>617.   -<span style="color: #BB0000;">64.5</span>   <span style="text-decoration: underline;">9</span>700.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> STL(value ~ trend(window = 10)) 1973 Aug <span style="text-decoration: underline;">10</span>744 <span style="text-decoration: underline;">9</span>734.     981.    28.4   <span style="text-decoration: underline;">9</span>763.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> STL(value ~ trend(window = 10)) 1973 Sep  <span style="text-decoration: underline;">9</span>713 <span style="text-decoration: underline;">9</span>638.    -<span style="color: #BB0000;">105.</span>   181.    <span style="text-decoration: underline;">9</span>818.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> STL(value ~ trend(window = 10)) 1973 Oct  <span style="text-decoration: underline;">9</span>938 <span style="text-decoration: underline;">9</span>473.     232.   233.    <span style="text-decoration: underline;">9</span>706.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 62 more rows, and abbreviated variable names ¹​season_year, ²​remainder,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​season_adjust</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .model                  index value trend season_year remainder season_adjust</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> STL(value ~ trend(w… 1973 Jan  <span style="text-decoration: underline;">9</span>007 <span style="text-decoration: underline;">9</span>676.       -<span style="color: #BB0000;">792.</span>     123.          <span style="text-decoration: underline;">9</span>799.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> STL(value ~ trend(w… 1973 Feb  <span style="text-decoration: underline;">8</span>106 <span style="text-decoration: underline;">9</span>691.      -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">510.</span>     -<span style="color: #BB0000;">75.1</span>         <span style="text-decoration: underline;">9</span>616.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> STL(value ~ trend(w… 1973 Mar  <span style="text-decoration: underline;">8</span>928 <span style="text-decoration: underline;">9</span>706.       -<span style="color: #BB0000;">707.</span>     -<span style="color: #BB0000;">70.7</span>         <span style="text-decoration: underline;">9</span>635.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> STL(value ~ trend(w… 1973 Apr  <span style="text-decoration: underline;">9</span>137 <span style="text-decoration: underline;">9</span>720.       -<span style="color: #BB0000;">522.</span>     -<span style="color: #BB0000;">61.2</span>         <span style="text-decoration: underline;">9</span>659.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> STL(value ~ trend(w… 1973 May <span style="text-decoration: underline;">10</span>017 <span style="text-decoration: underline;">9</span>733.        325.     -<span style="color: #BB0000;">41.3</span>         <span style="text-decoration: underline;">9</span>692.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> STL(value ~ trend(w… 1973 Jun <span style="text-decoration: underline;">10</span>826 <span style="text-decoration: underline;">9</span>753.        843.     229.          <span style="text-decoration: underline;">9</span>983.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> STL(value ~ trend(w… 1973 Jul <span style="text-decoration: underline;">11</span>317 <span style="text-decoration: underline;">9</span>764.       <span style="text-decoration: underline;">1</span>617.     -<span style="color: #BB0000;">64.5</span>         <span style="text-decoration: underline;">9</span>700.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> STL(value ~ trend(w… 1973 Aug <span style="text-decoration: underline;">10</span>744 <span style="text-decoration: underline;">9</span>734.        981.      28.4         <span style="text-decoration: underline;">9</span>763.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> STL(value ~ trend(w… 1973 Sep  <span style="text-decoration: underline;">9</span>713 <span style="text-decoration: underline;">9</span>638.       -<span style="color: #BB0000;">105.</span>     181.          <span style="text-decoration: underline;">9</span>818.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> STL(value ~ trend(w… 1973 Oct  <span style="text-decoration: underline;">9</span>938 <span style="text-decoration: underline;">9</span>473.        232.     233.          <span style="text-decoration: underline;">9</span>706.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 62 more rows</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -185,7 +178,7 @@ and remainder from the STL decomposition.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -3,13 +3,7 @@
 the U.S. Census Bureau."><meta property="og:image" content="https://feasts.tidyverts.org/logo.png"><meta name="robots" content="noindex"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145121339-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-145121339-1');
-</script></head><body data-spy="scroll" data-target="#toc">
+<![endif]--><script defer data-domain="feasts.tidyverts.org" src="https://track.mitchelloharawild.com/js/plausible.js"></script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -24,7 +18,7 @@ the U.S. Census Bureau."><meta property="og:image" content="https://feasts.tidyv
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">feasts</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.3.2.9000</span>
       </span>
     </div>
 
@@ -198,7 +192,7 @@ start and end of the series. The number of forecasts to produce is specified
 in the <code>maxlead</code> argument, and the number of backcasts in the <code>maxback</code>
 argument.</p>
 <div class="sourceCode"><pre><code><span></span>
-<span><span class="fu"><a href="https://fabletools.tidyverts.org/reference/forecast.html" class="external-link">forecast</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/forecast.html" class="external-link">forecast</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
 
 <table class="table table"><tr><td><code>...</code></td><td>Arguments described in the reference manual linked below.</td></tr></table></div>
 <div class="section">
@@ -387,7 +381,7 @@ http://www.seasonal.website/seasonal.html</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> X_13ARIMA_SEATS(Beer) 1957 Q4   320  261.    1.19      1.03           268.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> X_13ARIMA_SEATS(Beer) 1958 Q1   272  262.    1.04      1.00           262.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> X_13ARIMA_SEATS(Beer) 1958 Q2   233  262.    0.864     1.03           270.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 208 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 208 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Additive X-11 decomposition</span></span></span>
 <span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">tsibbledata</span><span class="fu">::</span><span class="va"><a href="https://tsibbledata.tidyverts.org/reference/aus_production.html" class="external-link">aus_production</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -413,20 +407,19 @@ http://www.seasonal.website/seasonal.html</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A dable: 218 x 7 [1Q]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Key:     .model [1]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># :        Beer = trend + seasonal + irregular</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .model                            Quarter  Beer trend seaso…¹ irreg…² seaso…³</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1956 Q1   284  272.    6.36    5.66    278.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1956 Q2   213  255.  -<span style="color: #BB0000;">35.7</span>    -<span style="color: #BB0000;">6.71</span>    249.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1956 Q3   227  249.  -<span style="color: #BB0000;">23.7</span>     1.62    251.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1956 Q4   308  252.   53.0     2.56    255.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1957 Q1   262  257.    6.69   -<span style="color: #BB0000;">2.18</span>    255.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1957 Q2   228  261.  -<span style="color: #BB0000;">36.4</span>     3.92    264.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1957 Q3   236  263.  -<span style="color: #BB0000;">22.8</span>    -<span style="color: #BB0000;">4.00</span>    259.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1957 Q4   320  265.   52.3     2.25    268.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1958 Q1   272  267.    7.11   -<span style="color: #BB0000;">1.94</span>    265.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~ transfor… 1958 Q2   233  266.  -<span style="color: #BB0000;">37.3</span>     4.00    270.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 208 more rows, and abbreviated variable names ¹​seasonal, ²​irregular,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​season_adjust</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .model                   Quarter  Beer trend seasonal irregular season_adjust</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;qtr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1956 Q1   284  272.     6.36      5.66          278.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1956 Q2   213  255.   -<span style="color: #BB0000;">35.7</span>      -<span style="color: #BB0000;">6.71</span>          249.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1956 Q3   227  249.   -<span style="color: #BB0000;">23.7</span>       1.62          251.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1956 Q4   308  252.    53.0       2.56          255.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1957 Q1   262  257.     6.69     -<span style="color: #BB0000;">2.18</span>          255.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1957 Q2   228  261.   -<span style="color: #BB0000;">36.4</span>       3.92          264.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1957 Q3   236  263.   -<span style="color: #BB0000;">22.8</span>      -<span style="color: #BB0000;">4.00</span>          259.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1957 Q4   320  265.    52.3       2.25          268.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1958 Q1   272  267.     7.11     -<span style="color: #BB0000;">1.94</span>          265.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> <span style="color: #949494;">"</span>X_13ARIMA_SEATS(Beer ~… 1958 Q2   233  266.   -<span style="color: #BB0000;">37.3</span>       4.00          270.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 208 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
@@ -444,7 +437,7 @@ http://www.seasonal.website/seasonal.html</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
