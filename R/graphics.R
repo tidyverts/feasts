@@ -54,8 +54,8 @@ time_identifier <- function(idx, period, base = NULL, within = NULL, interval){
 
   formats <- list(
     Weekday = "%A",
-    Monthday = "%d",
-    Yearday = "%j",
+    # Monthday = "%d",
+    # Yearday = "%j",
     Week = "W%V",
     Month = "%b",
     Year = "%Y",
