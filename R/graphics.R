@@ -338,7 +338,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
     p <- p + scale_fn(
       breaks = function(limit){
         breaks <- if(suppressMessages(len <- period/ts_interval) <= 12){
-          ggplot2::scale_x_date()$trans$breaks(as.Date(limit), n = len)
+          vctrs::vec_restore(ggplot2::scale_x_date()$trans$breaks(as.Date(limit), n = len), limit)
         } else{
           scale_fn()$trans$breaks(limit)
         }
