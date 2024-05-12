@@ -1,5 +1,7 @@
 # feasts (development version)
 
+* Fixed `gg_season()` not wrapping across `facet_period` argument correctly.
+
 # feasts 0.3.2
 
 Minor patch to resolve CRAN check issues with ggplot2 v3.5.0 breaking changes.

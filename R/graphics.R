@@ -40,7 +40,7 @@ time_identifier <- function(idx, period, base = NULL, within = NULL, interval){
   grps <- floor_tsibble_date(idx, period)
 
   facet_grps <- if(!is.null(within)){
-    time_identifier(idx, period = within, base = period, interval = interval)$id
+    time_identifier(time_offset_origin(floor_tsibble_date(idx, period), within), period = period, base = period, interval = period)$id
   } else {
     rep_along(idx, FALSE)
   }
