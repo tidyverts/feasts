@@ -3,7 +3,7 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   feasts: feasts.html
-last_built: 2024-05-12T15:53Z
+last_built: 2024-05-12T16:10Z
 urls:
   reference: https://feasts.tidyverts.org/reference
   article: https://feasts.tidyverts.org/articles
