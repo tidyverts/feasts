@@ -7,6 +7,10 @@
 * Added cointegration tests `cointegration_johansen()` and 
   `cointegration_phillips_ouliaris()` from `urca`.
 
+## Improvements
+
+* Documentation improvements.
+
 ## Bug fixes
 
 * Fixed `gg_season()` not wrapping across `facet_period` argument correctly.
