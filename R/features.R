@@ -234,6 +234,37 @@ unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ feat_stl(.,.period
   c(nsdiffs = max(differences[c(TRUE, keep)], na.rm = TRUE))
 }
 
+#' @inherit urca::ca.jo
+#'
+#' @seealso [urca::ca.jo()]
+#'
+#' @export
+cointegration_johansen <- function(x, ...) {
+  require_package("urca")
+  result <- urca::ca.jo(x, ...)
+
+  pct <- as.numeric(sub("pct", "", colnames(result@cval)))/100
+  pval <- mapply(
+    function(cval, teststat) {
+      stats::approx(cval, pct, xout=teststat, rule=2)$y
+    }, split(result@cval, row(result@cval)), result@teststat
+  )
+  names(pval) <- names(result@teststat) <- c(paste0("R<=", rev(seq_len(length(pval) - 1))), "R=0")
+  c(johansen_stat = list(result@teststat), johansen_pvalue = list(pval))
+}
+
+#' @inherit urca::ca.po
+#'
+#' @seealso [urca::ca.po()]
+#'
+#' @export
+cointegration_phillips_ouliaris <- function(x, ...) {
+  require_package("urca")
+  result <- urca::ca.po(x, ...)
+  pval <- stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y
+  c(phillips_ouliaris_stat = result@teststat, phillips_ouliaris_pvalue = pval)
+}
+
 #' Longest flat spot length
 #'
 #' "Flat spots” are computed by dividing the sample space of a time series into

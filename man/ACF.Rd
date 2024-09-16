@@ -38,7 +38,7 @@ CCF(
 where N is the number of observations and m the number of series. Will be
 automatically limited to one less than the number of observations in the series.}
 
-\item{type}{character string giving the type of acf to be computed.
+\item{type}{character string giving the type of \abbr{acf} to be computed.
     Allowed values are
     \code{"correlation"} (the default), \code{"covariance"} or
     \code{"partial"}.  Will be partially matched.}
