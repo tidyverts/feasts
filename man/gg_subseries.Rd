@@ -12,7 +12,14 @@ gg_subseries(data, y = NULL, period = NULL, ...)
 \item{y}{The variable to plot (a bare expression). If NULL, it will
 automatically selected from the data.}
 
-\item{period}{The seasonal period to display.}
+\item{period}{The seasonal period to display. If NULL (default),
+the largest frequency in the data is used. If numeric, it represents
+the frequency times the interval between observations. If a string
+(e.g., "1y" for 1 year, "3m" for 3 months, "1d" for 1 day,
+"1h" for 1 hour, "1min" for 1 minute, "1s" for 1 second),
+it's converted to a Period class object from the lubridate package.
+Note that the data must have at least one observation per seasonal period,
+and the period cannot be smaller than the observation interval.}
 
 \item{...}{Additional arguments passed to geom_line()}
 }
