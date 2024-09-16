@@ -236,7 +236,14 @@ unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ feat_stl(.,.period
 
 #' @inherit urca::ca.jo
 #'
+#' @param ... Additional arguments passed to [urca::ca.jo()].
+#'
 #' @seealso [urca::ca.jo()]
+#'
+#' @examples
+#'
+#' cointegration_johansen(cbind(mdeaths, fdeaths))
+#'
 #'
 #' @export
 cointegration_johansen <- function(x, ...) {
@@ -255,7 +262,14 @@ cointegration_johansen <- function(x, ...) {
 
 #' @inherit urca::ca.po
 #'
+#' @param x Matrix of data to be tested.
+#' @param ... Additional arguments passed to [urca::ca.po()].
+#'
 #' @seealso [urca::ca.po()]
+#'
+#' @examples
+#'
+#' cointegration_phillips_ouliaris(cbind(mdeaths, fdeaths))
 #'
 #' @export
 cointegration_phillips_ouliaris <- function(x, ...) {

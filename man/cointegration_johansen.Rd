@@ -8,6 +8,8 @@ cointegration_johansen(x, ...)
 }
 \arguments{
 \item{x}{Data matrix to be investigated for cointegration.}
+
+\item{...}{Additional arguments passed to \code{\link[urca:ca.jo]{urca::ca.jo()}}.}
 }
 \value{
 An object of class \code{ca.jo}.
@@ -78,17 +80,10 @@ Given a general VAR of the form:
   11 variables and are taken from Osterwald-Lenum.
 }
 \examples{
-data(denmark)
-sjd <- denmark[, c("LRM", "LRY", "IBO", "IDE")]
-sjd.vecm <- ca.jo(sjd, ecdet = "const", type="eigen", K=2, spec="longrun",
-season=4)
-summary(sjd.vecm)
-#
-data(finland)
-sjf <- finland
-sjf.vecm <- ca.jo(sjf, ecdet = "none", type="eigen", K=2,
-spec="longrun", season=4)
-summary(sjf.vecm)
+
+cointegration_johansen(cbind(mdeaths, fdeaths))
+
+
 }
 \references{
 Johansen, S. (1988), Statistical Analysis of Cointegration Vectors,

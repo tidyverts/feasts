@@ -1,3 +1,5 @@
+globalVariables("all_of")
+
 format_time <- function(x, format, ...){
   if(format == "%Y W%V"){
     return(format(yearweek(x)))

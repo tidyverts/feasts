@@ -30,8 +30,7 @@ Imports:
     slider,
     utils,
     lifecycle,
-    gtable,
-    tidyselect
+    gtable
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),

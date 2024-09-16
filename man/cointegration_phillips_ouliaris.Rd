@@ -6,6 +6,11 @@
 \usage{
 cointegration_phillips_ouliaris(x, ...)
 }
+\arguments{
+\item{x}{Matrix of data to be tested.}
+
+\item{...}{Additional arguments passed to \code{\link[urca:ca.po]{urca::ca.po()}}.}
+}
 \value{
 An object of class \code{ca.po}.
 }
@@ -22,13 +27,9 @@ The test \code{"Pz"}, compared to the test \code{"Pu"}, has the
   tolerance level \emph{via} \code{"tol=..."} to the \code{solve()}-function.
 }
 \examples{
-data(ecb)
-m3.real <- ecb[,"m3"]/ecb[,"gdp.defl"]
-gdp.real <- ecb[,"gdp.nom"]/ecb[,"gdp.defl"]
-rl <- ecb[,"rl"]
-ecb.data <- cbind(m3.real, gdp.real, rl)
-m3d.po <- ca.po(ecb.data, type="Pz")
-summary(m3d.po)
+
+cointegration_phillips_ouliaris(cbind(mdeaths, fdeaths))
+
 }
 \references{
 Phillips, P.C.B. and Ouliaris, S. (1990), Asymptotic Properties of
