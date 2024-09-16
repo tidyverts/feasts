@@ -805,3 +805,29 @@ gg_arma <- function(data){
     ggplot2::coord_fixed(ratio = 1) +
     facet_grid(vars(!!!fcts), vars(!!sym("type")))
 }
+
+
+
+#' Plot impulse response functions
+#'
+#' Produces a plot of impulse responses from an impulse response function.
+#'
+#' @param data A tsibble with impulse responses
+#' @param y The impulse response variables to plot (defaults to all measured variables).
+#'
+#' @return A ggplot object of the impulse responses.
+#'
+#' @export
+gg_irf <- function(data, y = all_of(measured_vars(data))){
+  kv <- key_vars(data)
+  if(is_empty(kv)) kv <- NULL
+  data <- tidyr::pivot_longer(
+    data, {{y}},
+    names_to = ".variable", values_to = ".response"
+  )
+  ggplot(data) +
+    geom_line(ggplot2::aes_string(x = index_var(data), y = ".response")) +
+    ggplot2::geom_hline(yintercept = 0, linetype = "dashed") +
+    facet_grid(vars(!!!syms(kv)), vars(!!sym(".variable"))) +
+    ggplot2::labs(y = "Impulse response", x = NULL)
+}

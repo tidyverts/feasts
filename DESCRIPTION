@@ -30,7 +30,8 @@ Imports:
     slider,
     utils,
     lifecycle,
-    gtable
+    gtable,
+    tidyselect
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),
@@ -49,7 +50,7 @@ License: GPL-3
 URL: http://feasts.tidyverts.org/, https://github.com/tidyverts/feasts/
 BugReports: https://github.com/tidyverts/feasts/issues
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
 Language: en-GB
 RdMacros: lifecycle

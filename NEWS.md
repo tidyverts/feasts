@@ -1,5 +1,12 @@
 # feasts (development version)
 
+## New features
+
+* Added `gg_irf()` for plotting impulse responses (typically obtained from using
+  `IRF()` with fable models).
+
+## Bug fixes
+
 * Fixed `gg_season()` not wrapping across `facet_period` argument correctly.
 
 # feasts 0.3.2
