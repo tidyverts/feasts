@@ -97,7 +97,14 @@ automatically selected from the data.</p></dd>
 
 
 <dt id="arg-period">period<a class="anchor" aria-label="anchor" href="#arg-period"></a></dt>
-<dd><p>The seasonal period to display.</p></dd>
+<dd><p>The seasonal period to display. If NULL (default),
+the largest frequency in the data is used. If numeric, it represents
+the frequency times the interval between observations. If a string
+(e.g., "1y" for 1 year, "3m" for 3 months, "1d" for 1 day,
+"1h" for 1 hour, "1min" for 1 minute, "1s" for 1 second),
+it's converted to a Period class object from the lubridate package.
+Note that the data must have at least one observation per seasonal period,
+and the period cannot be smaller than the observation interval.</p></dd>
 
 
 <dt id="arg-lags">lags<a class="anchor" aria-label="anchor" href="#arg-lags"></a></dt>
