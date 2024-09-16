@@ -4,6 +4,8 @@
 
 * Added `gg_irf()` for plotting impulse responses (typically obtained from using
   `IRF()` with fable models).
+* Added cointegration tests `cointegration_johansen()` and 
+  `cointegration_phillips_ouliaris()` from `urca`.
 
 ## Bug fixes
 
