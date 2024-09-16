@@ -3,13 +3,17 @@
 
 # feasts <a href='https://feasts.tidyverts.org'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
 
+<!-- badges: start -->
+
 [![R build
 status](https://github.com/tidyverts/feasts/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverts/feasts/actions?workflow=R-CMD-check)
 [![Coverage
 status](https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg)](https://app.codecov.io/gh/tidyverts/feasts?branch=master)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/feasts)](https://cran.r-project.org/package=feasts)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/feasts)](https://CRAN.R-project.org/package=feasts)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+<!-- badges: end -->
 
 ## Overview
 
@@ -90,8 +94,8 @@ A common task in time series analysis is decomposing a time series into
 some simpler components. The feasts package supports two common time
 series decomposition methods:
 
--   Classical decomposition
--   STL decomposition
+- Classical decomposition
+- STL decomposition
 
 <!--
 * X11 decomposition
@@ -117,7 +121,7 @@ components(dcmp)
 #>  8 STL(Beer ~ season(window = Inf)) 1957 Q4   320  264.       69.0     -12.7           251.
 #>  9 STL(Beer ~ season(window = Inf)) 1958 Q1   272  266.        2.14      4.32          270.
 #> 10 STL(Beer ~ season(window = Inf)) 1958 Q2   233  266.      -42.6       9.72          276.
-#> # … with 208 more rows
+#> # i 208 more rows
 ```
 
 ``` r
@@ -135,22 +139,22 @@ behaviour.
 ``` r
 aus_retail %>%
   features(Turnover, feat_stl)
-#> # A tibble: 152 × 11
-#>    State             Indus…¹ trend…² seaso…³ seaso…⁴ seaso…⁵ spiki…⁶ linea…⁷ curva…⁸ stl_e…⁹ stl_e…˟
-#>    <chr>             <chr>     <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1 Australian Capit… Cafes,…   0.989   0.562       0      10 5.15e-5   227.    48.5   0.281   0.187 
-#>  2 Australian Capit… Cafes,…   0.993   0.629       0      10 9.73e-5   342.    77.8   0.320   0.218 
-#>  3 Australian Capit… Clothi…   0.991   0.923       9      11 4.23e-6   131.    17.4   0.262   0.152 
-#>  4 Australian Capit… Clothi…   0.993   0.957       9      11 1.29e-5   195.    19.3   0.262   0.193 
-#>  5 Australian Capit… Depart…   0.977   0.980       9      11 2.21e-5   130.   -43.9  -0.254   0.119 
-#>  6 Australian Capit… Electr…   0.992   0.933       9      11 2.68e-5   233.    -9.07  0.308   0.207 
-#>  7 Australian Capit… Food r…   0.999   0.890       9      11 2.24e-4  1264.   199.    0.0866  0.268 
-#>  8 Australian Capit… Footwe…   0.982   0.944       9      11 3.69e-6    64.0    1.95  0.152   0.176 
-#>  9 Australian Capit… Furnit…   0.981   0.687       9       1 4.09e-5   141.   -21.6   0.200   0.0812
-#> 10 Australian Capit… Hardwa…   0.992   0.900       9       4 1.32e-5   173.    45.1   0.102   0.0796
-#> # … with 142 more rows, and abbreviated variable names ¹​Industry, ²​trend_strength,
-#> #   ³​seasonal_strength_year, ⁴​seasonal_peak_year, ⁵​seasonal_trough_year, ⁶​spikiness, ⁷​linearity,
-#> #   ⁸​curvature, ⁹​stl_e_acf1, ˟​stl_e_acf10
+#> # A tibble: 152 x 11
+#>    State      Industry trend_strength seasonal_strength_year seasonal_peak_year seasonal_trough_year
+#>    <chr>      <chr>             <dbl>                  <dbl>              <dbl>                <dbl>
+#>  1 Australia~ Cafes, ~          0.989                  0.562                  0                   10
+#>  2 Australia~ Cafes, ~          0.993                  0.629                  0                   10
+#>  3 Australia~ Clothin~          0.991                  0.923                  9                   11
+#>  4 Australia~ Clothin~          0.993                  0.957                  9                   11
+#>  5 Australia~ Departm~          0.977                  0.980                  9                   11
+#>  6 Australia~ Electri~          0.992                  0.933                  9                   11
+#>  7 Australia~ Food re~          0.999                  0.890                  9                   11
+#>  8 Australia~ Footwea~          0.982                  0.944                  9                   11
+#>  9 Australia~ Furnitu~          0.981                  0.687                  9                    1
+#> 10 Australia~ Hardwar~          0.992                  0.900                  9                    4
+#> # i 142 more rows
+#> # i 5 more variables: spikiness <dbl>, linearity <dbl>, curvature <dbl>, stl_e_acf1 <dbl>,
+#> #   stl_e_acf10 <dbl>
 ```
 
 This allows you to visualise the behaviour of many time series (where
