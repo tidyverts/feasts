@@ -8,6 +8,8 @@ gg_irf(data, y = all_of(measured_vars(data)))
 }
 \arguments{
 \item{data}{A tsibble with impulse responses}
+
+\item{y}{The impulse response variables to plot (defaults to all measured variables).}
 }
 \value{
 A ggplot object of the impulse responses.

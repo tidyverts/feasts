@@ -58,6 +58,7 @@ reference:
     - gg_tsresiduals
     - gg_lag
     - gg_arma
+    - gg_irf
 
 - title: Decompositions
   desc: >
@@ -94,6 +95,13 @@ reference:
     - portmanteau_tests
     - box_pierce
     - ljung_box
+
+- title: Cointegration tests
+  desc: >
+    Statistical tests for investigating cointegration between time series.
+  contents:
+    - cointegration_johansen
+    - cointegration_phillips_ouliaris
 
 - title: Tiling window features
   desc: >
