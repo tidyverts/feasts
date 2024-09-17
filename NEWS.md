@@ -1,4 +1,4 @@
-# feasts (development version)
+# feasts 0.4.0
 
 ## New features
 
