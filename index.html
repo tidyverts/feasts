@@ -6,22 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feature Extraction and Statistics for Time Series • feasts</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Feature Extraction and Statistics for Time Series">
-<meta property="og:description" content="Provides a collection of features, decomposition methods, 
-    statistical summaries and graphics functions for the analysing tidy time
-    series data. The package name feasts is an acronym comprising of its key
-    features: Feature Extraction And Statistics for Time Series.">
+<meta property="og:description" content="Provides a collection of features, decomposition methods, statistical summaries and graphics functions for the analysing tidy time series data. The package name feasts is an acronym comprising of its key features: Feature Extraction And Statistics for Time Series.">
 <meta property="og:image" content="https://feasts.tidyverts.org/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -29,7 +20,7 @@
 <![endif]--><script defer data-domain="feasts.tidyverts.org" src="https://track.mitchelloharawild.com/js/plausible.js"></script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -43,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">feasts</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -61,7 +52,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     News
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -79,7 +70,7 @@
 <li>
   <a href="https://github.com/tidyverts/feasts" class="external-link">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -90,7 +81,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="contents col-md-9">
@@ -98,7 +89,8 @@
 <div class="page-header"><h1 id="feasts-">feasts <a href="https://feasts.tidyverts.org"><img src="reference/figures/logo.png" align="right" height="138.5"></a>
 <a class="anchor" aria-label="anchor" href="#feasts-"></a>
 </h1></div>
-<p><a href="https://github.com/tidyverts/feasts/actions?workflow=R-CMD-check" class="external-link"><img src="https://github.com/tidyverts/feasts/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://app.codecov.io/gh/tidyverts/feasts?branch=master" class="external-link"><img src="https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg" alt="Coverage status"></a> <a href="https://cran.r-project.org/package=feasts" class="external-link"><img src="http://www.r-pkg.org/badges/version/feasts" alt="CRAN_Status_Badge"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></p>
+<!-- badges: start -->
+
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -173,7 +165,7 @@
 <span><span class="co">#&gt;  8 STL(Beer ~ season(window = Inf)) 1957 Q4   320  264.       69.0     -12.7           251.</span></span>
 <span><span class="co">#&gt;  9 STL(Beer ~ season(window = Inf)) 1958 Q1   272  266.        2.14      4.32          270.</span></span>
 <span><span class="co">#&gt; 10 STL(Beer ~ season(window = Inf)) 1958 Q2   233  266.      -42.6       9.72          276.</span></span>
-<span><span class="co">#&gt; # … with 208 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # i 208 more rows</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/components.html" class="external-link">components</a></span><span class="op">(</span><span class="va">dcmp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-dcmp-plot-1.png" width="100%"></p>
@@ -185,22 +177,22 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aus_retail</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://fabletools.tidyverts.org/reference/features.html" class="external-link">features</a></span><span class="op">(</span><span class="va">Turnover</span>, <span class="va">feat_stl</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 152 × 11</span></span>
-<span><span class="co">#&gt;    State             Indus…¹ trend…² seaso…³ seaso…⁴ seaso…⁵ spiki…⁶ linea…⁷ curva…⁸ stl_e…⁹ stl_e…˟</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Australian Capit… Cafes,…   0.989   0.562       0      10 5.15e-5   227.    48.5   0.281   0.187 </span></span>
-<span><span class="co">#&gt;  2 Australian Capit… Cafes,…   0.993   0.629       0      10 9.73e-5   342.    77.8   0.320   0.218 </span></span>
-<span><span class="co">#&gt;  3 Australian Capit… Clothi…   0.991   0.923       9      11 4.23e-6   131.    17.4   0.262   0.152 </span></span>
-<span><span class="co">#&gt;  4 Australian Capit… Clothi…   0.993   0.957       9      11 1.29e-5   195.    19.3   0.262   0.193 </span></span>
-<span><span class="co">#&gt;  5 Australian Capit… Depart…   0.977   0.980       9      11 2.21e-5   130.   -43.9  -0.254   0.119 </span></span>
-<span><span class="co">#&gt;  6 Australian Capit… Electr…   0.992   0.933       9      11 2.68e-5   233.    -9.07  0.308   0.207 </span></span>
-<span><span class="co">#&gt;  7 Australian Capit… Food r…   0.999   0.890       9      11 2.24e-4  1264.   199.    0.0866  0.268 </span></span>
-<span><span class="co">#&gt;  8 Australian Capit… Footwe…   0.982   0.944       9      11 3.69e-6    64.0    1.95  0.152   0.176 </span></span>
-<span><span class="co">#&gt;  9 Australian Capit… Furnit…   0.981   0.687       9       1 4.09e-5   141.   -21.6   0.200   0.0812</span></span>
-<span><span class="co">#&gt; 10 Australian Capit… Hardwa…   0.992   0.900       9       4 1.32e-5   173.    45.1   0.102   0.0796</span></span>
-<span><span class="co">#&gt; # … with 142 more rows, and abbreviated variable names ¹​Industry, ²​trend_strength,</span></span>
-<span><span class="co">#&gt; #   ³​seasonal_strength_year, ⁴​seasonal_peak_year, ⁵​seasonal_trough_year, ⁶​spikiness, ⁷​linearity,</span></span>
-<span><span class="co">#&gt; #   ⁸​curvature, ⁹​stl_e_acf1, ˟​stl_e_acf10</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 152 x 11</span></span>
+<span><span class="co">#&gt;    State      Industry trend_strength seasonal_strength_year seasonal_peak_year seasonal_trough_year</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;             &lt;dbl&gt;                  &lt;dbl&gt;              &lt;dbl&gt;                &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Australia~ Cafes, ~          0.989                  0.562                  0                   10</span></span>
+<span><span class="co">#&gt;  2 Australia~ Cafes, ~          0.993                  0.629                  0                   10</span></span>
+<span><span class="co">#&gt;  3 Australia~ Clothin~          0.991                  0.923                  9                   11</span></span>
+<span><span class="co">#&gt;  4 Australia~ Clothin~          0.993                  0.957                  9                   11</span></span>
+<span><span class="co">#&gt;  5 Australia~ Departm~          0.977                  0.980                  9                   11</span></span>
+<span><span class="co">#&gt;  6 Australia~ Electri~          0.992                  0.933                  9                   11</span></span>
+<span><span class="co">#&gt;  7 Australia~ Food re~          0.999                  0.890                  9                   11</span></span>
+<span><span class="co">#&gt;  8 Australia~ Footwea~          0.982                  0.944                  9                   11</span></span>
+<span><span class="co">#&gt;  9 Australia~ Furnitu~          0.981                  0.687                  9                    1</span></span>
+<span><span class="co">#&gt; 10 Australia~ Hardwar~          0.992                  0.900                  9                    4</span></span>
+<span><span class="co">#&gt; # i 142 more rows</span></span>
+<span><span class="co">#&gt; # i 5 more variables: spikiness &lt;dbl&gt;, linearity &lt;dbl&gt;, curvature &lt;dbl&gt;, stl_e_acf1 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   stl_e_acf10 &lt;dbl&gt;</span></span></code></pre></div>
 <p>This allows you to visualise the behaviour of many time series (where the plotting methods above would show too much information).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aus_retail</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -278,16 +270,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
