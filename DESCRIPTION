@@ -1,6 +1,6 @@
 Package: feasts
 Title: Feature Extraction and Statistics for Time Series
-Version: 0.4.0.9000
+Version: 0.4.1
 Description: Provides a collection of features, decomposition methods, 
     statistical summaries and graphics functions for the analysing tidy time
     series data. The package name 'feasts' is an acronym comprising of its key
