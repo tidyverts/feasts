@@ -1,5 +1,9 @@
 # feasts (development version)
 
+## Bug fixes
+
+* Fixed `gg_season()` not working with daily data showing seasonality > 1 week.
+
 # feasts 0.4.0
 
 ## New features
