@@ -471,6 +471,7 @@ shift_kl_max <- function(x, .size = NULL, .period = 1) {
 #' feat_spectral(sin(1:20))
 #' @export
 feat_spectral <- function(x, .period = 1, ...) {
+  if(all(x == x[1])) return(c(spectral_entropy = NA_real_))
   #spec <- spectrum(x, plot = FALSE, n.freq = ceiling(length(x)/2 + 1), ...)
   spec <- try(stats::spec.ar(na.contiguous(ts(x, frequency = .period)),
                              plot=FALSE, method='burg',
