@@ -189,7 +189,7 @@ test_that("gg_tsdisplay() plots", {
     list(x = "index", y = "value")
   )
 
-  p <- p + ggplot2::labs(x = "x", y = "y", title = "title")
+  p[[1]] <- p[[1]] + ggplot2::labs(x = "x", y = "y", title = "title")
 
   p_built <- ggplot2::ggplot_build(p[[1]])
 
