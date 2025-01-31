@@ -728,10 +728,14 @@ gg_tsresiduals <- function(data, type = "innovation", ...){
 }
 
 #' @export
-`+.gg_tsensemble` <- function(e1, e2){
-  e1[[1]] <- e1[[1]] + e2
+`+.gg_tsensemble` <- function(e1, e2) {
+  e1[[1L]] <- e1[[1L]] + e2
   e1
 }
+
+#' @export
+chooseOpsMethod.gg_tsensemble <- function(x, y, mx, my, cl, reverse) TRUE
+
 
 #' @export
 print.gg_tsensemble <- function(x, ...){
