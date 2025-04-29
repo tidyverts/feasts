@@ -620,7 +620,7 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
   if(plot_type == "auto"){
     period <- get_frequencies(NULL, data, .auto = "all")
     if(all(period <= 1)){
-      plot_type <- if(any(is.na(data[[as_name(y)]]))) "partial" else "spectrum"
+      plot_type <- if(any(is.na(eval_tidy(y, data = data)))) "partial" else "spectrum"
     }
     else{
       plot_type <- "season"
