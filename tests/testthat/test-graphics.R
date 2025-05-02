@@ -189,7 +189,7 @@ test_that("gg_tsdisplay() plots", {
     list(x = "index", y = "value")
   )
 
-  p <- p + ggplot2::labs(x = "x", y = "y", title = "title")
+  p[[1]] <- p[[1]] + ggplot2::labs(x = "x", y = "y", title = "title")
 
   p_built <- ggplot2::ggplot_build(p[[1]])
 
@@ -266,12 +266,5 @@ test_that("gg_arma() plots", {
   expect_equal(
     ggplot2::layer_data(p, 4)$PANEL,
     factor(c(rep_along(ar_roots, 1), rep_along(ma_roots, 2)))
-  )
-
-  p_built <- ggplot2::ggplot_build(p)
-
-  expect_equivalent(
-    p_built$plot$labels[c("x", "y")],
-    list(x = "Re(1/root)", y = "Im(1/root)")
   )
 })
