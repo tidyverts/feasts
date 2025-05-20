@@ -304,10 +304,12 @@ as_lag <- function(x, ...) {
   UseMethod("as_lag")
 }
 
+#' @export
 as_lag.interval <- function(x, ...){
   new_lag(1, x)
 }
 
+#' @export
 as_lag.default <- function(x, ...){
   abort(
     sprintf("`as_lag()` doesn't know how to handle the '%s' class yet.",

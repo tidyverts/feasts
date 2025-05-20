@@ -1,5 +1,10 @@
 # feasts (development version)
 
+## New features
+
+* `gg_tsresiduals()` now supports the `plot_type` argument to customise the
+  third plot, much like `gg_tsdisplay()`.
+
 # feasts 0.4.1
 
 ## Bug fixes

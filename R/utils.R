@@ -130,6 +130,7 @@ round_period <- function(period){
 floor_tsibble_date <- function(x, unit, ...){
   UseMethod("floor_tsibble_date")
 }
+#' @export
 floor_tsibble_date.default <- function(x, unit, ...){
   unit <- round_period(unit)
   if(unit == lubridate::weeks(1)){
@@ -137,18 +138,22 @@ floor_tsibble_date.default <- function(x, unit, ...){
   }
   lubridate::floor_date(x, unit, week_start = 1)
 }
+#' @export
 floor_tsibble_date.numeric <- function(x, unit, ...){
   unit <- round_period(unit)
   unit <- if (unit@year != 0) unit@year else unit@.Data
   minx <- min(x)
   (x-minx)%/%unit * unit + minx
 }
+#' @export
 floor_tsibble_date.yearquarter <- function(x, unit, ...){
   yearquarter(lubridate::floor_date(as_date(x), round_period(unit), ...))
 }
+#' @export
 floor_tsibble_date.yearmonth <- function(x, unit, ...){
   yearmonth(lubridate::floor_date(as_date(x), round_period(unit), ...))
 }
+#' @export
 floor_tsibble_date.yearweek <- function(x, unit, ...){
   unit <- round_period(unit)
   if ((unit@year > 0) && (unit@day > 0)) {

@@ -4,12 +4,17 @@
 \alias{gg_tsresiduals}
 \title{Ensemble of time series residual diagnostic plots}
 \usage{
-gg_tsresiduals(data, type = "innovation", ...)
+gg_tsresiduals(data, type = "innovation", plot_type = "histogram", ...)
 }
 \arguments{
 \item{data}{A mable containing one model with residuals.}
 
 \item{type}{The type of residuals to compute. If \code{type="response"}, residuals on the back-transformed data will be computed.}
+
+\item{plot_type}{type of plot to include in lower right corner. By default
+(\code{"auto"}) a season plot will be shown for seasonal data, a spectrum plot
+will be shown for non-seasonal data without missing values, and a PACF will
+be shown otherwise.}
 
 \item{...}{Additional arguments passed to \code{\link[=gg_tsdisplay]{gg_tsdisplay()}}.}
 }
