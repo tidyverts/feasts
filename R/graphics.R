@@ -735,6 +735,12 @@ gg_tsresiduals <- function(data, type = "innovation", plot_type = "histogram", .
 }
 
 #' @export
+chooseOpsMethod.gg_tsensemble <- function(x, y, mx, my, cl, reverse) {
+  # Always use the gg_tsensemble method
+  TRUE
+}
+
+#' @export
 print.gg_tsensemble <- function(x, ...){
   x <- lapply(x, ggplot2::ggplotGrob)
 
