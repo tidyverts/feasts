@@ -22,6 +22,11 @@ be shown otherwise.}
 A list of ggplot objects showing a useful plots of a time series model's residuals.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+\code{gg_tsresiduals()} was soft deprecated in feasts 0.4.2. Please use \code{ggtime::gg_tsresiduals()} instead.
+
 Plots the residuals using a time series plot, ACF and histogram.
 }
 \examples{

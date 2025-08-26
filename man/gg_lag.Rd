@@ -43,6 +43,11 @@ controllable arrow created with \code{\link[grid:arrow]{grid::arrow()}} can be u
 A ggplot object showing a lag plot of a time series.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+\code{gg_lag()} was soft deprecated in feasts 0.4.2. Please use \code{ggtime::gg_lag()} instead.
+
 A lag plot shows the time series against lags of itself. It is often coloured
 the seasonal period to identify how each season correlates with others.
 }

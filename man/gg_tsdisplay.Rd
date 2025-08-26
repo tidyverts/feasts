@@ -30,6 +30,11 @@ automatically limited to one less than the number of observations in the series.
 A list of ggplot objects showing useful plots of a time series.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+\code{gg_tsdisplay()} was soft deprecated in feasts 0.4.2. Please use \code{ggtime::gg_tsdisplay()} instead.
+
 Plots a time series along with its ACF along with an customisable third
 graphic of either a PACF, histogram, lagged scatterplot or spectral density.
 }

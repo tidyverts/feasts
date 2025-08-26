@@ -173,6 +173,10 @@ guess_plot_var <- function(x, y){
 
 #' Seasonal plot
 #'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `gg_season()` was soft deprecated in feasts 0.4.2. Please use `ggtime::gg_season()` instead.
+#'
 #' Produces a time series seasonal plot. A seasonal plot is similar to a regular
 #' time series plot, except the x-axis shows data from within each season. This
 #' plot type allows the underlying seasonal pattern to be seen more clearly,
@@ -228,6 +232,12 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
                       labels_repel = FALSE,
                       labels_left_nudge = 0, labels_right_nudge = 0,
                       ...){
+  lifecycle::deprecate_soft(
+    when = "0.4.2",
+    what = "gg_season()",
+    with = "ggtime::gg_season()"
+  )
+  
   y <- guess_plot_var(data, !!enquo(y))
 
   labels <- match.arg(labels)
@@ -391,6 +401,10 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
 
 #' Seasonal subseries plots
 #'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `gg_subseries()` was soft deprecated in feasts 0.4.2. Please use `ggtime::gg_subseries()` instead.
+#'
 #' A seasonal subseries plot facets the time series by each season in the
 #' seasonal period. These facets form smaller time series plots consisting of
 #' data only from that season. If you had several years of monthly data, the
@@ -425,6 +439,12 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
 #' @importFrom ggplot2 facet_grid
 #' @export
 gg_subseries <- function(data, y = NULL, period = NULL, ...){
+  lifecycle::deprecate_soft(
+    when = "0.4.2",
+    what = "gg_subseries()",
+    with = "ggtime::gg_subseries()"
+  )
+  
   y <- guess_plot_var(data, !!enquo(y))
   n_key <- n_keys(data)
   keys <- key(data)
@@ -489,6 +509,10 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
 
 #' Lag plots
 #'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `gg_lag()` was soft deprecated in feasts 0.4.2. Please use `ggtime::gg_lag()` instead.
+#'
 #' A lag plot shows the time series against lags of itself. It is often coloured
 #' the seasonal period to identify how each season correlates with others.
 #'
@@ -517,6 +541,12 @@ gg_subseries <- function(data, y = NULL, period = NULL, ...){
 gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
                    geom = c("path", "point"),
                    arrow = FALSE, ...){
+  lifecycle::deprecate_soft(
+    when = "0.4.2",
+    what = "gg_lag()",
+    with = "ggtime::gg_lag()"
+  )
+  
   if(isTRUE(arrow)){
     arrow <- grid::arrow(length = grid::unit(0.05, "npc"))
   }
@@ -573,6 +603,10 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 
 #' Ensemble of time series displays
 #'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `gg_tsdisplay()` was soft deprecated in feasts 0.4.2. Please use `ggtime::gg_tsdisplay()` instead.
+#'
 #' Plots a time series along with its ACF along with an customisable third
 #' graphic of either a PACF, histogram, lagged scatterplot or spectral density.
 #'
@@ -609,6 +643,12 @@ gg_lag <- function(data, y = NULL, period = NULL, lags = 1:9,
 #' @export
 gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "season", "histogram", "scatter", "spectrum"),
                          lag_max = NULL){
+  lifecycle::deprecate_soft(
+    when = "0.4.2",
+    what = "gg_tsdisplay()",
+    with = "ggtime::gg_tsdisplay()"
+  )
+  
   if(n_keys(data) > 1){
     abort("The data provided to contains more than one time series. Please filter a single time series to use `gg_tsdisplay()`")
   }
@@ -684,6 +724,10 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 
 #' Ensemble of time series residual diagnostic plots
 #'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `gg_tsresiduals()` was soft deprecated in feasts 0.4.2. Please use `ggtime::gg_tsresiduals()` instead.
+#'
 #' Plots the residuals using a time series plot, ACF and histogram.
 #'
 #' @param data A mable containing one model with residuals.
@@ -713,6 +757,11 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 #' @importFrom stats na.exclude complete.cases
 #' @export
 gg_tsresiduals <- function(data, type = "innovation", plot_type = "histogram", ...){
+  lifecycle::deprecate_soft(
+    when = "0.4.2",
+    what = "gg_tsresiduals()",
+    with = "ggtime::gg_tsresiduals()"
+  )
   if(!fabletools::is_mable(data)){
     abort("gg_tsresiduals() must be used with a mable containing only one model.")
   }
@@ -767,6 +816,10 @@ grid.draw.gg_tsensemble <- function(x, recording = TRUE) {
 
 #' Plot characteristic ARMA roots
 #'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `gg_arma()` was soft deprecated in feasts 0.4.2. Please use `ggtime::gg_arma()` instead.
+#'
 #' Produces a plot of the inverse AR and MA roots of an ARIMA model.
 #' Inverse roots outside the unit circle are shown in red.
 #'
@@ -793,6 +846,12 @@ grid.draw.gg_tsensemble <- function(x, recording = TRUE) {
 #' }
 #' @export
 gg_arma <- function(data){
+  lifecycle::deprecate_soft(
+    when = "0.4.2",
+    what = "gg_arma()",
+    with = "ggtime::gg_arma()"
+  )
+  
   if(!fabletools::is_mable(data)){
     abort("gg_arma() must be used with a mable containing models that compute ARMA roots")
   }
@@ -826,6 +885,9 @@ gg_arma <- function(data){
 
 #' Plot impulse response functions
 #'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `gg_irf()` was soft deprecated in feasts 0.4.2. Please use `ggtime::gg_irf()` instead.
 #' Produces a plot of impulse responses from an impulse response function.
 #'
 #' @param data A tsibble with impulse responses
@@ -835,6 +897,11 @@ gg_arma <- function(data){
 #'
 #' @export
 gg_irf <- function(data, y = all_of(measured_vars(data))){
+  lifecycle::deprecate_soft(
+    when = "0.4.2",
+    what = "gg_irf()",
+    with = "ggtime::gg_irf()"
+  )
   kv <- key_vars(data)
   if(is_empty(kv)) kv <- NULL
   data <- tidyr::pivot_longer(

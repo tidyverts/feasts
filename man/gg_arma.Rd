@@ -13,10 +13,14 @@ gg_arma(data)
 A ggplot object the characteristic roots from ARMA components.
 }
 \description{
-Produces a plot of the inverse AR and MA roots of an ARIMA model.
-Inverse roots outside the unit circle are shown in red.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \details{
+\code{gg_arma()} was soft deprecated in feasts 0.4.2. Please use \code{ggtime::gg_arma()} instead.
+
+Produces a plot of the inverse AR and MA roots of an ARIMA model.
+Inverse roots outside the unit circle are shown in red.
+
 Only models which compute ARMA roots can be visualised with this function.
 That is to say, the \code{glance()} of the model contains \code{ar_roots} and \code{ma_roots}.
 }

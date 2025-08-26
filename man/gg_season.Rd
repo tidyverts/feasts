@@ -61,6 +61,11 @@ to always colour the lines. If labels are used, then max_col will be ignored.}
 A ggplot object showing a seasonal plot of a time series.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+\code{gg_season()} was soft deprecated in feasts 0.4.2. Please use \code{ggtime::gg_season()} instead.
+
 Produces a time series seasonal plot. A seasonal plot is similar to a regular
 time series plot, except the x-axis shows data from within each season. This
 plot type allows the underlying seasonal pattern to be seen more clearly,

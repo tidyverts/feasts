@@ -17,5 +17,12 @@
 A ggplot object showing the correlations.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+\code{autoplot.tbl_cf()} was soft deprecated in feasts 0.4.2. Please use
+\code{ggtime::autoplot.tbl_cf()} instead. Produces a plot of impulse responses
+from an impulse response function.
+
 Produces an appropriate plot for the result of  \code{\link[=ACF]{ACF()}}, \code{\link[=PACF]{PACF()}}, or \code{\link[=CCF]{CCF()}}.
 }

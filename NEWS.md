@@ -1,9 +1,20 @@
 # feasts (development version)
 
+Compatibility release for upcoming ggplot2 4.0.0 release.
+
 ## New features
 
 * `gg_tsresiduals()` now supports the `plot_type` argument to customise the
   third plot, much like `gg_tsdisplay()`.
+
+## Breaking changes
+
+* All ggplot2 functionality is now soft deprecated, and is being moved to the
+  new `ggtime` package. This deprecation process will be very gradual, although
+  the intention is for these functions to eventually be removed from `feasts`.
+
+  This is a design change to focus `feasts` on feature extraction and statistics
+  for time series, and have all ggplot2 functionality in a dedicated package
 
 # feasts 0.4.1
 

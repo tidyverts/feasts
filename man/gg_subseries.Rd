@@ -27,14 +27,18 @@ and the period cannot be smaller than the observation interval.}
 A ggplot object showing a seasonal subseries plot of a time series.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+\code{gg_subseries()} was soft deprecated in feasts 0.4.2. Please use \code{ggtime::gg_subseries()} instead.
+
 A seasonal subseries plot facets the time series by each season in the
 seasonal period. These facets form smaller time series plots consisting of
 data only from that season. If you had several years of monthly data, the
 resulting plot would show a separate time series plot for each month. The
 first subseries plot would consist of only data from January. This case is
 given as an example below.
-}
-\details{
+
 The horizontal lines are used to represent the mean of each facet, allowing
 easy identification of seasonal differences between seasons. This plot is
 particularly useful in identifying changes in the seasonal pattern over time.

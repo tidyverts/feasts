@@ -389,6 +389,12 @@ interval_pull.cf_lag <- function(x) {
 }
 
 #' Auto- and Cross- Covariance and -Correlation plots
+#' 
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `autoplot.tbl_cf()` was soft deprecated in feasts 0.4.2. Please use
+#' `ggtime::autoplot.tbl_cf()` instead. Produces a plot of impulse responses
+#' from an impulse response function.
 #'
 #' Produces an appropriate plot for the result of  [`ACF()`], [`PACF()`], or [`CCF()`].
 #'
@@ -403,7 +409,10 @@ interval_pull.cf_lag <- function(x) {
 #' @export
 autoplot.tbl_cf <- function(object, level = 95, ...){
   cf_type <- colnames(object)[colnames(object) %in% c("acf", "pacf", "ccf")]
-  plot_aes <- eval_tidy(expr(ggplot2::aes(x = !!sym("lag"), y = !!sym(cf_type))))
+  plot_aes <- ggplot2::aes(
+    x = !!sym("lag"),
+    y = !!sym(cf_type)
+  )
   interval <- interval(object)
 
   if(length(level) > 1){
@@ -412,7 +421,7 @@ autoplot.tbl_cf <- function(object, level = 95, ...){
 
   itvl_fmt <- utils::getS3method("format", "interval", envir = getNamespace("tsibble"))
   p <- ggplot(object, plot_aes) +
-    geom_linecol() +
+    ggplot2::geom_segment(aes(xend = !!sym("lag"), yend = 0)) +
     geom_hline(yintercept = 0) +
     xlab(paste0("lag [", itvl_fmt(interval),"]"))
 

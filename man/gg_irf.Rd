@@ -15,5 +15,9 @@ gg_irf(data, y = all_of(measured_vars(data)))
 A ggplot object of the impulse responses.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+\code{gg_irf()} was soft deprecated in feasts 0.4.2. Please use \code{ggtime::gg_irf()} instead.
 Produces a plot of impulse responses from an impulse response function.
 }
