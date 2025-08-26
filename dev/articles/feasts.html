@@ -141,7 +141,12 @@ it can be difficult to identify specifics about the seasonal pattern
 Melbourne? To find out we will need to investigate other plot types.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/gg_season.html">gg_season</a></span><span class="op">(</span><span class="va">Trips</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/gg_season.html">gg_season</a></span><span class="op">(</span><span class="va">Trips</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `gg_season()` was deprecated in feasts 0.4.2.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `ggtime::gg_season()` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/season-plot-1.png" width="672"></p>
 <p>The seasonal plot (<code><a href="../reference/gg_season.html">gg_season()</a></code>) wraps a seasonal period
 (in this case, years) over the x axis, allowing you to see how each
@@ -155,7 +160,12 @@ years. This also reveals that the drop in visiting tourism in Q3 was far
 less extreme in the most recent two years.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tourism_melb</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/gg_subseries.html">gg_subseries</a></span><span class="op">(</span><span class="va">Trips</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/gg_subseries.html">gg_subseries</a></span><span class="op">(</span><span class="va">Trips</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `gg_subseries()` was deprecated in feasts 0.4.2.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `ggtime::gg_subseries()` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
 <p><img src="feasts_files/figure-html/subseries-plot-1.png" width="672"></p>
 <p>An alternative visualisation of seasonal patterns is the subseries
 plot (<code><a href="../reference/gg_subseries.html">gg_subseries()</a></code>), which isolates seasonal periods into

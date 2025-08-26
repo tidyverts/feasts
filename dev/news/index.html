@@ -66,10 +66,18 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="feasts-development-version">feasts (development version)<a class="anchor" aria-label="anchor" href="#feasts-development-version"></a></h2>
+<p>Compatibility release for upcoming ggplot2 4.0.0 release.</p>
 <div class="section level3">
 <h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
 <ul><li>
 <code><a href="../reference/gg_tsresiduals.html">gg_tsresiduals()</a></code> now supports the <code>plot_type</code> argument to customise the third plot, much like <code><a href="../reference/gg_tsdisplay.html">gg_tsdisplay()</a></code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<ul><li>
+<p>All ggplot2 functionality is now soft deprecated, and is being moved to the new <code>ggtime</code> package. This deprecation process will be very gradual, although the intention is for these functions to eventually be removed from <code>feasts</code>.</p>
+<p>This is a design change to focus <code>feasts</code> on feature extraction and statistics for time series, and have all ggplot2 functionality in a dedicated package</p>
+</li>
 </ul></div>
 </div>
     <div class="section level2">
