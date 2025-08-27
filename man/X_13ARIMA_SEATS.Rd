@@ -49,7 +49,7 @@ method, the \code{x11()} function can be used in the model formula.
 
 The specials of the X-13ARIMA-SEATS model closely follow the individual
 specification options of the original function. Refer to
-\href{https://www2.census.gov/software/x-13arima-seats/x13as/windows/documentation/docx13as.pdf#chapter.7}{Chapter 7 of the X-13ARIMA-SEATS Reference Manual}
+\href{https://www.census.gov/data/software/x13as.html}{Chapter 7 of the X-13ARIMA-SEATS Reference Manual}
 for full details of the arguments.
 
 The available specials for this model are:
@@ -349,7 +349,7 @@ time trend-cycle estimation". \emph{Springer}.
 X-13ARIMA-SEATS Documentation from the seasonal package's website:
 http://www.seasonal.website/seasonal.html
 
-Official X-13ARIMA-SEATS manual: \url{https://www2.census.gov/software/x-13arima-seats/x13as/windows/documentation/docx13as.pdf}
+Official X-13ARIMA-SEATS documentation: \url{https://www.census.gov/data/software/x13as.html}
 }
 \seealso{
 \code{\link[seasonal:seas]{seasonal::seas()}}
