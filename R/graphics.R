@@ -783,7 +783,7 @@ gg_tsresiduals <- function(data, type = "innovation", plot_type = "histogram", .
   e1
 }
 
-#' @export
+#' @rawNamespace if (getRversion() >= "4.3.0") S3method(chooseOpsMethod,gg_tsensemble)
 chooseOpsMethod.gg_tsensemble <- function(x, y, mx, my, cl, reverse) {
   # Always use the gg_tsensemble method
   TRUE
