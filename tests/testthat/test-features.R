@@ -15,6 +15,7 @@ test_that("guerrero()", {
 })
 
 test_that("unit root features", {
+  skip_if_not_installed("seasonal")
   ft <- features(www_usage, value, list(unitroot_kpss, unitroot_pp, unitroot_ndiffs))
   expect_equal(ft$kpss_pvalue < 0.05, as.logical(ft$ndiffs))
   expect_equal(ft$pp_pvalue, 0.1)
@@ -62,6 +63,7 @@ test_that("*shift features", {
 })
 
 test_that("model based features", {
+  skip_if_not_installed("seasonal")
   model_features <- list(stat_arch_lm, coef_hurst, feat_stl)
   ft <- features(www_usage, value, model_features)
   expect_equivalent(
