@@ -17,7 +17,7 @@ specials_X11 <- fabletools::new_specials(
 )
 
 train_X11 <- function(.data, formula, specials, type, ...){
-  require_package("seasonal")
+  check_installed("seasonal")
   stopifnot(is_tsibble(.data))
 
   if(length(specials$season) != 1){

@@ -137,7 +137,7 @@ feat_stl <- function(x, .period, s.window = 11, ...){
 #' @rdname unitroot
 #' @export
 unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "nil"), ...) {
-  require_package("urca")
+  check_installed("urca")
   result <- urca::ur.kpss(x, type = type, lags = lags, ...)
   pval <- stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y
   c(kpss_stat = result@teststat, kpss_pvalue = pval)
@@ -151,7 +151,7 @@ unitroot_kpss <- function(x, type = c("mu", "tau"), lags = c("short", "long", "n
 #' @export
 unitroot_pp <- function(x, type = c("Z-tau", "Z-alpha"), model = c("constant", "trend"),
                         lags = c("short", "long"), ...) {
-  require_package("urca")
+  check_installed("urca")
   result <- urca::ur.pp(x, type = match.arg(type), model = match.arg(model),
                         lags = match.arg(lags), ...)
   pval <- stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y
@@ -247,7 +247,7 @@ unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ feat_stl(.,.period
 #'
 #' @export
 cointegration_johansen <- function(x, ...) {
-  require_package("urca")
+  check_installed("urca")
   result <- urca::ca.jo(x, ...)
 
   pct <- as.numeric(sub("pct", "", colnames(result@cval)))/100
@@ -273,7 +273,7 @@ cointegration_johansen <- function(x, ...) {
 #'
 #' @export
 cointegration_phillips_ouliaris <- function(x, ...) {
-  require_package("urca")
+  check_installed("urca")
   result <- urca::ca.po(x, ...)
   pval <- stats::approx(result@cval[1,], as.numeric(sub("pct", "", colnames(result@cval)))/100, xout=result@teststat[1], rule=2)$y
   c(phillips_ouliaris_stat = result@teststat, phillips_ouliaris_pvalue = pval)
@@ -315,7 +315,7 @@ n_flat_spots <- function(x) {
 #'
 #' @export
 coef_hurst <- function(x) {
-  require_package("fracdiff")
+  check_installed("fracdiff")
   # Hurst=d+0.5 where d is fractional difference.
   return(c(coef_hurst = suppressWarnings(fracdiff::fracdiff(na.contiguous(x), 0, 0)[["d"]] + 0.5)))
 }

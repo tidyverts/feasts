@@ -30,14 +30,13 @@ A list of ggplot objects showing a useful plots of a time series model's residua
 Plots the residuals using a time series plot, ACF and histogram.
 }
 \examples{
-if (requireNamespace("fable", quietly = TRUE)) {
+\dontshow{if (rlang::is_installed("fable")) withAutoprint(\{ # examplesIf}
 library(fable)
 
 tsibbledata::aus_production \%>\%
   model(ETS(Beer)) \%>\%
   gg_tsresiduals()
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Hyndman and Athanasopoulos (2019) \emph{Forecasting: principles

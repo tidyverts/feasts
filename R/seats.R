@@ -17,7 +17,7 @@ specials_seats <- fabletools::new_specials(
 )
 
 train_seats <- function(.data, formula, specials, x11, x11.mode, ...){
-  require_package("seasonal")
+  check_installed("seasonal")
   stopifnot(is_tsibble(.data))
 
   if(!missing(x11) || !missing(x11.mode)){

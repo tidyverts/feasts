@@ -371,7 +371,7 @@ gg_season <- function(data, y = NULL, period = NULL, facet_period = NULL,
 
   if(labels != "none"){
     labeller <- if(labels_repel) {
-      require_package("ggrepel")
+      check_installed("ggrepel")
       function(...) ggrepel::geom_text_repel(..., direction = "y", segment.colour = NA)
     } else {
       ggplot2::geom_text
@@ -652,7 +652,7 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
   if(n_keys(data) > 1){
     abort("The data provided to contains more than one time series. Please filter a single time series to use `gg_tsdisplay()`")
   }
-  require_package("grid")
+  check_installed("grid")
 
   y <- guess_plot_var(data, !!enquo(y))
 
@@ -744,14 +744,12 @@ gg_tsdisplay <- function(data, y = NULL, plot_type = c("auto", "partial", "seaso
 #' and practice}, 3rd edition, OTexts: Melbourne, Australia.
 #' \url{https://OTexts.com/fpp3/}
 #'
-#' @examples
-#' if (requireNamespace("fable", quietly = TRUE)) {
+#' @examplesIf rlang::is_installed("fable")
 #' library(fable)
 #'
 #' tsibbledata::aus_production %>%
 #'   model(ETS(Beer)) %>%
 #'   gg_tsresiduals()
-#' }
 #'
 #' @importFrom ggplot2 ggplot aes geom_point geom_histogram ylim
 #' @importFrom stats na.exclude complete.cases
