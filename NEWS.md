@@ -1,3 +1,5 @@
+# feasts (development version)
+
 # feasts 0.4.2
 
 Compatibility release for upcoming ggplot2 4.0.0 release.

@@ -1,6 +1,6 @@
 Package: feasts
 Title: Feature Extraction and Statistics for Time Series
-Version: 0.4.2
+Version: 0.4.2.9000
 Description: Provides a collection of features, decomposition methods, 
     statistical summaries and graphics functions for the analysing tidy time
     series data. The package name 'feasts' is an acronym comprising of its key
@@ -30,7 +30,8 @@ Imports:
     slider,
     utils,
     lifecycle,
-    gtable
+    gtable,
+    ggtime
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),
@@ -49,7 +50,7 @@ License: GPL-3
 URL: http://feasts.tidyverts.org/, https://github.com/tidyverts/feasts/
 BugReports: https://github.com/tidyverts/feasts/issues
 Encoding: UTF-8
-RoxygenNote: 7.3.2.9000
+RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
 Language: en-GB
 RdMacros: lifecycle
