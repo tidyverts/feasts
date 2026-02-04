@@ -2,29 +2,59 @@
 % Please edit documentation in R/features.R
 \name{cointegration_phillips_ouliaris}
 \alias{cointegration_phillips_ouliaris}
-\title{Phillips and Ouliaris Cointegration Test}
+\title{Phillips and Ouliaris Cointegration Features}
 \usage{
 cointegration_phillips_ouliaris(x, ...)
 }
 \arguments{
-\item{x}{Matrix of data to be tested.}
+\item{x}{A numeric matrix (or object coercible to a matrix) of time series to be
+tested for cointegration. Columns represent series and rows represent
+ordered observations.}
 
-\item{...}{Additional arguments passed to \code{\link[urca:ca.po]{urca::ca.po()}}.}
+\item{...}{Additional arguments passed to \code{urca::ca.po()}, such as
+\code{demean}, \code{lag}, \code{type}, and \code{tol}. See
+\code{\link[urca]{ca.po}} for details.}
 }
 \value{
-An object of class \code{ca.po}.
+A named numeric vector of length two:
+\itemize{
+\item \code{phillips_ouliaris_stat}
+\item \code{phillips_ouliaris_pvalue}
+}
 }
 \description{
-Performs the Phillips and Ouliaris \code{"Pu"} and \code{"Pz"}
-  cointegration test.
+\code{cointegration_phillips_ouliaris()} calls \code{urca::ca.po()} and
+returns a named numeric vector containing:
+\itemize{
+\item \code{phillips_ouliaris_stat}: the \eqn{P_u} or \eqn{P_z} test
+statistic; and
+\item \code{phillips_ouliaris_pvalue}: an approximate p-value obtained by
+linearly interpolating the tabulated critical values in
+\code{result@cval}.
+}
+
+Since it returns a simple numeric vector, this function is suitable for use
+as a feature extractor within the \pkg{fabletools}
+\code{\link[fabletools]{features}} framework.
 }
 \details{
-The test \code{"Pz"}, compared to the test \code{"Pu"}, has the
-  advantage that it is invariant to the normalization of the
-  cointegration vector, \emph{i.e.} it does not matter which variable
-  is on the left hand side of the equation. In case convergence
-  problems are encountered by matrix inversion, one can pass a higher
-  tolerance level \emph{via} \code{"tol=..."} to the \code{solve()}-function.
+Compute Phillips and Ouliaris (1990) residual-based cointegration test
+statistics and an approximate p-value as numeric features.
+
+This is a small wrapper around \code{urca::ca.po()} designed so that the
+Phillips–Ouliaris test can be used directly inside
+\code{\link[fabletools]{features}}.
+
+The function requires the \pkg{urca} package; an informative error is raised
+if it is not installed.
+
+The p-value is computed by interpolating over the first row of
+\code{result@cval}, which contains critical values at various significance
+levels (e.g., \code{"10pct"}, \code{"5pct"}, \code{"1pct"}). These labels
+are converted to probabilities (0.10, 0.05, 0.01), and
+\code{\link[stats]{approx}} is used to obtain the approximate p-value at the
+observed test statistic. The interpolation is done with \code{rule = 2},
+implying linear extrapolation outside the tabulated range.
 }
 \examples{
 
@@ -32,13 +62,11 @@ cointegration_phillips_ouliaris(cbind(mdeaths, fdeaths))
 
 }
 \references{
-Phillips, P.C.B. and Ouliaris, S. (1990), Asymptotic Properties of
-  Residual Based Tests for Cointegration, \emph{Econometrica},
-  \bold{Vol. 58, No. 1}, 165--193.
+Phillips, P.C.B. and Ouliaris, S. (1990),
+\dQuote{Asymptotic Properties of Residual Based Tests for Cointegration},
+\emph{Econometrica}, \bold{58}(1), 165–193.
 }
 \seealso{
-\code{\link[urca:ca.po]{urca::ca.po()}}
-}
-\author{
-Bernhard Pfaff
+\code{\link[urca]{ca.po}},
+\code{\link[fabletools]{features}}
 }
