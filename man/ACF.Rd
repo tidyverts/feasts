@@ -69,7 +69,7 @@ the exact correlation at lag 0 when \code{type=="correlation"} and
 the horizontal axes show lags in time units rather than seasonal units.
 
 The resulting tables from these functions can also be plotted using
-\code{\link[=autoplot.tbl_cf]{autoplot.tbl_cf()}}.
+\code{\link[ggtime:autoplot.tbl_cf]{ggtime::autoplot.tbl_cf()}}.
 }
 \examples{
 library(tsibble)
