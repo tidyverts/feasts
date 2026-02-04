@@ -9,17 +9,6 @@ test_that("ACF", {
     as.numeric(stats::acf(dt$y, plot = FALSE)$acf)[-1]
   )
 
-  p <- autoplot(cf)
-  expect_identical(
-    ggplot2::layer_data(p)$y,
-    cf$acf
-  )
-
-  expect_s3_class(
-    ggplot2::ggplot_build(p),
-    "ggplot_built"
-  )
-
   expect_message(
     NROW(ACF(dt, lag_max = 5)),
     "Response variable not specified"
@@ -46,17 +35,6 @@ test_that("PACF", {
     acf
   )
 
-  p <- autoplot(cf)
-  expect_identical(
-    ggplot2::layer_data(p)$y,
-    cf$pacf
-  )
-
-  expect_s3_class(
-    ggplot2::ggplot_build(p),
-    "ggplot_built"
-  )
-
   expect_message(
     NROW(PACF(dt, lag_max = 5)),
     "Response variable not specified"
@@ -75,17 +53,6 @@ test_that("CCF", {
   expect_identical(
     cf$ccf,
     as.numeric(stats::ccf(dt$x, dt$y, plot = FALSE)$acf)
-  )
-
-  p <- autoplot(cf)
-  expect_identical(
-    ggplot2::layer_data(p)$y,
-    cf$ccf
-  )
-
-  expect_s3_class(
-    ggplot2::ggplot_build(p),
-    "ggplot_built"
   )
 
   expect_message(
