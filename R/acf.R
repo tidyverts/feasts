@@ -12,7 +12,7 @@
 #' the horizontal axes show lags in time units rather than seasonal units.
 #'
 #' The resulting tables from these functions can also be plotted using
-#' [`autoplot.tbl_cf`].
+#' [`autoplot()`] with the methods provided by the {ggtime} package.
 #'
 # The tapered versions implement the ACF and PACF estimates and plots
 # described in Hyndman (2015), based on the banded and tapered estimates of
