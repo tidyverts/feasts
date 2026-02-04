@@ -32,7 +32,7 @@ specials_x13arimaseats <- fabletools::new_specials(
 
 train_x13arimaseats <- function(.data, formula, specials, ...,
                                 defaults, na.action = seasonal::na.x13){
-  require_package("seasonal")
+  check_installed("seasonal")
   stopifnot(is_tsibble(.data))
   series_name <- measured_vars(.data)
 
