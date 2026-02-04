@@ -53,17 +53,9 @@ reference:
     - feasts-package
 - title: Graphics
   desc: >
-    Visualisation is often the first step in understanding the patterns in time series data.
-    The package uses [ggplot2](https://ggplot2.tidyverse.org/) to produce customisable graphics to visualise time series patterns.
-  contents:
-    - autoplot.tbl_cf
-    - gg_season
-    - gg_subseries
-    - gg_tsdisplay
-    - gg_tsresiduals
-    - gg_lag
-    - gg_arma
-    - gg_irf
+    Graphics capabilities in feasts have moved to the [ggtime](https://pkg.mitchelloharawild.com/ggtime) package.
+
+    Please use `library(ggtime)` in your code in order to continue using the `gg_*()` and `autoplot()` functions previously provided by this package.
 
 - title: Decompositions
   desc: >
