@@ -44,7 +44,7 @@ Suggests:
 ByteCompile: true
 VignetteBuilder: knitr
 License: GPL-3
-URL: http://feasts.tidyverts.org/, https://github.com/tidyverts/feasts/
+URL: http://feasts.tidyverts.org/, https://github.com/tidyverts/feasts
 BugReports: https://github.com/tidyverts/feasts/issues
 Encoding: UTF-8
 RoxygenNote: 7.3.3
