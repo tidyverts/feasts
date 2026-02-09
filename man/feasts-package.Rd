@@ -14,7 +14,7 @@ Provides a collection of features, decomposition methods, statistical summaries 
 Useful links:
 \itemize{
   \item \url{http://feasts.tidyverts.org/}
-  \item \url{https://github.com/tidyverts/feasts/}
+  \item \url{https://github.com/tidyverts/feasts}
   \item Report bugs at \url{https://github.com/tidyverts/feasts/issues}
 }
 

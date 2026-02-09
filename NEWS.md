@@ -1,4 +1,4 @@
-# feasts (development version)
+# feasts 0.5.0
 
 This release migrates graphics functionality to `{ggtime}`. The commonly used graphics functions are currently exported with a soft deprecation message. To use the `gg_*()` time series plot helper functions please include `library(ggtime)` in your code.
 

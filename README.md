@@ -68,25 +68,28 @@ graphics to visualise time series patterns.
 aus_production %>% gg_season(Beer)
 ```
 
-<img src="man/figures/README-graphics-1.png" width="100%" />
+<img src="man/figures/README-graphics-1.png" alt="" width="100%" />
 
 ``` r
 aus_production %>% gg_subseries(Beer)
 ```
 
-<img src="man/figures/README-graphics-2.png" width="100%" />
+<img src="man/figures/README-graphics-2.png" alt="" width="100%" />
 
 ``` r
 aus_production %>% filter(year(Quarter) > 1991) %>% gg_lag(Beer)
 ```
 
-<img src="man/figures/README-graphics-3.png" width="100%" />
+<img src="man/figures/README-graphics-3.png" alt="" width="100%" />
 
 ``` r
 aus_production %>% ACF(Beer) %>% autoplot()
+#> Plot variable not specified, automatically selected `.vars = acf`
+#> Don't know how to automatically pick scale for object of type <cf_lag/vctrs_vctr>. Defaulting to
+#> continuous.
 ```
 
-<img src="man/figures/README-graphics-4.png" width="100%" />
+<img src="man/figures/README-graphics-4.png" alt="" width="100%" />
 
 ### Decompositions
 
@@ -121,14 +124,14 @@ components(dcmp)
 #>  8 STL(Beer ~ season(window = Inf)) 1957 Q4   320  264.       69.0     -12.7           251.
 #>  9 STL(Beer ~ season(window = Inf)) 1958 Q1   272  266.        2.14      4.32          270.
 #> 10 STL(Beer ~ season(window = Inf)) 1958 Q2   233  266.      -42.6       9.72          276.
-#> # i 208 more rows
+#> # ℹ 208 more rows
 ```
 
 ``` r
 components(dcmp) %>% autoplot()
 ```
 
-<img src="man/figures/README-dcmp-plot-1.png" width="100%" />
+<img src="man/figures/README-dcmp-plot-1.png" alt="" width="100%" />
 
 ### Feature extraction and statistics
 
@@ -139,21 +142,21 @@ behaviour.
 ``` r
 aus_retail %>%
   features(Turnover, feat_stl)
-#> # A tibble: 152 x 11
+#> # A tibble: 152 × 11
 #>    State      Industry trend_strength seasonal_strength_year seasonal_peak_year seasonal_trough_year
 #>    <chr>      <chr>             <dbl>                  <dbl>              <dbl>                <dbl>
-#>  1 Australia~ Cafes, ~          0.989                  0.562                  0                   10
-#>  2 Australia~ Cafes, ~          0.993                  0.629                  0                   10
-#>  3 Australia~ Clothin~          0.991                  0.923                  9                   11
-#>  4 Australia~ Clothin~          0.993                  0.957                  9                   11
-#>  5 Australia~ Departm~          0.977                  0.980                  9                   11
-#>  6 Australia~ Electri~          0.992                  0.933                  9                   11
-#>  7 Australia~ Food re~          0.999                  0.890                  9                   11
-#>  8 Australia~ Footwea~          0.982                  0.944                  9                   11
-#>  9 Australia~ Furnitu~          0.981                  0.687                  9                    1
-#> 10 Australia~ Hardwar~          0.992                  0.900                  9                    4
-#> # i 142 more rows
-#> # i 5 more variables: spikiness <dbl>, linearity <dbl>, curvature <dbl>, stl_e_acf1 <dbl>,
+#>  1 Australia… Cafes, …          0.989                  0.562                  0                   10
+#>  2 Australia… Cafes, …          0.993                  0.629                  0                   10
+#>  3 Australia… Clothin…          0.991                  0.923                  9                   11
+#>  4 Australia… Clothin…          0.993                  0.957                  9                   11
+#>  5 Australia… Departm…          0.977                  0.980                  9                   11
+#>  6 Australia… Electri…          0.992                  0.933                  9                   11
+#>  7 Australia… Food re…          0.999                  0.890                  9                   11
+#>  8 Australia… Footwea…          0.982                  0.944                  9                   11
+#>  9 Australia… Furnitu…          0.981                  0.687                  9                    1
+#> 10 Australia… Hardwar…          0.992                  0.900                  9                    4
+#> # ℹ 142 more rows
+#> # ℹ 5 more variables: spikiness <dbl>, linearity <dbl>, curvature <dbl>, stl_e_acf1 <dbl>,
 #> #   stl_e_acf10 <dbl>
 ```
 
@@ -168,7 +171,7 @@ aus_retail %>%
   facet_wrap(vars(State))
 ```
 
-<img src="man/figures/README-features-plot-1.png" width="100%" />
+<img src="man/figures/README-features-plot-1.png" alt="" width="100%" />
 
 Most of Australian’s retail industries are highly trended and seasonal
 for all states.
@@ -187,4 +190,4 @@ aus_retail %>%
              scales = "free_y")
 ```
 
-<img src="man/figures/README-extreme-1.png" width="100%" />
+<img src="man/figures/README-extreme-1.png" alt="" width="100%" />
