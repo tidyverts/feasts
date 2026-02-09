@@ -12,7 +12,7 @@ status](https://codecov.io/gh/tidyverts/feasts/branch/master/graph/badge.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/feasts)](https://CRAN.R-project.org/package=feasts)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 ## Overview
@@ -129,6 +129,12 @@ components(dcmp)
 
 ``` r
 components(dcmp) %>% autoplot()
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
+#> ℹ The deprecated feature was likely used in the ggtime package.
+#>   Please report the issue to the authors.
+#> This warning is displayed once per session.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
 ```
 
 <img src="man/figures/README-dcmp-plot-1.png" alt="" width="100%" />
