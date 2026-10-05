@@ -68,9 +68,16 @@ train_x13arimaseats <- function(.data, formula, specials, ...,
   fit$spc$series$title <- series_name
 
   structure(
-    list(fit = fit, index = index_var(.data), index_values = .data[[index_var(.data)]]),
+    list(fit = fit, index = index_var(.data), index_ptype = vec_ptype(.data[[index_var(.data)]])),
     class = "feasts_x13arimaseats"
   )
+}
+
+# The fit stores a prototype of the input index, as the ts in `fit$x` can only
+# be converted back to a legacy tsibble index (via its `tsp`).
+restore_index <- function(idx, ptype){
+  if(!inherits(ptype, "mixtime::mixtime") || inherits(idx, class(ptype)[1L])) return(idx)
+  tryCatch(vec_cast(as.Date(idx), ptype), error = function(e) idx)
 }
 
 #' @importFrom fabletools components as_dable
@@ -83,10 +90,11 @@ components.feasts_x13arimaseats <- function(object, ...){
 
   .data <- as_tsibble(fit$x)
   colnames(.data) <- c(object$index, series_name)
-  # Keep the input's own index class (e.g. mixtime) rather than the one guessed from the ts
-  if(!is.null(object$index_values) && length(object$index_values) == NROW(.data)){
+  # Restore the input's index class (the ts only gives a legacy tsibble index)
+  idx <- restore_index(.data[[object$index]], object$index_ptype)
+  if(!identical(class(idx), class(.data[[object$index]]))){
     .data <- as_tibble(.data)
-    .data[[object$index]] <- object$index_values
+    .data[[object$index]] <- idx
     .data <- as_tsibble(.data, index = !!sym(object$index))
   }
   dcmp <- unclass(fit$data)
