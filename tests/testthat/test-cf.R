@@ -67,3 +67,29 @@ test_that("CCF", {
   )
 })
 
+
+test_that("as_lag() supports mixtime granules", {
+  skip_if_not_installed("mixtime")
+  skip_if_not(
+    !inherits(tsibble::interval(tsibble::tsibble(i = 1:3, index = i)), "interval"),
+    "tsibble doesn't use mixtime granules for intervals"
+  )
+  mt <- tsibble::tsibble(
+    i = mixtime::yearmonth(0:35), y = rnorm(36), index = i
+  )
+  cf <- ACF(mt, y, lag_max = 12)
+  expect_equal(cf$acf, as.numeric(stats::acf(mt$y, lag.max = 12, plot = FALSE)$acf)[-1])
+  expect_equal(length(format(cf$lag)), 12L)
+
+  lag <- as_lag(tsibble::interval(mt))
+  expect_s3_class(lag, "cf_lag")
+})
+
+test_that("cf_lag formats legacy tsibble intervals", {
+  skip_if(
+    !inherits(tsibble::interval(tsibble::tsibble(i = 1:3, index = i)), "interval"),
+    "tsibble uses mixtime granules for intervals"
+  )
+  lag <- as_lag(tsibble::interval(tsibble::tsibble(i = tsibble::yearmonth(1:3), index = i)))
+  expect_identical(format(lag * 12), "12M")
+})

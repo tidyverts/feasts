@@ -310,6 +310,16 @@ as_lag.interval <- function(x, ...){
 }
 
 #' @export
+`as_lag.mixtime::mt_unit` <- function(x, ...){
+  new_lag(1, x)
+}
+
+#' @export
+as_lag.list <- function(x, ...){
+  new_lag(1, x)
+}
+
+#' @export
 as_lag.default <- function(x, ...){
   abort(
     sprintf("`as_lag()` doesn't know how to handle the '%s' class yet.",
@@ -331,10 +341,24 @@ vec_arith.cf_lag <- function(op, x, y, ...){
 #' @export
 format.cf_lag <- function(x, ...){
   interval <- attr(x, "interval")
-  itvl_data <- if(inherits(interval, "vctrs_vctr")) vctrs::vec_data else unclass
-  itvl_fmt <- utils::getS3method("format", "interval", envir = getNamespace("tsibble"))
-  scale <- do.call(sum, itvl_data(interval))
-  suffix <- substring(itvl_fmt(interval), first = nchar(format(scale)) + 1)
+  if(inherits(interval, "interval")){
+    # Legacy tsibble interval record
+    itvl_data <- if(inherits(interval, "vctrs_vctr")) vctrs::vec_data else unclass
+    itvl_fmt <- utils::getS3method("format", "interval", envir = getNamespace("tsibble"))
+    scale <- do.call(sum, itvl_data(interval))
+    suffix <- substring(itvl_fmt(interval), first = nchar(format(scale)) + 1)
+    return(paste0(scale*vec_data(x), suffix))
+  }
+
+  # mixtime granule (or list of granules for composite intervals)
+  if(is.list(interval) && !inherits(interval, "S7_object")){
+    fmt <- paste(vapply(interval, format, character(1L)), collapse = " ")
+    return(paste0(vec_data(x), "x(", fmt, ")"))
+  }
+  fmt <- format(interval)
+  scale <- as.numeric(sub("^([0-9.]+).*$", "\\1", fmt))
+  if(is.na(scale)) return(paste0(vec_data(x), "x", fmt))
+  suffix <- substring(fmt, first = nchar(sub("^([0-9.]+).*$", "\\1", fmt)) + 1)
   paste0(scale*vec_data(x), suffix)
 }
 
