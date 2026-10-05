@@ -68,7 +68,7 @@ train_x13arimaseats <- function(.data, formula, specials, ...,
   fit$spc$series$title <- series_name
 
   structure(
-    list(fit = fit, index = index_var(.data)),
+    list(fit = fit, index = index_var(.data), index_values = .data[[index_var(.data)]]),
     class = "feasts_x13arimaseats"
   )
 }
@@ -83,6 +83,12 @@ components.feasts_x13arimaseats <- function(object, ...){
 
   .data <- as_tsibble(fit$x)
   colnames(.data) <- c(object$index, series_name)
+  # Keep the input's own index class (e.g. mixtime) rather than the one guessed from the ts
+  if(!is.null(object$index_values) && length(object$index_values) == NROW(.data)){
+    .data <- as_tibble(.data)
+    .data[[object$index]] <- object$index_values
+    .data <- as_tsibble(.data, index = !!sym(object$index))
+  }
   dcmp <- unclass(fit$data)
   if(is.null(dcmp)){
     abort("The X-13ARIMA-SEATS model does not contain a decomposition, are you missing a seasonal component?")
