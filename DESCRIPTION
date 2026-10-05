@@ -24,7 +24,6 @@ Imports:
     dplyr (>= 1.0.0),
     tidyr (>= 0.8.3),
     vctrs,
-    lubridate,
     slider,
     utils,
     lifecycle,
@@ -40,6 +39,7 @@ Suggests:
     urca,
     fracdiff,
     fable,
+    mixtime,
     ggrepel
 ByteCompile: true
 VignetteBuilder: knitr
@@ -47,7 +47,7 @@ License: GPL-3
 URL: http://feasts.tidyverts.org/, https://github.com/tidyverts/feasts
 BugReports: https://github.com/tidyverts/feasts/issues
 Encoding: UTF-8
-RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
 Language: en-GB
 RdMacros: lifecycle
+Config/roxygen2/version: 8.0.0
