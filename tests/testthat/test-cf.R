@@ -68,7 +68,7 @@ test_that("CCF", {
 })
 
 
-test_that("as_lag() supports mixtime granules", {
+test_that("ACF() lags are mixtime durations", {
   skip_if_not_installed("mixtime")
   skip_if_not(
     !inherits(tsibble::interval(tsibble::tsibble(i = 1:3, index = i)), "interval"),
@@ -79,10 +79,23 @@ test_that("as_lag() supports mixtime granules", {
   )
   cf <- ACF(mt, y, lag_max = 12)
   expect_equal(cf$acf, as.numeric(stats::acf(mt$y, lag.max = 12, plot = FALSE)$acf)[-1])
-  expect_equal(length(format(cf$lag)), 12L)
 
-  lag <- as_lag(tsibble::interval(mt))
-  expect_s3_class(lag, "cf_lag")
+  # Lags are durations of the interval (e.g. 1 to 12 months)
+  expect_true(all(mixtime::time_is_duration(cf$lag)))
+  expect_equal(as.numeric(cf$lag), 1:12)
+  expect_true(all(cf$lag == mixtime::months(1:12)))
+  expect_identical(tsibble::interval(cf), tsibble::interval(mt))
+
+  # Cross-correlations have negative lags
+  mt$x <- rnorm(36)
+  cf <- CCF(mt, y, x, lag_max = 2)
+  expect_true(all(cf$lag == mixtime::months(-2:2)))
+
+  # Irregular series are lagged by observation
+  irr <- tsibble::tsibble(i = c(1, 3, 10, 11, 15), y = rnorm(5), index = i, regular = FALSE)
+  expect_warning(cf <- ACF(irr, y), "irregular interval")
+  expect_true(all(mixtime::time_is_duration(cf$lag)))
+  expect_equal(as.numeric(cf$lag), seq_len(nrow(cf)))
 })
 
 test_that("cf_lag formats legacy tsibble intervals", {

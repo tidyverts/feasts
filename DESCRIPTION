@@ -27,7 +27,8 @@ Imports:
     slider,
     utils,
     lifecycle,
-    ggtime
+    ggtime,
+    mixtime
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),
@@ -39,7 +40,6 @@ Suggests:
     urca,
     fracdiff,
     fable,
-    mixtime,
     ggrepel
 ByteCompile: true
 VignetteBuilder: knitr

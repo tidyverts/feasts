@@ -6,11 +6,11 @@
 \alias{shift_kl_max}
 \title{Sliding window features}
 \usage{
-shift_level_max(x, .size = NULL, .period = 1)
+shift_level_max(x, .size = NULL, .period = 1, .index = NULL)
 
-shift_var_max(x, .size = NULL, .period = 1)
+shift_var_max(x, .size = NULL, .period = 1, .index = NULL)
 
-shift_kl_max(x, .size = NULL, .period = 1)
+shift_kl_max(x, .size = NULL, .period = 1, .index = NULL)
 }
 \arguments{
 \item{x}{a univariate time series}
@@ -18,9 +18,14 @@ shift_kl_max(x, .size = NULL, .period = 1)
 \item{.size}{size of sliding window, if NULL \code{.size} will be automatically chosen using \code{.period}}
 
 \item{.period}{The seasonal period (optional)}
+
+\item{.index}{The time index of \code{x} (supplied by \code{\link[fabletools:features]{fabletools::features()}}).}
 }
 \value{
-A vector of 2 values: the size of the shift, and the time index of the shift.
+A vector of 2 values: the size of the shift, and the time index of
+the shift. For a \link[mixtime:mixtime]{mixtime} index, the time index of the
+shift is the time of that observation, and the values are returned as a
+one-row tibble.
 }
 \description{
 Computes feature of a time series based on sliding (overlapping) windows.

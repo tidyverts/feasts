@@ -21,6 +21,12 @@ test_that("unit root features", {
 
   ft <- features(lung_deaths_long, value, list(feat_stl, unitroot_nsdiffs))
   expect_equal(ft$seasonal_strength_year >= 0.64, as.logical(ft$nsdiffs))
+  expect_named(
+    ft,
+    c("key", "trend_strength", "seasonal_strength_year", "seasonal_peak_year",
+      "seasonal_trough_year", "spikiness", "linearity", "curvature",
+      "stl_e_acf1", "stl_e_acf10", "nsdiffs")
+  )
 })
 
 test_that("basic features", {
@@ -83,4 +89,39 @@ test_that("model based features", {
          stl_e_acf10 = 0.194),
     tolerance = 0.01
   )
+})
+
+test_that("features use mixtime times for a mixtime index", {
+  skip_if_not(has_cyclical_free(), "mixtime doesn't support cycle-free cyclical time")
+  set.seed(1)
+  # Index starts in March, the seasonal pattern peaks in April
+  mt <- tsibble::tsibble(
+    i = mixtime::yearmonth(2:61), y = sin(2*pi*(2:61)/12) + rnorm(60, sd = 0.1),
+    index = i
+  )
+  ft <- features(mt, y, list(feat_stl, shift_level_max))
+  expect_equal(nrow(ft), 1L)
+  expect_true(mixtime::time_is_cyclical_free(ft$seasonal_peak_year))
+  expect_true(ft$seasonal_peak_year == mixtime::month_of_year(4))
+  expect_true(ft$seasonal_trough_year == mixtime::month_of_year(10))
+  expect_true(mixtime::time_is_linear(ft$shift_level_index))
+  expect_true(ft$shift_level_index %in% mt$i)
+
+  # Daily data with a weekly pattern peaking on Saturdays (1970-01-01 is a Thursday)
+  dt <- tsibble::tsibble(
+    i = mixtime::date(0:139), y = sin(2*pi*(0:139)/7) + rnorm(140, sd = 0.1),
+    index = i
+  )
+  ft <- features(dt, y, feat_stl)
+  expect_true(ft$seasonal_peak_week == mixtime::day_of_week(6))
+
+  # Positions are taken in local time
+  x <- mixtime::datetime(c(0, 3600*5), tz = "Australia/Melbourne")
+  pos <- cyclical_free_position(x, mixtime::cal_gregorian$day(1L))
+  expect_equal(as.numeric(pos), c(10, 15) * 3600)
+
+  # Without an index (or a calendar period), positions are numbers
+  ft <- features(mt, y, ~ feat_stl(., .period = 12))
+  expect_type(ft$seasonal_peak_12, "double")
+  expect_type(feat_stl(mt$y, .period = 12), "double")
 })

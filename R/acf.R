@@ -223,12 +223,10 @@ CCF <- function(.data, y, x, ..., lag_max = NULL,
 #' @importFrom stats na.contiguous
 build_cf <- function(.data, cf_fn, ...){
   check_gaps(.data)
-  if(is_regular(.data)){
-    interval <- interval(.data)
-  }
-  else{
+  interval <- interval(.data)
+  if(!is_regular(.data)){
     warn("Provided data has an irregular interval, results should be treated with caution. Computing ACF by observation.")
-    interval <- new_interval(unit = 1)
+    interval <- if(is_granule(interval)) mixtime::mt_unit(1L) else new_interval(unit = 1)
   }
 
   kv <- key_vars(.data)
@@ -242,7 +240,7 @@ build_cf <- function(.data, cf_fn, ...){
   .data <- nest_keys(.data)
   .data[["data"]] <- map(.data[["data"]], cf_fn, ...)
   .data <- unnest_tbl(.data, "data")
-  .data[["lag"]] <- as_lag(interval) * .data[["lag"]]
+  .data[["lag"]] <- lag_duration(.data[["lag"]], interval)
   new_tsibble(
     as_tsibble(.data, index = "lag", key = !!kv),
     num_obs = lens, class = "tbl_cf"
@@ -299,18 +297,23 @@ tacf <- function(x) {
   gamma
 }
 
-# Temporary until generic time class is available for temporal hierarchies
+# The time between observations `lag` steps of `interval` apart. This is a
+# mixtime duration (e.g. 12 months) for a time unit interval, otherwise a
+# `cf_lag` for legacy tsibble intervals and composite intervals.
+lag_duration <- function(lag, interval) {
+  if(is_granule(interval)) {
+    return(mixtime::duration(as.integer(lag), chronon = interval))
+  }
+  as_lag(interval) * lag
+}
+
+# Lags for intervals that can't be represented as a mixtime duration
 as_lag <- function(x, ...) {
   UseMethod("as_lag")
 }
 
 #' @export
 as_lag.interval <- function(x, ...){
-  new_lag(1, x)
-}
-
-#' @export
-`as_lag.mixtime::mt_unit` <- function(x, ...){
   new_lag(1, x)
 }
 
@@ -350,16 +353,9 @@ format.cf_lag <- function(x, ...){
     return(paste0(scale*vec_data(x), suffix))
   }
 
-  # mixtime granule (or list of granules for composite intervals)
-  if(is.list(interval) && !inherits(interval, "S7_object")){
-    fmt <- paste(vapply(interval, format, character(1L)), collapse = " ")
-    return(paste0(vec_data(x), "x(", fmt, ")"))
-  }
-  fmt <- format(interval)
-  scale <- as.numeric(sub("^([0-9.]+).*$", "\\1", fmt))
-  if(is.na(scale)) return(paste0(vec_data(x), "x", fmt))
-  suffix <- substring(fmt, first = nchar(sub("^([0-9.]+).*$", "\\1", fmt)) + 1)
-  paste0(scale*vec_data(x), suffix)
+  # Composite interval (a list of mixtime granules)
+  fmt <- paste(vapply(interval, format, character(1L)), collapse = " ")
+  paste0(vec_data(x), "x(", fmt, ")")
 }
 
 #' @export

@@ -4,7 +4,7 @@
 \alias{feat_stl}
 \title{STL features}
 \usage{
-feat_stl(x, .period, s.window = 11, ...)
+feat_stl(x, .period, s.window = 11, .index = NULL, ...)
 }
 \arguments{
 \item{x}{A vector to extract features from.}
@@ -13,10 +13,15 @@ feat_stl(x, .period, s.window = 11, ...)
 
 \item{s.window}{The seasonal window of the data (passed to \code{\link[stats:stl]{stats::stl()}})}
 
+\item{.index}{The time index of \code{x} (supplied by \code{\link[fabletools:features]{fabletools::features()}}).}
+
 \item{...}{Further arguments passed to \code{\link[stats:stl]{stats::stl()}}}
 }
 \value{
-A vector of numeric features from a STL decomposition.
+A vector of numeric features from a STL decomposition. For a
+\link[mixtime:mixtime]{mixtime} index, the seasonal peaks and troughs are
+cyclical times without a cycle (e.g. the month of the year in which the
+seasonal pattern peaks), and the features are returned as a one-row tibble.
 }
 \description{
 Computes a variety of measures extracted from an STL decomposition of the

@@ -37,16 +37,20 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 #' @param x A vector to extract features from.
 #' @param .period The period of the seasonality.
 #' @param s.window The seasonal window of the data (passed to [`stats::stl()`])
+#' @param .index The time index of `x` (supplied by [`fabletools::features()`]).
 #' @param ... Further arguments passed to [`stats::stl()`]
 #'
 #' @seealso
 #' [Forecasting Principle and Practices: Measuring strength of trend and seasonality](https://otexts.com/fpp3/stlfeatures.html)
 #'
-#' @return A vector of numeric features from a STL decomposition.
+#' @return A vector of numeric features from a STL decomposition. For a
+#' [mixtime][mixtime::mixtime] index, the seasonal peaks and troughs are
+#' cyclical times without a cycle (e.g. the month of the year in which the
+#' seasonal pattern peaks), and the features are returned as a one-row tibble.
 #'
 #' @importFrom stats var coef
 #' @export
-feat_stl <- function(x, .period, s.window = 11, ...){
+feat_stl <- function(x, .period, s.window = 11, .index = NULL, ...){
   dots <- dots_list(...)
   dots <- dots[names(dots) %in% names(formals(stats::stl))]
   season.args <- if (length(x) <= .period * 2) {
@@ -98,24 +102,26 @@ feat_stl <- function(x, .period, s.window = 11, ...){
   names(seasonal_strength) <- sprintf("seasonal_strength_%s", names(seasonalities))
 
   # Position of peaks and troughs
-  seasonal_peak <- map_dbl(seasonalities, function(seas){
-    (which.max(seas) + rle_window[1] - 1) %% .period
+  seasonal_peak <- imap(seasonalities, function(seas, nm){
+    seasonal_position(which.max(seas) + rle_window[1] - 1, .period, nm, .index)
   })
   names(seasonal_peak) <- sprintf("seasonal_peak_%s", names(seasonalities))
-  seasonal_trough <- map_dbl(seasonalities, function(seas){
-    (which.min(seas) + rle_window[1] - 1) %% .period
+  seasonal_trough <- imap(seasonalities, function(seas, nm){
+    seasonal_position(which.min(seas) + rle_window[1] - 1, .period, nm, .index)
   })
   names(seasonal_trough) <- sprintf("seasonal_trough_%s", names(seasonalities))
 
   acf_resid <- stats::acf(remainder, lag.max = max(c(10, .period)),
                      plot = FALSE, na.action = stats::na.pass ,...)$acf
 
-  c(
-    trend_strength = trend_strength, seasonal_strength,
+  feature_result(c(
+    list(trend_strength = trend_strength), as.list(seasonal_strength),
     seasonal_peak,  seasonal_trough,
-    spikiness = spikiness, linearity = linearity, curvature = curvature,
-    stl_e_acf1 = acf_resid[2L], stl_e_acf10 = sum((acf_resid[2L:11L])^2)
-  )
+    list(
+      spikiness = spikiness, linearity = linearity, curvature = curvature,
+      stl_e_acf1 = acf_resid[2L], stl_e_acf10 = sum((acf_resid[2L:11L])^2)
+    )
+  ))
 }
 
 #' Unit root tests
@@ -387,12 +393,16 @@ coef_hurst <- function(x) {
 #' @param x a univariate time series
 #' @param .size size of sliding window, if NULL `.size` will be automatically chosen using `.period`
 #' @param .period The seasonal period (optional)
-#' @return A vector of 2 values: the size of the shift, and the time index of the shift.
+#' @param .index The time index of `x` (supplied by [`fabletools::features()`]).
+#' @return A vector of 2 values: the size of the shift, and the time index of
+#' the shift. For a [mixtime][mixtime::mixtime] index, the time index of the
+#' shift is the time of that observation, and the values are returned as a
+#' one-row tibble.
 #'
 #' @author Earo Wang, Rob J Hyndman and Mitchell O'Hara-Wild
 #'
 #' @export
-shift_level_max <- function(x, .size = NULL, .period = 1) {
+shift_level_max <- function(x, .size = NULL, .period = 1, .index = NULL) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -413,12 +423,15 @@ shift_level_max <- function(x, .size = NULL, .period = 1) {
     maxidx <- which.max(means) + 1L
   }
 
-  return(c(shift_level_max = maxmeans, shift_level_index = maxidx))
+  feature_result(list(
+    shift_level_max = maxmeans,
+    shift_level_index = index_position(maxidx, .index)
+  ))
 }
 
 #' @rdname shift_level_max
 #' @export
-shift_var_max <- function(x, .size = NULL, .period = 1) {
+shift_var_max <- function(x, .size = NULL, .period = 1, .index = NULL) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -440,12 +453,15 @@ shift_var_max <- function(x, .size = NULL, .period = 1) {
     maxidx <- which.max(vars) + 1L
   }
 
-  return(c(shift_var_max = maxvar, shift_var_index = maxidx))
+  feature_result(list(
+    shift_var_max = maxvar,
+    shift_var_index = index_position(maxidx, .index)
+  ))
 }
 
 #' @rdname shift_level_max
 #' @export
-shift_kl_max <- function(x, .size = NULL, .period = 1) {
+shift_kl_max <- function(x, .size = NULL, .period = 1, .index = NULL) {
   if(is.null(.size)){
     .size <- ifelse(.period == 1, 10, .period)
   }
@@ -483,7 +499,10 @@ shift_kl_max <- function(x, .size = NULL, .period = 1) {
   else {
     maxidx <- which.max(diffkl) + 1L
   }
-  return(c(shift_kl_max = max(diffkl, na.rm = TRUE), shift_kl_index = maxidx))
+  feature_result(list(
+    shift_kl_max = max(diffkl, na.rm = TRUE),
+    shift_kl_index = index_position(maxidx, .index)
+  ))
 }
 
 #' Spectral features of a time series
