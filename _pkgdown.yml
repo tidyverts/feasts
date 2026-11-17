@@ -1,6 +1,13 @@
 url: https://feasts.tidyverts.org
 
 template:
+  opengraph:
+    image:
+      src: pkgdown/social-card.png
+      alt: "The feasts hex sticker"
+    twitter:
+      creator: "@mitchoharawild"
+      card: summary
   params:
     bootswatch: cosmo
   includes:
