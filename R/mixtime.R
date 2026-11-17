@@ -5,12 +5,6 @@ is_granule <- function(x) {
   inherits(x, "mixtime::mt_unit")
 }
 
-# Does the installed mixtime support cycle-free cyclical time (e.g. "March",
-# of any year)? Until it does, positions within a cycle are numbers.
-has_cyclical_free <- function() {
-  exists("mt_cyclical_free", envir = asNamespace("mixtime"), inherits = FALSE)
-}
-
 # The time unit called `name` (e.g. "year" or "week") from the calendar of `x`,
 # or NULL if there is no such unit. Weeks come from the ISO 8601 calendar when
 # the time's own calendar has none (e.g. the week of a Date).
@@ -34,16 +28,19 @@ cyclical_free_position <- function(x, cycle) {
   # Positions within a cycle are read on the local (wall clock) time line.
   tz <- mixtime::tz_name(x)
   if (!all(is.na(tz))) {
-    offset <- as.numeric(mixtime::tz_offset(x)) /
-      as.numeric(mixtime::chronon_cardinality(mixtime::cal_gregorian$second(1L), chronon))
-    count <- count + offset
+    # The offset is a duration (e.g. 5.5 hours), counted in chronons of `x`.
+    count <- count + mixtime::tz_offset(x) / mixtime::duration(1L, chronon = chronon)
     chronon <- time_unit_named(x, sub("^mixtime::tu_", "", class(chronon)[1L]), attr(chronon, "n"))
   }
 
+  # Whole chronons since the start of the cycle (e.g. 10:30 is hour 10),
+  # numbered as cyclical_time() reads positions (e.g. months from 1, hours
+  # from 0).
   pos <- mixtime::chronon_divmod(from = chronon, to = cycle, x = count)$mod
-  if (all(pos == trunc(pos), na.rm = TRUE)) pos <- as.integer(pos)
-  mixtime::new_mixtime(
-    mixtime::mt_cyclical_free(pos, chronon = chronon, cycle = cycle)
+  pos <- floor(pos) + mixtime::cyclical_labels(chronon, cycle)$start
+  mixtime::cyclical_time(
+    pos, chronon = !!chronon, cycle = !!cycle,
+    calendar = mixtime::time_calendar(chronon)
   )
 }
 
@@ -52,7 +49,7 @@ cyclical_free_position <- function(x, cycle) {
 # that observation (e.g. the month of the year), otherwise it is the
 # observation number modulo the period.
 seasonal_position <- function(obs, period, name, .index = NULL) {
-  if (mixtime::is_mixtime(.index) && has_cyclical_free()) {
+  if (mixtime::is_mixtime(.index)) {
     cycle <- time_unit_named(.index, name)
     if (!is.null(cycle)) {
       return(cyclical_free_position(.index[obs], cycle))

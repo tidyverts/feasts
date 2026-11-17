@@ -28,7 +28,7 @@ Imports:
     utils,
     lifecycle,
     ggtime,
-    mixtime
+    mixtime (>= 0.4.0.9000)
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),

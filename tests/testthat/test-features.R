@@ -92,7 +92,6 @@ test_that("model based features", {
 })
 
 test_that("features use mixtime times for a mixtime index", {
-  skip_if_not(has_cyclical_free(), "mixtime doesn't support cycle-free cyclical time")
   set.seed(1)
   # Index starts in March, the seasonal pattern peaks in April
   mt <- tsibble::tsibble(
@@ -118,7 +117,14 @@ test_that("features use mixtime times for a mixtime index", {
   # Positions are taken in local time
   x <- mixtime::datetime(c(0, 3600*5), tz = "Australia/Melbourne")
   pos <- cyclical_free_position(x, mixtime::cal_gregorian$day(1L))
-  expect_equal(as.numeric(pos), c(10, 15) * 3600)
+  expect_true(all(mixtime::time_is_cyclical_free(pos)))
+  expect_true(all(pos == mixtime::time_of_day(c(10, 15) * 3600)))
+  # including offsets that aren't whole chronons (00:00 UTC is 05:30 IST)
+  x <- mixtime::linear_time(
+    c(0, 20), chronon = mixtime::cal_gregorian$hour(1L, tz = "Asia/Kolkata")
+  )
+  pos <- cyclical_free_position(x, mixtime::cal_gregorian$day(1L))
+  expect_true(all(pos == mixtime::cyclical_time(c(5, 1), hour(1L), day(1L))))
 
   # Without an index (or a calendar period), positions are numbers
   ft <- features(mt, y, ~ feat_stl(., .period = 12))
