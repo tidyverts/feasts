@@ -223,25 +223,10 @@ CCF <- function(.data, y, x, ..., lag_max = NULL,
 #' @importFrom stats na.contiguous
 build_cf <- function(.data, cf_fn, ...){
   check_gaps(.data)
-  idx <- index_var(.data)
-  regular <- is_regular(.data)
-  if(!regular){
+  if(!is_regular(.data)){
     warn("Provided data has an irregular interval, results should be treated with caution. Computing ACF by observation.")
   }
-
-  # Lags are in the time unit of each series (e.g. a quarterly and a monthly
-  # series have lags in quarters and months respectively), or in observations
-  # when the series is irregular.
-  cf_lagged <- function(x, ...){
-    out <- cf_fn(x, ...)
-    chronon <- if(regular){
-      mixtime::chronon_glb(mixtime::as_mixtime(x[[idx]]))
-    } else {
-      mixtime::mt_unit(1L)
-    }
-    out[["lag"]] <- mixtime::duration(as.integer(out[["lag"]]), chronon = chronon)
-    out
-  }
+  chronons <- series_chronons(.data)
 
   kv <- key_vars(.data)
 
@@ -252,12 +237,48 @@ build_cf <- function(.data, cf_fn, ...){
     )
 
   .data <- nest_keys(.data)
-  .data[["data"]] <- map(.data[["data"]], cf_lagged, ...)
+  .data[["data"]] <- map(.data[["data"]], cf_fn, ...)
+  # Lags are counted per series, and then converted to durations in one step
+  # as combining many small duration vectors is slow.
+  series_len <- map_int(.data[["data"]], nrow)
+  .data[["data"]] <- map(.data[["data"]], function(x) {
+    x[["lag"]] <- as.integer(x[["lag"]])
+    x
+  })
   .data <- unnest_tbl(.data, "data")
+  .data[["lag"]] <- lag_duration(.data[["lag"]], chronons, series_len)
   new_tsibble(
     as_tsibble(.data, index = "lag", key = !!kv),
     num_obs = lens, class = "tbl_cf"
   )
+}
+
+# The time between observations of each series (in key order), e.g. 1 month for
+# a monthly series. Lags are in observations when the data is irregular.
+# The index is converted once, as converting each series separately is slow.
+series_chronons <- function(.data){
+  rows <- key_data(.data)[[".rows"]]
+  if(!is_regular(.data)){
+    return(rep(list(mixtime::mt_unit(1L)), length(rows)))
+  }
+  index <- mixtime::as_mixtime(.data[[index_var(.data)]])
+  map(rows, function(i) mixtime::chronon_glb(index[i]))
+}
+
+# Durations of `lag` counts, where series `i` (of `series_len[i]` rows) counts
+# in units of `chronons[[i]]`. Each distinct chronon is converted once.
+lag_duration <- function(lag, chronons, series_len){
+  # Chronons are S7 objects, which are compared by their printed form
+  id <- map_chr(chronons, function(x) paste(format(x), collapse = " "))
+  first <- !duplicated(id)
+  units <- chronons[first]
+  unit <- rep(match(id, id[first]), series_len)
+  if(length(units) == 1L){
+    return(mixtime::duration(lag, chronon = units[[1]]))
+  }
+  rows <- map(seq_along(units), function(u) which(unit == u))
+  pieces <- map2(rows, units, function(r, u) mixtime::duration(lag[r], chronon = u))
+  vctrs::vec_c(!!!pieces)[order(unlist(rows))]
 }
 
 tacf <- function(x) {
