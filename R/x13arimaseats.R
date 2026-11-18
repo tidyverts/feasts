@@ -76,8 +76,17 @@ train_x13arimaseats <- function(.data, formula, specials, ...,
 # The fit stores a prototype of the input index, as the ts in `fit$x` can only
 # be converted back to a legacy tsibble index (via its `tsp`).
 restore_index <- function(idx, ptype){
-  if(!inherits(ptype, "mixtime::mixtime") || inherits(idx, class(ptype)[1L])) return(idx)
-  tryCatch(vec_cast(as.Date(idx), ptype), error = function(e) idx)
+  if(is.null(ptype) || identical(class(idx), class(ptype))) return(idx)
+  attempts <- list(
+    function() vec_cast(idx, ptype),
+    function() vec_cast(as.Date(idx), ptype),
+    function() vec_cast(mixtime::as_mixtime(idx), ptype)
+  )
+  for(f in attempts){
+    res <- tryCatch(f(), error = function(e) NULL)
+    if(!is.null(res) && length(res) == length(idx)) return(res)
+  }
+  idx
 }
 
 #' @importFrom fabletools components as_dable

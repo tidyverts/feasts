@@ -47,3 +47,30 @@ test_that("X-13ARIMA-SEATS decomposition", {
     dcmp$season_adjust
   )
 })
+
+test_that("X-13ARIMA-SEATS restores the index class", {
+  x <- as.numeric(co2)[1:120]
+  tsbl <- tsibble::tsibble(i = tsibble::yearmonth(0:119), y = x, index = i)
+  fit <- tsbl %>% model(feasts:::SEATS(y))
+  dcmp <- components(fit)
+  expect_identical(class(dcmp$i), class(tsbl$i))
+  expect_equal(dcmp$i, tsbl$i)
+})
+
+test_that("restore_index is class-agnostic with fallback", {
+  idx <- tsibble::yearmonth(0:5)
+  expect_identical(feasts:::restore_index(1:3, NULL), 1:3)
+  expect_identical(feasts:::restore_index(idx, idx[0]), idx)
+
+  skip_if_not_installed("mixtime")
+  # Monthly mixtime restored from a legacy yearmonth
+  mm <- mixtime::yearmonth(0:5)
+  res <- feasts:::restore_index(idx, vctrs::vec_ptype(mm))
+  expect_identical(class(res), class(mm))
+  # Sub-daily datetimes keep their time of day
+  dt <- as.POSIXct("2020-01-01 00:00:00", tz = "UTC") + 3600 * (0:5)
+  mt <- mixtime::as_mixtime(dt)
+  res <- feasts:::restore_index(dt, vctrs::vec_ptype(mt))
+  expect_identical(class(res), class(mt))
+  expect_equal(as.POSIXct(res, tz = "UTC"), dt)
+})
