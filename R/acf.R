@@ -223,10 +223,12 @@ CCF <- function(.data, y, x, ..., lag_max = NULL,
 #' @importFrom stats na.contiguous
 build_cf <- function(.data, cf_fn, ...){
   check_gaps(.data)
-  interval <- interval(.data)
-  if(!is_regular(.data)){
+  if(is_regular(.data)){
+    # The time between observations, e.g. 1 month
+    chronon <- mixtime::chronon_glb(mixtime::as_mixtime(.data[[index_var(.data)]]))
+  } else {
     warn("Provided data has an irregular interval, results should be treated with caution. Computing ACF by observation.")
-    interval <- observation_interval(interval)
+    chronon <- mixtime::mt_unit(1L)
   }
 
   kv <- key_vars(.data)
@@ -240,7 +242,7 @@ build_cf <- function(.data, cf_fn, ...){
   .data <- nest_keys(.data)
   .data[["data"]] <- map(.data[["data"]], cf_fn, ...)
   .data <- unnest_tbl(.data, "data")
-  .data[["lag"]] <- lag_duration(.data[["lag"]], interval)
+  .data[["lag"]] <- mixtime::duration(as.integer(.data[["lag"]]), chronon = chronon)
   new_tsibble(
     as_tsibble(.data, index = "lag", key = !!kv),
     num_obs = lens, class = "tbl_cf"
@@ -295,137 +297,4 @@ tacf <- function(x) {
 
   ############### end of shrinkage
   gamma
-}
-
-# The time between observations `lag` steps of `interval` apart. This is a
-# mixtime duration (e.g. 12 months) for a time unit interval, otherwise a
-# `cf_lag` for legacy tsibble intervals and composite intervals.
-lag_duration <- function(lag, interval) {
-  UseMethod("lag_duration", interval)
-}
-
-#' @export
-lag_duration.default <- function(lag, interval) {
-  as_lag(interval) * lag
-}
-
-#' @export
-`lag_duration.mixtime::mt_unit` <- function(lag, interval) {
-  mixtime::duration(as.integer(lag), chronon = interval)
-}
-
-# The interval used when observations are irregular: one observation per step.
-observation_interval <- function(interval) {
-  UseMethod("observation_interval")
-}
-
-#' @export
-observation_interval.default <- function(interval) {
-  new_interval(unit = 1)
-}
-
-#' @export
-`observation_interval.mixtime::mt_unit` <- function(interval) {
-  mixtime::mt_unit(1L)
-}
-
-# Lags for intervals that can't be represented as a mixtime duration
-as_lag <- function(x, ...) {
-  UseMethod("as_lag")
-}
-
-#' @export
-as_lag.interval <- function(x, ...){
-  new_lag(1, x)
-}
-
-#' @export
-as_lag.list <- function(x, ...){
-  new_lag(1, x)
-}
-
-#' @export
-as_lag.default <- function(x, ...){
-  abort(
-    sprintf("`as_lag()` doesn't know how to handle the '%s' class yet.",
-            class(x)[1])
-  )
-}
-
-new_lag <- function(x, interval){
-  vctrs::new_vctr(x, interval = interval, class = "cf_lag")
-}
-
-#' @export
-vec_arith.cf_lag <- function(op, x, y, ...){
-  out <- vctrs::vec_data(x)
-  out <- get(op)(out, y)
-  vctrs::vec_restore(out, x)
-}
-
-#' @export
-format.cf_lag <- function(x, ...){
-  interval <- attr(x, "interval")
-  if(inherits(interval, "interval")){
-    # Legacy tsibble interval record
-    itvl_data <- if(inherits(interval, "vctrs_vctr")) vctrs::vec_data else unclass
-    itvl_fmt <- utils::getS3method("format", "interval", envir = getNamespace("tsibble"))
-    scale <- do.call(sum, itvl_data(interval))
-    suffix <- substring(itvl_fmt(interval), first = nchar(format(scale)) + 1)
-    return(paste0(scale*vec_data(x), suffix))
-  }
-
-  # Composite interval (a list of mixtime granules)
-  fmt <- paste(vapply(interval, format, character(1L)), collapse = " ")
-  paste0(vec_data(x), "x(", fmt, ")")
-}
-
-#' @export
-vec_ptype_full.cf_lag <- function(x, ...){
-  "lag"
-}
-
-#' @importFrom vctrs vec_ptype2
-#' @method vec_ptype2 cf_lag
-#' @export
-vec_ptype2.cf_lag <- function(x, y, ...) UseMethod("vec_ptype2.cf_lag", y)
-#' @method vec_ptype2.cf_lag default
-#' @export
-vec_ptype2.cf_lag.default <- function(x, y, ..., x_arg = "x", y_arg = "y") {
-  vec_default_ptype2(x, y, x_arg = x_arg, y_arg = y_arg)
-}
-#' @method vec_ptype2.cf_lag double
-#' @export
-vec_ptype2.cf_lag.double <- function(x, y, ..., x_arg = "x", y_arg = "y") {
-  double()
-}
-#' @method vec_ptype2.double cf_lag
-#' @export
-vec_ptype2.double.cf_lag <- function(x, y, ..., x_arg = "x", y_arg = "y") {
-  double()
-}
-
-#' @importFrom vctrs vec_cast
-#' @method vec_cast cf_lag
-#' @export
-vec_cast.cf_lag <- function(x, to, ...) UseMethod("vec_cast.cf_lag")
-#' @method vec_cast.cf_lag default
-#' @export
-vec_cast.cf_lag.default <- function(x, to, ...) vec_default_cast(x, to)
-#' @method vec_cast.cf_lag double
-#' @export
-vec_cast.cf_lag.double <- function(x, to, ...) vec_data(x)
-#' @method vec_cast.double cf_lag
-#' @export
-vec_cast.double.cf_lag <- function(x, to, ...) vec_data(x)
-#' @method vec_cast.character cf_lag
-#' @export
-vec_cast.character.cf_lag <- function(x, to, ...) format(x)
-
-#' @export
-index_valid.cf_lag <- function(x) TRUE
-
-#' @export
-interval_pull.cf_lag <- function(x) {
-  attr(x, "interval")
 }

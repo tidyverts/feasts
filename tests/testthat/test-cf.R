@@ -70,10 +70,6 @@ test_that("CCF", {
 
 test_that("ACF() lags are mixtime durations", {
   skip_if_not_installed("mixtime")
-  skip_if_not(
-    !inherits(tsibble::interval(tsibble::tsibble(i = 1:3, index = i)), "interval"),
-    "tsibble doesn't use mixtime granules for intervals"
-  )
   mt <- tsibble::tsibble(
     i = mixtime::yearmonth(0:35), y = rnorm(36), index = i
   )
@@ -96,13 +92,4 @@ test_that("ACF() lags are mixtime durations", {
   expect_warning(cf <- ACF(irr, y), "irregular interval")
   expect_true(all(mixtime::time_is_duration(cf$lag)))
   expect_equal(as.numeric(cf$lag), seq_len(nrow(cf)))
-})
-
-test_that("cf_lag formats legacy tsibble intervals", {
-  skip_if(
-    !inherits(tsibble::interval(tsibble::tsibble(i = 1:3, index = i)), "interval"),
-    "tsibble uses mixtime granules for intervals"
-  )
-  lag <- as_lag(tsibble::interval(tsibble::tsibble(i = tsibble::yearmonth(1:3), index = i)))
-  expect_identical(format(lag * 12), "12M")
 })
