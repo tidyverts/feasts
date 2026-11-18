@@ -62,20 +62,17 @@ ACF <- function(.data, y, ..., lag_max = NULL,
                 type = c("correlation", "covariance", "partial"),
                 na.action = na.contiguous, demean = TRUE, tapered = FALSE){
   type <- match.arg(type)
-  compute_acf <- function(.data, value, lag.max, ...){
-    value <- enexpr(value)
-    x <- eval_tidy(value, data = .data)
-
+  compute_acf <- function(x){
     acf <- if(tapered) {
       tacf(x)[seq_len(lag_max+1)]
     } else {
-      as.numeric(acf(x, plot=FALSE, lag.max=lag.max, ...)$acf)
+      as.numeric(acf(x, plot=FALSE, lag.max=lag_max, demean=demean,
+                     type=type, na.action=na.action)$acf)
     }
-
     if(type != "partial"){ # First indx already dropped if partial
       acf <- tail(acf, -1)
     }
-    tibble(lag = seq_along(acf), acf = acf)
+    list(lag = seq_along(acf), value = acf)
   }
   if(dots_n(...) > 0) {
     lifecycle::deprecate_warn(
@@ -97,8 +94,7 @@ ACF <- function(.data, y, ..., lag_max = NULL,
     warn(sprintf("ACF currently only supports one column, `%s` will be used.",
                  as_name(value[[1]])))
   }
-  build_cf(.data, compute_acf, value=!!value[[1]], lag.max = lag_max,
-           demean = demean, type = type, na.action = na.action)
+  build_cf(.data, compute_acf, value[1], "acf")
 }
 
 #' @rdname ACF
@@ -111,9 +107,8 @@ ACF <- function(.data, y, ..., lag_max = NULL,
 PACF <- function(.data, y, ..., lag_max = NULL,
                  na.action = na.contiguous,
                  tapered = FALSE){
-  compute_pacf <- function(.data, value, lag.max, ...){
-    value <- enexpr(value)
-    x <- eval_tidy(value, data = .data)
+  compute_pacf <- function(x){
+    lag.max <- lag_max
 
     if (tapered) {
       # Compute acf using tapered estimate
@@ -140,10 +135,10 @@ PACF <- function(.data, y, ..., lag_max = NULL,
         }
       }
     } else {
-      pacf <- as.numeric(pacf(x, plot=FALSE, lag.max = lag.max, ...)$acf)
+      pacf <- as.numeric(pacf(x, plot=FALSE, lag.max = lag.max, na.action = na.action)$acf)
     }
 
-    tibble(lag = seq_along(pacf), pacf = pacf)
+    list(lag = seq_along(pacf), value = pacf)
   }
   if(dots_n(...) > 0) {
     lifecycle::deprecate_warn(
@@ -165,8 +160,7 @@ PACF <- function(.data, y, ..., lag_max = NULL,
     warn(sprintf("PACF currently only supports one column, `%s` will be used.",
                  as_name(value[[1]])))
   }
-  build_cf(.data, compute_pacf, value=!!value[[1]], lag.max = lag_max,
-           na.action = na.action)
+  build_cf(.data, compute_pacf, value[1], "pacf")
 }
 
 #' @rdname ACF
@@ -184,14 +178,10 @@ PACF <- function(.data, y, ..., lag_max = NULL,
 CCF <- function(.data, y, x, ..., lag_max = NULL,
                 type = c("correlation", "covariance"),
                 na.action = na.contiguous){
-  compute_ccf <- function(.data, value1, value2, ...){
-    value1 <- enexpr(value1)
-    value2 <- enexpr(value2)
-    ccf <- ccf(y = eval_tidy(value1, data = .data),
-               x = eval_tidy(value2, data = .data),
-               plot=FALSE, ...)
-    lag <- as.numeric(ccf$lag)
-    tibble(lag = lag, ccf = as.numeric(ccf$acf))
+  compute_ccf <- function(y, x){
+    ccf <- ccf(y = y, x = x, plot=FALSE, lag.max=lag_max, type=type,
+               na.action=na.action)
+    list(lag = as.integer(ccf$lag), value = as.numeric(ccf$acf))
   }
   if(dots_n(...) > 0) {
     lifecycle::deprecate_warn(
@@ -216,68 +206,91 @@ CCF <- function(.data, y, x, ..., lag_max = NULL,
   if(length(value) == 1){
     abort("CCF requires two columns to be specified.")
   }
-  build_cf(.data, compute_ccf, value1=!!value[[1]], value2=!!value[[2]],
-           lag.max = lag_max, type = type, na.action = na.action)
+  build_cf(.data, compute_ccf, value[1:2], "ccf")
 }
 
+# Compute a correlation function for each series of `.data`.
+#
+# `cf_fn` takes the values of the quosures in `values` (evaluated within each
+# series) and returns a list of integer `lag` counts and numeric `value`s.
+# The result is a tsibble indexed by lag, with the values in column `name`.
 #' @importFrom stats na.contiguous
-build_cf <- function(.data, cf_fn, ...){
+build_cf <- function(.data, cf_fn, values, name){
   check_gaps(.data)
-  if(!is_regular(.data)){
+  regular <- is_regular(.data)
+  if(!regular){
     warn("Provided data has an irregular interval, results should be treated with caution. Computing ACF by observation.")
   }
-  chronons <- series_chronons(.data)
 
-  kv <- key_vars(.data)
+  keys <- as_tibble(key_data(.data))
+  rows <- keys[[".rows"]]
+  keys <- keys[setdiff(names(keys), ".rows")]
+  data <- as_tibble(.data)
 
-  lens <- key_data(.data) %>%
-    transmute(
-      !!!key(.data),
-      .len = map_dbl(!!sym(".rows"), length)
-    )
-
-  .data <- nest_keys(.data)
-  .data[["data"]] <- map(.data[["data"]], cf_fn, ...)
-  # Lags are counted per series, and then converted to durations in one step
-  # as combining many small duration vectors is slow.
-  series_len <- map_int(.data[["data"]], nrow)
-  .data[["data"]] <- map(.data[["data"]], function(x) {
-    x[["lag"]] <- as.integer(x[["lag"]])
-    x
+  cf <- map(rows, function(i){
+    series <- vctrs::vec_slice(data, i)
+    exec(cf_fn, !!!map(values, eval_tidy, data = series))
   })
-  .data <- unnest_tbl(.data, "data")
-  .data[["lag"]] <- lag_duration(.data[["lag"]], chronons, series_len)
-  new_tsibble(
-    as_tsibble(.data, index = "lag", key = !!kv),
-    num_obs = lens, class = "tbl_cf"
+  n_lags <- map_int(cf, function(x) length(x[["lag"]]))
+  # Series of different lengths have different lags, so lags are counted per
+  # series and converted to durations (e.g. months) in one step.
+  lag <- lag_duration(
+    as.integer(unlist(map(cf, function(x) x[["lag"]]))), rep.int(seq_along(rows), n_lags),
+    series_chronons(.data, rows, regular)
   )
+
+  out <- vctrs::vec_slice(keys, rep.int(seq_along(rows), n_lags))
+  out[["lag"]] <- lag
+  out[[name]] <- as.numeric(unlist(map(cf, function(x) x[["value"]])))
+
+  # The lags of each series are ordered and unique, so the tsibble is built
+  # without the (slow) validation of its index.
+  ends <- cumsum(n_lags)
+  key_rows <- keys
+  key_rows[[".rows"]] <- vctrs::new_list_of(
+    map2(ends - n_lags + 1L, ends, seq2), ptype = integer()
+  )
+  tsbl <- tsibble::build_tsibble(
+    out, key = !!key_vars(.data), key_data = key_rows, index = "lag",
+    ordered = TRUE, interval = tsibble::interval_pull(lag), validate = FALSE
+  )
+
+  keys[[".len"]] <- as.numeric(lengths(rows))
+  new_tsibble(tsbl, num_obs = keys, class = "tbl_cf")
 }
 
 # The time between observations of each series (in key order), e.g. 1 month for
-# a monthly series. Lags are in observations when the data is irregular.
-# The index is converted once, as converting each series separately is slow.
-series_chronons <- function(.data){
-  rows <- key_data(.data)[[".rows"]]
-  if(!is_regular(.data)){
-    return(rep(list(mixtime::mt_unit(1L)), length(rows)))
+# a monthly series, as a list of distinct chronons with the one used by each
+# series. Lags are in observations when the data is irregular.
+series_chronons <- function(.data, rows, regular){
+  n <- length(rows)
+  if(!regular) {
+    return(list(units = list(mixtime::mt_unit(1L)), id = rep.int(1L, n)))
   }
-  index <- mixtime::as_mixtime(.data[[index_var(.data)]])
-  map(rows, function(i) mixtime::chronon_glb(index[i]))
+  index <- .data[[index_var(.data)]]
+  # Only mixtime indices have units that differ between series
+  if(!mixtime::is_mixtime(index)) {
+    chronon <- mixtime::chronon_glb(mixtime::as_mixtime(index))
+    return(list(units = list(chronon), id = rep.int(1L, n)))
+  }
+  chronons <- map(rows, function(i) mixtime::chronon_glb(index[i]))
+  # Chronons are S7 objects, which are compared by their printed form
+  label <- map_chr(chronons, function(x) paste(format(x), collapse = " "))
+  first <- !duplicated(label)
+  list(units = chronons[first], id = match(label, label[first]))
 }
 
-# Durations of `lag` counts, where series `i` (of `series_len[i]` rows) counts
-# in units of `chronons[[i]]`. Each distinct chronon is converted once.
-lag_duration <- function(lag, chronons, series_len){
-  # Chronons are S7 objects, which are compared by their printed form
-  id <- map_chr(chronons, function(x) paste(format(x), collapse = " "))
-  first <- !duplicated(id)
-  units <- chronons[first]
-  unit <- rep(match(id, id[first]), series_len)
-  if(length(units) == 1L){
-    return(mixtime::duration(lag, chronon = units[[1]]))
+# Durations of `lag` counts (one per row), in the unit of each row's series.
+# `series` gives the series of each row, and `chronons` its time unit.
+lag_duration <- function(lag, series, chronons){
+  unit <- chronons$id[series]
+  if(length(chronons$units) == 1L){
+    return(mixtime::duration(lag, chronon = !!chronons$units[[1]]))
   }
-  rows <- map(seq_along(units), function(u) which(unit == u))
-  pieces <- map2(rows, units, function(r, u) mixtime::duration(lag[r], chronon = u))
+  rows <- map(seq_along(chronons$units), function(u) which(unit == u))
+  pieces <- map2(rows, chronons$units, function(r, u) {
+    mixtime::duration(lag[r], chronon = !!u)
+  })
   vctrs::vec_c(!!!pieces)[order(unlist(rows))]
 }
 
