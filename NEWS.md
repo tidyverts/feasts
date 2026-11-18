@@ -1,5 +1,12 @@
 # feasts (development version)
 
+* `feat_stl()` seasonal peaks and troughs are now always `{mixtime}` cyclical
+  times (e.g. the month of the year) rather than integers.
+* For `{mixtime}` indices, the `shift_*_max()` shift times are now times rather
+  than integer positions.
+* ACF lags are now `{mixtime}` durations (e.g. 12 months).
+* `X_13ARIMA_SEATS()` keeps the input index class in its components.
+
 # feasts 0.5.0
 
 This release migrates graphics functionality to `{ggtime}`. The commonly used graphics functions are currently exported with a soft deprecation message. To use the `gg_*()` time series plot helper functions please include `library(ggtime)` in your code.
