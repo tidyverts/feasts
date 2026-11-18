@@ -23,9 +23,9 @@ shift_kl_max(x, .size = NULL, .period = 1, .index = NULL)
 }
 \value{
 A vector of 2 values: the size of the shift, and the time index of
-the shift. For a \link[mixtime:mixtime]{mixtime} index, the time index of the
-shift is the time of that observation, and the values are returned as a
-one-row tibble.
+the shift. When a time \code{.index} is available, the time index of the shift is
+the time of that observation (in the class of the index, e.g. a \code{Date}), and
+the values are returned as a one-row tibble.
 }
 \description{
 Computes feature of a time series based on sliding (overlapping) windows.

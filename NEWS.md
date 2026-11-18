@@ -2,8 +2,9 @@
 
 * `feat_stl()` seasonal peaks and troughs are now always `{mixtime}` cyclical
   times (e.g. the month of the year) rather than integers.
-* For `{mixtime}` indices, the `shift_*_max()` shift times are now times rather
-  than integer positions.
+* `shift_level_max()`, `shift_var_max()` and `shift_kl_max()` now return the time
+  of the shift in the class of the time index (e.g. a `Date`), rather than an
+  integer position.
 * ACF lags are now `{mixtime}` durations (e.g. 12 months).
 * `X_13ARIMA_SEATS()` keeps the input index class in its components.
 

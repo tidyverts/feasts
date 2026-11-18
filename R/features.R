@@ -44,7 +44,7 @@ stat_arch_lm <- function(x, lags = 12, demean = TRUE)
 #' [Forecasting Principle and Practices: Measuring strength of trend and seasonality](https://otexts.com/fpp3/stlfeatures.html)
 #'
 #' @return A vector of numeric features from a STL decomposition. For a
-#' [mixtime][mixtime::mixtime] index, the seasonal peaks and troughs are
+#' time `.index`, the seasonal peaks and troughs are [mixtime][mixtime::mixtime]
 #' cyclical times without a cycle (e.g. the month of the year in which the
 #' seasonal pattern peaks), and the features are returned as a one-row tibble.
 #'
@@ -212,7 +212,7 @@ unitroot_ndiffs <- function(x, alpha = 0.05, unitroot_fn = ~ unitroot_kpss(.)["k
 #' @param .period The period of the seasonality.
 #'
 #' @export
-unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ feat_stl(.,.period)[2]<0.64,
+unitroot_nsdiffs <- function(x, alpha = 0.05, unitroot_fn = ~ feat_stl(.,.period)[[2]]<0.64,
                              differences = 0:2, .period = 1, ...) {
   if(.period == 1) return(c(nsdiffs = min(differences)))
 
@@ -395,9 +395,9 @@ coef_hurst <- function(x) {
 #' @param .period The seasonal period (optional)
 #' @param .index The time index of `x` (supplied by [`fabletools::features()`]).
 #' @return A vector of 2 values: the size of the shift, and the time index of
-#' the shift. For a [mixtime][mixtime::mixtime] index, the time index of the
-#' shift is the time of that observation, and the values are returned as a
-#' one-row tibble.
+#' the shift. When a time `.index` is available, the time index of the shift is
+#' the time of that observation (in the class of the index, e.g. a `Date`), and
+#' the values are returned as a one-row tibble.
 #'
 #' @author Earo Wang, Rob J Hyndman and Mitchell O'Hara-Wild
 #'

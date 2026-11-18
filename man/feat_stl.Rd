@@ -19,7 +19,7 @@ feat_stl(x, .period, s.window = 11, .index = NULL, ...)
 }
 \value{
 A vector of numeric features from a STL decomposition. For a
-\link[mixtime:mixtime]{mixtime} index, the seasonal peaks and troughs are
+time \code{.index}, the seasonal peaks and troughs are \link[mixtime:mixtime]{mixtime}
 cyclical times without a cycle (e.g. the month of the year in which the
 seasonal pattern peaks), and the features are returned as a one-row tibble.
 }

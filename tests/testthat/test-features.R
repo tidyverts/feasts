@@ -126,8 +126,21 @@ test_that("features use mixtime times for a mixtime index", {
   pos <- cyclical_free_position(x, mixtime::cal_gregorian$day(1L))
   expect_true(all(pos == mixtime::cyclical_time(c(5, 1), hour(1L), day(1L))))
 
-  # Without an index (or a calendar period), positions are numbers
+  # Legacy tsibble indices also give cyclical times
+  lt <- tsibble::tsibble(
+    i = tsibble::yearmonth("1970 Mar") + 0:59, y = mt$y, index = i
+  )
+  ft <- features(lt, y, feat_stl)
+  expect_true(mixtime::time_is_cyclical_free(ft$seasonal_peak_year))
+  expect_true(ft$seasonal_peak_year == mixtime::month_of_year(4))
+
+  # Without an index (or a calendar period), positions are unitless cyclical times
   ft <- features(mt, y, ~ feat_stl(., .period = 12))
-  expect_type(ft$seasonal_peak_12, "double")
-  expect_type(feat_stl(mt$y, .period = 12), "double")
+  expect_true(mixtime::time_is_cyclical_free(ft$seasonal_peak_12))
+  ft <- feat_stl(mt$y, .period = 12)
+  expect_true(mixtime::is_mixtime(ft$seasonal_peak_12))
+  expect_true(ft$seasonal_peak_12 == mixtime::cyclical_time(
+    which.max(sin(2*pi*(2:13)/12)),
+    mixtime::mt_unit(1L), cycle = mixtime::mt_unit(12L)
+  ))
 })
