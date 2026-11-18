@@ -93,3 +93,16 @@ test_that("ACF() lags are mixtime durations", {
   expect_true(all(mixtime::time_is_duration(cf$lag)))
   expect_equal(as.numeric(cf$lag), seq_len(nrow(cf)))
 })
+
+test_that("ACF() lags use the time unit of each series", {
+  x <- c(mixtime::yearmonth(0:59), mixtime::yearquarter(0:19))
+  ts <- tsibble::tsibble(
+    k = rep(c("m", "q"), c(60, 20)), i = x, y = rnorm(80),
+    index = i, key = k
+  )
+  cf <- ACF(ts, y, lag_max = 4)
+  lag <- cf$lag
+  expect_true(all(mixtime::time_is_duration(lag)))
+  expect_equal(format(lag[cf$k == "m"][1]), "1 month")
+  expect_equal(format(lag[cf$k == "q"][1]), "1 quarter")
+})

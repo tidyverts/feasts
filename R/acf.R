@@ -223,12 +223,24 @@ CCF <- function(.data, y, x, ..., lag_max = NULL,
 #' @importFrom stats na.contiguous
 build_cf <- function(.data, cf_fn, ...){
   check_gaps(.data)
-  if(is_regular(.data)){
-    # The time between observations, e.g. 1 month
-    chronon <- mixtime::chronon_glb(mixtime::as_mixtime(.data[[index_var(.data)]]))
-  } else {
+  idx <- index_var(.data)
+  regular <- is_regular(.data)
+  if(!regular){
     warn("Provided data has an irregular interval, results should be treated with caution. Computing ACF by observation.")
-    chronon <- mixtime::mt_unit(1L)
+  }
+
+  # Lags are in the time unit of each series (e.g. a quarterly and a monthly
+  # series have lags in quarters and months respectively), or in observations
+  # when the series is irregular.
+  cf_lagged <- function(x, ...){
+    out <- cf_fn(x, ...)
+    chronon <- if(regular){
+      mixtime::chronon_glb(mixtime::as_mixtime(x[[idx]]))
+    } else {
+      mixtime::mt_unit(1L)
+    }
+    out[["lag"]] <- mixtime::duration(as.integer(out[["lag"]]), chronon = chronon)
+    out
   }
 
   kv <- key_vars(.data)
@@ -240,9 +252,8 @@ build_cf <- function(.data, cf_fn, ...){
     )
 
   .data <- nest_keys(.data)
-  .data[["data"]] <- map(.data[["data"]], cf_fn, ...)
+  .data[["data"]] <- map(.data[["data"]], cf_lagged, ...)
   .data <- unnest_tbl(.data, "data")
-  .data[["lag"]] <- mixtime::duration(as.integer(.data[["lag"]]), chronon = chronon)
   new_tsibble(
     as_tsibble(.data, index = "lag", key = !!kv),
     num_obs = lens, class = "tbl_cf"
