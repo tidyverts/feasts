@@ -1,10 +1,5 @@
 # Helpers for representing results with mixtime time vectors
 
-# Is `x` a mixtime time unit (granule), such as a tsibble's interval?
-is_granule <- function(x) {
-  inherits(x, "mixtime::mt_unit")
-}
-
 # The time unit called `name` (e.g. "year" or "week") from the calendar of `x`,
 # or NULL if there is no such unit. Weeks come from the ISO 8601 calendar when
 # the time's own calendar has none (e.g. the week of a Date).

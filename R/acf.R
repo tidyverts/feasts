@@ -226,7 +226,7 @@ build_cf <- function(.data, cf_fn, ...){
   interval <- interval(.data)
   if(!is_regular(.data)){
     warn("Provided data has an irregular interval, results should be treated with caution. Computing ACF by observation.")
-    interval <- if(is_granule(interval)) mixtime::mt_unit(1L) else new_interval(unit = 1)
+    interval <- observation_interval(interval)
   }
 
   kv <- key_vars(.data)
@@ -301,10 +301,32 @@ tacf <- function(x) {
 # mixtime duration (e.g. 12 months) for a time unit interval, otherwise a
 # `cf_lag` for legacy tsibble intervals and composite intervals.
 lag_duration <- function(lag, interval) {
-  if(is_granule(interval)) {
-    return(mixtime::duration(as.integer(lag), chronon = interval))
-  }
+  UseMethod("lag_duration", interval)
+}
+
+#' @export
+lag_duration.default <- function(lag, interval) {
   as_lag(interval) * lag
+}
+
+#' @export
+`lag_duration.mixtime::mt_unit` <- function(lag, interval) {
+  mixtime::duration(as.integer(lag), chronon = interval)
+}
+
+# The interval used when observations are irregular: one observation per step.
+observation_interval <- function(interval) {
+  UseMethod("observation_interval")
+}
+
+#' @export
+observation_interval.default <- function(interval) {
+  new_interval(unit = 1)
+}
+
+#' @export
+`observation_interval.mixtime::mt_unit` <- function(interval) {
+  mixtime::mt_unit(1L)
 }
 
 # Lags for intervals that can't be represented as a mixtime duration
