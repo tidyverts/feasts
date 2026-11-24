@@ -23,11 +23,10 @@ data. The package name is an acronym comprising of its key features:
 
 The package works with tidy temporal data provided by the
 [tsibble](https://github.com/tidyverts/tsibble) package to produce time
-series features, decompositions, statistical summaries and convenient
-visualisations. These features are useful in understanding the behaviour
-of time series data, and closely integrates with the tidy forecasting
-workflow used in the [fable](https://github.com/tidyverts/fable)
-package.
+series features, decompositions and statistical summaries. These
+features are useful in understanding the behaviour of time series data,
+and closely integrates with the tidy forecasting workflow used in the
+[fable](https://github.com/tidyverts/fable) package.
 
 ## Installation
 
@@ -54,44 +53,31 @@ library(tsibble)
 library(tsibbledata)
 library(dplyr)
 library(ggplot2)
-library(ggtime)
-library(lubridate)
 ```
 
-### Graphics
+### Statistics
 
-Visualisation is often the first step in understanding the patterns in
-time series data. The
-[ggtime](https://github.com/mitchelloharawild/ggtime) package uses
-[ggplot2](https://github.com/tidyverse/ggplot2) to produce customisable
-graphics to visualise time series patterns.
+Summary statistics describe the temporal structure of a time series. For
+example, the autocorrelation function (ACF) measures how strongly a
+series is related to its own past values.
 
 ``` r
-aus_production %>% gg_season(Beer)
-#> Warning in S7::S7_dispatch() * y@n: NAs produced by integer overflow
-#> Warning in S7::S7_dispatch() * y@n: NAs produced by integer overflow
-#> Warning in S7::S7_dispatch() * y@n: NAs produced by integer overflow
+aus_production %>% ACF(Beer)
+#> # A tsibble: 23 x 2 [1Q]
+#>    lag           acf
+#>    <mixtime>   <dbl>
+#>  1 1 quarter   0.684
+#>  2 2 quarters  0.500
+#>  3 3 quarters  0.667
+#>  4 4 quarters  0.940
+#>  5 5 quarters  0.644
+#>  6 6 quarters  0.458
+#>  7 7 quarters  0.621
+#>  8 8 quarters  0.887
+#>  9 9 quarters  0.598
+#> 10 10 quarters 0.410
+#> # ℹ 13 more rows
 ```
-
-<img src="man/figures/README-graphics-1.png" alt="" width="100%" />
-
-``` r
-aus_production %>% gg_subseries(Beer)
-```
-
-<img src="man/figures/README-graphics-2.png" alt="" width="100%" />
-
-``` r
-aus_production %>% filter(year(Quarter) > 1991) %>% gg_lag(Beer)
-```
-
-<img src="man/figures/README-graphics-3.png" alt="" width="100%" />
-
-``` r
-aus_production %>% ACF(Beer) %>% autoplot()
-```
-
-<img src="man/figures/README-graphics-4.png" alt="" width="100%" />
 
 ### Decompositions
 
@@ -128,12 +114,6 @@ components(dcmp)
 #> 10 STL(Beer ~ season(window = Inf)) 1958 Q2   233  266.      -42.6       9.72          276.
 #> # ℹ 208 more rows
 ```
-
-``` r
-components(dcmp) %>% autoplot()
-```
-
-<img src="man/figures/README-dcmp-plot-1.png" alt="" width="100%" />
 
 ### Feature extraction and statistics
 

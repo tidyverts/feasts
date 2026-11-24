@@ -27,7 +27,7 @@ options(width = 100)
 
 feasts provides a collection of tools for the analysis of time series data. The package name is an acronym comprising of its key features: *Feature Extraction And Statistics for Time Series*.
 
-The package works with tidy temporal data provided by the [tsibble](https://github.com/tidyverts/tsibble) package to produce time series features, decompositions, statistical summaries and convenient visualisations. These features are useful in understanding the behaviour of time series data, and closely integrates with the tidy forecasting workflow used in the [fable](https://github.com/tidyverts/fable) package.
+The package works with tidy temporal data provided by the [tsibble](https://github.com/tidyverts/tsibble) package to produce time series features, decompositions and statistical summaries. These features are useful in understanding the behaviour of time series data, and closely integrates with the tidy forecasting workflow used in the [fable](https://github.com/tidyverts/fable) package.
 
 ## Installation
 
@@ -53,19 +53,14 @@ library(tsibble)
 library(tsibbledata)
 library(dplyr)
 library(ggplot2)
-library(ggtime)
-library(lubridate)
 ```
 
-### Graphics
+### Statistics
 
-Visualisation is often the first step in understanding the patterns in time series data. The [ggtime](https://github.com/mitchelloharawild/ggtime) package uses [ggplot2](https://github.com/tidyverse/ggplot2) to produce customisable graphics to visualise time series patterns.
+Summary statistics describe the temporal structure of a time series. For example, the autocorrelation function (ACF) measures how strongly a series is related to its own past values.
 
-```{r graphics, fig.height=3}
-aus_production %>% gg_season(Beer)
-aus_production %>% gg_subseries(Beer)
-aus_production %>% filter(year(Quarter) > 1991) %>% gg_lag(Beer)
-aus_production %>% ACF(Beer) %>% autoplot()
+```{r acf}
+aus_production %>% ACF(Beer)
 ```
 
 ### Decompositions
@@ -84,9 +79,6 @@ A common task in time series analysis is decomposing a time series into some sim
 dcmp <- aus_production %>%
   model(STL(Beer ~ season(window = Inf)))
 components(dcmp)
-```
-```{r dcmp-plot}
-components(dcmp) %>% autoplot()
 ```
 
 ### Feature extraction and statistics
