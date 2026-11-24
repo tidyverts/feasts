@@ -1,12 +1,24 @@
 # feasts (development version)
 
+This release adds support for `{mixtime}` time indices, which are now used for
+the times and durations returned by feasts.
+
+## Breaking changes
+
+* ACF lags from `ACF()`, `PACF()` and `CCF()` are now `{mixtime}` durations
+  (e.g. 12 months) in the time unit of each series, rather than lags counted in
+  seasonal units. Irregular series are lagged by observation.
 * `feat_stl()` seasonal peaks and troughs are now always `{mixtime}` cyclical
   times (e.g. the month of the year) rather than integers.
-* `shift_level_max()`, `shift_var_max()` and `shift_kl_max()` now return the time
-  of the shift in the class of the time index (e.g. a `Date`), rather than an
-  integer position.
-* ACF lags are now `{mixtime}` durations (e.g. 12 months).
+* `shift_level_max()`, `shift_var_max()` and `shift_kl_max()` now return the
+  time of the shift in the class of the time index (e.g. a `Date`), rather than
+  an integer position.
+
+## Improvements
+
 * `X_13ARIMA_SEATS()` keeps the input index class in its components.
+* `ACF()`, `PACF()` and `CCF()` are faster, as they now compute across all
+  series of a tsibble at once.
 
 # feasts 0.5.0
 
