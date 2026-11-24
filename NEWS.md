@@ -17,8 +17,6 @@ the times and durations returned by feasts.
 ## Improvements
 
 * `X_13ARIMA_SEATS()` keeps the input index class in its components.
-* `ACF()`, `PACF()` and `CCF()` are faster, as they now compute across all
-  series of a tsibble at once.
 
 # feasts 0.5.0
 
