@@ -16,7 +16,7 @@ unitroot_ndiffs(
 unitroot_nsdiffs(
   x,
   alpha = 0.05,
-  unitroot_fn = ~feat_stl(., .period)[2] < 0.64,
+  unitroot_fn = ~feat_stl(., .period)[[2]] < 0.64,
   differences = 0:2,
   .period = 1,
   ...

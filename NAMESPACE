@@ -58,51 +58,59 @@ export(var_tiled_var)
 import(rlang)
 import(tsibble)
 import(vctrs)
-importFrom(dplyr,"%>%")
-importFrom(dplyr,distinct)
-importFrom(dplyr,filter)
-importFrom(dplyr,group_by)
-importFrom(dplyr,lead)
-importFrom(dplyr,mutate)
-importFrom(dplyr,summarise)
-importFrom(dplyr,transmute)
-importFrom(dplyr,ungroup)
-importFrom(fabletools,as_dable)
-importFrom(fabletools,components)
-importFrom(fabletools,generate)
-importFrom(fabletools,get_frequencies)
-importFrom(fabletools,model_sum)
-importFrom(fabletools,new_model_class)
-importFrom(fabletools,new_model_definition)
-importFrom(fabletools,outliers)
-importFrom(fabletools,report)
-importFrom(ggplot2,autolayer)
-importFrom(ggplot2,autoplot)
-importFrom(ggtime,gg_arma)
-importFrom(ggtime,gg_irf)
-importFrom(ggtime,gg_lag)
-importFrom(ggtime,gg_season)
-importFrom(ggtime,gg_subseries)
-importFrom(ggtime,gg_tsdisplay)
-importFrom(ggtime,gg_tsresiduals)
-importFrom(stats,as.ts)
-importFrom(stats,coef)
-importFrom(stats,decompose)
-importFrom(stats,embed)
-importFrom(stats,frequency)
-importFrom(stats,lm)
-importFrom(stats,median)
-importFrom(stats,model.frame)
-importFrom(stats,na.contiguous)
-importFrom(stats,optimise)
-importFrom(stats,residuals)
-importFrom(stats,sd)
-importFrom(stats,stl)
-importFrom(stats,ts)
-importFrom(stats,var)
+importFrom(dplyr,
+  "%>%",
+  distinct,
+  filter,
+  group_by,
+  lead,
+  mutate,
+  summarise,
+  transmute,
+  ungroup
+)
+importFrom(fabletools,
+  as_dable,
+  components,
+  generate,
+  get_frequencies,
+  model_sum,
+  new_model_class,
+  new_model_definition,
+  outliers,
+  report
+)
+importFrom(ggplot2,
+  autolayer,
+  autoplot
+)
+importFrom(ggtime,
+  gg_arma,
+  gg_irf,
+  gg_lag,
+  gg_season,
+  gg_subseries,
+  gg_tsdisplay,
+  gg_tsresiduals
+)
+importFrom(stats,
+  as.ts,
+  coef,
+  decompose,
+  embed,
+  frequency,
+  lm,
+  median,
+  model.frame,
+  na.contiguous,
+  optimise,
+  residuals,
+  sd,
+  stl,
+  ts,
+  var
+)
 importFrom(tibble,tibble)
 importFrom(tidyr,gather)
 importFrom(tsibble,as_tsibble)
 importFrom(utils,tail)
-importFrom(vctrs,vec_cast)
-importFrom(vctrs,vec_ptype2)

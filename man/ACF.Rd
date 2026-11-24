@@ -63,8 +63,8 @@ Function \code{CCF} computes the cross-correlation or cross-covariance of two co
 from a tsibble.
 }
 \details{
-The functions improve the \code{\link[stats:acf]{stats::acf()}}, \code{\link[stats:acf]{stats::pacf()}} and
-\code{\link[stats:acf]{stats::ccf()}} functions. The main differences are that \code{ACF} does not plot
+The functions improve the \code{\link[stats:acf]{stats::acf()}}, \code{\link[stats:pacf]{stats::pacf()}} and
+\code{\link[stats:ccf]{stats::ccf()}} functions. The main differences are that \code{ACF} does not plot
 the exact correlation at lag 0 when \code{type=="correlation"} and
 the horizontal axes show lags in time units rather than seasonal units.
 
@@ -104,7 +104,7 @@ autocovariance matrices and the linear process bootstrap. \emph{Journal of
 Time Series Analysis}, 31(6), 471-482.
 }
 \seealso{
-\code{\link[stats:acf]{stats::acf()}}, \code{\link[stats:acf]{stats::pacf()}}, \code{\link[stats:acf]{stats::ccf()}}
+\code{\link[stats:acf]{stats::acf()}}, \code{\link[stats:pacf]{stats::pacf()}}, \code{\link[stats:ccf]{stats::ccf()}}
 }
 \author{
 Mitchell O'Hara-Wild and Rob J Hyndman

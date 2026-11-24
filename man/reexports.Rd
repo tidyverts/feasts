@@ -21,12 +21,12 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}}
+  \item{dplyr}{\code{\link[dplyr:\%>\%]{\%>\%}}}
 
-  \item{ggplot2}{\code{\link[ggplot2]{autolayer}}, \code{\link[ggplot2]{autoplot}}}
+  \item{ggplot2}{\code{\link[ggplot2:autolayer]{autolayer()}}, \code{\link[ggplot2:autoplot]{autoplot()}}}
 
-  \item{ggtime}{\code{\link[ggtime]{gg_arma}}, \code{\link[ggtime]{gg_irf}}, \code{\link[ggtime]{gg_lag}}, \code{\link[ggtime]{gg_season}}, \code{\link[ggtime]{gg_subseries}}, \code{\link[ggtime]{gg_tsdisplay}}, \code{\link[ggtime]{gg_tsresiduals}}}
+  \item{ggtime}{\code{\link[ggtime:gg_arma]{gg_arma()}}, \code{\link[ggtime:gg_irf]{gg_irf()}}, \code{\link[ggtime:gg_lag]{gg_lag()}}, \code{\link[ggtime:gg_season]{gg_season()}}, \code{\link[ggtime:gg_subseries]{gg_subseries()}}, \code{\link[ggtime:gg_tsdisplay]{gg_tsdisplay()}}, \code{\link[ggtime:gg_tsresiduals]{gg_tsresiduals()}}}
 
-  \item{tsibble}{\code{\link[tsibble:as-tsibble]{as_tsibble}}}
+  \item{tsibble}{\code{\link[tsibble:as_tsibble]{as_tsibble()}}}
 }}
 

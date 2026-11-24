@@ -28,7 +28,8 @@ Imports:
     utils,
     lifecycle,
     ggtime,
-    mixtime (>= 0.4.0.9000)
+    mixtime (>= 0.4.0.9000),
+    S7
 Suggests:
     tsibbledata,
     pillar (>= 1.0.1),
@@ -50,4 +51,4 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
 Language: en-GB
 RdMacros: lifecycle
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.1
