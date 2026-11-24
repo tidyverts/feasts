@@ -53,12 +53,13 @@ library(tsibble)
 library(tsibbledata)
 library(dplyr)
 library(ggplot2)
+library(ggtime)
 library(lubridate)
 ```
 
 ### Graphics
 
-Visualisation is often the first step in understanding the patterns in time series data. The package uses [ggplot2](https://github.com/tidyverse/ggplot2) to produce customisable graphics to visualise time series patterns.
+Visualisation is often the first step in understanding the patterns in time series data. The [ggtime](https://github.com/mitchelloharawild/ggtime) package uses [ggplot2](https://github.com/tidyverse/ggplot2) to produce customisable graphics to visualise time series patterns.
 
 ```{r graphics, fig.height=3}
 aus_production %>% gg_season(Beer)

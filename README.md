@@ -54,18 +54,23 @@ library(tsibble)
 library(tsibbledata)
 library(dplyr)
 library(ggplot2)
+library(ggtime)
 library(lubridate)
 ```
 
 ### Graphics
 
 Visualisation is often the first step in understanding the patterns in
-time series data. The package uses
+time series data. The
+[ggtime](https://github.com/mitchelloharawild/ggtime) package uses
 [ggplot2](https://github.com/tidyverse/ggplot2) to produce customisable
 graphics to visualise time series patterns.
 
 ``` r
 aus_production %>% gg_season(Beer)
+#> Warning in S7::S7_dispatch() * y@n: NAs produced by integer overflow
+#> Warning in S7::S7_dispatch() * y@n: NAs produced by integer overflow
+#> Warning in S7::S7_dispatch() * y@n: NAs produced by integer overflow
 ```
 
 <img src="man/figures/README-graphics-1.png" alt="" width="100%" />
@@ -84,9 +89,6 @@ aus_production %>% filter(year(Quarter) > 1991) %>% gg_lag(Beer)
 
 ``` r
 aus_production %>% ACF(Beer) %>% autoplot()
-#> Plot variable not specified, automatically selected `.vars = acf`
-#> Don't know how to automatically pick scale for object of type <cf_lag/vctrs_vctr>. Defaulting to
-#> continuous.
 ```
 
 <img src="man/figures/README-graphics-4.png" alt="" width="100%" />
@@ -129,12 +131,6 @@ components(dcmp)
 
 ``` r
 components(dcmp) %>% autoplot()
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> ℹ The deprecated feature was likely used in the ggtime package.
-#>   Please report the issue to the authors.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
 ```
 
 <img src="man/figures/README-dcmp-plot-1.png" alt="" width="100%" />
@@ -150,17 +146,17 @@ aus_retail %>%
   features(Turnover, feat_stl)
 #> # A tibble: 152 × 11
 #>    State      Industry trend_strength seasonal_strength_year seasonal_peak_year seasonal_trough_year
-#>    <chr>      <chr>             <dbl>                  <dbl>              <dbl>                <dbl>
-#>  1 Australia… Cafes, …          0.989                  0.562                  0                   10
-#>  2 Australia… Cafes, …          0.993                  0.629                  0                   10
-#>  3 Australia… Clothin…          0.991                  0.923                  9                   11
-#>  4 Australia… Clothin…          0.993                  0.957                  9                   11
-#>  5 Australia… Departm…          0.977                  0.980                  9                   11
-#>  6 Australia… Electri…          0.992                  0.933                  9                   11
-#>  7 Australia… Food re…          0.999                  0.890                  9                   11
-#>  8 Australia… Footwea…          0.982                  0.944                  9                   11
-#>  9 Australia… Furnitu…          0.981                  0.687                  9                    1
-#> 10 Australia… Hardwar…          0.992                  0.900                  9                    4
+#>    <chr>      <chr>             <dbl>                  <dbl> <mixtime>          <mixtime>           
+#>  1 Australia… Cafes, …          0.989                  0.562 Mar                Jan                 
+#>  2 Australia… Cafes, …          0.993                  0.629 Mar                Jan                 
+#>  3 Australia… Clothin…          0.991                  0.923 Dec                Feb                 
+#>  4 Australia… Clothin…          0.993                  0.957 Dec                Feb                 
+#>  5 Australia… Departm…          0.977                  0.980 Dec                Feb                 
+#>  6 Australia… Electri…          0.992                  0.933 Dec                Feb                 
+#>  7 Australia… Food re…          0.999                  0.890 Dec                Feb                 
+#>  8 Australia… Footwea…          0.982                  0.944 Dec                Feb                 
+#>  9 Australia… Furnitu…          0.981                  0.687 Dec                Apr                 
+#> 10 Australia… Hardwar…          0.992                  0.900 Dec                Jul                 
 #> # ℹ 142 more rows
 #> # ℹ 5 more variables: spikiness <dbl>, linearity <dbl>, curvature <dbl>, stl_e_acf1 <dbl>,
 #> #   stl_e_acf10 <dbl>
